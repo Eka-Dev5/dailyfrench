@@ -111,9 +111,10 @@
 
 html {
   font-size: var(--font-base);
-  -webkit-text-size-adjust: 100%;         /* Empêche iOS de zoomer le texte */
-  -webkit-font-smoothing: antialiased;    /* Rendu typographique net sur macOS/iOS */
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;        /* Bloque le scroll horizontal à la racine */
 }
 
 body {
@@ -161,41 +162,51 @@ body {
    5. HERO — Bandeau d'identité joueur avec gradient dynamique
    ═══════════════════════════════════════════════════════════════════ */
 
+/* ═══════════════════════════════════════════════════════════════════
+   5. HERO — Barre compacte en haut (max ~80px)
+   ═══════════════════════════════════════════════════════════════════ */
 .hero {
   background: linear-gradient(135deg, var(--hero-from) 0%, var(--hero-via) 50%, var(--hero-to) 100%);
   color: var(--white);
-  padding: var(--space-lg) var(--space-md);
-  padding-top: calc(var(--space-lg) + env(safe-area-inset-top, 0px));
-  border-radius: 0 0 var(--r-lg) var(--r-lg);
-  box-shadow: var(--shadow-lg);
+  padding: calc(10px + env(safe-area-inset-top, 0px)) 14px 10px;
+  display: grid;
+  grid-template-areas:
+    "avatar info switch"
+    ".      xp   xp";
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 4px 10px;
+  width: 100%;
+  box-sizing: border-box;
   position: relative;
   overflow: hidden;
 }
 
 .hero-avatar {
-  width: 64px;
-  height: 64px;
+  grid-area: avatar;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(4px);
+  background: rgba(255,255,255,0.25);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--font-xl);
+  font-size: 15px;
   font-weight: 700;
   position: relative;
 }
 
 .hero-lvl-badge {
   position: absolute;
-  bottom: -4px;
-  right: -4px;
+  bottom: -3px;
+  right: -3px;
   background: var(--gold);
   color: var(--text);
-  font-size: var(--font-xs);
+  font-size: 9px;
   font-weight: 700;
-  width: 28px;
-  height: 28px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -204,57 +215,70 @@ body {
 }
 
 .hero-info {
-  margin-top: var(--space-sm);
+  grid-area: info;
+  min-width: 0;          /* Empêche le texte de forcer la largeur */
 }
 
 .hero-name {
-  font-size: var(--font-xl);
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hero-tag {
-  font-size: var(--font-sm);
-  opacity: 0.9;
-  margin-top: 2px;
+  font-size: 11px;
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
 }
 
 .hero-xp {
-  margin-top: var(--space-md);
+  grid-area: xp;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .xp-bar {
-  height: 10px;
+  flex: 1;
+  height: 4px;
   background: rgba(255,255,255,0.25);
-  border-radius: 5px;
+  border-radius: 2px;
   overflow: hidden;
+  min-width: 0;
 }
 
 .xp-fill {
   height: 100%;
   background: var(--gold);
-  border-radius: 5px;
+  border-radius: 2px;
   transition: width var(--transition-base);
   width: 0%;
 }
 
 .xp-text {
-  font-size: var(--font-xs);
-  opacity: 0.85;
-  margin-top: 4px;
-  text-align: right;
+  font-size: 10px;
+  opacity: 0.8;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .hero-switch {
-  margin-top: var(--space-sm);
+  grid-area: switch;
   display: flex;
-  gap: var(--space-xs);
+  gap: 5px;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .hero-switch select {
-  flex: 1;
-  font-size: var(--font-sm);
+  font-size: 11px;
+  max-width: 110px;
+  min-width: 0;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -264,40 +288,43 @@ body {
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-sm);
-  padding: var(--space-md);
-  margin-top: calc(-1 * var(--space-lg));
+  gap: 8px;
+  padding: 8px 12px 0;
+  margin-top: 0;
   position: relative;
   z-index: 2;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .bento-tile {
   background: var(--white);
   border-radius: var(--r);
-  padding: var(--space-md);
+  padding: 10px 6px;
   text-align: center;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
   transition: transform var(--transition-fast);
+  min-width: 0;         /* Empêche l'expansion */
 }
 
 .bento-tile:active {
-  transform: scale(0.96);   /* Feedback tactile immédiat sur mobile */
+  transform: scale(0.96);
 }
 
 .bento-num {
-  font-size: var(--font-xxl);
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--primary);
   line-height: 1.1;
 }
 
 .bento-label {
-  font-size: var(--font-xs);
+  font-size: 0.65rem;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
