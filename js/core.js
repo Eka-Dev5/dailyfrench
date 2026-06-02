@@ -702,7 +702,7 @@ function renderHero(p) {
 
   if (els.av) els.av.innerHTML = p.name.charAt(0).toUpperCase() + '<span class="hero-lvl-badge">' + lvl + '</span>';
   if (els.name) els.name.textContent = p.name;
-  if (els.tag) els.tag.textContent = I18n.t('level') + ' ' + lvl + ' · ' + score + ' pts · ' + done.length + '/20 ' + I18n.t('levelsDone').toLowerCase();
+  if (els.tag) els.tag.textContent = 'Lvl.' + lvl + ' · ' + score + ' pts · ' + done.length + '/20';
 
   const ms = score === 0 ? 100 : Math.ceil(score / 100) * 100;
   // Reconstruire le texte XP en JS pour éviter les doublons HTML
@@ -866,7 +866,20 @@ function initCore() {
     fillSelect(null);
   }
 
-  // 7. Émettre événement ready
+  // 7. Nav active — marquer l'onglet courant
+  (function setActiveNav() {
+    const page = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-bottom .nav-item').forEach(a => {
+      const href = (a.getAttribute('href') || '').split('?')[0].split('/').pop();
+      const match = href === page ||
+        (page === 'quiz.html' && href === 'quiz.html') ||
+        (page === 'vocabulary.html' && href === 'vocabulary.html') ||
+        (page === 'dashboard.html' && (href === 'dashboard.html' || href === '')) ;
+      a.classList.toggle('active', !!match);
+    });
+  })();
+
+  // 8. Émettre événement ready
   EventBus.emit('coreReady', { version: CORE_VERSION });
 }
 
@@ -942,3 +955,41 @@ function goToVocabulary() { window.location.href = 'vocabulary.html'; }
 // ═══════════════════════════════════════════════════════════════════
 // FIN DE core.js — Version 1.0.0 — 28 mai 2026
 // ═══════════════════════════════════════════════════════════════════
+
+// ═══════════════════════════════════════════════════════════════════
+// SETTINGS — Thème et langue
+// ═══════════════════════════════════════════════════════════════════
+function toggleSettings() {
+  const panel = document.getElementById('settingsPanel');
+  if (!panel) return;
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  // Fermer au clic ailleurs
+  if (panel.style.display === 'block') {
+    setTimeout(() => {
+      document.addEventListener('click', function close(e) {
+        if (!panel.contains(e.target) && !e.target.classList.contains('btn-settings')) {
+          panel.style.display = 'none';
+        }
+        document.removeEventListener('click', close);
+      });
+    }, 0);
+  }
+}
+
+function applyThemePick(name) {
+  if (typeof Theme !== 'undefined') Theme.apply(name);
+  const panel = document.getElementById('settingsPanel');
+  if (panel) panel.style.display = 'none';
+}
+
+function applyLangPick(lang) {
+  if (typeof I18n !== 'undefined') {
+    I18n.current = lang;
+    if (typeof Storage !== 'undefined') Storage.set('dailyFrench_lang', lang);
+    else localStorage.setItem('dailyFrench_lang', lang);
+  }
+  const panel = document.getElementById('settingsPanel');
+  if (panel) panel.style.display = 'none';
+  // Rafraîchir la page pour appliquer la langue
+  location.reload();
+}
