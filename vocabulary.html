@@ -28,7 +28,14 @@
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <button class="vocab-popup-close" onclick="if(typeof closeVocabPopup==='function')closeVocabPopup()">×</button>
-      <div id="vocab-popup-body"></div>
+      <div id="vocab-popup-body">
+      <div class="vocab-popup-fr"  id="vocabPopupFr"></div>
+      <div class="vocab-popup-phon" id="vocabPopupPhon"></div>
+      <div class="vocab-popup-en"  id="vocabPopupEn"></div>
+      <div class="vocab-popup-def" id="vocabPopupDef"></div>
+      <div class="vocab-popup-ex"  id="vocabPopupEx"></div>
+      <div class="vocab-popup-cat" id="vocabPopupCat"></div>
+    </div>
     </div>
   </div>
 
@@ -67,6 +74,24 @@
       <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
         <option value="">Choose a player</option>
       </select>
+      <button class="btn-settings" onclick="toggleSettings()" title="Settings" aria-label="Settings">⚙️</button>
+    </div>
+    <div id="settingsPanel" class="settings-panel" style="display:none;">
+      <div class="settings-row">
+        <span>Theme</span>
+        <div class="theme-dots">
+          <button class="theme-dot" data-theme="ardoise" onclick="applyThemePick('ardoise')">🌑</button>
+          <button class="theme-dot" data-theme="mauve"   onclick="applyThemePick('mauve')">🟣</button>
+          <button class="theme-dot" data-theme="terra"   onclick="applyThemePick('terra')">🟤</button>
+        </div>
+      </div>
+      <div class="settings-row">
+        <span>Interface</span>
+        <div class="lang-btns">
+          <button onclick="applyLangPick('en')">🇬🇧 EN</button>
+          <button onclick="applyLangPick('fr')">🇫🇷 FR</button>
+        </div>
+      </div>
     </div>
   </header>
 
