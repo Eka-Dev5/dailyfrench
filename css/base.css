@@ -709,5 +709,87 @@ textarea:focus {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   VOCAB WORD — Highlight dans leçons et questions (toutes pages)
+   ═══════════════════════════════════════════════════════════════════ */
+.vocab-word {
+  color: var(--primary);
+  border-bottom: 2px dotted var(--primary);
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 2px;
+  padding: 0 1px;
+  transition: background var(--transition-fast);
+}
+.vocab-word:hover {
+  background: var(--primary-light);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   VOCAB POPUP — Contenu (toutes pages)
+   ═══════════════════════════════════════════════════════════════════ */
+.vocab-popup-fr   { font-size: 1.2rem; font-weight: 800; color: var(--primary); padding-right: 32px; }
+.vocab-popup-phon { font-size: 0.85rem; color: var(--muted); font-style: italic; margin-top: 2px; }
+.vocab-popup-en   { font-size: 1rem; color: var(--text); margin-top: 6px; }
+.vocab-popup-def  { font-size: 0.85rem; color: var(--muted); margin-top: 10px; line-height: 1.5;
+                    border-top: 1px solid var(--border); padding-top: 8px; }
+.vocab-popup-ex   { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-top: 6px; }
+.vocab-popup-cat  { font-size: 0.72rem; color: var(--subtle); margin-top: 8px;
+                    background: var(--bg); padding: 3px 8px; border-radius: 8px; display: inline-block; }
+
+/* ═══════════════════════════════════════════════════════════════════
    FIN base.css
    ═══════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════
+   SETTINGS PANEL
+   ═══════════════════════════════════════════════════════════════════ */
+.btn-settings {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  border-radius: 6px;
+  padding: 4px 6px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+}
+.btn-settings:hover { background: rgba(255,255,255,0.3); }
+
+.settings-panel {
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: var(--shadow-lg);
+  z-index: 200;
+  min-width: 180px;
+}
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.settings-row:last-child { margin-bottom: 0; }
+.settings-row span { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+.theme-dots, .lang-btns { display: flex; gap: 5px; }
+.theme-dots button, .lang-btns button {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 3px 7px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+.theme-dots button:hover, .lang-btns button:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
