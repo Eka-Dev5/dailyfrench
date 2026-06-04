@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Daily French 🥖 — Conversation Simulator</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/conversation.css">
+</head>
+<body>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- Modal joueur -->
+  <div id="modalWrap" class="modal-wrap">
+    <div class="modal">
+      <h3 id="modalTitle">New Player</h3>
+      <input type="text" id="mInput" maxlength="30" placeholder="Your name"
+        autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+      <div class="modal-actions">
+        <button id="btnCancelModal" class="btn-ghost">Cancel</button>
+        <button id="btnCreatePlayer" class="btn-primary">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV BOTTOM -->
+  <nav class="nav-bottom">
+    <a href="dashboard.html" class="nav-item">
+      <span class="nav-icon">🏠</span><span>Home</span>
+    </a>
+    <a href="quiz.html?section=lecons" class="nav-item">
+      <span class="nav-icon">📚</span><span>Lessons</span>
+    </a>
+    <a href="quiz.html?section=levels" class="nav-item">
+      <span class="nav-icon">🎮</span><span>Play</span>
+    </a>
+    <a href="vocabulary.html" class="nav-item">
+      <span class="nav-icon">📖</span><span>Vocab</span>
+    </a>
+    <a href="dashboard.html" class="nav-item">
+      <span class="nav-icon">📊</span><span>Space</span>
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero conversation-hero">
+    <div class="hero-avatar" id="heroAv">🎭<span class="hero-lvl-badge" id="heroLvl">!</span></div>
+    <div class="hero-info">
+      <div class="hero-name" id="heroName">Conversations</div>
+      <div class="hero-tag" id="heroTag">Practice real French dialogues</div>
+    </div>
+    <div class="hero-switch">
+      <select id="selPlayer"
+        onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
+        <option value="">Choose a player</option>
+      </select>
+      <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="conversation-main">
+
+    <!-- VUE LISTE DES SCÉNARIOS -->
+    <div id="convList" class="conv-list">
+      <h2 class="conv-section-title">Choose a situation to practice</h2>
+      <div id="convScenarios"></div>
+    </div>
+
+    <!-- VUE SIMULATION -->
+    <div id="convSim" class="conv-sim" style="display:none;">
+      <!-- Header du scénario -->
+      <div class="conv-sim-header">
+        <button class="btn-ghost btn-small" onclick="exitConversation()">← Quit</button>
+        <div class="conv-sim-info">
+          <span id="convSimIcon">🥖</span>
+          <span id="convSimTitle">Bakery</span>
+          <span id="convSimProgress">1 / 5</span>
+        </div>
+      </div>
+
+      <!-- Zone de dialogue -->
+      <div id="convDialogue" class="conv-dialogue"></div>
+
+      <!-- Zone de réponses -->
+      <div id="convChoices" class="conv-choices"></div>
+
+      <!-- Zone de feedback -->
+      <div id="convFeedback" class="conv-feedback" style="display:none;">
+        <div id="convFeedbackText"></div>
+        <button id="convNextBtn" class="btn btn-primary">Continue →</button>
+      </div>
+    </div>
+
+    <!-- VUE RÉSULTATS -->
+    <div id="convResults" class="conv-results" style="display:none;">
+      <div class="conv-result-circle">
+        <div id="convResultScore">0%</div>
+      </div>
+      <h2 id="convResultTitle"></h2>
+      <p id="convResultMsg"></p>
+      <div id="convResultBreakdown"></div>
+      <div class="conv-result-actions">
+        <button class="btn btn-secondary btn-large" onclick="restartScenario()">↻ Retry</button>
+        <button class="btn btn-primary btn-large" onclick="exitConversation()">Choose another</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Scripts — ordre obligatoire -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/conversation-data.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/ui-utils.js"></script>
+  <script src="js/conversation.js"></script>
+
+</body>
+</html>

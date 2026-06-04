@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Daily French 🥖 — SOS Mode</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/emergency.css">
+</head>
+<body>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- Modal joueur -->
+  <div id="modalWrap" class="modal-wrap">
+    <div class="modal">
+      <h3 id="modalTitle">New Player</h3>
+      <input type="text" id="mInput" maxlength="30" placeholder="Your name"
+        autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+      <div class="modal-actions">
+        <button id="btnCancelModal" class="btn-ghost">Cancel</button>
+        <button id="btnCreatePlayer" class="btn-primary">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV BOTTOM -->
+  <nav class="nav-bottom">
+    <a href="dashboard.html" class="nav-item">
+      <span class="nav-icon">🏠</span><span>Home</span>
+    </a>
+    <a href="quiz.html?section=lecons" class="nav-item">
+      <span class="nav-icon">📚</span><span>Lessons</span>
+    </a>
+    <a href="quiz.html?section=levels" class="nav-item">
+      <span class="nav-icon">🎮</span><span>Play</span>
+    </a>
+    <a href="vocabulary.html" class="nav-item">
+      <span class="nav-icon">📖</span><span>Vocab</span>
+    </a>
+    <a href="dashboard.html" class="nav-item">
+      <span class="nav-icon">📊</span><span>Space</span>
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero emergency-hero">
+    <div class="hero-avatar" id="heroAv">🚨<span class="hero-lvl-badge" id="heroLvl">!</span></div>
+    <div class="hero-info">
+      <div class="hero-name" id="heroName">SOS Mode</div>
+      <div class="hero-tag" id="heroTag">Phrases for real-life situations</div>
+    </div>
+    <div class="hero-switch">
+      <select id="selPlayer"
+        onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
+        <option value="">Choose a player</option>
+      </select>
+      <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
+    </div>
+  </header>
+
+  <!-- BENTO STATS -->
+  <div class="bento-grid">
+    <div class="bento-tile">
+      <div class="bento-num" id="sos-cat-count">9</div>
+      <div class="bento-label">Situations</div>
+    </div>
+    <div class="bento-tile">
+      <div class="bento-num" id="sos-phrase-count">135</div>
+      <div class="bento-label">Phrases</div>
+    </div>
+    <div class="bento-tile">
+      <div class="bento-num" id="sos-fav-count">0</div>
+      <div class="bento-label">Saved</div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="emergency-main">
+
+    <!-- BARRE DE RECHERCHE -->
+    <div class="sos-search-bar">
+      <input type="text" id="sosSearch" placeholder="🔍 Search a phrase... (e.g. 'headache', 'allergy')"
+        autocomplete="off" autocorrect="off" spellcheck="false">
+    </div>
+
+    <!-- VUE CATÉGORIES (grille) -->
+    <div id="sosCategories" class="sos-categories"></div>
+
+    <!-- VUE PHRASES (liste détaillée) -->
+    <div id="sosPhrases" class="sos-phrases" style="display:none;">
+      <div class="sos-phrases-header">
+        <button class="btn-ghost btn-small" onclick="showCategories()">← Back</button>
+        <h2 id="sosCurrentCatTitle"></h2>
+        <span id="sosCurrentCatCount"></span>
+      </div>
+      <div id="sosPhrasesList"></div>
+    </div>
+
+    <!-- VUE RECHERCHE (résultats) -->
+    <div id="sosSearchResults" class="sos-phrases" style="display:none;">
+      <div class="sos-phrases-header">
+        <button class="btn-ghost btn-small" onclick="showCategories()">← Back</button>
+        <h2>Search Results</h2>
+        <span id="sosSearchCount"></span>
+      </div>
+      <div id="sosSearchList"></div>
+    </div>
+
+  </main>
+
+  <!-- Scripts — ordre obligatoire -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/emergency-data.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/ui-utils.js"></script>
+  <script src="js/emergency.js"></script>
+
+</body>
+</html>
