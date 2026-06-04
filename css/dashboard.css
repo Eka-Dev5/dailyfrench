@@ -152,6 +152,193 @@
   font-style: italic;
 }
 
+/* ── QUICK ACCESS BAR ─────────────────────────────────────────────── */
+.quick-access {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem var(--space-md);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.quick-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--r);
+  font-size: var(--font-md);
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  transition: all var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.quick-btn span { font-size: 1.25rem; }
+
+.quick-sos {
+  background: linear-gradient(135deg, #DC2626, #EF4444);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.25);
+}
+
+.quick-sos:hover,
+.quick-sos:active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
+}
+
+.quick-conv {
+  background: linear-gradient(135deg, #7C3AED, #8B5CF6);
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25);
+}
+
+.quick-conv:hover,
+.quick-conv:active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
+}
+
+/* ── LIFE SKILLS — "Ma vie en France" ───────────────────────────── */
+.life-skills-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.life-skill-global {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, var(--primary-light), var(--white));
+  border-radius: var(--r);
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+.life-skill-global-label {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.life-skill-global-bar {
+  flex: 1;
+  height: 10px;
+  background: var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.life-skill-global-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-mid));
+  border-radius: 5px;
+  transition: width 800ms ease;
+}
+
+.life-skill-global-pct {
+  font-size: var(--font-sm);
+  font-weight: 700;
+  color: var(--primary);
+  min-width: 40px;
+  text-align: right;
+}
+
+.life-skill-card {
+  background: var(--white);
+  border-radius: var(--r);
+  border-left: 4px solid var(--primary);
+  padding: 0.875rem 1rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  transition: all var(--transition-fast);
+}
+
+.life-skill-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateX(4px);
+}
+
+.life-skill-header {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.5rem;
+}
+
+.life-skill-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.life-skill-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.life-skill-title {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.life-skill-subtitle {
+  font-size: var(--font-xs);
+  color: var(--muted);
+}
+
+.life-skill-score {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.life-skill-stars {
+  font-size: var(--font-sm);
+  letter-spacing: 0.05em;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.life-skill-level {
+  font-size: var(--font-xs);
+  font-weight: 600;
+  margin-top: 0.125rem;
+}
+
+.life-skill-bar-track {
+  width: 100%;
+  height: 6px;
+  background: var(--bg);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.375rem;
+}
+
+.life-skill-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 600ms ease;
+}
+
+.life-skill-desc {
+  font-size: var(--font-xs);
+  color: var(--subtle);
+  line-height: 1.4;
+}
+
 /* ── RESPONSIVE ── */
 @media(max-width:480px) {
   .journey-map { grid-template-columns: repeat(4,1fr); gap: 6px; }
@@ -159,10 +346,13 @@
   .badges-grid  { grid-template-columns: repeat(4,1fr); gap: 5px; }
   .history-row  { grid-template-columns: 1fr auto; }
   .h-date { grid-column: 1/-1; }
+  .quick-access { flex-direction: column; }
 }
 @media(min-width:768px) {
   .dashboard-main { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
-  #dash-levels, #dash-history { grid-column: 1/-1; }
+  #dash-levels, #dash-history, #dash-life { grid-column: 1/-1; }
   .journey-map { grid-template-columns: repeat(10,1fr); }
   .badges-grid { grid-template-columns: repeat(6,1fr); }
+  .life-skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .life-skill-global { grid-column: 1/-1; }
 }
