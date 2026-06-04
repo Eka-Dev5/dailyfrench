@@ -17,6 +17,7 @@ function updateDashboard() {
   const p = players[name];
   if (!p) return;
   if (typeof fillSelect === 'function') fillSelect(name);
+  renderLifeSkills(p);
   renderJourneyMap(p);
   renderBadges(p);
   renderCameleon(p);
@@ -169,7 +170,65 @@ function renderGenius() {
   c.appendChild(btn);
 }
 
-// ─── 7. DOM READY ───────────────────────────────────────────────────
+// ─── 7. LIFE SKILLS — "Ma vie en France" ────────────────────────────
+function renderLifeSkills(p) {
+  const container = document.getElementById('lifeSkillsGrid');
+  if (!container || typeof LIFE_SKILLS === 'undefined') return;
+
+  container.innerHTML = '';
+
+  let totalScore = 0;
+  let maxTotal = 0;
+
+  LIFE_SKILLS.forEach(skill => {
+    const score = calculateSkillScore(skill, p);
+    totalScore += score;
+    maxTotal += 5;
+
+    const stars = renderStars(score);
+    const levelInfo = getSkillLevelLabel(score);
+    const pct = (score / 5) * 100;
+
+    const card = document.createElement('div');
+    card.className = 'life-skill-card';
+    card.style.borderLeftColor = skill.color;
+
+    card.innerHTML = `
+      <div class="life-skill-header">
+        <div class="life-skill-icon" style="background:${skill.color}20;color:${skill.color}">${skill.icon}</div>
+        <div class="life-skill-info">
+          <div class="life-skill-title">${skill.title}</div>
+          <div class="life-skill-subtitle">${skill.titleFr}</div>
+        </div>
+        <div class="life-skill-score">
+          <div class="life-skill-stars" title="${score}/5">${stars}</div>
+          <div class="life-skill-level" style="color:${levelInfo.color}">${levelInfo.label}</div>
+        </div>
+      </div>
+      <div class="life-skill-bar-track">
+        <div class="life-skill-bar-fill" style="width:${pct}%;background:${skill.color}"></div>
+      </div>
+      <div class="life-skill-desc">${skill.desc}</div>
+    `;
+
+    container.appendChild(card);
+  });
+
+  // Score global
+  const globalPct = maxTotal > 0 ? Math.round((totalScore / maxTotal) * 100) : 0;
+  const globalEl = document.createElement('div');
+  globalEl.className = 'life-skill-global';
+  globalEl.innerHTML = `
+    <div class="life-skill-global-label">Overall Progress</div>
+    <div class="life-skill-global-bar">
+      <div class="life-skill-global-fill" style="width:${globalPct}%"></div>
+    </div>
+    <div class="life-skill-global-pct">${globalPct}%</div>
+  `;
+  container.insertBefore(globalEl, container.firstChild);
+}
+
+// ─── 8. DOM READY ───────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof initCore === 'function') initCore();
   initDashboard();
