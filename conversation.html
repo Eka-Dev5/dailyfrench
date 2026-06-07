@@ -26,10 +26,43 @@
     </div>
   </div>
 
-  <!-- NAV BOTTOM -->
+  <!-- Popup vocabulaire — CORRIGÉ Juin 2026 -->
+  <div id="vocabulary-popup-modal" class="vocab-popup-modal">
+    <div class="vocab-popup-content">
+      <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
+      <div id="vocab-popup-body"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       NAVIGATION TOP — Barre du haut (NOUVEAU — Juin 2026)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <nav class="nav-top">
+    <a href="emergency.html" class="nav-top-item">
+      <span class="nav-top-icon">🚨</span>SOS
+    </a>
+    <a href="conversation.html" class="nav-top-item active">
+      <span class="nav-top-icon">💬</span>Talk
+    </a>
+    <a href="games/listen.html" class="nav-top-item">
+      <span class="nav-top-icon">🎧</span>Listen
+    </a>
+    <a href="games/phrase-builder.html" class="nav-top-item">
+      <span class="nav-top-icon">🧩</span>Phrase
+    </a>
+    <a href="dashboard.html" class="nav-top-item">
+      <span class="nav-top-icon">⚙️</span>Config
+    </a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       NAVIGATION BOTTOM — Navigation principale
+       MODIFIÉ Juin 2026 : "Home" → "Start", "Space" → "Dashboard"
+       hero-tag supprimé (doublon avec bento tiles)
+       ═══════════════════════════════════════════════════════════════════ -->
   <nav class="nav-bottom">
-    <a href="dashboard.html" class="nav-item">
-      <span class="nav-icon">🏠</span><span>Home</span>
+    <a href="quiz.html" class="nav-item">
+      <span class="nav-icon">🏠</span><span>Start</span>
     </a>
     <a href="quiz.html?section=lecons" class="nav-item">
       <span class="nav-icon">📚</span><span>Lessons</span>
@@ -41,16 +74,16 @@
       <span class="nav-icon">📖</span><span>Vocab</span>
     </a>
     <a href="dashboard.html" class="nav-item">
-      <span class="nav-icon">📊</span><span>Space</span>
+      <span class="nav-icon">📊</span><span>Dashboard</span>
     </a>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO — hero-tag supprimé (doublon avec bento tiles) -->
   <header class="hero conversation-hero">
     <div class="hero-avatar" id="heroAv">🎭<span class="hero-lvl-badge" id="heroLvl">!</span></div>
     <div class="hero-info">
       <div class="hero-name" id="heroName">Conversations</div>
-      <div class="hero-tag" id="heroTag">Practice real French dialogues</div>
+      <!-- hero-tag SUPPRIMÉ -->
     </div>
     <div class="hero-switch">
       <select id="selPlayer"
