@@ -1,15 +1,17 @@
 // ═══════════════════════════════════════════════════════════════════
 // CONFIG.JS — Daily French 🥖
-// Point d'entrée de configuration — DOIT être chargé EN PREMIER
-// Contient : SUBJECT_CONFIG, FEATURES, LEVEL_NAMES, gameState
+// Configuration globale, constantes, gameState
+// 
+// Date : 7 juin 2026
+// Version : 2.1 — Ajout du mode de direction (EN→FR / FR→EN / Mixed)
 // ═══════════════════════════════════════════════════════════════════
 
 // ─── 1. CONFIGURATION MATIÈRE ───────────────────────────────────────
 const SUBJECT_CONFIG = {
   name:          "Daily French",
   emoji:         "🥖",
-  lang:          "fr",           // langue enseignée
-  interfaceLang: "en",           // langue de l'interface
+  lang:          "fr",
+  interfaceLang: "en",
   storageKey:    "dailyFrench_v1",
   playersKey:    "dailyFrench_players",
   dashboardFile: "dashboard.html",
@@ -59,16 +61,30 @@ const LEVEL_NAMES = {
   20:"Living French 🗣️"
 };
 
+// ═══════════════════════════════════════════════════════════════════
+// DIRECTION MODE — NOUVEAU v2.1
+// Détermine la direction des questions dans le quiz
+// 
+// "en-first" (défaut) : Question EN → Réponse FR
+// "fr-first"          : Question FR → Réponse EN
+// "mixed"             : Aléatoire FR→EN ou EN→FR
+// ═══════════════════════════════════════════════════════════════════
+
+const DIRECTION_MODES = {
+  "en-first": { label: "🇬🇧→🇫🇷 English First", labelFr: "🇬🇧→🇫🇷 Anglais d'abord" },
+  "fr-first": { label: "🇫🇷→🇬🇧 French First", labelFr: "🇫🇷→🇬🇧 Français d'abord" },
+  "mixed":    { label: "🔄 Mixed Direction", labelFr: "🔄 Direction mixte" }
+};
+
 // ─── 4. ÉTAT DU JEU ─────────────────────────────────────────────────
-// ⚠️ OBLIGATOIRE : utilisé par game-engine.js, players.js, quiz.js
-// Ne jamais supprimer ni renommer ces propriétés
 let gameState = {
-  currentPlayer:        null,    // Prénom du joueur actif
-  currentLevel:         1,       // Niveau en cours
-  currentMode:          "mixte", // "mixte" | "qcm" | "libre"
-  questions:            [],      // Questions tirées pour la session
-  currentQuestionIndex: 0,       // Index de la question affichée
-  score:                0,       // Score de la session en cours
-  answers:              [],      // Historique des réponses de la session
-  selectedOption:       null     // Option QCM sélectionnée (non validée)
+  currentPlayer:        null,
+  currentLevel:         1,
+  currentMode:          "mixte",
+  currentDirection: "en-first", // NOUVEAU v2.1 : en-first | fr-first | mixed
+  questions:            [],
+  currentQuestionIndex: 0,
+  score:                0,
+  answers:              [],
+  selectedOption:       null
 };
