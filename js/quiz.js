@@ -1,23 +1,17 @@
 /**
- * quiz.js — Logique page quiz
+ * quiz.js — Logique page quiz v2.1
  * Dépendances : core.js, game-engine.js, vocabulary-engine.js
  * 
  * MODIFICATIONS v2.1 :
  *   + selectDirection(mode) — toggle direction EN→FR / FR→EN / Mixed
  *   + renderDirectionSelector() — affiche les boutons direction
  *   ~ handleRoute() — gère aussi ?direction=xxx
- *   ~ renderLessons() — highlight vocabulaire
  */
-
-// ═══════════════════════════════════════════════════════════════════
-// 1. ROUTING — Gère les sections + paramètre direction
-// ═══════════════════════════════════════════════════════════════════
 
 function handleRoute() {
   const params = new URLSearchParams(window.location.search);
   const section = params.get('section') || 'home';
   
-  // NOUVEAU v2.1 : Récupère direction depuis URL si présent
   const dir = params.get('direction');
   if (dir && ['en-first', 'fr-first', 'mixed'].includes(dir)) {
     if (typeof DirectionMode !== 'undefined') DirectionMode.set(dir);
@@ -27,10 +21,6 @@ function handleRoute() {
   if (section === 'lecons') renderLessons();
   if (section === 'levels' && typeof renderLevels === 'function') renderLevels();
 }
-
-// ═══════════════════════════════════════════════════════════════════
-// 2. LEÇONS — Affichage collapsible avec surlignement vocab
-// ═══════════════════════════════════════════════════════════════════
 
 function renderLessons() {
   const container = document.getElementById('lessonsContainer');
@@ -82,10 +72,6 @@ function toggleLesson(num) {
   }
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// 3. MODE SELECTOR — Mixed / QCM / Libre
-// ═══════════════════════════════════════════════════════════════════
-
 function selectMode(mode) {
   if (typeof gameState !== 'undefined') gameState.currentMode = mode;
   document.querySelectorAll('.mode-btn').forEach(btn => {
@@ -93,24 +79,15 @@ function selectMode(mode) {
   });
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// 4. DIRECTION SELECTOR — NOUVEAU v2.1
-// ═══════════════════════════════════════════════════════════════════
-
+// NOUVEAU v2.1 — Direction selector
 function selectDirection(mode) {
-  if (typeof DirectionMode !== 'undefined') {
-    DirectionMode.set(mode);
-  }
-  if (typeof gameState !== 'undefined') {
-    gameState.currentDirection = mode;
-  }
+  if (typeof DirectionMode !== 'undefined') DirectionMode.set(mode);
+  if (typeof gameState !== 'undefined') gameState.currentDirection = mode;
   
-  // Met à jour l'affichage des boutons
   document.querySelectorAll('.direction-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.direction === mode);
   });
   
-  // Toast de confirmation
   if (typeof toast === 'function') {
     const label = typeof DirectionMode !== 'undefined' 
       ? DirectionMode.getLabel(mode) 
@@ -119,7 +96,6 @@ function selectDirection(mode) {
   }
 }
 
-// NOUVEAU v2.1 : Rendu du sélecteur de direction
 function renderDirectionSelector() {
   const container = document.getElementById('directionSelector');
   if (!container) return;
@@ -145,20 +121,13 @@ function renderDirectionSelector() {
   });
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// 5. INIT — Au chargement du DOM
-// ═══════════════════════════════════════════════════════════════════
-
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof initCore === 'function') initCore();
   
-  // Mode selector
   document.querySelectorAll('.mode-btn').forEach(btn => {
     btn.addEventListener('click', () => selectMode(btn.dataset.mode));
   });
   
-  // NOUVEAU v2.1 : Direction selector
   renderDirectionSelector();
-  
   handleRoute();
 });
