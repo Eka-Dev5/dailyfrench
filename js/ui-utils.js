@@ -1,16 +1,13 @@
 // ═══════════════════════════════════════════════════════════════════
-// UI-UTILS.JS — Daily French 🥖
-// Toast, export/import, popup vocabulaire, navigation
-// 
-// Date : 7 juin 2026
-// Version : 2.0
-// 
-// MODIFICATIONS v2.0 :
-// - openVocabPopup : fonctionne avec les deux structures HTML
-//   (quiz.html avec #vocab-popup-body ET vocabulary.html avec IDs séparés)
-// - closeVocabPopup : corrigé, ferme proprement sans bug
-// - _esc : helper HTML ajouté (utilisé aussi par vocabulary-engine.js)
-// - Suppression de la croix fantôme via classe "open" sur le modal
+// UI-UTILS.JS — Daily French 🥖 v2.1
+// Toast, export/import, popup vocabulaire, navigation, helpers
+//
+// MODIFICATIONS v2.1 :
+//   + normalizeForMatch() — NFD + strip diacritics + lower + trim
+//   + getDirectionLabel() — helper pour affichage direction
+//   + _esc() amélioré
+//   ~ openVocabPopup : fonctionne avec les deux structures HTML
+//   ~ closeVocabPopup : corrigé, ferme proprement
 // ═══════════════════════════════════════════════════════════════════
 
 // ── TOAST ──
@@ -34,7 +31,7 @@ function goToDashboard() {
   window.location.href = url;
 }
 
-// ── EXPORT / IMPORT SAUVEGARDE ──
+// ── EXPORT / IMPORT ──
 function exportSave() {
   const players = getPlayers();
   if (Object.keys(players).length === 0) { showToast("No save data to export."); return; }
@@ -58,7 +55,7 @@ function importSave(event) {
       if (typeof data === "object" && data !== null) {
         savePlayers(data);
         updatePlayerDisplay();
-        renderLevels();
+        if (typeof renderLevels === 'function') renderLevels();
         const names = Object.keys(data);
         if (names.length > 0) switchPlayer(names[0]);
         showToast("Save imported! Welcome " + names[0] + "!");
@@ -69,29 +66,37 @@ function importSave(event) {
   event.target.value = "";
 }
 
-// ── VOCABULAIRE POPUP ──
-// 
-// CORRECTION v2.0 :
-// Le popup fonctionne avec deux structures HTML possibles :
-// 
-// 1. Structure complète (vocabulary.html, dashboard.html) :
-//    IDs séparés : vocabPopupFr, vocabPopupPhon, vocabPopupEn, etc.
-// 
-// 2. Structure simple (quiz.html) :
-//    Un seul conteneur : #vocab-popup-body
-// 
-// Le popup s'ouvre en ajoutant la classe "open" au modal
-// (compatible avec base.css v2.0 qui cache le bouton × par défaut).
+// ── NORMALIZE — NOUVEAU v2.1 ──
+// Comparaison insensible aux accents, majuscules, espaces
+function normalizeForMatch(text) {
+  if (!text) return '';
+  return text
+    .toString()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
 
+// ── DIRECTION HELPER — NOUVEAU v2.1 ──
+// Retourne le label traduit du mode direction actuel
+function getDirectionLabel() {
+  if (typeof DirectionMode !== 'undefined') {
+    return DirectionMode.getLabel();
+  }
+  return '🇬🇧→🇫🇷 English First';
+}
+
+// ── VOCABULAIRE POPUP ──
 function openVocabPopup(fr) {
   if (typeof VOCABULARY_BDD === "undefined") return;
   const w = VOCABULARY_BDD.find(x => x.fr === fr);
   if (!w) return;
-  
-  // Structure complète (vocabulary.html, dashboard.html, etc.)
-  const set = (id, v) => { 
-    const el = document.getElementById(id); 
-    if (el) el.textContent = v || ""; 
+
+  // Structure complète (vocabulary.html, dashboard.html)
+  const set = (id, v) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = v || "";
   };
   set("vocabPopupFr", w.fr);
   set("vocabPopupPhon", w.phon || "");
@@ -99,8 +104,8 @@ function openVocabPopup(fr) {
   set("vocabPopupDef", w.def || "");
   set("vocabPopupEx", w.ex || "");
   set("vocabPopupCat", (w.cat || "") + (w.level ? " • Level " + w.level : ""));
-  
-  // Structure simple (quiz.html) : on remplit #vocab-popup-body
+
+  // Structure simple (quiz.html) : #vocab-popup-body
   const body = document.getElementById("vocab-popup-body");
   if (body) {
     body.innerHTML = `
@@ -112,8 +117,8 @@ function openVocabPopup(fr) {
       <div class="vocab-popup-cat">${_esc((w.cat || "") + (w.level ? " • Level " + w.level : ""))}</div>
     `;
   }
-  
-  // Ouvrir le popup : ajouter classe "open" + display flex
+
+  // Ouvrir le popup
   const modal = document.getElementById("vocabulary-popup-modal");
   if (modal) {
     modal.classList.add("open");
@@ -122,16 +127,12 @@ function openVocabPopup(fr) {
 }
 
 function closeVocabPopup(e) {
-  // Si on clique sur le bouton ×, e est undefined ou le bouton
-  // Si on clique sur l'overlay, e.target est l'overlay
+  // Ne ferme pas si clic dans le contenu (sauf bouton ×)
   if (e && e.target) {
-    // On ne ferme PAS si on clique dans le contenu du popup
     if (e.target.closest(".vocab-popup-content")) {
-      // Clic dans le contenu — ne pas fermer sauf si c'est le bouton ×
       if (!e.target.classList.contains("vocab-popup-close")) return;
     }
   }
-  
   const modal = document.getElementById("vocabulary-popup-modal");
   if (modal) {
     modal.classList.remove("open");
@@ -139,7 +140,7 @@ function closeVocabPopup(e) {
   }
 }
 
-// Helper pour échapper le HTML (utilisé aussi par vocabulary-engine.js)
+// ── HTML ESCAPE ──
 function _esc(s) {
   if (s === null || s === undefined) return "";
   return String(s)
@@ -158,3 +159,7 @@ function toggleLessonEx(btn, ev) {
   span.style.display = show ? "block" : "none";
   btn.textContent = show ? "🇫🇷 Hide" : "🇬🇧 English";
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// FIN UI-UTILS.JS — v2.1 — 7 juin 2026
+// ═══════════════════════════════════════════════════════════════════
