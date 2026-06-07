@@ -26,18 +26,44 @@
     </div>
   </div>
 
-  <!-- Popup vocabulaire -->
+  <!-- Popup vocabulaire — CORRIGÉ Juin 2026 -->
+  <!-- Structure compatible avec ui-utils.js v2.0 -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
-      <button class="vocab-popup-close"
-        onclick="if(typeof closeVocabPopup==='function')closeVocabPopup()">×</button>
+      <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
       <div id="vocab-popup-body"></div>
     </div>
   </div>
 
-  <!-- NAV BOTTOM — identique sur toutes les pages -->
+  <!-- ═══════════════════════════════════════════════════════════════════
+       NAVIGATION TOP — Barre du haut (NOUVEAU — Juin 2026)
+       Liens vers les pages annexes : SOS, Talk, Jeux, Config
+       Ordre : Urgence → Communication → Jeux → Paramètres
+       ═══════════════════════════════════════════════════════════════════ -->
+  <nav class="nav-top">
+    <a href="emergency.html" class="nav-top-item">
+      <span class="nav-top-icon">🚨</span>SOS
+    </a>
+    <a href="conversation.html" class="nav-top-item">
+      <span class="nav-top-icon">💬</span>Talk
+    </a>
+    <a href="games/listen.html" class="nav-top-item">
+      <span class="nav-top-icon">🎧</span>Listen
+    </a>
+    <a href="games/phrase-builder.html" class="nav-top-item">
+      <span class="nav-top-icon">🧩</span>Phrase
+    </a>
+    <a href="dashboard.html" class="nav-top-item">
+      <span class="nav-top-icon">⚙️</span>Config
+    </a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       NAVIGATION BOTTOM — Navigation principale
+       MODIFIÉ Juin 2026 : "Home" pointe vers quiz.html (page d'accueil)
+       ═══════════════════════════════════════════════════════════════════ -->
   <nav class="nav-bottom">
-    <a href="dashboard.html" class="nav-item">
+    <a href="quiz.html" class="nav-item active">
       <span class="nav-icon">🏠</span><span>Home</span>
     </a>
     <a href="quiz.html?section=lecons" class="nav-item">
@@ -95,7 +121,11 @@
     </div>
   </div>
 
-  <!-- ══ SECTION : HOME ══ -->
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION : HOME — Page d'accueil
+       MODIFIÉ Juin 2026 : Suppression des liens doublons (Play Now, Lessons, Vocabulary)
+       La section "Extra games" est déplacée dans la barre du haut.
+       ═══════════════════════════════════════════════════════════════════ -->
   <section id="home" class="section active">
     <h1 class="page-title">🥖 Daily French</h1>
     <p class="page-subtitle">Learn everyday French, one level at a time.</p>
@@ -104,26 +134,11 @@
       <button class="mode-btn" data-mode="qcm">QCM</button>
       <button class="mode-btn" data-mode="libre">Written</button>
     </div>
-    <div class="cta-group">
-      <a href="quiz.html?section=levels"  class="btn btn-primary btn-large">🎮 Play Now</a>
-      <a href="quiz.html?section=lecons" class="btn btn-secondary btn-large">📚 Lessons</a>
-      <a href="vocabulary.html"           class="btn btn-secondary btn-large">📖 Vocabulary</a>
-    </div>
-    <div class="games-bar">
-      <p class="games-title">🎮 Extra games</p>
-      <div class="games-row">
-        <a href="games/listen.html" class="game-card">
-          <span class="game-icon">🎧</span>
-          <strong>Listen &amp; Repeat</strong>
-          <span class="game-sub">Pronunciation</span>
-        </a>
-        <a href="games/phrase-builder.html" class="game-card">
-          <span class="game-icon">🧩</span>
-          <strong>Phrase Builder</strong>
-          <span class="game-sub">Grammar</span>
-        </a>
-      </div>
-    </div>
+    <!-- 
+      NOTE Juin 2026 : Les liens "Play Now", "Lessons", "Vocabulary" ont été supprimés
+      car ils sont déjà présents dans la navigation du bas. Cela évite la confusion
+      et libère de l'espace sur la page d'accueil.
+    -->
   </section>
 
   <!-- ══ SECTION : LEÇONS ══ -->
