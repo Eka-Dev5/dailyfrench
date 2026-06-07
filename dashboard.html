@@ -20,8 +20,8 @@
       <input type="text" id="mInput" maxlength="30" placeholder="Your name"
         autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
       <div class="modal-actions">
-        <button id="btnCancelModal" class="btn-ghost">Cancel</button>
-        <button id="btnCreatePlayer" class="btn-primary">Create</button>
+        <button id="btnCancelModal" class="btn-ghost" onclick="closeModal()">Cancel</button>
+        <button id="btnCreatePlayer" class="btn-primary" onclick="confirmNewPlayer()">Create</button>
       </div>
     </div>
   </div>
@@ -35,9 +35,7 @@
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       NAVIGATION TOP — Barre du haut (NOUVEAU — Juin 2026)
-       Liens vers les pages annexes : SOS, Talk, Jeux, Config
-       Ordre : Urgence → Communication → Jeux → Paramètres
+       NAVIGATION TOP — Barre du haut (Juin 2026)
        ═══════════════════════════════════════════════════════════════════ -->
   <nav class="nav-top">
     <a href="emergency.html" class="nav-top-item">
@@ -59,10 +57,7 @@
 
   <!-- ═══════════════════════════════════════════════════════════════════
        NAVIGATION BOTTOM — Navigation principale
-       MODIFIÉ Juin 2026 :
-       - "Home" renommé en "Start" (page d'accueil quiz.html)
-       - "Space" renommé en "Dashboard" (cette page)
-       - hero-tag supprimé (doublon avec bento tiles)
+       MODIFIÉ Juin 2026 : "Home" → "Start", "Space" → "Dashboard"
        ═══════════════════════════════════════════════════════════════════ -->
   <nav class="nav-bottom">
     <a href="quiz.html" class="nav-item">
@@ -87,7 +82,6 @@
     <div class="hero-avatar" id="heroAv">?<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info">
       <div class="hero-name" id="heroName">Guest</div>
-      <!-- hero-tag SUPPRIMÉ — les infos Level/Points/Done sont dans les bento tiles -->
     </div>
     <div class="hero-xp">
       <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
@@ -108,8 +102,8 @@
         <span>Theme</span>
         <div class="theme-dots">
           <button class="theme-dot" data-theme="ardoise" onclick="applyThemePick('ardoise')" title="Ardoise">🌑</button>
-          <button class="theme-dot" data-theme="mauve"   onclick="applyThemePick('mauve')"   title="Mauve">🟣</button>
-          <button class="theme-dot" data-theme="terra"   onclick="applyThemePick('terra')"   title="Terra">🟤</button>
+          <button class="theme-dot" data-theme="mauve" onclick="applyThemePick('mauve')" title="Mauve">🟣</button>
+          <button class="theme-dot" data-theme="terra" onclick="applyThemePick('terra')" title="Terra">🟤</button>
         </div>
       </div>
       <div class="settings-row">
@@ -117,6 +111,15 @@
         <div class="lang-btns">
           <button onclick="applyLangPick('en')">🇬🇧 EN</button>
           <button onclick="applyLangPick('fr')">🇫🇷 FR</button>
+        </div>
+      </div>
+      <!-- NOUVEAU v2.1 : Toggle direction -->
+      <div class="settings-row">
+        <span>Direction</span>
+        <div class="lang-btns">
+          <button class="direction-btn" data-direction="en-first" onclick="applyDirectionPick('en-first')">🇬🇧→🇫🇷</button>
+          <button class="direction-btn" data-direction="fr-first" onclick="applyDirectionPick('fr-first')">🇫🇷→🇬🇧</button>
+          <button class="direction-btn" data-direction="mixed" onclick="applyDirectionPick('mixed')">🔄</button>
         </div>
       </div>
     </div>
@@ -138,37 +141,42 @@
     </div>
   </div>
 
-  <!-- QUICK ACCESS BAR — SUPPRIMÉ Juin 2026
-       Les liens SOS et Conversations sont maintenant dans la nav-top.
-  -->
-
   <main class="dashboard-main">
+    <!-- ═══════════════════════════════════════════════════════════════════
+         SECTION : MY LIFE IN FRANCE — RÉPARÉ v2.1
+         ═══════════════════════════════════════════════════════════════════ -->
     <section class="dash-section" id="dash-life">
       <h2 class="dash-title">🇫🇷 My Life in France</h2>
       <div id="lifeSkillsGrid" class="life-skills-grid"></div>
     </section>
+
     <section class="dash-section" id="dash-levels">
       <h2 class="dash-title">🗺️ Journey</h2>
       <div id="journeyMap" class="journey-map"></div>
     </section>
+
     <section class="dash-section" id="dash-badges">
       <h2 class="dash-title">🏅 Badges</h2>
       <div id="badgesGrid" class="badges-grid"></div>
     </section>
+
     <section class="dash-section" id="dash-cameleon">
       <h2 class="dash-title">🦎 Cameleon</h2>
       <div id="cameleonStage" class="cameleon-stage"></div>
     </section>
+
     <section class="dash-section" id="dash-history">
       <h2 class="dash-title">📜 History</h2>
       <div id="historyList" class="history-list"></div>
     </section>
+
     <section class="dash-section" id="dash-genius">
       <h2 class="dash-title">🪔 Mon Génie</h2>
       <div id="geniusPanel" class="genius-panel"></div>
     </section>
   </main>
 
+  <!-- Scripts — ordre obligatoire -->
   <script src="js/config.js"></script>
   <script src="js/data.js"></script>
   <script src="js/vocabulary-data.js"></script>
@@ -179,6 +187,13 @@
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
   <script src="js/dashboard.js"></script>
+
+  <script>
+    // Init dashboard au chargement
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof initDashboard === 'function') initDashboard();
+    });
+  </script>
 
 </body>
 </html>
