@@ -36,8 +36,6 @@
 
   <!-- ═══════════════════════════════════════════════════════════════════
        NAVIGATION TOP — Barre du haut (NOUVEAU — Juin 2026)
-       Liens vers les pages annexes : SOS, Talk, Jeux, Config
-       Ordre : Urgence → Communication → Jeux → Paramètres
        ═══════════════════════════════════════════════════════════════════ -->
   <nav class="nav-top">
     <a href="emergency.html" class="nav-top-item">
@@ -59,11 +57,11 @@
 
   <!-- ═══════════════════════════════════════════════════════════════════
        NAVIGATION BOTTOM — Navigation principale
-       MODIFIÉ Juin 2026 : "Home" pointe vers quiz.html (page d'accueil)
+       MODIFIÉ Juin 2026 : "Home" → "Start", "Space" → "Dashboard"
        ═══════════════════════════════════════════════════════════════════ -->
   <nav class="nav-bottom">
     <a href="quiz.html" class="nav-item active">
-      <span class="nav-icon">🏠</span><span>Home</span>
+      <span class="nav-icon">🏠</span><span>Start</span>
     </a>
     <a href="quiz.html?section=lecons" class="nav-item">
       <span class="nav-icon">📚</span><span>Lessons</span>
@@ -75,23 +73,18 @@
       <span class="nav-icon">📖</span><span>Vocab</span>
     </a>
     <a href="dashboard.html" class="nav-item">
-      <span class="nav-icon">📊</span><span>Space</span>
+      <span class="nav-icon">📊</span><span>Dashboard</span>
     </a>
   </nav>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       HERO — Bandeau d'identité joueur
-       MODIFIÉ Juin 2026 : Suppression de la ligne "Level · pts · levels"
-       qui était redondante avec les bento tiles. Le hero est maintenant
-       sur une seule ligne : avatar | nom + XP | switch joueur.
-       ═══════════════════════════════════════════════════════════════════ -->
+  <!-- HERO — identique sur toutes les pages -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">?
       <span class="hero-lvl-badge" id="heroLvl">1</span>
     </div>
     <div class="hero-info">
       <div class="hero-name" id="heroName">Guest</div>
-      <!-- SUPPRIMÉ : hero-tag redondant avec bento tiles -->
+      <!-- hero-tag SUPPRIMÉ — les infos Level/Points/Done sont dans les bento tiles -->
     </div>
     <div class="hero-xp">
       <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
@@ -109,7 +102,7 @@
     </div>
   </header>
 
-  <!-- BENTO — Grille de 3 tuiles (Level / Points / Done) -->
+  <!-- BENTO — identique sur toutes les pages -->
   <div class="bento-grid">
     <div class="bento-tile">
       <div class="bento-num" id="b1">1</div>
@@ -126,17 +119,32 @@
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       SECTION : HOME — Page d'accueil
-       MODIFIÉ Juin 2026 : Suppression des liens doublons (Play Now, Lessons, Vocabulary)
-       et de la section "Extra games" (déplacée dans la barre du haut).
+       SECTION : HOME — Page d'accueil / Page de démarrage
+       MODIFIÉ Juin 2026 :
+       - Suppression des liens doublons (Play Now, Lessons, Vocabulary)
+       - Ajout du bouton "Play" pour lancer le jeu
+       - Le sélecteur de mode choisit le mode AVANT de jouer
        ═══════════════════════════════════════════════════════════════════ -->
   <section id="home" class="section active">
     <h1 class="page-title">🥖 Daily French</h1>
     <p class="page-subtitle">Learn everyday French, one level at a time.</p>
+    
+    <!-- Sélecteur de mode -->
     <div class="mode-selector">
       <button class="mode-btn active" data-mode="mixte">Mixed</button>
       <button class="mode-btn" data-mode="qcm">QCM</button>
       <button class="mode-btn" data-mode="libre">Written</button>
+    </div>
+    
+    <!-- 
+      NOTE Juin 2026 : Les liens "Play Now", "Lessons", "Vocabulary" ont été supprimés
+      car ils sont déjà présents dans la navigation du bas. 
+      
+      Le bouton "Play" ci-dessous lance directement le jeu avec le mode choisi.
+      Il redirige vers la section "levels" (grille des niveaux).
+    -->
+    <div class="cta-group" style="margin-top: var(--space-lg);">
+      <a href="quiz.html?section=levels" class="btn btn-primary btn-large">🎮 Play</a>
     </div>
   </section>
 
@@ -159,6 +167,7 @@
 
   <!-- ══ SECTION : JEU ══ -->
   <section id="jeu" class="section" style="display:none;">
+    <!-- Intro de leçon -->
     <div id="lessonIntro" class="lesson-intro" style="display:none;">
       <h3 id="lessonIntroTitle" class="intro-title"></h3>
       <p  id="lessonIntroObj"   class="intro-objective"></p>
@@ -166,6 +175,7 @@
       <div id="lessonIntroVocabulary" class="intro-vocab"></div>
       <button id="startLevelBtn" class="btn btn-primary btn-large">Start Level</button>
     </div>
+    <!-- Zone de jeu -->
     <div id="gameArea" class="game-area">
       <div class="game-header">
         <div id="gameTitle" class="game-title">Level 1</div>
