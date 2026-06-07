@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,6 +102,8 @@
       <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
         <option value="">Choose a player</option>
       </select>
+      <!-- BOUTON + New AJOUTÉ — manquait dans la version précédente -->
+      <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
       <button class="btn-settings" onclick="toggleSettings()" title="Settings" aria-label="Settings">⚙️</button>
     </div>
     <div id="settingsPanel" class="settings-panel" style="display:none;">
