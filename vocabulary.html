@@ -13,6 +13,7 @@
 
   <div id="toast" class="toast"></div>
 
+  <!-- Modal joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
@@ -25,24 +26,50 @@
     </div>
   </div>
 
+  <!-- Popup vocabulaire — CORRIGÉ Juin 2026 -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
-      <button class="vocab-popup-close" onclick="if(typeof closeVocabPopup==='function')closeVocabPopup()">×</button>
+      <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
       <div id="vocab-popup-body">
-      <div class="vocab-popup-fr"  id="vocabPopupFr"></div>
-      <div class="vocab-popup-phon" id="vocabPopupPhon"></div>
-      <div class="vocab-popup-en"  id="vocabPopupEn"></div>
-      <div class="vocab-popup-def" id="vocabPopupDef"></div>
-      <div class="vocab-popup-ex"  id="vocabPopupEx"></div>
-      <div class="vocab-popup-cat" id="vocabPopupCat"></div>
-    </div>
+        <div class="vocab-popup-fr"  id="vocabPopupFr"></div>
+        <div class="vocab-popup-phon" id="vocabPopupPhon"></div>
+        <div class="vocab-popup-en"  id="vocabPopupEn"></div>
+        <div class="vocab-popup-def" id="vocabPopupDef"></div>
+        <div class="vocab-popup-ex"  id="vocabPopupEx"></div>
+        <div class="vocab-popup-cat" id="vocabPopupCat"></div>
+      </div>
     </div>
   </div>
 
-  <!-- NAV BOTTOM — format correct -->
+  <!-- ═══════════════════════════════════════════════════════════════════
+       NAVIGATION TOP — Barre du haut (NOUVEAU — Juin 2026)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <nav class="nav-top">
+    <a href="emergency.html" class="nav-top-item">
+      <span class="nav-top-icon">🚨</span>SOS
+    </a>
+    <a href="conversation.html" class="nav-top-item">
+      <span class="nav-top-icon">💬</span>Talk
+    </a>
+    <a href="games/listen.html" class="nav-top-item">
+      <span class="nav-top-icon">🎧</span>Listen
+    </a>
+    <a href="games/phrase-builder.html" class="nav-top-item">
+      <span class="nav-top-icon">🧩</span>Phrase
+    </a>
+    <a href="dashboard.html" class="nav-top-item">
+      <span class="nav-top-icon">⚙️</span>Config
+    </a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       NAVIGATION BOTTOM — Navigation principale
+       MODIFIÉ Juin 2026 : "Home" → "Start", "Space" → "Dashboard"
+       hero-tag supprimé (doublon avec bento tiles)
+       ═══════════════════════════════════════════════════════════════════ -->
   <nav class="nav-bottom">
-    <a href="dashboard.html" class="nav-item">
-      <span class="nav-icon">🏠</span><span>Home</span>
+    <a href="quiz.html" class="nav-item">
+      <span class="nav-icon">🏠</span><span>Start</span>
     </a>
     <a href="quiz.html?section=lecons" class="nav-item">
       <span class="nav-icon">📚</span><span>Lessons</span>
@@ -54,15 +81,16 @@
       <span class="nav-icon">📖</span><span>Vocab</span>
     </a>
     <a href="dashboard.html" class="nav-item">
-      <span class="nav-icon">📊</span><span>Space</span>
+      <span class="nav-icon">📊</span><span>Dashboard</span>
     </a>
   </nav>
 
+  <!-- HERO — hero-tag supprimé (doublon avec bento tiles) -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">?<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info">
       <div class="hero-name" id="heroName">Guest</div>
-      <div class="hero-tag" id="heroTag">Level 1 · 0 pts · 0/20 levels</div>
+      <!-- hero-tag SUPPRIMÉ — les infos sont dans les bento tiles -->
     </div>
     <div class="hero-xp">
       <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
@@ -95,6 +123,7 @@
     </div>
   </header>
 
+  <!-- BENTO — identique sur toutes les pages -->
   <div class="bento-grid">
     <div class="bento-tile">
       <div class="bento-num" id="b1">1</div>
