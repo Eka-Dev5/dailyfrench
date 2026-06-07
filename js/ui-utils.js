@@ -1,6 +1,9 @@
 // ═══════════════════════════════════════════════════════════════════
 // UI-UTILS.JS — Daily French 🥖
 // Toast, export/import, popup vocabulaire, navigation
+// 
+// Date : 7 juin 2026
+// Version : 2.0 — Correction du popup vocabulaire
 // ═══════════════════════════════════════════════════════════════════
 
 // ── TOAST ──
@@ -60,27 +63,77 @@ function importSave(event) {
 }
 
 // ── VOCABULAIRE POPUP ──
+// 
+// CORRECTION — Juin 2026 :
+// Le popup fonctionne maintenant avec deux structures possibles :
+// 1. Structure complète (vocabulary.html) : IDs séparés vocabPopupFr, vocabPopupPhon, etc.
+// 2. Structure simple (quiz.html) : un seul conteneur #vocab-popup-body
+// 
+// Le popup s'ouvre en ajoutant la classe "open" (compatible avec base.css v2.0).
+
 function openVocabPopup(fr) {
   if (typeof VOCABULARY_BDD === "undefined") return;
   const w = VOCABULARY_BDD.find(x => x.fr === fr);
   if (!w) return;
-  const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v || ""; };
+  
+  // Structure complète (vocabulary.html, dashboard.html, etc.)
+  const set = (id, v) => { 
+    const el = document.getElementById(id); 
+    if (el) el.textContent = v || ""; 
+  };
   set("vocabPopupFr", w.fr);
   set("vocabPopupPhon", w.phon || "");
   set("vocabPopupEn", w.en);
   set("vocabPopupDef", w.def || "");
   set("vocabPopupEx", w.ex || "");
   set("vocabPopupCat", (w.cat || "") + (w.level ? " • Level " + w.level : ""));
+  
+  // Structure simple (quiz.html) : on remplit #vocab-popup-body
+  const body = document.getElementById("vocab-popup-body");
+  if (body) {
+    body.innerHTML = `
+      <div class="vocab-popup-fr">${_esc(w.fr)}</div>
+      <div class="vocab-popup-phon">${_esc(w.phon || "")}</div>
+      <div class="vocab-popup-en">${_esc(w.en || "")}</div>
+      <div class="vocab-popup-def">${_esc(w.def || "")}</div>
+      <div class="vocab-popup-ex">${_esc(w.ex || "")}</div>
+      <div class="vocab-popup-cat">${_esc((w.cat || "") + (w.level ? " • Level " + w.level : ""))}</div>
+    `;
+  }
+  
+  // Ouvrir le popup (compatible base.css v2.0 : classe "open")
   const modal = document.getElementById("vocabulary-popup-modal");
-  if (modal) modal.style.display = "flex";
+  if (modal) {
+    modal.classList.add("open");
+    modal.style.display = "flex";
+  }
 }
 
 function closeVocabPopup(e) {
-  if (e && e.target && !e.target.closest(".vocab-modal-content") && !e.target.classList.contains("vocab-modal-close")) {
-    // clic sur overlay
+  // Si on clique sur le bouton × ou sur l'overlay, on ferme
+  if (e) {
+    // Si c'est un événement click, on vérifie qu'on ne clique pas dans le contenu
+    if (e.target && e.target.closest(".vocab-popup-content")) {
+      // Clic dans le contenu du popup — ne pas fermer (sauf si c'est le bouton ×)
+      if (!e.target.classList.contains("vocab-popup-close")) return;
+    }
   }
+  
   const modal = document.getElementById("vocabulary-popup-modal");
-  if (modal) modal.style.display = "none";
+  if (modal) {
+    modal.classList.remove("open");
+    modal.style.display = "none";
+  }
+}
+
+// Helper pour échapper le HTML (utilisé aussi par vocabulary-engine.js)
+function _esc(s) {
+  if (s === null || s === undefined) return "";
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 // ── TOGGLE TRADUCTION LEÇONS ──
