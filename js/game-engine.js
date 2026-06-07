@@ -1,12 +1,17 @@
 /**
- * game-engine.js — Moteur de quiz Daily French
+ * game-engine.js — Moteur de quiz Daily French v2.1
  * 
  * Gère le cycle complet d'un niveau : sélection, intro, questions,
  * validation, feedback, résultats, progression joueur.
  * 
- * Dépendances : config.js (gameState, SUBJECT_CONFIG, LEVEL_NAMES),
- * data.js (LESSONS_DATA, QUESTIONS_DB), core.js (PlayerManager),
- * ui-utils.js (showToast, normalizeForMatch, savePlayers, getPlayers)
+ * MODIFICATIONS v2.1 :
+ *   + Direction mode intégré (EN→FR / FR→EN / Mixed)
+ *   + renderQuestion() utilise DirectionMode.flipQuestion()
+ *   + validateAnswer() utilise normalizeForMatch()
+ *   + showFeedback() adapte le texte selon la direction
+ *   ~ startQuestions() enregistre la direction de chaque question
+ * 
+ * Dépendances : config.js, data.js, core.js, ui-utils.js
  */
 
 // ═══════════════════════════════════════════════════════════════════
@@ -46,7 +51,6 @@ function renderLevels() {
   for (let i = 1; i <= max; i++) {
     const tile = document.createElement('div');
     tile.className = 'level-tile';
-    // Nom court sans emoji
     const fullName = LEVEL_NAMES[i] || 'Level ' + i;
     const shortName = fullName.replace(/\p{Emoji}/gu, '').trim();
     tile.innerHTML = `<span class="tile-num">${i}</span><span class="tile-name">${shortName}</span>`;
@@ -116,7 +120,7 @@ function showLessonIntro(levelNum) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 4. PRÉPARATION DES QUESTIONS — Mélange et filtre selon le mode
+// 4. PRÉPARATION DES QUESTIONS — AVEC DIRECTION MODE v2.1
 // ═══════════════════════════════════════════════════════════════════
 
 function startQuestions() {
@@ -140,6 +144,14 @@ function startQuestions() {
     return;
   }
 
+  // NOUVEAU v2.1 : Enregistrer la direction de chaque question
+  gameState.questionDirections = pool.map((_, i) => {
+    if (typeof DirectionMode !== 'undefined') {
+      return DirectionMode.getDirectionForQuestion(i);
+    }
+    return { qLang: 'en', aLang: 'fr' };
+  });
+
   gameState.questions = shuffle(pool);
   gameState.currentQuestionIndex = 0;
   gameState.score = 0;
@@ -161,12 +173,19 @@ function shuffle(a) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 5. AFFICHAGE D'UNE QUESTION — QCM ou champ écrit
+// 5. AFFICHAGE D'UNE QUESTION — AVEC DIRECTION v2.1
 // ═══════════════════════════════════════════════════════════════════
 
 function renderQuestion() {
-  const q = gameState.questions[gameState.currentQuestionIndex];
-  if (!q) return;
+  const idx = gameState.currentQuestionIndex;
+  const rawQ = gameState.questions[idx];
+  if (!rawQ) return;
+
+  // NOUVEAU v2.1 : Appliquer la direction (flip si FR→EN)
+  let q = rawQ;
+  if (typeof DirectionMode !== 'undefined') {
+    q = DirectionMode.flipQuestion(rawQ, idx);
+  }
 
   gameState.selectedOption = null;
 
@@ -187,31 +206,42 @@ function renderQuestion() {
   const counter = document.getElementById('questionCounter');
   const progress = document.getElementById('progressFill');
   const total = gameState.questions.length;
-  const current = gameState.currentQuestionIndex + 1;
+  const current = idx + 1;
 
   if (counter) counter.textContent = current + ' / ' + total;
   if (progress) progress.style.width = (current / total * 100) + '%';
 
-  if (questionText) questionText.innerHTML = q.question || '';
+  // NOUVEAU v2.1 : Préfixe selon la direction
+  const dir = gameState.questionDirections?.[idx] || { qLang: 'en', aLang: 'fr' };
+  const prefix = dir.qLang === 'fr'
+    ? (I18n.current === 'fr' ? 'Traduisez en anglais :' : 'Translate to English:')
+    : (I18n.current === 'fr' ? 'Traduisez en français :' : 'Translate to French:');
 
+  if (questionText) {
+    questionText.innerHTML = `<span class="question-prefix">${prefix}</span><br>${q.question || ''}`;
+  }
+
+  // QCM
   if (q.type === 'qcm' || q.options) {
     if (qcmOptions) {
       qcmOptions.innerHTML = '';
       qcmOptions.style.display = 'block';
-      (q.options || []).forEach((opt, idx) => {
+      (q.options || []).forEach((opt, idxOpt) => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         btn.textContent = opt;
-        btn.addEventListener('click', () => selectOption(btn, idx));
+        btn.addEventListener('click', () => selectOption(btn, idxOpt));
         qcmOptions.appendChild(btn);
       });
     }
     if (libreInput) libreInput.style.display = 'none';
   } else {
+    // Libre
     if (qcmOptions) qcmOptions.style.display = 'none';
     if (libreInput) libreInput.style.display = 'block';
     if (answerInput) {
       answerInput.value = '';
+      answerInput.placeholder = dir.aLang === 'fr' ? 'Votre réponse en français...' : 'Your answer in English...';
       answerInput.focus();
     }
   }
@@ -225,20 +255,25 @@ function selectOption(btn, idx) {
   gameState.selectedOption = idx;
   const qcmOptions = document.getElementById('qcmOptions');
   if (qcmOptions) {
-    qcmOptions.querySelectorAll('.option-btn').forEach(b => {
-      b.classList.remove('selected');
-    });
+    qcmOptions.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
   }
   btn.classList.add('selected');
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 7. VALIDATION — Compare la réponse, affiche le feedback, score
+// 7. VALIDATION — AVEC NORMALIZE v2.1
 // ═══════════════════════════════════════════════════════════════════
 
 function validateAnswer() {
-  const q = gameState.questions[gameState.currentQuestionIndex];
-  if (!q) return;
+  const idx = gameState.currentQuestionIndex;
+  const rawQ = gameState.questions[idx];
+  if (!rawQ) return;
+
+  // Récupérer la question potentiellement flipée
+  let q = rawQ;
+  if (typeof DirectionMode !== 'undefined') {
+    q = DirectionMode.flipQuestion(rawQ, idx);
+  }
 
   let userAnswer = '';
   let isCorrect = false;
@@ -253,6 +288,7 @@ function validateAnswer() {
   } else {
     const answerInput = document.getElementById('answerInput');
     userAnswer = answerInput ? answerInput.value : '';
+    // NOUVEAU v2.1 : Utilise normalizeForMatch() si dispo
     if (typeof normalizeForMatch === 'function') {
       isCorrect = normalizeForMatch(userAnswer) === normalizeForMatch(q.correct);
     } else {
@@ -264,7 +300,8 @@ function validateAnswer() {
     question: q.question,
     userAnswer: userAnswer,
     correct: isCorrect,
-    correctAnswer: q.type === 'qcm' ? q.options[q.correctIndex] : q.correct
+    correctAnswer: q.type === 'qcm' ? q.options[q.correctIndex] : q.correct,
+    direction: gameState.questionDirections?.[idx] || { qLang: 'en', aLang: 'fr' }
   });
 
   if (isCorrect) {
@@ -299,9 +336,13 @@ function showFeedback(isCorrect, q) {
   feedbackArea.className = 'feedback-area ' + (isCorrect ? 'feedback-success' : 'feedback-error');
 
   if (feedbackTitle) feedbackTitle.textContent = isCorrect ? 'Correct!' : 'Wrong';
+
   if (feedbackCorrect) {
-    feedbackCorrect.textContent = 'Answer: ' + (q.type === 'qcm' ? q.options[q.correctIndex] : q.correct);
+    const dir = gameState.questionDirections?.[gameState.currentQuestionIndex] || { qLang: 'en', aLang: 'fr' };
+    const label = dir.aLang === 'fr' ? 'Answer (French): ' : 'Answer (English): ';
+    feedbackCorrect.textContent = label + (q.type === 'qcm' ? q.options[q.correctIndex] : q.correct);
   }
+
   if (feedbackExplanation) feedbackExplanation.textContent = q.explanation || '';
 
   const scoreDisplay = document.getElementById('scoreDisplay');
@@ -328,6 +369,7 @@ function trackError(q, userAnswer) {
     yourAnswer: userAnswer,
     correctAnswer: q.type === 'qcm' ? q.options[q.correctIndex] : q.correct,
     level: gameState.currentLevel,
+    direction: gameState.questionDirections?.[gameState.currentQuestionIndex] || { qLang: 'en', aLang: 'fr' },
     date: new Date().toISOString()
   });
   if (p.errorHistory.length > 50) p.errorHistory = p.errorHistory.slice(0, 50);
@@ -352,6 +394,7 @@ function saveActiveSession() {
   p.activeSession = {
     level: gameState.currentLevel,
     mode: gameState.currentMode,
+    direction: gameState.currentDirection, // NOUVEAU v2.1
     questionIndex: gameState.currentQuestionIndex,
     score: gameState.score,
     answers: gameState.answers,
@@ -437,6 +480,7 @@ function showResults() {
     total: total,
     correct: correctCount,
     pct: pct,
+    direction: gameState.currentDirection, // NOUVEAU v2.1
     date: new Date().toISOString()
   });
   if (p.sessionHistory.length > 50) p.sessionHistory = p.sessionHistory.slice(-50);
