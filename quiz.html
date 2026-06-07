@@ -27,7 +27,6 @@
   </div>
 
   <!-- Popup vocabulaire — CORRIGÉ Juin 2026 -->
-  <!-- Structure compatible avec ui-utils.js v2.0 -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
@@ -80,14 +79,19 @@
     </a>
   </nav>
 
-  <!-- HERO — identique sur toutes les pages -->
+  <!-- ═══════════════════════════════════════════════════════════════════
+       HERO — Bandeau d'identité joueur
+       MODIFIÉ Juin 2026 : Suppression de la ligne "Level · pts · levels"
+       qui était redondante avec les bento tiles. Le hero est maintenant
+       sur une seule ligne : avatar | nom + XP | switch joueur.
+       ═══════════════════════════════════════════════════════════════════ -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">?
       <span class="hero-lvl-badge" id="heroLvl">1</span>
     </div>
     <div class="hero-info">
       <div class="hero-name" id="heroName">Guest</div>
-      <div class="hero-tag" id="heroTag">Level 1 · 0 pts · 0/20 levels</div>
+      <!-- SUPPRIMÉ : hero-tag redondant avec bento tiles -->
     </div>
     <div class="hero-xp">
       <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
@@ -105,7 +109,7 @@
     </div>
   </header>
 
-  <!-- BENTO — identique sur toutes les pages -->
+  <!-- BENTO — Grille de 3 tuiles (Level / Points / Done) -->
   <div class="bento-grid">
     <div class="bento-tile">
       <div class="bento-num" id="b1">1</div>
@@ -124,7 +128,7 @@
   <!-- ═══════════════════════════════════════════════════════════════════
        SECTION : HOME — Page d'accueil
        MODIFIÉ Juin 2026 : Suppression des liens doublons (Play Now, Lessons, Vocabulary)
-       La section "Extra games" est déplacée dans la barre du haut.
+       et de la section "Extra games" (déplacée dans la barre du haut).
        ═══════════════════════════════════════════════════════════════════ -->
   <section id="home" class="section active">
     <h1 class="page-title">🥖 Daily French</h1>
@@ -134,11 +138,6 @@
       <button class="mode-btn" data-mode="qcm">QCM</button>
       <button class="mode-btn" data-mode="libre">Written</button>
     </div>
-    <!-- 
-      NOTE Juin 2026 : Les liens "Play Now", "Lessons", "Vocabulary" ont été supprimés
-      car ils sont déjà présents dans la navigation du bas. Cela évite la confusion
-      et libère de l'espace sur la page d'accueil.
-    -->
   </section>
 
   <!-- ══ SECTION : LEÇONS ══ -->
@@ -160,7 +159,6 @@
 
   <!-- ══ SECTION : JEU ══ -->
   <section id="jeu" class="section" style="display:none;">
-    <!-- Intro de leçon -->
     <div id="lessonIntro" class="lesson-intro" style="display:none;">
       <h3 id="lessonIntroTitle" class="intro-title"></h3>
       <p  id="lessonIntroObj"   class="intro-objective"></p>
@@ -168,7 +166,6 @@
       <div id="lessonIntroVocabulary" class="intro-vocab"></div>
       <button id="startLevelBtn" class="btn btn-primary btn-large">Start Level</button>
     </div>
-    <!-- Zone de jeu -->
     <div id="gameArea" class="game-area">
       <div class="game-header">
         <div id="gameTitle" class="game-title">Level 1</div>
