@@ -2,13 +2,16 @@
  * base.css — Fondation visuelle Daily French
  * 
  * Date : 7 juin 2026
- * Version : 2.0 — Ajout de la barre de navigation du haut
+ * Version : 2.0
  * 
- * Ce fichier est chargé par TOUTES les pages (quiz, dashboard, vocabulary,
- * emergency, conversation). Il fournit : variables CSS thémables, reset
- * typographique, composants partagés, responsive iOS/Android.
+ * MODIFICATIONS v2.0 :
+ * - Ajout de .nav-top (barre de navigation du haut)
+ * - .hero : padding-top augmenté pour laisser place à nav-top
+ * - .vocab-popup-close : caché par défaut, visible seulement quand popup ouvert
+ * - Correction de la croix fantôme sur toutes les pages
  * 
- * Thèmes : Ardoise (défaut), Mauve, Terra — basculés via classe sur <html>.
+ * Ce fichier est chargé par TOUTES les pages.
+ * Thèmes : Ardoise (défaut), Mauve, Terra.
  */
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -102,7 +105,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   3. RESET & BASE — Box-sizing, fonte, anti-aliasing
+   3. RESET & BASE
    ═══════════════════════════════════════════════════════════════════ */
 
 *, *::before, *::after {
@@ -124,6 +127,7 @@ body {
   line-height: 1.6;
   color: var(--text);
   background: var(--bg);
+  /* padding-bottom : espace pour la nav du bas */
   padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
   min-height: 100vh;
   overflow-x: hidden;
@@ -131,7 +135,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   4. ORBES DÉCORATIFS — Fond flou, non interactif, z-index négatif
+   4. ORBES DÉCORATIFS
    ═══════════════════════════════════════════════════════════════════ */
 
 .orb {
@@ -160,15 +164,11 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   5. NAVIGATION TOP — Barre du haut (NOUVEAU — Juin 2026)
+   5. NAVIGATION TOP — Barre du haut (NOUVEAU v2.0)
    ═══════════════════════════════════════════════════════════════════
    
-   Cette barre affiche les liens vers les pages annexes :
-   SOS (urgence), Talk (conversations), Listen (prononciation),
-   Phrase (grammaire), Config (paramètres).
-   
-   Elle est identique sur toutes les pages pour une navigation
-   cohérente. Les icônes sont des emojis pour compatibilité maximale.
+   Affichée sur toutes les pages. Contient les liens vers les pages
+   annexes : SOS, Talk, Listen, Phrase, Config.
    
    Ordre logique : Urgence → Communication → Jeux → Paramètres
    ═══════════════════════════════════════════════════════════════════ */
@@ -226,23 +226,22 @@ body {
   color: var(--primary);
 }
 
-/* Quand une page est active, son lien dans la barre du haut est souligné */
 .nav-top-item.active .nav-top-icon {
   transform: translateY(-1px);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   6. HERO — Bandeau d'identité joueur avec gradient dynamique
+   6. HERO — Bandeau joueur
    ═══════════════════════════════════════════════════════════════════
    
-   MODIFIÉ — Juin 2026 : padding-top augmenté pour laisser de la place
-   à la barre de navigation du haut (nav-top).
+   MODIFIÉ v2.0 : padding-top augmenté pour laisser de la place
+   à la barre de navigation du haut (nav-top = 48px + safe-area).
    ═══════════════════════════════════════════════════════════════════ */
 
 .hero {
   background: linear-gradient(135deg, var(--hero-from) 0%, var(--hero-via) 50%, var(--hero-to) 100%);
   color: var(--white);
-  /* padding-top augmenté : hauteur nav-top (48px) + safe-area + marge */
+  /* 58px = 48px (nav-top) + 10px (marge) */
   padding: calc(58px + env(safe-area-inset-top, 0px)) 14px 10px;
   display: grid;
   grid-template-areas:
@@ -302,14 +301,7 @@ body {
   text-overflow: ellipsis;
 }
 
-.hero-tag {
-  font-size: 11px;
-  opacity: 0.85;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-top: 1px;
-}
+/* hero-tag SUPPRIMÉ v2.0 — doublon avec les bento tiles */
 
 .hero-xp {
   grid-area: xp;
@@ -357,7 +349,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   7. BENTO — Grille de 3 tuiles récapitulatives
+   7. BENTO — Grille de 3 tuiles
    ═══════════════════════════════════════════════════════════════════ */
 
 .bento-grid {
@@ -403,7 +395,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   8. NAVIGATION BOTTOM — Fixe, safe-area, touch 44px+
+   8. NAVIGATION BOTTOM — Fixe, safe-area
    ═══════════════════════════════════════════════════════════════════ */
 
 .nav-bottom {
@@ -467,7 +459,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   9. MODAL — Overlay centré, fond verre dépoli, focus trap prêt
+   9. MODAL
    ═══════════════════════════════════════════════════════════════════ */
 
 .modal-wrap {
@@ -514,7 +506,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   10. TOAST — Notification éphémère, file d'attente, non-intrusif
+   10. TOAST
    ═══════════════════════════════════════════════════════════════════ */
 
 .toast {
@@ -544,7 +536,7 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   11. BOUTONS — Touch target 44px+, états hover/active/focus
+   11. BOUTONS
    ═══════════════════════════════════════════════════════════════════ */
 
 .btn,
@@ -606,7 +598,7 @@ button {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   12. INPUTS — Lisibles, gros, sans autocapitalize iOS agressif
+   12. INPUTS
    ═══════════════════════════════════════════════════════════════════ */
 
 input[type="text"],
@@ -633,7 +625,7 @@ textarea:focus {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   13. SECTIONS & CONTENEURS — Espacement cohérent
+   13. SECTIONS & CONTENEURS
    ═══════════════════════════════════════════════════════════════════ */
 
 .section {
@@ -679,7 +671,7 @@ textarea:focus {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   14. CARTES & TILES — Surfaces blanches, ombre légère
+   14. CARTES & TILES
    ═══════════════════════════════════════════════════════════════════ */
 
 .card {
@@ -692,7 +684,7 @@ textarea:focus {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   15. RESPONSIVE — Desktop : contenu centré, max-width lisible
+   15. RESPONSIVE
    ═══════════════════════════════════════════════════════════════════ */
 
 @media (min-width: 768px) {
@@ -704,7 +696,6 @@ textarea:focus {
     display: none;
   }
 
-  /* Sur desktop, la barre du haut reste visible */
   .nav-top {
     position: sticky;
     top: 0;
@@ -736,7 +727,7 @@ textarea:focus {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   16. ACCESSIBILITÉ — Respect des préférences utilisateur
+   16. ACCESSIBILITÉ
    ═══════════════════════════════════════════════════════════════════ */
 
 @media (prefers-reduced-motion: reduce) {
@@ -756,7 +747,7 @@ textarea:focus {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   17. UTILITAIRES — Classes helpers fréquemment utilisées
+   17. UTILITAIRES
    ═══════════════════════════════════════════════════════════════════ */
 
 .hidden { display: none !important; }
@@ -786,11 +777,7 @@ textarea:focus {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   18. VOCAB WORD — Surlignement dans leçons et questions
-   ═══════════════════════════════════════════════════════════════════
-   
-   Les mots du lexique sont soulignés en pointillés et cliquables.
-   Nécessite vocabulary-engine.js pour fonctionner.
+   18. VOCAB WORD — Surlignement
    ═══════════════════════════════════════════════════════════════════ */
 
 .vocab-word {
@@ -808,12 +795,13 @@ textarea:focus {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   19. VOCAB POPUP — Modal de définition des mots
+   19. VOCAB POPUP — Modal de définition
    ═══════════════════════════════════════════════════════════════════
    
-   MODIFIÉ — Juin 2026 : Le bouton de fermeture est caché par défaut
-   pour éviter la croix fantôme. Il ne s'affiche que quand le popup
-   est ouvert.
+   CORRECTION v2.0 :
+   - Le bouton de fermeture est caché par défaut
+   - Il ne s'affiche que quand le popup a la classe "open"
+   - Cela corrige la croix fantôme visible sur toutes les pages
    ═══════════════════════════════════════════════════════════════════ */
 
 .vocab-popup-modal {
@@ -828,6 +816,7 @@ textarea:focus {
   padding: var(--space-md);
 }
 
+/* Quand le popup est ouvert (classe "open" ajoutée par JS) */
 .vocab-popup-modal.open {
   display: flex;
 }
@@ -843,7 +832,7 @@ textarea:focus {
   animation: modalIn 250ms ease;
 }
 
-/* Le bouton de fermeture est caché quand le popup est fermé */
+/* Bouton de fermeture — CACHÉ par défaut */
 .vocab-popup-close {
   display: none;
   position: absolute;
@@ -864,7 +853,7 @@ textarea:focus {
   min-height: auto;
 }
 
-/* Le bouton s'affiche seulement quand le popup est ouvert */
+/* Le bouton s'affiche SEULEMENT quand le popup est ouvert */
 .vocab-popup-modal.open .vocab-popup-close {
   display: flex;
 }
@@ -874,6 +863,7 @@ textarea:focus {
   color: var(--text);
 }
 
+/* Contenu du popup */
 .vocab-popup-fr   { font-size: 1.2rem; font-weight: 800; color: var(--primary); padding-right: 32px; }
 .vocab-popup-phon { font-size: 0.85rem; color: var(--muted); font-style: italic; margin-top: 2px; }
 .vocab-popup-en   { font-size: 1rem; color: var(--text); margin-top: 6px; }
