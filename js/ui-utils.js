@@ -3,7 +3,14 @@
 // Toast, export/import, popup vocabulaire, navigation
 // 
 // Date : 7 juin 2026
-// Version : 2.0 — Correction du popup vocabulaire
+// Version : 2.0
+// 
+// MODIFICATIONS v2.0 :
+// - openVocabPopup : fonctionne avec les deux structures HTML
+//   (quiz.html avec #vocab-popup-body ET vocabulary.html avec IDs séparés)
+// - closeVocabPopup : corrigé, ferme proprement sans bug
+// - _esc : helper HTML ajouté (utilisé aussi par vocabulary-engine.js)
+// - Suppression de la croix fantôme via classe "open" sur le modal
 // ═══════════════════════════════════════════════════════════════════
 
 // ── TOAST ──
@@ -64,12 +71,17 @@ function importSave(event) {
 
 // ── VOCABULAIRE POPUP ──
 // 
-// CORRECTION — Juin 2026 :
-// Le popup fonctionne maintenant avec deux structures possibles :
-// 1. Structure complète (vocabulary.html) : IDs séparés vocabPopupFr, vocabPopupPhon, etc.
-// 2. Structure simple (quiz.html) : un seul conteneur #vocab-popup-body
+// CORRECTION v2.0 :
+// Le popup fonctionne avec deux structures HTML possibles :
 // 
-// Le popup s'ouvre en ajoutant la classe "open" (compatible avec base.css v2.0).
+// 1. Structure complète (vocabulary.html, dashboard.html) :
+//    IDs séparés : vocabPopupFr, vocabPopupPhon, vocabPopupEn, etc.
+// 
+// 2. Structure simple (quiz.html) :
+//    Un seul conteneur : #vocab-popup-body
+// 
+// Le popup s'ouvre en ajoutant la classe "open" au modal
+// (compatible avec base.css v2.0 qui cache le bouton × par défaut).
 
 function openVocabPopup(fr) {
   if (typeof VOCABULARY_BDD === "undefined") return;
@@ -101,7 +113,7 @@ function openVocabPopup(fr) {
     `;
   }
   
-  // Ouvrir le popup (compatible base.css v2.0 : classe "open")
+  // Ouvrir le popup : ajouter classe "open" + display flex
   const modal = document.getElementById("vocabulary-popup-modal");
   if (modal) {
     modal.classList.add("open");
@@ -110,11 +122,12 @@ function openVocabPopup(fr) {
 }
 
 function closeVocabPopup(e) {
-  // Si on clique sur le bouton × ou sur l'overlay, on ferme
-  if (e) {
-    // Si c'est un événement click, on vérifie qu'on ne clique pas dans le contenu
-    if (e.target && e.target.closest(".vocab-popup-content")) {
-      // Clic dans le contenu du popup — ne pas fermer (sauf si c'est le bouton ×)
+  // Si on clique sur le bouton ×, e est undefined ou le bouton
+  // Si on clique sur l'overlay, e.target est l'overlay
+  if (e && e.target) {
+    // On ne ferme PAS si on clique dans le contenu du popup
+    if (e.target.closest(".vocab-popup-content")) {
+      // Clic dans le contenu — ne pas fermer sauf si c'est le bouton ×
       if (!e.target.classList.contains("vocab-popup-close")) return;
     }
   }
