@@ -34,9 +34,7 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       NAVIGATION TOP — Barre du haut (NOUVEAU — Juin 2026)
-       ═══════════════════════════════════════════════════════════════════ -->
+  <!-- NAVIGATION TOP -->
   <nav class="nav-top">
     <a href="emergency.html" class="nav-top-item">
       <span class="nav-top-icon">🚨</span>SOS
@@ -55,10 +53,7 @@
     </a>
   </nav>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       NAVIGATION BOTTOM — Navigation principale
-       MODIFIÉ Juin 2026 : "Home" → "Start", "Space" → "Dashboard"
-       ═══════════════════════════════════════════════════════════════════ -->
+  <!-- NAVIGATION BOTTOM -->
   <nav class="nav-bottom">
     <a href="quiz.html" class="nav-item active">
       <span class="nav-icon">🏠</span><span>Start</span>
@@ -77,14 +72,13 @@
     </a>
   </nav>
 
-  <!-- HERO — identique sur toutes les pages -->
+  <!-- HERO -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">?
       <span class="hero-lvl-badge" id="heroLvl">1</span>
     </div>
     <div class="hero-info">
       <div class="hero-name" id="heroName">Guest</div>
-      <!-- hero-tag SUPPRIMÉ — les infos Level/Points/Done sont dans les bento tiles -->
     </div>
     <div class="hero-xp">
       <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
@@ -102,7 +96,7 @@
     </div>
   </header>
 
-  <!-- BENTO — identique sur toutes les pages -->
+  <!-- BENTO -->
   <div class="bento-grid">
     <div class="bento-tile">
       <div class="bento-num" id="b1">1</div>
@@ -118,43 +112,46 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       SECTION : HOME — Page d'accueil / Page de démarrage
-       MODIFIÉ Juin 2026 :
-       - Suppression des liens doublons (Play Now, Lessons, Vocabulary)
-       - Ajout du bouton "Play" pour lancer le jeu
-       - Le sélecteur de mode choisit le mode AVANT de jouer
-       ═══════════════════════════════════════════════════════════════════ -->
+  <!-- SECTION : HOME -->
   <section id="home" class="section active">
     <h1 class="page-title">🥖 Daily French</h1>
     <p class="page-subtitle">Learn everyday French, one level at a time.</p>
     
-    <!-- Sélecteur de mode -->
+    <!-- Sélecteur de mode (QCM / Libre / Mixte) -->
     <div class="mode-selector">
       <button class="mode-btn active" data-mode="mixte">Mixed</button>
       <button class="mode-btn" data-mode="qcm">QCM</button>
       <button class="mode-btn" data-mode="libre">Written</button>
     </div>
     
-    <!-- 
-      NOTE Juin 2026 : Les liens "Play Now", "Lessons", "Vocabulary" ont été supprimés
-      car ils sont déjà présents dans la navigation du bas. 
-      
-      Le bouton "Play" ci-dessous lance directement le jeu avec le mode choisi.
-      Il redirige vers la section "levels" (grille des niveaux).
-    -->
+    <!-- NOUVEAU v2.1 : Sélecteur de direction -->
+    <div class="direction-selector" style="margin-top: var(--space-md);">
+      <div style="font-size: var(--font-sm); color: var(--muted); margin-bottom: var(--space-xs);">
+        Question direction:
+      </div>
+      <button class="direction-btn active" data-direction="en-first" onclick="applyDirectionPick('en-first')">
+        🇬🇧→🇫🇷 EN First
+      </button>
+      <button class="direction-btn" data-direction="fr-first" onclick="applyDirectionPick('fr-first')">
+        🇫🇷→🇬🇧 FR First
+      </button>
+      <button class="direction-btn" data-direction="mixed" onclick="applyDirectionPick('mixed')">
+        🔄 Mixed
+      </button>
+    </div>
+    
     <div class="cta-group" style="margin-top: var(--space-lg);">
       <a href="quiz.html?section=levels" class="btn btn-primary btn-large">🎮 Play</a>
     </div>
   </section>
 
-  <!-- ══ SECTION : LEÇONS ══ -->
+  <!-- SECTION : LEÇONS -->
   <section id="lecons" class="section" style="display:none;">
     <h2 class="section-title">📚 Lessons</h2>
     <div id="lessonsContainer" class="lessons-container"></div>
   </section>
 
-  <!-- ══ SECTION : NIVEAUX ══ -->
+  <!-- SECTION : NIVEAUX -->
   <section id="levels" class="section" style="display:none;">
     <h2 class="section-title">🎮 Choose a Level</h2>
     <div class="mode-selector">
@@ -165,49 +162,48 @@
     <div id="levelsContainer" class="levels-container"></div>
   </section>
 
-  <!-- ══ SECTION : JEU ══ -->
+  <!-- SECTION : JEU -->
   <section id="jeu" class="section" style="display:none;">
-    <!-- Intro de leçon -->
     <div id="lessonIntro" class="lesson-intro" style="display:none;">
       <h3 id="lessonIntroTitle" class="intro-title"></h3>
-      <p  id="lessonIntroObj"   class="intro-objective"></p>
-      <div id="lessonIntroContent"    class="intro-content"></div>
+      <p id="lessonIntroObj" class="intro-objective"></p>
+      <div id="lessonIntroContent" class="intro-content"></div>
       <div id="lessonIntroVocabulary" class="intro-vocab"></div>
       <button id="startLevelBtn" class="btn btn-primary btn-large">Start Level</button>
     </div>
-    <!-- Zone de jeu -->
+    
     <div id="gameArea" class="game-area">
       <div class="game-header">
         <div id="gameTitle" class="game-title">Level 1</div>
         <div class="game-meta">
           <span id="questionCounter" class="counter">1 / 10</span>
-          <span id="scoreDisplay"    class="score">0 pts</span>
+          <span id="scoreDisplay" class="score">0 pts</span>
         </div>
         <div class="progress-track">
           <div id="progressFill" class="progress-fill"></div>
         </div>
       </div>
-      <div id="questionText"  class="question-text"></div>
-      <div id="qcmOptions"    class="qcm-options"></div>
-      <div id="libreInput"    class="libre-input" style="display:none;">
+      <div id="questionText" class="question-text"></div>
+      <div id="qcmOptions" class="qcm-options"></div>
+      <div id="libreInput" class="libre-input" style="display:none;">
         <input type="text" id="answerInput" class="answer-input"
           placeholder="Type your answer here…"
           autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
       </div>
-      <div id="hintBox"       class="hint-box" style="display:none;"></div>
+      <div id="hintBox" class="hint-box" style="display:none;"></div>
       <div class="game-actions">
         <button id="validateBtn" class="btn btn-primary btn-large">Validate</button>
-        <button id="nextBtn"     class="btn btn-secondary btn-large" style="display:none;">Next</button>
+        <button id="nextBtn" class="btn btn-secondary btn-large" style="display:none;">Next</button>
       </div>
-      <div id="feedbackArea"  class="feedback-area" style="display:none;">
-        <div id="feedbackTitle"       class="feedback-title"></div>
-        <div id="feedbackCorrect"     class="feedback-correct"></div>
+      <div id="feedbackArea" class="feedback-area" style="display:none;">
+        <div id="feedbackTitle" class="feedback-title"></div>
+        <div id="feedbackCorrect" class="feedback-correct"></div>
         <div id="feedbackExplanation" class="feedback-explanation"></div>
       </div>
     </div>
   </section>
 
-  <!-- ══ SECTION : RÉSULTATS ══ -->
+  <!-- SECTION : RÉSULTATS -->
   <section id="resultats" class="section" style="display:none;">
     <h2 class="section-title">🎯 Results</h2>
     <div class="result-circle">
@@ -215,9 +211,9 @@
     </div>
     <div id="resultMsg" class="result-message"></div>
     <div class="result-actions">
-      <button id="retryBtn"     class="btn btn-secondary btn-large">Retry</button>
-      <button id="nextLevelBtn" class="btn btn-primary   btn-large">Next Level</button>
-      <button id="quitBtn"      class="btn btn-ghost     btn-large">Quit</button>
+      <button id="retryBtn" class="btn btn-secondary btn-large">Retry</button>
+      <button id="nextLevelBtn" class="btn btn-primary btn-large">Next Level</button>
+      <button id="quitBtn" class="btn btn-ghost btn-large">Quit</button>
     </div>
   </section>
 
