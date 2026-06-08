@@ -45,7 +45,9 @@
     topNav.className = 'nav-top';
     topNav.innerHTML = TOP_MENU.map(item => {
       const itemHref = prefix + item.href;
-      const isActive = currentHref.includes(item.href.replace('games/', ''));
+      // Détection active : comparer le nom de fichier sans le dossier games/
+      const itemFile = item.href.replace('games/', '');
+      const isActive = currentPage === itemFile || currentHref.includes(itemFile);
       return `<a href="${itemHref}" class="nav-top-item ${isActive ? 'active' : ''}">
         <span class="nav-top-icon">${item.icon}</span>${item.label}
       </a>`;
