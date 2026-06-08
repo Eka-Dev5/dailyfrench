@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════
 // EMERGENCY.JS — Daily French 🥖
 // Mode SOS : navigation catégories, phrases, TTS, favoris, recherche
+// v3.0 : Toggle direction EN↔FR + affichage adaptatif
 // ═══════════════════════════════════════════════════════════════════
 
 // ═══════════════════════════════════════════════════════════════════
@@ -11,6 +12,7 @@ const SOS_STORAGE_KEY = 'dailyFrench_sosFavorites';
 
 let sosFavorites = [];
 let currentCategory = null;
+let sosDirection = 'en-first'; // 'en-first' | 'fr-first' | 'mixed'
 
 // ═══════════════════════════════════════════════════════════════════
 // 2. INIT
@@ -19,10 +21,56 @@ let currentCategory = null;
 function initSOS() {
   if (typeof initCore === 'function') initCore();
   loadSOSFavorites();
+  loadSOSDirection();
   renderCategories();
   updateFavCount();
   setupSearch();
   setupTTS();
+  renderDirectionToggle();
+}
+
+// ─── DIRECTION SOS ───────────────────────────────────────────────
+function loadSOSDirection() {
+  // Priorité : setting SOS spécifique → setting global → défaut 'en-first'
+  const saved = localStorage.getItem('dailyFrench_direction_sos') ||
+                localStorage.getItem('dailyFrench_direction') ||
+                'en-first';
+  sosDirection = saved;
+}
+
+function saveSOSDirection(dir) {
+  sosDirection = dir;
+  localStorage.setItem('dailyFrench_direction_sos', dir);
+  toast('SOS direction: ' + dir.replace('-', '→').toUpperCase());
+  renderDirectionToggle();
+  // Rafraîchir l'affichage si on est dans une catégorie
+  if (currentCategory) {
+    const cat = EMERGENCY_CATEGORIES.find(c => c.id === currentCategory);
+    if (cat) showPhrases(cat);
+  }
+}
+
+function renderDirectionToggle() {
+  const container = document.querySelector('.sos-direction-toggle') || createDirectionToggleContainer();
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="sos-dir-bar">
+      <button class="sos-dir-btn ${sosDirection === 'en-first' ? 'active' : ''}" onclick="saveSOSDirection('en-first')">🇬🇧→🇫🇷</button>
+      <button class="sos-dir-btn ${sosDirection === 'fr-first' ? 'active' : ''}" onclick="saveSOSDirection('fr-first')">🇫🇷→🇬🇧</button>
+      <button class="sos-dir-btn ${sosDirection === 'mixed' ? 'active' : ''}" onclick="saveSOSDirection('mixed')">🔄 Mixed</button>
+    </div>
+  `;
+}
+
+function createDirectionToggleContainer() {
+  const header = document.querySelector('.emergency-main');
+  if (!header) return null;
+  const div = document.createElement('div');
+  div.className = 'sos-direction-toggle';
+  div.style.cssText = 'margin-bottom:var(--space-md);';
+  header.insertBefore(div, header.firstChild);
+  return div;
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -64,7 +112,6 @@ function toggleSOSFavorite(phraseId, phraseData) {
     toast('Added to favorites! ❤️');
   }
   saveSOSFavorites();
-  // Rafraîchir l'icône
   const btn = document.querySelector(`[data-fav="${phraseId}"]`);
   if (btn) updateFavButton(btn, phraseId);
 }
@@ -81,7 +128,7 @@ function updateFavCount() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 4. RENDU CATÉGORIES — Grille d'icônes
+// 4. RENDU CATÉGORIES
 // ═══════════════════════════════════════════════════════════════════
 
 function renderCategories() {
@@ -108,7 +155,6 @@ function renderCategories() {
     container.appendChild(card);
   });
 
-  // Cacher les autres vues
   const phrasesView = document.getElementById('sosPhrases');
   const searchView = document.getElementById('sosSearchResults');
   if (phrasesView) phrasesView.style.display = 'none';
@@ -116,7 +162,7 @@ function renderCategories() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 5. AFFICHAGE PHRASES — Vue détaillée d'une catégorie
+// 5. AFFICHAGE PHRASES — AVEC DIRECTION v3.0
 // ═══════════════════════════════════════════════════════════════════
 
 function showPhrases(cat) {
@@ -148,7 +194,6 @@ function showCategories() {
   if (phrasesView) phrasesView.style.display = 'none';
   if (searchView) searchView.style.display = 'none';
 
-  // Vider la recherche
   const searchInput = document.getElementById('sosSearch');
   if (searchInput) searchInput.value = '';
 
@@ -157,7 +202,7 @@ function showCategories() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 6. RENDU LISTE DE PHRASES — Réutilisable (catégorie ou recherche)
+// 6. RENDU LISTE DE PHRASES — ORDRE ADAPTATIF v3.0
 // ═══════════════════════════════════════════════════════════════════
 
 function renderPhrasesList(phrases, containerId) {
@@ -175,50 +220,48 @@ function renderPhrasesList(phrases, containerId) {
     const phraseId = slugifySOS(p.fr);
     const isFav = isSOSFavorite(phraseId);
 
+    // Déterminer l'ordre d'affichage selon la direction
+    const showEnFirst = sosDirection === 'en-first' ||
+                       (sosDirection === 'mixed' && idx % 2 === 0);
+
     const card = document.createElement('div');
     card.className = 'sos-phrase-card';
+
+    // HTML adaptatif selon la direction
+    const mainLine = showEnFirst
+      ? `<div class="sos-phrase-en sos-phrase-main">${escapeHtml(p.en)}</div>
+         <div class="sos-phrase-fr">${escapeHtml(p.fr)}</div>`
+      : `<div class="sos-phrase-fr sos-phrase-main">${escapeHtml(p.fr)}</div>
+         <div class="sos-phrase-en">${escapeHtml(p.en)}</div>`;
+
     card.innerHTML = `
       <div class="sos-phrase-num">${idx + 1}</div>
       <div class="sos-phrase-body">
-        <div class="sos-phrase-fr">${escapeHtml(p.fr)}</div>
+        ${mainLine}
         <div class="sos-phrase-phon">${escapeHtml(p.phon)}</div>
-        <div class="sos-phrase-en">${escapeHtml(p.en)}</div>
         ${p.context ? `<div class="sos-phrase-context">${escapeHtml(p.context)}</div>` : ''}
         <div class="sos-phrase-actions">
-          <button class="sos-btn-tts" data-tts="${escapeHtml(p.fr)}" title="Listen">
-            🔊 Listen
-          </button>
-          <button class="sos-btn-fav ${isFav ? 'active' : ''}" data-fav="${phraseId}" title="Save">
-            ${isFav ? '❤️' : '🤍'}
-          </button>
-          <button class="sos-btn-copy" data-copy="${escapeHtml(p.fr)}" title="Copy">
-            📋 Copy
-          </button>
+          <button class="sos-btn-tts" data-tts="${escapeHtml(p.fr)}" title="Listen">🔊 Listen</button>
+          <button class="sos-btn-fav ${isFav ? 'active' : ''}" data-fav="${phraseId}" title="Save">${isFav ? '❤️' : '🤍'}</button>
+          <button class="sos-btn-copy" data-copy="${escapeHtml(p.fr)}" title="Copy">📋 Copy</button>
         </div>
       </div>
     `;
 
-    // Écouteurs
     const ttsBtn = card.querySelector('.sos-btn-tts');
     const favBtn = card.querySelector('.sos-btn-fav');
     const copyBtn = card.querySelector('.sos-btn-copy');
 
-    if (ttsBtn) {
-      ttsBtn.addEventListener('click', () => speakFrench(p.fr));
-    }
-    if (favBtn) {
-      favBtn.addEventListener('click', () => toggleSOSFavorite(phraseId, p));
-    }
-    if (copyBtn) {
-      copyBtn.addEventListener('click', () => copyToClipboard(p.fr, copyBtn));
-    }
+    if (ttsBtn) ttsBtn.addEventListener('click', () => speakFrench(p.fr));
+    if (favBtn) favBtn.addEventListener('click', () => toggleSOSFavorite(phraseId, p));
+    if (copyBtn) copyBtn.addEventListener('click', () => copyToClipboard(p.fr, copyBtn));
 
     container.appendChild(card);
   });
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 7. RECHERCHE — Chercher dans toutes les phrases
+// 7. RECHERCHE
 // ═══════════════════════════════════════════════════════════════════
 
 function setupSearch() {
@@ -270,16 +313,14 @@ function doSearch(query) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 8. TTS — Text-to-Speech en français
+// 8. TTS
 // ═══════════════════════════════════════════════════════════════════
 
 let ttsEnabled = false;
 
 function setupTTS() {
-  // Vérifier si le navigateur supporte la Web Speech API
   if ('speechSynthesis' in window) {
     ttsEnabled = true;
-    // Précharger la voix française
     loadFrenchVoice();
   }
 }
@@ -288,12 +329,9 @@ let frenchVoice = null;
 
 function loadFrenchVoice() {
   const voices = speechSynthesis.getVoices();
-  // Chercher une voix française
   frenchVoice = voices.find(v => v.lang.startsWith('fr')) ||
                 voices.find(v => v.lang.startsWith('fr-FR')) ||
                 voices.find(v => v.lang.startsWith('fr_CA'));
-
-  // Si pas encore chargé, attendre
   if (!frenchVoice && voices.length === 0) {
     speechSynthesis.addEventListener('voiceschanged', () => {
       const v = speechSynthesis.getVoices();
@@ -308,28 +346,18 @@ function speakFrench(text) {
     toast('Text-to-speech not available on this device');
     return;
   }
-
-  // Annuler toute lecture en cours
   speechSynthesis.cancel();
-
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = 'fr-FR';
-  utterance.rate = 0.85; // Un peu plus lent pour l'apprentissage
+  utterance.rate = 0.85;
   utterance.pitch = 1;
-
-  if (frenchVoice) {
-    utterance.voice = frenchVoice;
-  }
-
-  utterance.onerror = () => {
-    toast('Could not play audio');
-  };
-
+  if (frenchVoice) utterance.voice = frenchVoice;
+  utterance.onerror = () => toast('Could not play audio');
   speechSynthesis.speak(utterance);
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 9. COPIE DANS LE PRESSE-PAPIER
+// 9. COPIE
 // ═══════════════════════════════════════════════════════════════════
 
 function copyToClipboard(text, btn) {
@@ -338,9 +366,7 @@ function copyToClipboard(text, btn) {
       const original = btn.innerHTML;
       btn.innerHTML = '✅ Copied!';
       setTimeout(() => btn.innerHTML = original, 1500);
-    }).catch(() => {
-      fallbackCopy(text, btn);
-    });
+    }).catch(() => fallbackCopy(text, btn));
   } else {
     fallbackCopy(text, btn);
   }
