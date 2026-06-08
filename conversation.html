@@ -11,93 +11,60 @@
   <script src="js/nav.js"></script>
 </head>
 <body>
-
   <div id="toast" class="toast"></div>
-
-  <!-- Modal joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
-      <input type="text" id="mInput" maxlength="30" placeholder="Your name"
-        autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="mInput" maxlength="30" placeholder="Your name" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
       <div class="modal-actions">
         <button id="btnCancelModal" class="btn-ghost" onclick="closeModal()">Cancel</button>
         <button id="btnCreatePlayer" class="btn-primary" onclick="confirmNewPlayer()">Create</button>
       </div>
     </div>
   </div>
-
-  <!-- Popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
       <div id="vocab-popup-body"></div>
     </div>
   </div>
-
-  <!-- HERO sans bouton Settings -->
   <header class="hero conversation-hero">
     <div class="hero-avatar" id="heroAv">💬<span class="hero-lvl-badge" id="heroLvl">1</span></div>
-    <div class="hero-info">
-      <div class="hero-name" id="heroName">Guest</div>
-    </div>
+    <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
     <div class="hero-xp">
       <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
-      <div class="xp-text" id="xpText">
-        <span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts
-      </div>
+      <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
     </div>
     <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
-        <option value="">Choose a player</option>
-      </select>
+      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
     </div>
   </header>
-
-  <!-- BENTO -->
   <div class="bento-grid">
-    <div class="bento-tile">
-      <div class="bento-num" id="b1">1</div>
-      <div class="bento-label">Level</div>
-    </div>
-    <div class="bento-tile">
-      <div class="bento-num" id="b2">0</div>
-      <div class="bento-label">Points</div>
-    </div>
-    <div class="bento-tile">
-      <div class="bento-num" id="b3">0/20</div>
-      <div class="bento-label">Done</div>
-    </div>
+    <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
+    <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
+    <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
-
   <main class="conversation-main">
     <section class="conv-section" id="convList">
       <h2 class="conv-section-title">Choose a scenario</h2>
       <div id="convScenarios" class="conv-list"></div>
     </section>
-
-    <section class="conv-section" id="convSim" style="display:none;">
+    <section class="conv-section" id="convSim" style="display:none">
       <div class="conv-sim-header">
-        <div class="conv-sim-info">
-          <span id="convSimIcon">🥖</span>
-          <span id="convSimTitle">Scenario</span>
-        </div>
+        <div class="conv-sim-info"><span id="convSimIcon">🥖</span><span id="convSimTitle">Scenario</span></div>
         <span id="convSimProgress">1 / 5</span>
       </div>
       <div id="convDialogue" class="conv-dialogue"></div>
       <div id="convChoices" class="conv-choices"></div>
-      <div id="convFeedback" class="conv-feedback" style="display:none;">
+      <div id="convFeedback" class="conv-feedback" style="display:none">
         <div id="convFeedbackText"></div>
         <button id="convNextBtn" class="btn btn-primary">Continue</button>
       </div>
     </section>
-
-    <section class="conv-section" id="convResults" style="display:none;">
+    <section class="conv-section" id="convResults" style="display:none">
       <div class="conv-results">
-        <div class="conv-result-circle">
-          <div id="convResultScore">0%</div>
-        </div>
+        <div class="conv-result-circle"><div id="convResultScore">0%</div></div>
         <h2 id="convResultTitle">Results</h2>
         <p id="convResultMsg"></p>
         <div id="convResultBreakdown"></div>
@@ -108,40 +75,17 @@
       </div>
     </section>
   </main>
-
-  <!-- Scripts — ordre obligatoire -->
   <script src="js/config.js"></script>
   <script src="js/data.js"></script>
   <script src="js/conversation-data.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
   <script src="js/conversation.js"></script>
-
   <script>
-    // Theme toggle
-    function applyThemePick(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('dailyFrench_theme', theme);
-      if (typeof toast === 'function') toast('Theme: ' + theme);
-    }
-    
-    // Language toggle
-    function applyLangPick(lang) {
-      localStorage.setItem('dailyFrench_lang', lang);
-      if (typeof toast === 'function') toast('Language: ' + lang.toUpperCase());
-    }
-    
-    // Restore settings on load
-    (function() {
-      const savedTheme = localStorage.getItem('dailyFrench_theme');
-      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
-    })();
-    
-    // Init conversation
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof initConversation === 'function') initConversation();
-    });
+    function applyThemePick(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('dailyFrench_theme',t);if(typeof toast==='function')toast('Theme: '+t)}
+    function applyLangPick(l){localStorage.setItem('dailyFrench_lang',l);if(typeof toast==='function')toast('Language: '+l.toUpperCase())}
+    (function(){const t=localStorage.getItem('dailyFrench_theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
+    document.addEventListener('DOMContentLoaded',function(){if(typeof initConversation==='function')initConversation()});
   </script>
-
 </body>
 </html>
