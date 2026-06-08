@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Daily French 🥖 — Settings</title>
+  <link rel="stylesheet" href="css/base.css">
+  <style>
+    .settings-page { padding: calc(60px + env(safe-area-inset-top, 0px)) 16px 100px; max-width: 600px; margin: 0 auto; }
+    .settings-section { background: var(--white); border-radius: var(--r); padding: var(--space-md); margin-bottom: var(--space-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+    .settings-section h2 { font-size: var(--font-lg); margin-bottom: var(--space-sm); color: var(--text); }
+    .settings-row { display: flex; align-items: center; justify-content: space-between; padding: var(--space-sm) 0; border-bottom: 1px solid var(--border); }
+    .settings-row:last-child { border-bottom: none; }
+    .settings-row span { font-size: var(--font-sm); color: var(--text); font-weight: 600; }
+    .btn-back { display: inline-flex; align-items: center; gap: 6px; margin-bottom: var(--space-md); color: var(--primary); text-decoration: none; font-weight: 600; font-size: var(--font-sm); }
+  </style>
+</head>
+<body>
+
+  <!-- MENU HAUT -->
+  <nav class="nav-top">
+    <a href="emergency.html" class="nav-top-item"><span class="nav-top-icon">🚨</span>SOS</a>
+    <a href="conversation.html" class="nav-top-item"><span class="nav-top-icon">💬</span>Talk</a>
+    <a href="games/listen.html" class="nav-top-item"><span class="nav-top-icon">🎧</span>Listen</a>
+    <a href="games/phrase-builder.html" class="nav-top-item"><span class="nav-top-icon">🧩</span>Phrase</a>
+    <a href="settings.html" class="nav-top-item active"><span class="nav-top-icon">⚙️</span>Config</a>
+  </nav>
+
+  <!-- MENU BAS -->
+  <nav class="nav-bottom">
+    <a href="quiz.html" class="nav-item"><span class="nav-icon">🏠</span><span>Start</span></a>
+    <a href="quiz.html?section=lecons" class="nav-item"><span class="nav-icon">📚</span><span>Lessons</span></a>
+    <a href="quiz.html?section=levels" class="nav-item"><span class="nav-icon">🎮</span><span>Play</span></a>
+    <a href="vocabulary.html" class="nav-item"><span class="nav-icon">📖</span><span>Vocab</span></a>
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span>Dashboard</span></a>
+  </nav>
+
+  <div class="settings-page">
+    <a href="#" class="btn-back" onclick="history.back(); return false;">← Back</a>
+    <h1 class="page-title">⚙️ Settings</h1>
+    
+    <div class="settings-section">
+      <h2>🎨 Theme</h2>
+      <div class="settings-row">
+        <span>Ardoise</span>
+        <button class="btn-ghost btn-small" onclick="applyThemePick('ardoise')">Select</button>
+      </div>
+      <div class="settings-row">
+        <span>Mauve</span>
+        <button class="btn-ghost btn-small" onclick="applyThemePick('mauve')">Select</button>
+      </div>
+      <div class="settings-row">
+        <span>Terra Cotta</span>
+        <button class="btn-ghost btn-small" onclick="applyThemePick('terra')">Select</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h2>🌐 Language Direction</h2>
+      <div class="settings-row">
+        <span>🇬🇧 English → 🇫🇷 French</span>
+        <button class="btn-ghost btn-small" onclick="applyDirectionPick('en-first')">Select</button>
+      </div>
+      <div class="settings-row">
+        <span>🇫🇷 French → 🇬🇧 English</span>
+        <button class="btn-ghost btn-small" onclick="applyDirectionPick('fr-first')">Select</button>
+      </div>
+      <div class="settings-row">
+        <span>🔄 Mixed</span>
+        <button class="btn-ghost btn-small" onclick="applyDirectionPick('mixed')">Select</button>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <h2>💾 Profile</h2>
+      <div class="settings-row">
+        <span>Export backup</span>
+        <button class="btn-ghost btn-small" onclick="doExport()">Export</button>
+      </div>
+      <div class="settings-row">
+        <span>Import backup</span>
+        <input type="file" id="importFile" accept=".json" onchange="doImport(event)" style="display:none;">
+        <button class="btn-ghost btn-small" onclick="document.getElementById('importFile').click()">Import</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/core.js"></script>
+  <script>
+    // Restore theme
+    (function() {
+      const savedTheme = localStorage.getItem('dailyFrench_theme');
+      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
+</body>
+</html>
