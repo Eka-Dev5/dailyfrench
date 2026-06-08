@@ -11,71 +11,42 @@
   <script src="js/nav.js"></script>
 </head>
 <body>
-
   <div id="toast" class="toast"></div>
-
-  <!-- Modal joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
-      <input type="text" id="mInput" maxlength="30" placeholder="Your name"
-        autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="mInput" maxlength="30" placeholder="Your name" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
       <div class="modal-actions">
         <button id="btnCancelModal" class="btn-ghost">Cancel</button>
         <button id="btnCreatePlayer" class="btn-primary">Create</button>
       </div>
     </div>
   </div>
-
-  <!-- Popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
       <div id="vocab-popup-body"></div>
     </div>
   </div>
-
-  <!-- HERO sans bouton Settings -->
   <header class="hero emergency-hero">
     <div class="hero-avatar" id="heroAv">🚨<span class="hero-lvl-badge" id="heroLvl">!</span></div>
-    <div class="hero-info">
-      <div class="hero-name" id="heroName">SOS Mode</div>
-    </div>
+    <div class="hero-info"><div class="hero-name" id="heroName">SOS Mode</div></div>
     <div class="hero-switch">
-      <select id="selPlayer"
-        onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
-        <option value="">Choose a player</option>
-      </select>
+      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
     </div>
   </header>
-
-  <!-- BENTO STATS -->
   <div class="bento-grid">
-    <div class="bento-tile">
-      <div class="bento-num" id="sos-cat-count">9</div>
-      <div class="bento-label">Situations</div>
-    </div>
-    <div class="bento-tile">
-      <div class="bento-num" id="sos-phrase-count">135</div>
-      <div class="bento-label">Phrases</div>
-    </div>
-    <div class="bento-tile">
-      <div class="bento-num" id="sos-fav-count">0</div>
-      <div class="bento-label">Saved</div>
-    </div>
+    <div class="bento-tile"><div class="bento-num" id="sos-cat-count">10</div><div class="bento-label">Situations</div></div>
+    <div class="bento-tile"><div class="bento-num" id="sos-phrase-count">150</div><div class="bento-label">Phrases</div></div>
+    <div class="bento-tile"><div class="bento-num" id="sos-fav-count">0</div><div class="bento-label">Saved</div></div>
   </div>
-
-  <!-- MAIN CONTENT -->
   <main class="emergency-main">
     <div class="sos-search-bar">
-      <input type="text" id="sosSearch" placeholder="🔍 Search a phrase... (e.g. 'headache', 'allergy')"
-        autocomplete="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="sosSearch" placeholder="🔍 Search a phrase... (e.g. 'headache', 'allergy')" autocomplete="off" autocorrect="off" spellcheck="false">
     </div>
-
     <div id="sosCategories" class="sos-categories"></div>
-
-    <div id="sosPhrases" class="sos-phrases" style="display:none;">
+    <div id="sosPhrases" class="sos-phrases" style="display:none">
       <div class="sos-phrases-header">
         <button class="btn-ghost btn-small" onclick="showCategories()">← Back</button>
         <h2 id="sosCurrentCatTitle"></h2>
@@ -83,8 +54,7 @@
       </div>
       <div id="sosPhrasesList"></div>
     </div>
-
-    <div id="sosSearchResults" class="sos-phrases" style="display:none;">
+    <div id="sosSearchResults" class="sos-phrases" style="display:none">
       <div class="sos-phrases-header">
         <button class="btn-ghost btn-small" onclick="showCategories()">← Back</button>
         <h2>Search Results</h2>
@@ -93,35 +63,16 @@
       <div id="sosSearchList"></div>
     </div>
   </main>
-
-  <!-- Scripts — ordre obligatoire -->
   <script src="js/config.js"></script>
   <script src="js/data.js"></script>
   <script src="js/emergency-data.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
   <script src="js/emergency.js"></script>
-
   <script>
-    // Theme toggle
-    function applyThemePick(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('dailyFrench_theme', theme);
-      if (typeof toast === 'function') toast('Theme: ' + theme);
-    }
-    
-    // Language toggle
-    function applyLangPick(lang) {
-      localStorage.setItem('dailyFrench_lang', lang);
-      if (typeof toast === 'function') toast('Language: ' + lang.toUpperCase());
-    }
-    
-    // Restore settings on load
-    (function() {
-      const savedTheme = localStorage.getItem('dailyFrench_theme');
-      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
-    })();
+    function applyThemePick(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('dailyFrench_theme',t);if(typeof toast==='function')toast('Theme: '+t)}
+    function applyLangPick(l){localStorage.setItem('dailyFrench_lang',l);if(typeof toast==='function')toast('Language: '+l.toUpperCase())}
+    (function(){const t=localStorage.getItem('dailyFrench_theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
   </script>
-
 </body>
 </html>
