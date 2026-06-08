@@ -1,842 +1,102 @@
-// ============================================
+// ═══════════════════════════════════════════════════════════════════
 // vocabulary-data.js — Daily French 🥖
-// Base de données lexique FR⇆EN
-// Niveaux 1-20 complets + PLACEHOLDER NIVEAU 21
-// ============================================
-
-const VOCABULARY_BDD = [
-
+// CHARGEMENT DYNAMIQUE des niveaux modulaires
 // ═══════════════════════════════════════════════════════════════════
-// NIVEAU 1 — Salutations & Présentations
-// ═══════════════════════════════════════════════════════════════════
-
-{fr:"bonjour",en:"good morning / hello",phon:"*bon-ZHOOR*",def:"Formule de salutation utilisée le matin et la journée.",def_en:"Standard greeting used in the morning and during the day.",ex:"Bonjour, Madame Dupont.",ex_en:"Good morning, Mrs Dupont.",level:1,cat:"salutation"},
-{fr:"bonsoir",en:"good evening",phon:"*bon-SWAHR*",def:"Salutation utilisée le soir.",ex:"Bonsoir, comment allez-vous ?",ex_en:"Good evening, how are you?",level:1,cat:"salutation"},
-{fr:"au revoir",en:"goodbye",phon:"*oh ruh-VWAHR*",def:"Formule de départ standard.",def_en:"Standard farewell formula.",ex:"Au revoir et à bientôt !",ex_en:"Goodbye and see you soon!",level:1,cat:"salutation"},
-{fr:"bonne nuit",en:"good night",phon:"*bon NUEE*",def:"Souhait avant de dormir.",def_en:"Wish used before going to sleep.",ex:"Bonne nuit, dormez bien.",ex_en:"Good night, sleep well.",level:1,cat:"salutation"},
-{fr:"enchanté",en:"nice to meet you (man)",phon:"*on-shon-TAY*",def:"Dit par un homme lors d'une présentation.",def_en:"Said by a man when being introduced to someone.",ex:"Je m'appelle Pierre, enchanté.",ex_en:"My name is Pierre, nice to meet you.",level:1,cat:"présentation"},
-{fr:"enchantée",en:"nice to meet you (woman)",phon:"*on-shon-TAY*",def:"Dite par une femme lors d'une présentation.",def_en:"Said by a woman when being introduced to someone.",ex:"Je m'appelle Marie, enchantée.",ex_en:"My name is Marie, nice to meet you.",level:1,cat:"présentation"},
-{fr:"je m'appelle",en:"my name is",phon:"*zhuh ma-PEL*",def:"Se présenter en donnant son nom.",def_en:"Introducing yourself by giving your name.",ex:"Je m'appelle John Smith.",ex_en:"My name is John Smith.",lit:"I myself-call",level:1,cat:"présentation"},
-{fr:"je viens de",en:"I come from",phon:"*zhuh VYAN duh*",def:"Indiquer son pays ou ville d'origine.",def_en:"Indicating which country or city you come from.",ex:"Je viens d'Irlande.",ex_en:"I come from Ireland.",lit:"I come from",level:1,cat:"présentation"},
-{fr:"j'habite à",en:"I live in",phon:"*zha-BEET ah*",def:"Indiquer où l'on réside.",def_en:"Indicating where you live.",ex:"J'habite à Craon, dans la Vienne.",ex_en:"I live in Craon, in the Vienne.",lit:"I-live at",level:1,cat:"présentation"},
-{fr:"retraité",en:"retired (man)",phon:"*ruh-treh-TAY*",def:"Personne qui a cessé de travailler.",def_en:"A person who has stopped working, retired.",ex:"Mon mari est retraité.",ex_en:"My husband is retired.",level:1,cat:"présentation"},
-{fr:"s'il vous plaît",en:"please (formal)",phon:"*seel voo PLEH*",def:"Formule de politesse pour demander quelque chose.",def_en:"Polite formula for asking for something.",ex:"Un café, s'il vous plaît.",ex_en:"A coffee, please.",lit:"if it you pleases",level:1,cat:"politesse"},
-{fr:"merci beaucoup",en:"thank you very much",phon:"*mair-SEE bo-KOO*",def:"Remerciement chaleureux.",def_en:"Warm expression of thanks.",ex:"Merci beaucoup pour votre aide.",ex_en:"Thank you very much for your help.",lit:"thanks a-lot",level:1,cat:"politesse"},
-{fr:"je vous en prie",en:"you're welcome (formal)",phon:"*zhuh voo zon PREE*",def:"Réponse à un remerciement, forme polie.",def_en:"Response to a thank you, formal form.",ex:"Je vous en prie, avec plaisir.",ex_en:"You're welcome, with pleasure.",lit:"I you of-it pray",level:1,cat:"politesse"},
-{fr:"excusez-moi",en:"excuse me (formal)",phon:"*ek-skew-zay-MWAH*",def:"S'excuser ou attirer l'attention poliment.",def_en:"To apologise or attract someone's attention politely.",ex:"Excusez-moi, l'heure s'il vous plaît ?",ex_en:"Excuse me, do you have the time please?",level:1,cat:"politesse"},
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 2 — Au marché & Les courses
+//
+// Aucun changement nécessaire dans les fichiers HTML.
+// Ce fichier charge dynamiquement les 21 fichiers niveau,
+// puis assemble VOCABULARY_BDD.
+//
+// Structure attendue :
+//   js/vocab-levels/vocab-level-1.js  → const VOCAB_LEVEL_1
+//   js/vocab-levels/vocab-level-2.js  → const VOCAB_LEVEL_2
+//   ...
+//   js/vocab-levels/vocab-level-21.js → const VOCAB_LEVEL_21
+//
 // ═══════════════════════════════════════════════════════════════════
 
-{fr:"je voudrais",en:"I would like",phon:"*zhuh voo-DRAY*",def:"Formule polie pour exprimer un souhait.",ex:"Je voudrais un kilo de tomates.",ex_en:"I would like a kilo of tomatoes.",level:2,cat:"expression"},
-{fr:"ça fait combien",en:"how much is it",phon:"*sa FAY kom-BYAN*",def:"Demander le prix total.",def_en:"Asking for the total price.",ex:"Ça fait combien en tout ?",ex_en:"How much is it all together?",lit:"that makes how-much",level:2,cat:"expression"},
-{fr:"c'est tout",en:"that's all",phon:"*say TOO*",def:"Indiquer qu'on a fini ses achats.",ex:"C'est tout, merci Madame.",ex_en:"That's all, thank you, Mrs.",level:2,cat:"expression"},
-{fr:"c'est trop cher",en:"it's too expensive",phon:"*say troh SHAIR*",def:"Trouver un prix excessif.",ex:"C'est trop cher pour moi.",ex_en:"That's too expensive for me.",lit:"it's too expensive",level:2,cat:"expression"},
-{fr:"une tranche",en:"a slice",phon:"*oon TRONSH*",def:"Partie coupée fine.",ex:"Une tranche de jambon.",ex_en:"A slice of ham.",level:2,cat:"quantité"},
-{fr:"une livre",en:"500 grams",phon:"*oon LEEVR*",def:"Ancienne mesure valant 500g en France.",ex:"Une livre de cerises.",ex_en:"A pound of cherries.",level:2,cat:"quantité"},
-{fr:"une douzaine",en:"a dozen",phon:"*oon doo-ZEN*",def:"Douze unités.",ex:"Une douzaine d'oeufs.",ex_en:"A dozen eggs.",level:2,cat:"quantité"},
-{fr:"la boulangerie",en:"bakery",phon:"*boo-lan-zhuh-REE*",def:"Commerce où l'on vend du pain et viennoiseries.",ex:"La boulangerie du coin.",ex_en:"The bakery on the corner.",level:2,cat:"commerce"},
-{fr:"fromage",en:"cheese",phon:"*fro-MAHZH*",def:"Produit laitier fermenté.",ex:"Du fromage de chèvre.",ex_en:"Some goat cheese.",level:2,cat:"aliment"},
-{fr:"baguette",en:"baguette",phon:"*ba-GET*",def:"Pain long et croustillant, emblème français.",ex:"Une baguette tradition.",ex_en:"A traditional baguette.",level:2,cat:"aliment"},
+(function() {
+  'use strict';
 
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 3 — Au jardin & La nature
-// ═══════════════════════════════════════════════════════════════════
+  // Chemin de base (relatif au HTML qui charge ce fichier)
+  const BASE_PATH = 'js/vocab-levels/';
 
-{fr:"une fleur",en:"a flower",phon:"*oon FLUHR*",def:"Partie colorée et parfumée d'une plante.",ex:"Une belle fleur rouge.",ex_en:"A beautiful red flower.",level:3,cat:"nature"},
-{fr:"un arbre",en:"a tree",phon:"*uh NAR-bruh*",def:"Plante ligneuse de grande taille.",ex:"Un vieil arbre dans le jardin.",ex_en:"An old tree in the garden.",level:3,cat:"nature"},
-{fr:"l'herbe",en:"grass",phon:"*LAR-buh*",def:"Plantes basses qui couvrent le sol.",ex:"L'herbe est bien verte.",ex_en:"The grass is very green.",level:3,cat:"nature"},
-{fr:"une feuille",en:"a leaf",phon:"*oon FUH-yuh*",def:"Organe vert des plantes.",ex:"Les feuilles tombent en automne.",ex_en:"The leaves fall in autumn.",level:3,cat:"nature"},
-{fr:"un potager",en:"vegetable garden",phon:"*uh po-ta-ZHAY*",def:"Jardin où l'on cultive des légumes.",ex:"Mon potager derrière la maison.",ex_en:"My vegetable garden behind the house.",level:3,cat:"nature"},
-{fr:"une serre",en:"greenhouse",phon:"*oon SAIR*",def:"Construction vitrée pour cultiver des plantes.",ex:"Des tomates dans la serre.",ex_en:"Tomatoes in the greenhouse.",level:3,cat:"nature"},
-{fr:"un arrosoir",en:"watering can",phon:"*uh na-roz-WAHR*",def:"Récipient pour arroser les plantes.",def_en:"Container for watering plants.",ex:"Remplir l'arrosoir.",ex_en:"Fill the watering can.",level:3,cat:"outil"},
-{fr:"planter",en:"to plant",phon:"*plan-TAY*",def:"Mettre une plante en terre.",ex:"Je plante des tomates.",ex_en:"I plant tomatoes.",level:3,cat:"verbe"},
-{fr:"arroser",en:"to water",phon:"*a-roh-ZAY*",def:"Donner de l'eau aux plantes.",ex:"Il faut arroser le soir.",ex_en:"You must water in the evening.",level:3,cat:"verbe"},
-{fr:"tailler",en:"to prune",phon:"*TIE-yay*",def:"Couper pour former ou nettoyer.",ex:"Tailler la haie.",ex_en:"Trim the hedge.",level:3,cat:"verbe"},
-{fr:"récolter",en:"to harvest",phon:"*ray-kol-TAY*",def:"Cueillir les fruits de son travail.",ex:"Récolter les légumes.",ex_en:"Harvest the vegetables.",level:3,cat:"verbe"},
-{fr:"faucher",en:"to mow",phon:"*foh-SHAY*",def:"Couper l'herbe ou les céréales.",ex:"Faucher la pelouse.",ex_en:"Mow the lawn.",level:3,cat:"verbe"},
+  // Liste des 21 fichiers niveau à charger
+  const LEVEL_FILES = [
+    'vocab-level-1.js',  'vocab-level-2.js',  'vocab-level-3.js',
+    'vocab-level-4.js',  'vocab-level-5.js',  'vocab-level-6.js',
+    'vocab-level-7.js',  'vocab-level-8.js',  'vocab-level-9.js',
+    'vocab-level-10.js', 'vocab-level-11.js', 'vocab-level-12.js',
+    'vocab-level-13.js', 'vocab-level-14.js', 'vocab-level-15.js',
+    'vocab-level-16.js', 'vocab-level-17.js', 'vocab-level-18.js',
+    'vocab-level-19.js', 'vocab-level-20.js', 'vocab-level-21.js'
+  ];
 
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 4 — Les voisins & La vie de quartier + Émotions
-// ═══════════════════════════════════════════════════════════════════
+  // Compteur de fichiers chargés
+  let loadedCount = 0;
+  const totalFiles = LEVEL_FILES.length;
 
-{fr:"un voisin",en:"neighbor (male)",phon:"*uh vwa-ZAN*",def:"Personne qui habite à proximité.",ex:"Mon voisin est très gentil.",ex_en:"My neighbour is very kind.",level:4,cat:"social"},
-{fr:"une voisine",en:"neighbor (female)",phon:"*oon vwa-ZEEN*",def:"Femme qui habite à proximité.",ex:"Ma voisine m'aide souvent.",ex_en:"My neighbour often helps me.",level:4,cat:"social"},
-{fr:"le quartier",en:"neighborhood",phon:"*luh kar-TYAY*",def:"Partie d'une ville, zone résidentielle.",ex:"Un quartier très calme.",ex_en:"A very quiet neighbourhood.",level:4,cat:"lieu"},
-{fr:"une rue",en:"a street",phon:"*oon ROO*",def:"Voie publique dans une ville.",ex:"La rue principale du village.",ex_en:"The main street of the village.",level:4,cat:"lieu"},
-{fr:"une impasse",en:"dead end",phon:"*oon om-PASS*",def:"Rue sans issue.",ex:"J'habite dans une impasse.",ex_en:"I live in a dead end.",level:4,cat:"lieu"},
-{fr:"le bruit",en:"noise",phon:"*luh BREE*",def:"Son désagréable ou fort.",ex:"Il y a trop de bruit.",ex_en:"There is too much noise.",level:4,cat:"sensation"},
-{fr:"le calme",en:"quiet / calm",phon:"*luh KALM*",def:"Absence de bruit, tranquillité.",def_en:"Absence of noise, tranquillity.",ex:"Le calme du quartier.",ex_en:"The quiet of the neighbourhood.",level:4,cat:"sensation"},
-{fr:"emprunter",en:"to borrow",phon:"*om-PRON-tay*",def:"Utiliser temporairement quelque chose.",ex:"Je peux vous emprunter une échelle ?",ex_en:"Can I borrow a ladder from you?",level:4,cat:"verbe"},
-{fr:"prêter",en:"to lend",phon:"*PRAY-tay*",def:"Donner temporairement quelque chose.",def_en:"To temporarily give something.",ex:"Je vous prête mon livre.",ex_en:"I'll lend you my book.",level:4,cat:"verbe"},
-{fr:"désolé",en:"sorry (man)",phon:"*day-zo-LAY*",def:"Exprimer des excuses.",ex:"Je suis désolé du dérangement.",ex_en:"I'm sorry for the disturbance.",level:4,cat:"politesse"},
-{fr:"triste",en:"sad",phon:"*TREEST*",def:"État émotionnel : sad.",ex:"Je me sens triste aujourd'hui.",ex_en:"I feel sad today.",level:4,cat:"sentiment"},
-{fr:"déçu",en:"disappointed",phon:"*day-SOO*",def:"État émotionnel : disappointed (homme).",ex:"Je me sens déçu aujourd'hui.",ex_en:"I feel disappointed today.",level:4,cat:"sentiment"},
-{fr:"ennuyé",en:"bored / annoyed",phon:"*on-nwee-YAY*",def:"État émotionnel : bored / annoyed (homme).",ex:"Je me sens ennuyé aujourd'hui.",ex_en:"I feel bored / annoyed today.",level:4,cat:"sentiment"},
-{fr:"gêné",en:"embarrassed",phon:"*zhay-NAY*",def:"État émotionnel : embarrassed (homme).",ex:"Je me sens gêné aujourd'hui.",ex_en:"I feel embarrassed today.",level:4,cat:"sentiment"},
-{fr:"en colère",en:"angry",phon:"*on ko-LAIR*",def:"État émotionnel : angry.",ex:"Je me sens en colère aujourd'hui.",ex_en:"I feel angry today.",level:4,cat:"sentiment"},
-{fr:"fâché",en:"mad / upset",phon:"*fa-SHAY*",def:"État émotionnel : mad / upset (homme).",ex:"Je me sens fâché aujourd'hui.",ex_en:"I feel mad / upset today.",level:4,cat:"sentiment"},
-{fr:"jaloux",en:"jealous (male)",phon:"*zha-LOO*",def:"État émotionnel : jealous (male) (homme).",ex:"Je me sens jaloux aujourd'hui.",ex_en:"I feel jealous (male) today.",level:4,cat:"sentiment"},
-{fr:"jalouse",en:"jealous (female)",phon:"*zha-LOOZ*",def:"État émotionnel : jealous (female) (femme).",ex:"Je me sens jalouse aujourd'hui.",ex_en:"I feel jealous (female) today.",level:4,cat:"sentiment"},
-{fr:"inquiet",en:"worried (male)",phon:"*on-kee-AY*",def:"État émotionnel : worried (male) (homme).",ex:"Je me sens inquiet aujourd'hui.",ex_en:"I feel worried (male) today.",level:4,cat:"sentiment"},
-{fr:"inquiète",en:"worried (female)",phon:"*on-kee-ET*",def:"État émotionnel : worried (female) (femme).",ex:"Je me sens inquiète aujourd'hui.",ex_en:"I feel worried (female) today.",level:4,cat:"sentiment"},
-{fr:"stressé",en:"stressed (male)",phon:"*stres-SAY*",def:"État émotionnel : stressed (male) (homme).",ex:"Je me sens stressé aujourd'hui.",ex_en:"I feel stressed (male) today.",level:4,cat:"sentiment"},
-{fr:"stressée",en:"stressed (female)",phon:"*stres-SAY*",def:"État émotionnel : stressed (female) (femme).",ex:"Je me sens stressée aujourd'hui.",ex_en:"I feel stressed (female) today.",level:4,cat:"sentiment"},
-{fr:"frustré",en:"frustrated (male)",phon:"*froos-TRAY*",def:"État émotionnel : frustrated (male) (homme).",ex:"Je me sens frustré aujourd'hui.",ex_en:"I feel frustrated (male) today.",level:4,cat:"sentiment"},
-{fr:"frustrée",en:"frustrated (female)",phon:"*froos-TRAY*",def:"État émotionnel : frustrated (female) (femme).",ex:"Je me sens frustrée aujourd'hui.",ex_en:"I feel frustrated (female) today.",level:4,cat:"sentiment"},
-{fr:"agacé",en:"irritated (male)",phon:"*a-ga-SAY*",def:"État émotionnel : irritated (male) (homme).",ex:"Je me sens agacé aujourd'hui.",ex_en:"I feel irritated (male) today.",level:4,cat:"sentiment"},
-{fr:"agacée",en:"irritated (female)",phon:"*a-ga-SAY*",def:"État émotionnel : irritated (female) (femme).",ex:"Je me sens agacée aujourd'hui.",ex_en:"I feel irritated (female) today.",level:4,cat:"sentiment"},
-{fr:"vexé",en:"offended (male)",phon:"*vek-SAY*",def:"État émotionnel : offended (male) (homme).",ex:"Je me sens vexé aujourd'hui.",ex_en:"I feel offended (male) today.",level:4,cat:"sentiment"},
-{fr:"vexée",en:"offended (female)",phon:"*vek-SAY*",def:"État émotionnel : offended (female) (femme).",ex:"Je me sens vexée aujourd'hui.",ex_en:"I feel offended (female) today.",level:4,cat:"sentiment"},
-{fr:"honteux",en:"ashamed (male)",phon:"*on-TOH*",def:"État émotionnel : ashamed (male) (homme).",ex:"Je me sens honteux aujourd'hui.",ex_en:"I feel ashamed (male) today.",level:4,cat:"sentiment"},
-{fr:"honteuse",en:"ashamed (female)",phon:"*on-TOHZ*",def:"État émotionnel : ashamed (female) (femme).",ex:"Je me sens honteuse aujourd'hui.",ex_en:"I feel ashamed (female) today.",level:4,cat:"sentiment"},
-{fr:"méfiant",en:"suspicious (male)",phon:"*may-FYAN*",def:"État émotionnel : suspicious (male) (homme).",ex:"Je me sens méfiant aujourd'hui.",ex_en:"I feel suspicious (male) today.",level:4,cat:"sentiment"},
-{fr:"méfiante",en:"suspicious (female)",phon:"*may-FYANT*",def:"État émotionnel : suspicious (female) (femme).",ex:"Je me sens méfiante aujourd'hui.",ex_en:"I feel suspicious (female) today.",level:4,cat:"sentiment"},
-{fr:"désespéré",en:"desperate (male)",phon:"*day-zes-puh-RAY*",def:"État émotionnel : desperate (male) (homme).",ex:"Je me sens désespéré aujourd'hui.",ex_en:"I feel desperate (male) today.",level:4,cat:"sentiment"},
-{fr:"désespérée",en:"desperate (female)",phon:"*day-zes-puh-RAY*",def:"État émotionnel : desperate (female) (femme).",ex:"Je me sens désespérée aujourd'hui.",ex_en:"I feel desperate (female) today.",level:4,cat:"sentiment"},
-{fr:"résigné",en:"resigned (male)",phon:"*ray-zee-NAY*",def:"État émotionnel : resigned (male) (homme).",ex:"Je me sens résigné aujourd'hui.",ex_en:"I feel resigned (male) today.",level:4,cat:"sentiment"},
-{fr:"résignée",en:"resigned (female)",phon:"*ray-zee-NAY*",def:"État émotionnel : resigned (female) (femme).",ex:"Je me sens résignée aujourd'hui.",ex_en:"I feel resigned (female) today.",level:4,cat:"sentiment"},
-{fr:"indigné",en:"outraged (male)",phon:"*on-dee-NYAY*",def:"État émotionnel : outraged (male) (homme).",ex:"Je me sens indigné aujourd'hui.",ex_en:"I feel outraged (male) today.",level:4,cat:"sentiment"},
-{fr:"indignée",en:"outraged (female)",phon:"*on-dee-NYAY*",def:"État émotionnel : outraged (female) (femme).",ex:"Je me sens indignée aujourd'hui.",ex_en:"I feel outraged (female) today.",level:4,cat:"sentiment"},
-{fr:"révolté",en:"revolted (male)",phon:"*ray-vol-TAY*",def:"État émotionnel : revolted (male) (homme).",ex:"Je me sens révolté aujourd'hui.",ex_en:"I feel revolted (male) today.",level:4,cat:"sentiment"},
-{fr:"révoltée",en:"revolted (female)",phon:"*ray-vol-TAY*",def:"État émotionnel : revolted (female) (femme).",ex:"Je me sens révoltée aujourd'hui.",ex_en:"I feel revolted (female) today.",level:4,cat:"sentiment"},
-{fr:"écœuré",en:"disgusted (male)",phon:"*ay-kur-RAY*",def:"État émotionnel : disgusted (male) (homme).",ex:"Je me sens écœuré aujourd'hui.",ex_en:"I feel disgusted (male) today.",level:4,cat:"sentiment"},
-{fr:"écœurée",en:"disgusted (female)",phon:"*ay-kur-RAY*",def:"État émotionnel : disgusted (female) (femme).",ex:"Je me sens écœurée aujourd'hui.",ex_en:"I feel disgusted (female) today.",level:4,cat:"sentiment"},
-{fr:"atterré",en:"appalled (male)",phon:"*a-tair-RAY*",def:"État émotionnel : appalled (male) (homme).",ex:"Je me sens atterré aujourd'hui.",ex_en:"I feel appalled (male) today.",level:4,cat:"sentiment"},
-{fr:"atterrée",en:"appalled (female)",phon:"*a-tair-RAY*",def:"État émotionnel : appalled (female) (femme).",ex:"Je me sens atterrée aujourd'hui.",ex_en:"I feel appalled (female) today.",level:4,cat:"sentiment"},
-{fr:"accablé",en:"overwhelmed (male)",phon:"*a-ka-BLAY*",def:"État émotionnel : overwhelmed (male) (homme).",ex:"Je me sens accablé aujourd'hui.",ex_en:"I feel overwhelmed (male) today.",level:4,cat:"sentiment"},
-{fr:"accablée",en:"overwhelmed (female)",phon:"*a-ka-BLAY*",def:"État émotionnel : overwhelmed (female) (femme).",ex:"Je me sens accablée aujourd'hui.",ex_en:"I feel overwhelmed (female) today.",level:4,cat:"sentiment"},
-{fr:"abattu",en:"dejected (male)",phon:"*a-ba-TOO*",def:"État émotionnel : dejected (male) (homme).",ex:"Je me sens abattu aujourd'hui.",ex_en:"I feel dejected (male) today.",level:4,cat:"sentiment"},
-{fr:"abattue",en:"dejected (female)",phon:"*a-ba-TOO*",def:"État émotionnel : dejected (female) (femme).",ex:"Je me sens abattue aujourd'hui.",ex_en:"I feel dejected (female) today.",level:4,cat:"sentiment"},
-{fr:"morose",en:"gloomy",phon:"*mo-ROHZ*",def:"État émotionnel : gloomy.",ex:"Je me sens morose aujourd'hui.",ex_en:"I feel gloomy today.",level:4,cat:"sentiment"},
-{fr:"maussade",en:"sullen",phon:"*moh-SAHD*",def:"État émotionnel : sullen.",ex:"Je me sens maussade aujourd'hui.",ex_en:"I feel sullen today.",level:4,cat:"sentiment"},
-{fr:"grognon",en:"grumpy",phon:"*gron-YON*",def:"État émotionnel : grumpy.",ex:"Je me sens grognon aujourd'hui.",ex_en:"I feel grumpy today.",level:4,cat:"sentiment"},
-{fr:"râleur",en:"complainer (male)",phon:"*ra-LUR*",def:"État émotionnel : complainer (male) (homme).",ex:"Je me sens râleur aujourd'hui.",ex_en:"I feel complainer (male) today.",level:4,cat:"sentiment"},
-{fr:"râleuse",en:"complainer (female)",phon:"*ra-LOZ*",def:"État émotionnel : complainer (female) (femme).",ex:"Je me sens râleuse aujourd'hui.",ex_en:"I feel complainer (female) today.",level:4,cat:"sentiment"},
-{fr:"pessimiste",en:"pessimistic",phon:"*pay-see-MEEST*",def:"État émotionnel : pessimistic.",ex:"Je me sens pessimiste aujourd'hui.",ex_en:"I feel pessimistic today.",level:4,cat:"sentiment"},
-{fr:"optimiste",en:"optimistic",phon:"*op-tee-MEEST*",def:"État émotionnel : optimistic.",ex:"Je me sens optimiste aujourd'hui.",ex_en:"I feel optimistic today.",level:4,cat:"sentiment"},
-{fr:"nerveux",en:"nervous (male)",phon:"*nair-VOO*",def:"État émotionnel : nervous (male) (homme).",ex:"Je me sens nerveux aujourd'hui.",ex_en:"I feel nervous (male) today.",level:4,cat:"sentiment"},
-{fr:"nerveuse",en:"nervous (female)",phon:"*nair-VOOZ*",def:"État émotionnel : nervous (female) (femme).",ex:"Je me sens nerveuse aujourd'hui.",ex_en:"I feel nervous (female) today.",level:4,cat:"sentiment"},
-{fr:"paniqué",en:"panicked (male)",phon:"*pa-nee-KAY*",def:"État émotionnel : panicked (male) (homme).",ex:"Je me sens paniqué aujourd'hui.",ex_en:"I feel panicked (male) today.",level:4,cat:"sentiment"},
-{fr:"paniquée",en:"panicked (female)",phon:"*pa-nee-KAY*",def:"État émotionnel : panicked (female) (femme).",ex:"Je me sens paniquée aujourd'hui.",ex_en:"I feel panicked (female) today.",level:4,cat:"sentiment"},
-{fr:"horrifié",en:"horrified (male)",phon:"*o-ree-fee-AY*",def:"État émotionnel : horrified (male) (homme).",ex:"Je me sens horrifié aujourd'hui.",ex_en:"I feel horrified (male) today.",level:4,cat:"sentiment"},
-{fr:"horrifiée",en:"horrified (female)",phon:"*o-ree-fee-AY*",def:"État émotionnel : horrified (female) (femme).",ex:"Je me sens horrifiée aujourd'hui.",ex_en:"I feel horrified (female) today.",level:4,cat:"sentiment"},
-{fr:"traumatisé",en:"traumatized (male)",phon:"*troo-ma-tee-ZAY*",def:"État émotionnel : traumatized (male) (homme).",ex:"Je me sens traumatisé aujourd'hui.",ex_en:"I feel traumatized (male) today.",level:4,cat:"sentiment"},
-{fr:"traumatisée",en:"traumatized (female)",phon:"*troo-ma-tee-ZAY*",def:"État émotionnel : traumatized (female) (femme).",ex:"Je me sens traumatisée aujourd'hui.",ex_en:"I feel traumatized (female) today.",level:4,cat:"sentiment"},
-{fr:"soulagé",en:"relieved (male)",phon:"*soo-la-ZHAY*",def:"État émotionnel : relieved (male) (homme).",ex:"Je me sens soulagé aujourd'hui.",ex_en:"I feel relieved (male) today.",level:4,cat:"sentiment"},
-{fr:"soulagée",en:"relieved (female)",phon:"*soo-la-ZHAY*",def:"État émotionnel : relieved (female) (femme).",ex:"Je me sens soulagée aujourd'hui.",ex_en:"I feel relieved (female) today.",level:4,cat:"sentiment"},
-{fr:"reconnaissant",en:"grateful (male)",phon:"*ruh-kon-nay-SAN*",def:"État émotionnel : grateful (male) (homme).",ex:"Je me sens reconnaissant aujourd'hui.",ex_en:"I feel grateful (male) today.",level:4,cat:"sentiment"},
-{fr:"reconnaissante",en:"grateful (female)",phon:"*ruh-kon-nay-SANT*",def:"État émotionnel : grateful (female) (femme).",ex:"Je me sens reconnaissante aujourd'hui.",ex_en:"I feel grateful (female) today.",level:4,cat:"sentiment"},
+  // Fonction appelée après chaque chargement
+  function onLevelLoaded() {
+    loadedCount++;
+    if (loadedCount === totalFiles) {
+      // Tous les fichiers sont chargés → assembler VOCABULARY_BDD
+      assembleVocabulary();
+    }
+  }
 
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 5 — Goûts & envies
-// ═══════════════════════════════════════════════════════════════════
+  // Assemble toutes les variables VOCAB_LEVEL_X en VOCABULARY_BDD
+  function assembleVocabulary() {
+    window.VOCABULARY_BDD = [];
 
-{fr:"j'adore",en:"I love",phon:"*zha-DOR*",def:"Aimer intensément.",ex:"J'adore le fromage français.",ex_en:"I love French cheese.",level:5,cat:"sentiment"},
-{fr:"j'aime bien",en:"I like",phon:"*zhem BYAN*",def:"Éprouver de l'affection, forme modérée.",ex:"J'aime bien cette région.",ex_en:"I quite like this region.",level:5,cat:"sentiment"},
-{fr:"je déteste",en:"I hate",phon:"*zhuh day-TEST*",def:"Ne pas aimer du tout.",ex:"Je déteste le bruit.",ex_en:"I hate noise.",level:5,cat:"sentiment"},
-{fr:"je préfère",en:"I prefer",phon:"*zhuh pray-FAIR*",def:"Choisir par goût.",ex:"Je préfère le thé au café.",ex_en:"I prefer tea to coffee.",level:5,cat:"sentiment"},
-{fr:"j'ai envie de",en:"I feel like",phon:"*zha-ay on-VEE duh*",def:"Fort désir de quelque chose.",ex:"J'ai envie de dormir.",ex_en:"I feel like sleeping.",lit:"I have desire of",level:5,cat:"expression"},
-{fr:"ça me tente",en:"I'm tempted",phon:"*sa muh TONT*",def:"Être attiré par quelque chose.",ex:"Ça me tente beaucoup.",ex_en:"That tempts me a lot.",lit:"that me tempts",level:5,cat:"expression"},
-{fr:"je rêve de",en:"I dream of",phon:"*zhuh REV duh*",def:"Aspirer à quelque chose.",ex:"Je rêve de visiter Paris.",ex_en:"I dream of visiting Paris.",lit:"I dream of",level:5,cat:"sentiment"},
-{fr:"camembert",en:"camembert",phon:"*kam-om-BAIR*",def:"Fromage à pâte molle de Normandie, très célèbre.",def_en:"A famous soft cheese from Normandy, mild and creamy.",ex:"J'adore le camembert avec une baguette.",ex_en:"I love camembert with a baguette.",level:5,cat:"aliment"},
-{fr:"surtout",en:"especially / above all",phon:"*soor-TOO*",def:"Adverbe qui renforce : principalement, avant tout.",def_en:"Adverb meaning mainly, above all, especially.",ex:"J'adore le fromage, surtout le camembert.",ex_en:"I love cheese, especially camembert.",lit:"above-all",level:5,cat:"expression"},
+    for (let i = 1; i <= 21; i++) {
+      const levelVar = window['VOCAB_LEVEL_' + i];
+      if (Array.isArray(levelVar)) {
+        window.VOCABULARY_BDD = window.VOCABULARY_BDD.concat(levelVar);
+      } else {
+        console.warn('[vocabulary-data] VOCAB_LEVEL_' + i + ' non trouvé ou vide');
+      }
+    }
 
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 6 — Chez le commerçant
-// ═══════════════════════════════════════════════════════════════════
+    console.log('[vocabulary-data] VOCABULARY_BDD assemblé : ' +
+                window.VOCABULARY_BDD.length + ' entrées');
 
-{fr:"la pâtisserie",en:"pastry shop",phon:"*pa-tee-suh-REE*",def:"Commerce de gâteaux et pâtisseries.",ex:"Une tarte à la pâtisserie.",level:6,cat:"commerce"},
-{fr:"la boucherie",en:"butcher shop",phon:"*boo-shuh-REE*",def:"Commerce de viande.",ex:"De la viande à la boucherie.",level:6,cat:"commerce"},
-{fr:"la charcuterie",en:"delicatessen",phon:"*shar-koo-tuh-REE*",def:"Commerce de salaison et charcuterie.",ex:"Du saucisson à la charcuterie.",level:6,cat:"commerce"},
-{fr:"la pharmacie",en:"pharmacy",phon:"*far-ma-SEE*",def:"Commerce de médicaments.",ex:"À côté de la pharmacie.",level:6,cat:"commerce"},
-{fr:"le tabac-presse",en:"newsagent / tobacconist",phon:"*ta-BAK PRESS*",def:"Commerce typique : cigarettes, timbres, journaux.",ex:"Acheter des timbres au tabac-presse.",level:6,cat:"commerce"},
-{fr:"un timbre",en:"a stamp",phon:"*uh TAN-bruh*",def:"Vignette pour affranchir le courrier.",ex:"Un timbre pour l'étranger.",level:6,cat:"objet"},
-{fr:"lait cru",en:"raw milk",phon:"*lay KROO*",def:"Lait non pasteurisé.",ex:"Du fromage au lait cru.",level:6,cat:"aliment"},
-{fr:"sans gluten",en:"gluten-free",phon:"*SON gloo-TEN*",def:"Ne contenant pas de gluten.",ex:"Du pain sans gluten.",level:6,cat:"aliment"},
+    // Émettre un événement pour signaler que le vocabulaire est prêt
+    if (typeof EventBus !== 'undefined') {
+      EventBus.emit('vocabularyReady', { count: window.VOCABULARY_BDD.length });
+    }
+  }
 
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 7 — Les amis & sorties
-// ═══════════════════════════════════════════════════════════════════
+  // Charger un fichier JS dynamiquement
+  function loadScript(src, callback) {
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = false; // Charger dans l'ordre
+    script.onload = callback;
+    script.onerror = function() {
+      console.error('[vocabulary-data] Échec chargement : ' + src);
+      callback(); // Continuer même en cas d'erreur
+    };
+    document.head.appendChild(script);
+  }
 
-{fr:"un ami",en:"a friend (male)",phon:"*uh na-MEE*",def:"Personne liée par l'affection.",ex:"Mon ami d'enfance.",ex_en:"My childhood friend.",level:7,cat:"social"},
-{fr:"une amie",en:"a friend (female)",phon:"*oon na-MEE*",def:"Personne liée par l'affection.",ex:"Mon amie de toujours.",ex_en:"My lifelong friend.",level:7,cat:"social"},
-{fr:"un rendez-vous",en:"an appointment / date",phon:"*uh ron-day-VOO*",def:"Rencontre fixée d'avance.",ex:"Un rendez-vous au café.",ex_en:"An appointment at the café.",level:7,cat:"social"},
-{fr:"sortir",en:"to go out",phon:"*sor-TEER*",def:"Quitter son domicile pour s'amuser.",ex:"Sortir le soir.",ex_en:"Going out in the evening.",level:7,cat:"verbe"},
-{fr:"inviter",en:"to invite",phon:"*on-vee-TAY*",def:"Demander à quelqu'un de venir.",ex:"Inviter des amis à dîner.",ex_en:"Inviting friends to dinner.",level:7,cat:"verbe"},
-{fr:"retrouver",en:"to meet up",phon:"*ruh-troo-VAY*",def:"Rendez-vous avec quelqu'un connu.",ex:"On se retrouve demain ?",ex_en:"Shall we meet up tomorrow?",level:7,cat:"verbe"},
-{fr:"libre",en:"free / available",phon:"*LEEB-ruh*",def:"Disponible, sans occupation.",ex:"Je suis libre samedi.",ex_en:"I'm free on Saturday.",level:7,cat:"état"},
-{fr:"occupé",en:"busy (male)",phon:"*ok-kew-PAY*",def:"Ayant une occupation.",ex:"Je suis occupé demain.",ex_en:"I'm busy tomorrow.",level:7,cat:"état"},
-{fr:"à bientôt",en:"see you soon",phon:"*a byan-TOH*",def:"Prendre congé pour un prochain rendez-vous.",ex:"Au revoir, à bientôt !",ex_en:"Goodbye, see you soon!",level:7,cat:"salutation"},
-{fr:"ça vous dit",en:"do you fancy",phon:"*sa voo DEE*",def:"Proposition informelle pour une sortie.",ex:"Ça vous dit d'aller au café ?",ex_en:"Fancy going to the café?",lit:"that you says",level:7,cat:"expression"},
-{fr:"midi",en:"noon",phon:"*mee-DEE*",def:"12 heures, milieu de la journée.",ex:"On déjeune à midi.",ex_en:"We have lunch at noon.",level:7,cat:"temps"},
+  // Lancer le chargement de tous les niveaux
+  function init() {
+    // Vérifier si déjà initialisé
+    if (window.VOCABULARY_BDD && window.VOCABULARY_BDD.length > 0) {
+      console.log('[vocabulary-data] Déjà initialisé, ' +
+                  window.VOCABULARY_BDD.length + ' entrées');
+      return;
+    }
 
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 8 — Le temps & la météo
-// ═══════════════════════════════════════════════════════════════════
+    console.log('[vocabulary-data] Chargement des ' + totalFiles + ' niveaux...');
 
-{fr:"il fait beau",en:"it's nice weather",phon:"*eel FAY bo*",def:"Description d'un temps agréable.",ex:"Il fait beau, allons nous promener.",ex_en:"The weather is nice, let's go for a walk.",level:8,cat:"météo"},
-{fr:"il pleut",en:"it's raining",phon:"*eel PLUH*",def:"Chute de gouttes d'eau.",ex:"Il pleut, prenez un parapluie.",ex_en:"It's raining, take an umbrella.",level:8,cat:"météo"},
-{fr:"il neige",en:"it's snowing",phon:"*eel NEHZH*",def:"Chute de neige.",ex:"Il neige dans le nord.",ex_en:"It's snowing in the north.",level:8,cat:"météo"},
-{fr:"il fait du vent",en:"it's windy",phon:"*eel FAY dew VON*",def:"Présence de vent.",ex:"Il fait du vent, fermez la porte.",ex_en:"It's windy, close the door.",level:8,cat:"météo"},
-{fr:"il fait chaud",en:"it's hot",phon:"*eel FAY sho*",def:"Température élevée.",def_en:"High temperature.",ex:"Il fait chaud, buvez de l'eau.",ex_en:"It's hot, drink some water.",level:8,cat:"météo"},
-{fr:"il fait froid",en:"it's cold",phon:"*eel FAY FRWAH*",def:"Température basse.",def_en:"Low temperature.",ex:"Il fait froid, allumez le chauffage.",ex_en:"It's cold, put the heating on.",level:8,cat:"météo"},
-{fr:"il fait frais",en:"it's cool / chilly",phon:"*eel FAY FRAY*",def:"Température fraîche.",ex:"Il fait frais, prenez un pull.",ex_en:"It's cool, take a jumper.",level:8,cat:"météo"},
-{fr:"aujourd'hui",en:"today",phon:"*oh-zhoord-DWEE*",def:"Le jour présent.",ex:"Aujourd'hui, il fait beau.",ex_en:"Today the weather is nice.",level:8,cat:"temps"},
-{fr:"demain",en:"tomorrow",phon:"*duh-MAN*",def:"Le jour suivant.",ex:"À demain, Madame.",ex_en:"See you tomorrow, Mrs.",level:8,cat:"temps"},
-{fr:"après-demain",en:"the day after tomorrow",phon:"*a-PRAY duh-MAN*",def:"Deux jours après aujourd'hui.",ex:"À après-demain !",ex_en:"See you the day after tomorrow!",level:8,cat:"temps"},
-{fr:"au printemps",en:"in spring",phon:"*oh PRAN-ton*",def:"Saison du renouveau, mars à mai.",ex:"Au printemps, les fleurs éclosent.",ex_en:"In spring, the flowers bloom.",level:8,cat:"saison"},
-{fr:"en été",en:"in summer",phon:"*on ay-TAY*",def:"Saison chaude, juin à août.",ex:"En été, le jardin est beau.",ex_en:"In summer, the garden is beautiful.",level:8,cat:"saison"},
-{fr:"en automne",en:"in autumn",phon:"*on no-TON*",def:"Saison des feuilles mortes.",ex:"En automne, les feuilles tombent.",ex_en:"In autumn, the leaves fall.",level:8,cat:"saison"},
-{fr:"en hiver",en:"in winter",phon:"*on ee-VAIR*",def:"Saison froide, décembre à février.",ex:"En hiver, le jardin dort.",ex_en:"In winter, the garden sleeps.",level:8,cat:"saison"},
+    LEVEL_FILES.forEach(function(filename) {
+      loadScript(BASE_PATH + filename, onLevelLoaded);
+    });
+  }
 
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 9 — Les verbes essentiels
-// ═══════════════════════════════════════════════════════════════════
+  // Démarrer immédiatement
+  init();
 
-{fr:"aller",en:"to go",phon:"*a-LAY*",def:"Se déplacer vers un lieu.",ex:"Je vais au marché.",level:9,cat:"verbe"},
-{fr:"faire",en:"to do / to make",phon:"*FAIR*",def:"Réaliser une action.",ex:"Je fais mes courses.",level:9,cat:"verbe"},
-{fr:"prendre",en:"to take",phon:"*PRON-druh*",def:"Saisir ou consommer.",ex:"Je prends le bus.",level:9,cat:"verbe"},
-{fr:"venir",en:"to come",phon:"*vuh-NEER*",def:"Se rendre vers le locuteur.",ex:"Je viens de France.",level:9,cat:"verbe"},
-{fr:"pouvoir",en:"can / to be able to",phon:"*poo-VWAHR*",def:"Avoir la capacité.",ex:"Je peux vous aider.",level:9,cat:"verbe"},
-{fr:"vouloir",en:"to want",phon:"*voo-LWAHR*",def:"Avoir le désir.",ex:"Je veux apprendre.",level:9,cat:"verbe"},
-{fr:"savoir",en:"to know (facts)",phon:"*sa-VWAHR*",def:"Connaître une information ou un fait.",ex:"Je sais où c'est.",level:9,cat:"verbe"},
-{fr:"connaître",en:"to know (people / places)",phon:"*ko-NET-ruh*",def:"Avoir une relation avec une personne ou un lieu.",ex:"Je connais Paris.",level:9,cat:"verbe"},
-{fr:"devoir",en:"must / to have to",phon:"*duh-VWAHR*",def:"Être obligé.",ex:"Je dois partir.",level:9,cat:"verbe"},
-{fr:"comprendre",en:"to understand",phon:"*kom-PRON-druh*",def:"Saisir le sens.",ex:"Je comprends le français.",level:9,cat:"verbe"},
-{fr:"je vais",en:"I go / I am going",phon:"*zhuh VAY*",def:"Conjugaison de aller au présent.",ex:"Je vais au marché.",level:9,cat:"verbe"},
-{fr:"je fais",en:"I do / I make",phon:"*zhuh FAY*",def:"Conjugaison de faire au présent.",ex:"Je fais mes courses.",level:9,cat:"verbe"},
-{fr:"je prends",en:"I take",phon:"*zhuh PRON*",def:"Conjugaison de prendre au présent.",ex:"Je prends le bus.",level:9,cat:"verbe"},
-{fr:"je peux",en:"I can",phon:"*zhuh PUH*",def:"Conjugaison de pouvoir au présent.",ex:"Je peux vous aider.",level:9,cat:"verbe"},
-{fr:"je veux",en:"I want",phon:"*zhuh VUH*",def:"Conjugaison de vouloir au présent.",ex:"Je veux du café.",level:9,cat:"verbe"},
-{fr:"je sais",en:"I know (fact)",phon:"*zhuh SAY*",def:"Conjugaison de savoir — pour les faits.",ex:"Je sais où c'est.",level:9,cat:"verbe"},
-{fr:"je connais",en:"I know (person / place)",phon:"*zhuh ko-NAY*",def:"Conjugaison de connaître — pour les personnes.",ex:"Je connais ce village.",level:9,cat:"verbe"},
-{fr:"je dois",en:"I must",phon:"*zhuh DWAH*",def:"Conjugaison de devoir — obligation.",ex:"Je dois partir.",level:9,cat:"verbe"},
-{fr:"vous faites",en:"you do (formal)",phon:"*voo FET*",def:"Conjugaison irrégulière de faire.",ex:"Qu'est-ce que vous faites ?",level:9,cat:"verbe"},
-{fr:"pouvez-vous",en:"can you (formal)",phon:"*poo-vay VOO*",def:"Demande polie de capacité.",ex:"Pouvez-vous répéter ?",level:9,cat:"expression"},
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 10 — Formules de politesse & Expressions
-// ═══════════════════════════════════════════════════════════════════
-
-{fr:"je ne comprends pas",en:"I don't understand",phon:"*zhuh nuh kom-PRON PAH*",def:"Indiquer qu'on n'a pas saisi.",ex:"Je ne comprends pas, pouvez-vous répéter ?",ex_en:"I don't understand, could you repeat please?",level:10,cat:"expression"},
-{fr:"parlez plus lentement",en:"speak more slowly",phon:"*par-LAY plew lon-TUH-mon*",def:"Demander de ralentir.",ex:"Parlez plus lentement, s'il vous plaît.",ex_en:"Speak more slowly, please.",level:10,cat:"expression"},
-{fr:"comment dit-on",en:"how do you say",phon:"*ko-MON dee-TON*",def:"Demander une traduction.",ex:"Comment dit-on hello en français ?",ex_en:"How do you say hello in French?",level:10,cat:"expression"},
-{fr:"je cherche mes mots",en:"I'm looking for my words",phon:"*zhuh SHAIRSH may MOH*",def:"Hésiter en parlant.",ex:"Je cherche mes mots, désolé.",ex_en:"I'm looking for my words, sorry.",level:10,cat:"expression"},
-{fr:"avec plaisir",en:"with pleasure",phon:"*a-vek pleh-ZEER*",def:"Accepter avec enthousiasme.",ex:"Avec plaisir, je viendrai.",ex_en:"With pleasure, I'll come.",lit:"with pleasure",level:10,cat:"politesse"},
-{fr:"de rien",en:"you're welcome (casual)",phon:"*duh RYAN*",def:"Réponse légère à un remerciement.",ex:"De rien, c'était un plaisir.",ex_en:"Not at all, it was a pleasure.",lit:"of nothing",level:10,cat:"politesse"},
-{fr:"pas de problème",en:"no problem",phon:"*pa duh pro-BLEM*",def:"Rassurer, indiquer que c'est facile.",ex:"Pas de problème, je peux vous aider.",ex_en:"No problem, I can help you.",lit:"not of problem",level:10,cat:"expression"},
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 11 — Ma vie en France (Admin, banque, voiture, poste)
-// ═══════════════════════════════════════════════════════════════════
-
-{fr:"un compte bancaire",en:"bank account",phon:"*kompt bon-KAIR*",def:"Compte où l'on dépose et retire de l'argent.",ex:"J'ai ouvert un compte bancaire.",ex_en:"I opened a bank account.",level:11,cat:"admin"},
-{fr:"une carte bancaire",en:"debit card",phon:"*kart bon-KAIR*",def:"Carte permettant de payer et retirer.",ex:"Payer par carte bancaire.",ex_en:"Pay by card.",level:11,cat:"admin"},
-{fr:"un chèque",en:"check",phon:"*uh SHEK*",def:"Document bancaire pour payer une somme.",ex:"Remplir un chèque.",ex_en:"Fill in a cheque.",level:11,cat:"admin"},
-{fr:"retirer",en:"to withdraw",phon:"*ruh-tee-RAY*",def:"Prendre de l'argent sur son compte.",ex:"Retirer de l'argent au distributeur.",ex_en:"Withdraw money from the cash machine.",level:11,cat:"admin"},
-{fr:"faire le plein",en:"to fill up the tank",phon:"*fair luh PLAN*",def:"Remplir le réservoir d'essence.",def_en:"Filling the fuel tank.",ex:"Je fais le plein avant le voyage.",ex_en:"I fill up before the trip.",level:11,cat:"voiture"},
-{fr:"l'essence",en:"gasoline",phon:"*lay-SONSS*",def:"Carburant pour moteur essence.",ex:"L'essence est chère en ce moment.",ex_en:"Petrol is expensive right now.",level:11,cat:"voiture"},
-{fr:"en panne",en:"broken down",phon:"*on PAN*",def:"Qui ne fonctionne plus.",ex:"Ma voiture est en panne.",ex_en:"My car has broken down.",level:11,cat:"voiture"},
-{fr:"une station-service",en:"gas station",phon:"*sta-SYON ser-VEES*",def:"Lieu où on achète de l'essence.",ex:"Arrêt à la station-service.",ex_en:"Stop at the petrol station.",level:11,cat:"voiture"},
-{fr:"un colis",en:"package",phon:"*uh ko-LEE*",def:"Objet envoyé par la poste.",ex:"Recevoir un colis.",ex_en:"Receive a parcel.",level:11,cat:"poste"},
-{fr:"envoyer",en:"to send",phon:"*on-vwa-YAY*",def:"Faire parvenir quelque chose.",ex:"Envoyer une lettre.",ex_en:"Send a letter.",level:11,cat:"poste"},
-{fr:"recommandé",en:"registered mail",phon:"*ruh-ko-mon-DAY*",def:"Envoi avec accusé de réception.",ex:"Envoyer en recommandé.",ex_en:"Send it registered post.",level:11,cat:"poste"},
-{fr:"un forfait",en:"plan / bundle",phon:"*uh for-FAY*",def:"Abonnement téléphonique ou internet.",def_en:"Phone or internet subscription.",ex:"Un forfait mobile illimité.",ex_en:"An unlimited mobile plan.",level:11,cat:"télécom"},
-{fr:"la box",en:"internet router box",phon:"*la BOKS*",def:"Routeur internet — terme courant en France.",ex:"La box est en panne.",ex_en:"The box has broken down.",level:11,cat:"télécom"},
-{fr:"le débit",en:"speed / bandwidth",phon:"*luh day-BEE*",def:"Vitesse de connexion internet.",def_en:"Internet connection speed.",ex:"Le débit est faible ici.",ex_en:"The connection speed is low here.",level:11,cat:"télécom"},
-{fr:"un rendez-vous médical",en:"medical appointment",phon:"*uh ron-day-VOO may-dee-KAL*",def:"Consultation chez un docteur.",ex:"J'ai un rendez-vous médical à 14h.",ex_en:"I have a doctor's appointment at 2pm.",level:11,cat:"admin"},
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 12 — Ma Routine (Passé composé)
-// ═══════════════════════════════════════════════════════════════════
-
-{fr:"ce matin",en:"this morning",phon:"*suh ma-TAN*",def:"La matinée du jour présent.",ex:"Ce matin j'ai nettoyé la maison.",ex_en:"This morning I cleaned the house.",level:12,cat:"temps"},
-{fr:"cet après-midi",en:"this afternoon",phon:"*set ap-ray-mee-DEE*",def:"L'après-midi du jour présent.",ex:"Cet après-midi j'ai fait les courses.",ex_en:"This afternoon I did the shopping.",level:12,cat:"temps"},
-{fr:"ce soir",en:"this evening",phon:"*suh SWAHR*",def:"Le soir du jour présent.",ex:"Ce soir je vais cuisiner.",ex_en:"This evening I'm going to cook.",level:12,cat:"temps"},
-{fr:"demain matin",en:"tomorrow morning",phon:"*duh-MAN ma-TAN*",def:"Le matin du jour suivant.",ex:"Demain matin je vais au marché.",ex_en:"Tomorrow morning I'm going to the market.",level:12,cat:"temps"},
-{fr:"nettoyer",en:"to clean",phon:"*nay-twa-YAY*",def:"Rendre propre.",ex:"J'ai nettoyé la maison.",ex_en:"I cleaned the house.",level:12,cat:"verbe"},
-{fr:"préparer",en:"to prepare",phon:"*pray-pa-RAY*",def:"Mettre en état, organiser.",ex:"J'ai préparé le petit-déjeuner.",ex_en:"I prepared breakfast.",level:12,cat:"verbe"},
-{fr:"organiser",en:"to organize",phon:"*or-ga-nee-ZAY*",def:"Mettre en ordre.",ex:"J'ai organisé ma journée.",ex_en:"I organized my day.",level:12,cat:"verbe"},
-{fr:"faire les courses",en:"to do the shopping",phon:"*fair lay KOORS*",def:"Acheter ce qu'il faut pour la maison.",ex:"J'ai fait les courses.",ex_en:"I did the shopping.",level:12,cat:"expression"},
-{fr:"j'ai nettoyé",en:"I cleaned",phon:"*zhuh nay-twa-YAY*",def:"Passé composé de nettoyer.",ex:"J'ai nettoyé la maison.",ex_en:"I cleaned the house.",level:12,cat:"verbe"},
-{fr:"j'ai préparé",en:"I prepared",phon:"*zhuh pray-pa-RAY*",def:"Passé composé de préparer.",ex:"J'ai préparé le dîner.",ex_en:"I prepared dinner.",level:12,cat:"verbe"},
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 13 — Mes Émotions
-// ═══════════════════════════════════════════════════════════════════
-
-{fr:"content",en:"happy (male)",phon:"*kon-TONT*",def:"Qui éprouve de la joie.",ex:"Je suis content aujourd'hui.",ex_en:"I'm happy today.",level:13,cat:"sentiment"},
-{fr:"contente",en:"happy (female)",phon:"*kon-TONT*",def:"Qui éprouve de la joie (féminin).",ex:"Elle est contente de vous voir.",ex_en:"She's happy to see you.",level:13,cat:"sentiment"},
-{fr:"fatigué",en:"tired (male)",phon:"*fa-tee-GAY*",def:"Qui manque d'énergie.",ex:"Je suis fatigué ce soir.",ex_en:"I'm tired this evening.",level:13,cat:"sentiment"},
-{fr:"fatiguée",en:"tired (female)",phon:"*fa-tee-GAY*",def:"Qui manque d'énergie (féminin).",ex:"Elle est fatiguée après le voyage.",ex_en:"She's tired after the trip.",level:13,cat:"sentiment"},
-{fr:"stressé",en:"stressed (male)",phon:"*stres-SAY*",def:"Qui subit de la tension nerveuse.",ex:"Je suis stressé par le travail.",ex_en:"I'm stressed by work.",level:13,cat:"sentiment"},
-{fr:"stressée",en:"stressed (female)",phon:"*stres-SAY*",def:"Qui subit de la tension nerveuse (féminin).",ex:"Elle est stressée avant l'examen.",ex_en:"She's stressed before the exam.",level:13,cat:"sentiment"},
-{fr:"inquiet",en:"worried (male)",phon:"*an-kee-ET*",def:"Qui craint quelque chose.",ex:"Je suis inquiet pour ma fille.",ex_en:"I'm worried about my daughter.",level:13,cat:"sentiment"},
-{fr:"inquiète",en:"worried (female)",phon:"*an-kee-ET*",def:"Qui craint quelque chose (féminin).",ex:"Elle est inquiète pour son fils.",ex_en:"She's worried about her son.",level:13,cat:"sentiment"},
-{fr:"triste",en:"sad",phon:"*TREEST*",def:"Qui éprouve de la peine.",ex:"Je suis triste quand il pleut.",ex_en:"I'm sad when it rains.",level:13,cat:"sentiment"},
-{fr:"motivé",en:"motivated (male)",phon:"*moh-tee-VAY*",def:"Qui a de l'enthousiasme.",ex:"Je suis motivé aujourd'hui !",ex_en:"I'm motivated today!",level:13,cat:"sentiment"},
-{fr:"motivée",en:"motivated (female)",phon:"*moh-tee-VAY*",def:"Qui a de l'enthousiasme (féminin).",ex:"Elle est motivée pour apprendre.",ex_en:"She's motivated to learn.",level:13,cat:"sentiment"},
-{fr:"frustré",en:"frustrated (male)",phon:"*frus-TRAY*",def:"Qui subit un échec, une contrariété.",ex:"Je suis frustré par cette situation.",ex_en:"I'm frustrated by this situation.",level:13,cat:"sentiment"},
-{fr:"frustrée",en:"frustrated (female)",phon:"*frus-TRAY*",def:"Qui subit un échec (féminin).",ex:"Elle est frustrée par le retard.",ex_en:"She's frustrated by the delay.",level:13,cat:"sentiment"},
-{fr:"je me sens",en:"I feel",phon:"*zhuh muh SAN*",def:"Exprimer son ressenti physique ou émotionnel.",ex:"Je me sens bien aujourd'hui.",ex_en:"I feel good today.",level:13,cat:"expression"},
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 14 — Mes Besoins
-// ═══════════════════════════════════════════════════════════════════
-
-{fr:"j'ai faim",en:"I am hungry",phon:"*zhuh FAM*",def:"Avoir besoin de manger.",ex:"J'ai faim, je voudrais préparer le dîner.",ex_en:"I am hungry, I would like to prepare dinner.",level:14,cat:"besoin"},
-{fr:"j'ai soif",en:"I am thirsty",phon:"*zhuh SWAF*",def:"Avoir besoin de boire.",ex:"J'ai soif, je voudrais un verre d'eau.",ex_en:"I am thirsty, I would like a glass of water.",level:14,cat:"besoin"},
-{fr:"j'ai sommeil",en:"I am sleepy",phon:"*zhuh som-MAY*",def:"Avoir envie de dormir.",ex:"J'ai sommeil, je vais me coucher.",ex_en:"I am sleepy, I am going to bed.",level:14,cat:"besoin"},
-{fr:"j'ai besoin de",en:"I need",phon:"*zhuh buh-ZWAN duh*",def:"Nécessiter quelque chose.",ex:"J'ai besoin de me reposer.",ex_en:"I need to rest.",level:14,cat:"expression"},
-{fr:"je voudrais",en:"I would like",phon:"*zhuh voo-DREH*",def:"Formule polie pour exprimer un souhait.",ex:"Je voudrais une table, s'il vous plaît.",ex_en:"I would like a table, please.",level:14,cat:"expression"},
-{fr:"je veux",en:"I want",phon:"*zhuh VUH*",def:"Avoir le désir (plus direct que 'je voudrais').",ex:"Je veux apprendre le français.",ex_en:"I want to learn French.",level:14,cat:"expression"},
-{fr:"dormir",en:"to sleep",phon:"*dor-MEER*",def:"Se reposer en fermant les yeux.",ex:"Je veux dormir.",ex_en:"I want to sleep.",level:14,cat:"verbe"},
-{fr:"manger",en:"to eat",phon:"*man-ZHAY*",def:"Prendre un repas.",ex:"Je vais manger.",ex_en:"I am going to eat.",level:14,cat:"verbe"},
-{fr:"boire",en:"to drink",phon:"*bwahr*",def:"Avaler un liquide.",ex:"Je vais boire un café.",ex_en:"I am going to drink a coffee.",level:14,cat:"verbe"},
-{fr:"se reposer",en:"to rest",phon:"*suh ruh-poh-ZAY*",def:"Se détendre, récupérer.",ex:"J'ai besoin de me reposer.",ex_en:"I need to rest.",level:14,cat:"verbe"},
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 16 — Ma Famille
-// ═══════════════════════════════════════════════════════════════════
-
-{fr:"mon mari",en:"my husband",phon:"*mon ma-REE*",def:"Époux.",ex:"Mon mari est retraité.",ex_en:"My husband is retired.",level:16,cat:"famille"},
-{fr:"ma femme",en:"my wife",phon:"*mah FAM*",def:"Épouse.",ex:"Ma femme travaille à la maison.",ex_en:"My wife works at home.",level:16,cat:"famille"},
-{fr:"mon fils",en:"my son",phon:"*mon FEES*",def:"Garçon dont on est le parent.",ex:"Mon fils a 42 ans.",ex_en:"My son is 42.",level:16,cat:"famille"},
-{fr:"ma fille",en:"my daughter",phon:"*mah FEE*",def:"Fille dont on est le parent.",ex:"Ma fille habite à Paris.",ex_en:"My daughter lives in Paris.",level:16,cat:"famille"},
-{fr:"mon frère",en:"my brother",phon:"*mon FREHR*",def:"Frère.",ex:"Mon frère vient me voir ce week-end.",ex_en:"My brother is coming to see me this weekend.",level:16,cat:"famille"},
-{fr:"ma sœur",en:"my sister",phon:"*mah SUR*",def:"Sœur.",ex:"Ma sœur est très gentille.",ex_en:"My sister is very kind.",level:16,cat:"famille"},
-{fr:"mon père",en:"my father",phon:"*mon PAIR*",def:"Père.",ex:"Mon père est décédé.",ex_en:"My father has passed away.",level:16,cat:"famille"},
-{fr:"ma mère",en:"my mother",phon:"*mah MAIR*",def:"Mère.",ex:"Ma mère habite à Lyon.",ex_en:"My mother lives in Lyon.",level:16,cat:"famille"},
-{fr:"mes grands-parents",en:"my grandparents",phon:"*may gran pa-RAHN*",def:"Parents des parents.",ex:"Mes grands-parents ont 80 ans.",ex_en:"My grandparents are 80.",level:16,cat:"famille"},
-{fr:"les enfants",en:"the children",phon:"*layz on-FAN*",def:"Petits garçons et filles.",ex:"J'ai deux enfants.",ex_en:"I have two children.",level:16,cat:"famille"},
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 17 — Mes Projets (Futur proche)
-// ═══════════════════════════════════════════════════════════════════
-
-{fr:"je vais",en:"I am going to",phon:"*zhuh vay*",def:"Futur proche (aller + infinitif).",ex:"Je vais manger.",ex_en:"I am going to eat.",level:17,cat:"expression"},
-{fr:"tu vas",en:"you are going to",phon:"*tew va*",def:"Futur proche (tu).",ex:"Tu vas sortir ?",ex_en:"Are you going to go out?",level:17,cat:"expression"},
-{fr:"il va",en:"he is going to",phon:"*eel va*",def:"Futur proche (il).",ex:"Il va téléphoner.",ex_en:"He is going to call.",level:17,cat:"expression"},
-{fr:"nous allons",en:"we are going to",phon:"*noo za-LON*",def:"Futur proche (nous).",ex:"Nous allons voyager.",ex_en:"We are going to travel.",level:17,cat:"expression"},
-{fr:"vous allez",en:"you are going to (formal)",phon:"*voo za-LAY*",def:"Futur proche (vous).",ex:"Vous allez manger ?",ex_en:"Are you going to eat?",level:17,cat:"expression"},
-{fr:"ce week-end",en:"this weekend",phon:"*suh WEE-kend*",def:"Le week-end prochain.",ex:"Ce week-end je vais voir mes amis.",ex_en:"This weekend I am going to see my friends.",level:17,cat:"temps"},
-{fr:"la semaine prochaine",en:"next week",phon:"*lah suh-MEN pro-SHEN*",def:"La semaine suivante.",ex:"La semaine prochaine je vais nettoyer le jardin.",ex_en:"Next week I am going to clean the garden.",level:17,cat:"temps"},
-{fr:"le mois prochain",en:"next month",phon:"*luh MWAH pro-SHAN*",def:"Le mois suivant.",ex:"Le mois prochain je vais à Paris.",ex_en:"Next month I am going to Paris.",level:17,cat:"temps"},
-{fr:"bientôt",en:"soon",phon:"*byan-TOH*",def:"Dans un avenir proche.",ex:"Je vais bientôt partir.",ex_en:"I am going to leave soon.",level:17,cat:"temps"},
-{fr:"demain",en:"tomorrow",phon:"*duh-MAN*",def:"Le jour suivant.",ex:"Demain je vais au marché.",ex_en:"Tomorrow I am going to the market.",level:17,cat:"temps"},
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 18 — Ma Santé
-// ═══════════════════════════════════════════════════════════════════
-
-{fr:"j'ai mal à la tête",en:"I have a headache",phon:"*zhuh mal ah lah TET*",def:"Douleur à la tête.",ex:"J'ai mal à la tête, je voudrais prendre rendez-vous.",ex_en:"I have a headache, I would like to make an appointment.",level:18,cat:"santé"},
-{fr:"j'ai mal au ventre",en:"I have a stomach ache",phon:"*zhuh mal oh VAN-truh*",def:"Douleur au ventre.",ex:"J'ai mal au ventre depuis ce matin.",ex_en:"I have had a stomach ache since this morning.",level:18,cat:"santé"},
-{fr:"j'ai mal au dos",en:"I have back pain",phon:"*zhuh mal oh DOH*",def:"Douleur au dos.",ex:"J'ai mal au dos quand je travaille trop.",ex_en:"I have back pain when I work too much.",level:18,cat:"santé"},
-{fr:"j'ai mal à la gorge",en:"I have a sore throat",phon:"*zhuh mal ah lah GORZH*",def:"Douleur à la gorge.",ex:"J'ai mal à la gorge, je ne peux pas parler.",ex_en:"I have a sore throat, I cannot speak.",level:18,cat:"santé"},
-{fr:"j'ai mal aux dents",en:"I have toothache",phon:"*zhuh mal oh DAN*",def:"Douleur aux dents.",ex:"J'ai mal aux dents, je dois aller chez le dentiste.",ex_en:"I have toothache, I need to go to the dentist.",level:18,cat:"santé"},
-{fr:"prendre rendez-vous",en:"to make an appointment",phon:"*pran-druh ron-day-VOO*",def:"Fixer un rendez-vous.",ex:"Je voudrais prendre rendez-vous chez le médecin.",ex_en:"I would like to make a doctor's appointment.",level:18,cat:"expression"},
-{fr:"un médicament",en:"medication",phon:"*uh may-dee-ka-MAHN*",def:"Substance pour soigner.",ex:"Je prends un médicament trois fois par jour.",ex_en:"I take medication three times a day.",level:18,cat:"santé"},
-{fr:"les urgences",en:"emergency room",phon:"*layz oor-ZHANSS*",def:"Service hospitalier d'urgence.",ex:"Il faut aller aux urgences !",ex_en:"We need to go to the emergency room!",level:18,cat:"santé"},
-{fr:"une ordonnance",en:"prescription",phon:"*oon or-do-NANSS*",def:"Document médical pour les médicaments.",ex:"Le médecin m'a donné une ordonnance.",ex_en:"The doctor gave me a prescription.",level:18,cat:"santé"},
-{fr:"depuis",en:"since / for",phon:"*duh-PWEE*",def:"Indique la durée (avec le présent).",ex:"J'ai mal depuis trois jours.",ex_en:"I have been in pain for three days.",level:18,cat:"temps"},
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 19 — Ma Cuisine
-// ═══════════════════════════════════════════════════════════════════
-
-{fr:"couper",en:"to cut",phon:"*koo-PAY*",def:"Séparer avec un couteau.",ex:"Je coupe les légumes.",ex_en:"I cut the vegetables.",level:19,cat:"verbe"},
-{fr:"mélanger",en:"to mix",phon:"*may-LANZH*",def:"Réunir plusieurs éléments.",ex:"Je mélange bien la sauce.",ex_en:"I mix the sauce well.",level:19,cat:"verbe"},
-{fr:"faire chauffer",en:"to heat up",phon:"*fair shoh-FAY*",def:"Augmenter la température.",ex:"Je fais chauffer l'huile.",ex_en:"I heat up the oil.",level:19,cat:"expression"},
-{fr:"ajouter",en:"to add",phon:"*zha-ZHOOT*",def:"Mettre en plus.",ex:"J'ajoute du sel.",ex_en:"I add salt.",level:19,cat:"verbe"},
-{fr:"remuer",en:"to stir",phon:"*ruh-MUHW*",def:"Bouger avec une cuillère.",ex:"Je remue la soupe.",ex_en:"I stir the soup.",level:19,cat:"verbe"},
-{fr:"goûter",en:"to taste",phon:"*goo-TAY*",def:"Essayer la saveur.",ex:"Je goûte le plat.",ex_en:"I taste the dish.",level:19,cat:"verbe"},
-{fr:"servir",en:"to serve",phon:"*sair-VEER*",def:"Présenter le plat.",ex:"Je sers le dîner à 20h.",ex_en:"I serve dinner at 8pm.",level:19,cat:"verbe"},
-{fr:"les ingrédients",en:"the ingredients",phon:"*lay zan-gray-DYAN*",def:"Éléments d'une recette.",ex:"Je prépare les ingrédients.",ex_en:"I prepare the ingredients.",level:19,cat:"cuisine"},
-{fr:"une recette",en:"a recipe",phon:"*oon ruh-SET*",def:"Instructions pour cuisiner.",ex:"Je suis une recette.",ex_en:"I follow a recipe.",level:19,cat:"cuisine"},
-{fr:"c'est prêt",en:"it's ready",phon:"*say PREH*",def:"Le plat est terminé.",ex:"C'est prêt ! On peut manger.",ex_en:"It's ready! We can eat.",level:19,cat:"expression"},
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 20 — Français vivant — Expressions
-// ═══════════════════════════════════════════════════════════════════
-
-{fr:"ça marche",en:"OK / that works",phon:"*sa MARSH*",def:"Expression familière d'accord ou de confirmation.",def_en:"Informal expression of agreement or confirmation.",ex:"— On se voit à 20h ? — Ça marche !",ex_en:"— See you at 8 PM? — OK, that works!",level:20,cat:"expression"},
-{fr:"pas terrible",en:"so-so / not great",phon:"*pa tay-REE-bluh*",def:"Expression indiquant une qualité médiocre.",def_en:"Expression indicating mediocre quality.",ex:"Le film était pas terrible, je ne le recommande pas.",ex_en:"The movie was so-so, I don't recommend it.",level:20,cat:"expression"},
-{fr:"bof",en:"so-so / indifferent",phon:"*BOHF*",def:"Interjection exprimant l'indifférence ou le scepticisme.",def_en:"Interjection expressing indifference or skepticism.",ex:"— Tu aimes ce restaurant ? — Bof, c'est moyen.",ex_en:"— Do you like this restaurant? — Bof, it's average.",level:20,cat:"expression"},
-{fr:"nickel",en:"perfect / spotless",phon:"*nee-KEL*",def:"Adjectif familier signifiant parfait ou impeccable.",def_en:"Informal adjective meaning perfect or impeccable.",ex:"Ton appartement est nickel, bravo !",ex_en:"Your apartment is spotless, well done!",level:20,cat:"expression"},
-{fr:"ça me saoule",en:"it annoys me",phon:"*sa muh SOHL*",def:"Expression familière d'irritation.",def_en:"Informal expression of irritation.",ex:"Ça me saoule quand le bus est en retard.",ex_en:"It annoys me when the bus is late.",level:20,cat:"expression"},
-{fr:"en fait",en:"actually / in fact",phon:"*an FET*",def:"Expression pour rectifier ou préciser.",def_en:"Expression to correct or clarify.",ex:"En fait, je ne peux pas venir ce soir.",ex_en:"Actually, I can't come tonight.",level:20,cat:"expression"},
-{fr:"du coup",en:"so / therefore",phon:"*dew KOO*",def:"Expression de conséquence familière.",def_en:"Informal expression of consequence.",ex:"J'ai raté le bus, du coup je suis arrivé en retard.",ex_en:"I missed the bus, so I arrived late.",level:20,cat:"expression"},
-{fr:"franchement",en:"frankly",phon:"*fran-SHUH-mon*",def:"Adverbe pour exprimer une opinion sincère.",def_en:"Adverb to express a sincere opinion.",ex:"Franchement, je ne comprends pas ta décision.",ex_en:"Frankly, I don't understand your decision.",level:20,cat:"expression"},
-{fr:"quand même",en:"anyway / still",phon:"*kan MEM*",def:"Expression pour insister malgré tout.",def_en:"Expression to insist despite everything.",ex:"C'est difficile, mais je vais quand même essayer.",ex_en:"It's difficult, but I'm going to try anyway.",level:20,cat:"expression"},
-{fr:"c'est la vie",en:"that's life",phon:"*say lah VEE*",def:"Expression pour accepter l'inévitable.",def_en:"Expression to accept the inevitable.",ex:"J'ai perdu mon emploi... c'est la vie.",ex_en:"I lost my job... that's life.",level:20,cat:"expression"},
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 21 — ACTUALITÉS & POLITIQUE
-// ═══════════════════════════════════════════════════════════════════
-// PLACEHOLDER — VOIR FICHIER vocabulary-data-niveau21.js POUR LE CONTENU COMPLET
-// (547 entrées sur les thèmes : médias, politique, économie, justice, etc.)
-// ═══════════════════════════════════════════════════════════════════
-
-];
-
-// Export pour Node.js (si besoin)
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { VOCABULARY_BDD };
-}
-
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 21 — ACTUALITÉS & POLITIQUE
-// ═══════════════════════════════════════════════════════════════════
-// PLACEHOLDER — VOIR FICHIER vocabulary-data-niveau21.js POUR LE CONTENU COMPLET
-// (547 entrées sur les thèmes : médias, politique, économie, justice, etc.)
-// ═══════════════════════════════════════════════════════════════════
-// ============================================
-// vocabulary-data-niveau21.js — Daily French 🥖
-// NIVEAU 21 — ACTUALITÉS & POLITIQUE
-// 412 entrées (compléter à 547)
-// ============================================
-
-const VOCABULARY_NIVEAU21 = [
-
-// ═══════════════════════════════════════════════════════════════════
-// NIVEAU 21 — ACTUALITÉS & POLITIQUE
-// Pour comprendre les infos à la télé
-// ═══════════════════════════════════════════════════════════════════
-
-
-// --- POLITIQUE (294 entrées) ---
-
-{fr:"débat",en:"debate",phon:"*day-BA*",def:"Discussion contradictoire",ex:"Le débat des candidats.",level:21,cat:"politique"},
-{fr:"sondage",en:"poll / survey",phon:"*son-DAZH*",def:"Enquête d'opinion",ex:"Le sondage donne 52% pour.",level:21,cat:"politique"},
-{fr:"opinion",en:"opinion",phon:"*o-pee-NYON*",def:"Point de vue personnel",ex:"Chacun a son opinion.",level:21,cat:"politique"},
-{fr:"sondé",en:"polled person (male)",phon:"*son-DAY*",def:"Personne interrogée",ex:"Les sondés sont divisés.",level:21,cat:"politique"},
-{fr:"sondée",en:"polled person (female)",phon:"*son-DAY*",def:"Personne interrogée",ex:"Les sondées préfèrent...",level:21,cat:"politique"},
-{fr:"politique",en:"politics / policy",phon:"*po-lee-TEEK*",def:"Affaires publiques",ex:"Je ne fais pas de politique.",level:21,cat:"politique"},
-{fr:"président",en:"president",phon:"*pray-zee-DON*",def:"Chef d'État",ex:"Le président de la République.",level:21,cat:"politique"},
-{fr:"présidente",en:"president (female)",phon:"*pray-zee-DONT*",def:"Cheffe d'État",ex:"La présidente du Sénat.",level:21,cat:"politique"},
-{fr:"ministre",en:"minister",phon:"*mee-NEESTR*",def:"Membre du gouvernement",ex:"Le ministre de l'Économie.",level:21,cat:"politique"},
-{fr:"premier ministre",en:"prime minister",phon:"*pruh-MYAY mee-NEESTR*",def:"Chef du gouvernement",ex:"Le Premier ministre a démissionné.",level:21,cat:"politique"},
-{fr:"député",en:"MP / deputy (male)",phon:"*day-poo-TAY*",def:"Élu à l'Assemblée",ex:"Mon député est de gauche.",level:21,cat:"politique"},
-{fr:"députée",en:"MP / deputy (female)",phon:"*day-poo-TAY*",def:"Élue à l'Assemblée",ex:"Ma députée a voté contre.",level:21,cat:"politique"},
-{fr:"sénateur",en:"senator (male)",phon:"*say-na-TUR*",def:"Membre du Sénat",ex:"Le sénateur a pris la parole.",level:21,cat:"politique"},
-{fr:"sénatrice",en:"senator (female)",phon:"*say-na-TREES*",def:"Membre du Sénat",ex:"La sénatrice a proposé une loi.",level:21,cat:"politique"},
-{fr:"maire",en:"mayor",phon:"*MAIR*",def:"Chef de la commune",ex:"Le maire de la ville.",level:21,cat:"politique"},
-{fr:"adjoint",en:"deputy mayor (male)",phon:"*a-DWAH*",def:"Adjoint au maire",ex:"L'adjoint aux finances.",level:21,cat:"politique"},
-{fr:"adjointe",en:"deputy mayor (female)",phon:"*a-DWAHNT*",def:"Adjointe au maire",ex:"L'adjointe à la culture.",level:21,cat:"politique"},
-{fr:"conseiller municipal",en:"city councilor (male)",phon:"*kon-say-YAY moo-nee-see-PAL*",def:"Élu local",ex:"Un conseiller municipal actif.",level:21,cat:"politique"},
-{fr:"conseillère municipale",en:"city councilor (female)",phon:"*kon-say-YAIR moo-nee-see-PAL*",def:"Élue locale",ex:"Une conseillère municipale engagée.",level:21,cat:"politique"},
-{fr:"élection",en:"election",phon:"*ay-lek-SYON*",def:"Scrutin pour élire",ex:"Les élections législatives.",level:21,cat:"politique"},
-{fr:"campagne électorale",en:"election campaign",phon:"*kom-PAN-yuh ay-lek-to-RAL*",def:"Période avant le vote",ex:"La campagne électorale bat son plein.",level:21,cat:"politique"},
-{fr:"candidat",en:"candidate (male)",phon:"*kon-dee-DA*",def:"Personne en lice",ex:"Le candidat à la présidentielle.",level:21,cat:"politique"},
-{fr:"candidate",en:"candidate (female)",phon:"*kon-dee-DAT*",def:"Personne en lice",ex:"La candidate du parti vert.",level:21,cat:"politique"},
-{fr:"parti",en:"political party",phon:"*par-TEE*",def:"Groupe politique",ex:"Le parti socialiste.",level:21,cat:"politique"},
-{fr:"gauche",en:"left (political)",phon:"*GOHSH*",def:"Orientation politique",ex:"Je suis de gauche.",level:21,cat:"politique"},
-{fr:"droite",en:"right (political)",phon:"*DRWAHT*",def:"Orientation politique",ex:"Le parti de droite.",level:21,cat:"politique"},
-{fr:"centre",en:"center / moderate",phon:"*SON-truh*",def:"Position modérée",ex:"Le centre a perdu des voix.",level:21,cat:"politique"},
-{fr:"extrême gauche",en:"far left",phon:"*ek-STRREM GOHSH*",def:"Radical de gauche",ex:"L'extrême gauche manifeste.",level:21,cat:"politique"},
-{fr:"extrême droite",en:"far right",phon:"*ek-STRREM DRWAHT*",def:"Radical de droite",ex:"L'extrême droite monte.",level:21,cat:"politique"},
-{fr:"manifestation",en:"protest / demonstration",phon:"*ma-nee-fes-ta-SYON*",def:"Rassemblement public",ex:"Une manifestation syndicale.",level:21,cat:"politique"},
-{fr:"manifestant",en:"protester (male)",phon:"*ma-nee-fes-TON*",def:"Qui manifeste",ex:"Les manifestants scandent des slogans.",level:21,cat:"politique"},
-{fr:"manifestante",en:"protester (female)",phon:"*ma-nee-fes-TONT*",def:"Qui manifeste",ex:"Les manifestantes sont pacifiques.",level:21,cat:"politique"},
-{fr:"syndicat",en:"union / trade union",phon:"*san-dee-KA*",def:"Organisation ouvrière",ex:"Le syndicat appelle à la grève.",level:21,cat:"politique"},
-{fr:"grève",en:"strike",phon:"*GREV*",def:"Arrêt de travail collectif",ex:"La grève des transports.",level:21,cat:"politique"},
-{fr:"gréviste",en:"striker",phon:"*gray-VEEST*",def:"Qui fait grève",ex:"Les grévistes bloquent la gare.",level:21,cat:"politique"},
-{fr:"piquet de grève",en:"picket line",phon:"*pee-KAY duh GREV*",def:"Barrage devant l'entrée",ex:"Un piquet de grève devant l'usine.",level:21,cat:"politique"},
-{fr:"blocus",en:"blockade",phon:"*blo-KOO*",def:"Barrage pour bloquer",ex:"Un blocus des routes.",level:21,cat:"politique"},
-{fr:"boycott",en:"boycott",phon:"*boy-KOT*",def:"Refus d'acheter/participer",ex:"Boycotter les produits.",level:21,cat:"politique"},
-{fr:"sanction",en:"sanction",phon:"*sonk-SYON*",def:"Mesure punitive",ex:"Des sanctions économiques.",level:21,cat:"politique"},
-{fr:"embargo",en:"embargo",phon:"*om-BAR-goh*",def:"Interdiction de commerce",ex:"Un embargo sur le pétrole.",level:21,cat:"politique"},
-{fr:"diplomatie",en:"diplomacy",phon:"*dee-plo-ma-SEE*",def:"Relations internationales",ex:"La diplomatie française.",level:21,cat:"politique"},
-{fr:"traité",en:"treaty",phon:"*tra-TAY*",def:"Accord international",ex:"Le traité de paix.",level:21,cat:"politique"},
-{fr:"accord",en:"agreement",phon:"*a-KOR*",def:"Entente entre parties",ex:"Un accord commercial.",level:21,cat:"politique"},
-{fr:"négociation",en:"negotiation",phon:"*nay-go-see-a-SYON*",def:"Discussion pour un accord",ex:"Les négociations de paix.",level:21,cat:"politique"},
-{fr:"pourparlers",en:"talks / preliminary discussions",phon:"*poor-par-LAY*",def:"Discussions préliminaires",ex:"Les pourparlers ont échoué.",level:21,cat:"politique"},
-{fr:"sommet",en:"summit",phon:"*so-MAY*",def:"Réunion de chefs d'État",ex:"Le sommet du G7.",level:21,cat:"politique"},
-{fr:"conférence",en:"conference",phon:"*kon-fair-RONSS*",def:"Réunion officielle",ex:"La conférence de presse.",level:21,cat:"politique"},
-{fr:"OTAN",en:"NATO",phon:"*oh-TAN*",def:"Organisation militaire",ex:"La France est membre de l'OTAN.",level:21,cat:"politique"},
-{fr:"ONU",en:"UN",phon:"*oh-EN-YOO*",def:"Organisation mondiale",ex:"Le siège de l'ONU à New York.",level:21,cat:"politique"},
-{fr:"Union européenne",en:"European Union",phon:"*oo-NYON ay-roop-AY-ENN*",def:"Union des États européens",ex:"L'Union européenne vote une loi.",level:21,cat:"politique"},
-{fr:"Parlement européen",en:"European Parliament",phon:"*par-luh-MON ay-roop-AY-ENN*",def:"Assemblée européenne",ex:"Les députés au Parlement européen.",level:21,cat:"politique"},
-{fr:"Commission européenne",en:"European Commission",phon:"*ko-mee-SYON ay-roop-AY-ENN*",def:"Exécutif européen",ex:"La Commission européenne propose.",level:21,cat:"politique"},
-{fr:"Conseil européen",en:"European Council",phon:"*kon-SAY ay-roop-AY-ENN*",def:"Institution européenne",ex:"Le Conseil européen se réunit.",level:21,cat:"politique"},
-{fr:"dictature",en:"dictatorship",phon:"*dik-ta-TOOR*",def:"Régime autoritaire",ex:"La dictature militaire.",level:21,cat:"politique"},
-{fr:"totalitaire",en:"totalitarian",phon:"*to-ta-lee-TAIR*",def:"Contrôle total de l'État",ex:"Un régime totalitaire.",level:21,cat:"politique"},
-{fr:"autoritaire",en:"authoritarian",phon:"*o-to-ree-TAIR*",def:"Qui impose l'obéissance",ex:"Un leader autoritaire.",level:21,cat:"politique"},
-{fr:"autocrate",en:"autocrat",phon:"*o-to-KRAT*",def:"Dirigeant absolu",ex:"Un autocrate au pouvoir.",level:21,cat:"politique"},
-{fr:"tyran",en:"tyrant",phon:"*tee-RAN*",def:"Souverain cruel",ex:"Un tyran sanguinaire.",level:21,cat:"politique"},
-{fr:"despote",en:"despot",phon:"*des-POT*",def:"Maître absolu et cruel",ex:"Un despote éclairé.",level:21,cat:"politique"},
-{fr:"coup d'État",en:"coup",phon:"*koo day-TA*",def:"Prise de pouvoir forcée",ex:"Un coup d'État militaire.",level:21,cat:"politique"},
-{fr:"putsch",en:"putsch",phon:"*POOTSCH*",def:"Coup d'État violent",ex:"Le putsch a échoué.",level:21,cat:"politique"},
-{fr:"révolution",en:"revolution",phon:"*ray-vo-loo-SYON*",def:"Changement radical",ex:"La révolution de 1789.",level:21,cat:"politique"},
-{fr:"révolte",en:"revolt / uprising",phon:"*ray-VOLT*",def:"Soulèvement populaire",ex:"La révolte des gilets jaunes.",level:21,cat:"politique"},
-{fr:"insurrection",en:"insurrection",phon:"*on-sur-rek-SYON*",def:"Rébellion armée",ex:"L'insurrection a été réprimée.",level:21,cat:"politique"},
-{fr:"soulèvement",en:"uprising",phon:"*sool-lev-uh-MON*",def:"Révolte collective",ex:"Le soulèvement populaire.",level:21,cat:"politique"},
-{fr:"rébellion",en:"rebellion",phon:"*ray-bay-YON*",def:"Refus d'obéissance",ex:"La rébellion des régions.",level:21,cat:"politique"},
-{fr:"guerre",en:"war",phon:"*GAIR*",def:"Conflit armé",ex:"La guerre en Ukraine.",level:21,cat:"politique"},
-{fr:"conflit",en:"conflict",phon:"*kon-FLEE*",def:"Affrontement",ex:"Le conflit au Moyen-Orient.",level:21,cat:"politique"},
-{fr:"crise",en:"crisis",phon:"*KREEZ*",def:"Situation critique",ex:"La crise économique.",level:21,cat:"politique"},
-{fr:"guerre civile",en:"civil war",phon:"*GAIR see-VEEL*",def:"Guerre interne",ex:"La guerre civile syrienne.",level:21,cat:"politique"},
-{fr:"guerre mondiale",en:"world war",phon:"*GAIR mon-DYAL*",def:"Guerre globale",ex:"La Seconde Guerre mondiale.",level:21,cat:"politique"},
-{fr:"armistice",en:"armistice",phon:"*ar-mee-STEES*",def:"Arrêt des combats",ex:"L'armistice de 1918.",level:21,cat:"politique"},
-{fr:"paix",en:"peace",phon:"*PAY*",def:"Absence de guerre",ex:"Les négociations de paix.",level:21,cat:"politique"},
-{fr:"traité de paix",en:"peace treaty",phon:"*tra-TAY duh PAY*",def:"Accord de fin de guerre",ex:"Le traité de Versailles.",level:21,cat:"politique"},
-{fr:"occupation",en:"occupation",phon:"*ok-oo-pa-SYON*",def:"Prise de contrôle militaire",ex:"L'occupation allemande.",level:21,cat:"politique"},
-{fr:"résistance",en:"resistance",phon:"*ray-zee-STONSS*",def:"Opposition armée",ex:"La Résistance française.",level:21,cat:"politique"},
-{fr:"résistant",en:"resistance fighter (male)",phon:"*ray-zee-STON*",def:"Membre de la Résistance",ex:"Un résistant héroïque.",level:21,cat:"politique"},
-{fr:"résistante",en:"resistance fighter (female)",phon:"*ray-zee-STONT*",def:"Membre de la Résistance",ex:"Une résistante courageuse.",level:21,cat:"politique"},
-{fr:"collaboration",en:"collaboration",phon:"*ko-la-bo-ra-SYON*",def:"Coopération avec l'ennemi",ex:"La collaboration pendant la guerre.",level:21,cat:"politique"},
-{fr:"collaborateur",en:"collaborator (male)",phon:"*ko-la-bo-ra-TUR*",def:"Qui collabore avec l'ennemi",ex:"Un collaborateur jugé.",level:21,cat:"politique"},
-{fr:"collaboratrice",en:"collaborator (female)",phon:"*ko-la-bo-ra-TREES*",def:"Qui collabore avec l'ennemi",ex:"Une collaboratrice condamnée.",level:21,cat:"politique"},
-{fr:"propagande",en:"propaganda",phon:"*pro-pa-GONND*",def:"Information manipulée",ex:"La propagande du régime.",level:21,cat:"politique"},
-{fr:"censure",en:"censorship",phon:"*son-SOOR*",def:"Contrôle de l'information",ex:"La censure des médias.",level:21,cat:"politique"},
-{fr:"dissident",en:"dissident (male)",phon:"*dee-see-DON*",def:"Opposant au régime",ex:"Un dissident emprisonné.",level:21,cat:"politique"},
-{fr:"dissidente",en:"dissident (female)",phon:"*dee-see-DONT*",def:"Opposante au régime",ex:"Une dissidente exilée.",level:21,cat:"politique"},
-{fr:"exil",en:"exile",phon:"*eg-ZEEL*",def:"Bannissement",ex:"Vivre en exil politique.",level:21,cat:"politique"},
-{fr:"exilé",en:"exiled (male)",phon:"*eg-zee-LAY*",def:"Qui vit en exil",ex:"Un exilé politique.",level:21,cat:"politique"},
-{fr:"exilée",en:"exiled (female)",phon:"*eg-zee-LAY*",def:"Qui vit en exil",ex:"Une exilée française.",level:21,cat:"politique"},
-{fr:"réfugié",en:"refugee (male)",phon:"*ray-few-zhee-AY*",def:"Qui fuit un danger",ex:"Un réfugié ukrainien.",level:21,cat:"politique"},
-{fr:"réfugiée",en:"refugee (female)",phon:"*ray-few-zhee-AY*",def:"Qui fuit un danger",ex:"Une réfugiée syrienne.",level:21,cat:"politique"},
-{fr:"asile politique",en:"political asylum",phon:"*a-ZEEL po-lee-TEEK*",def:"Protection diplomatique",ex:"Demander l'asile politique.",level:21,cat:"politique"},
-{fr:"immigration",en:"immigration",phon:"*ee-mee-gra-SYON*",def:"Entrée dans un pays",ex:"La politique d'immigration.",level:21,cat:"politique"},
-{fr:"émigration",en:"emigration",phon:"*ay-mee-gra-SYON*",def:"Sortie d'un pays",ex:"L'émigration des jeunes.",level:21,cat:"politique"},
-{fr:"migrant",en:"migrant (male)",phon:"*mee-GRON*",def:"Personne en déplacement",ex:"Un migrant économique.",level:21,cat:"politique"},
-{fr:"migrante",en:"migrant (female)",phon:"*mee-GRONT*",def:"Personne en déplacement",ex:"Une migrante africaine.",level:21,cat:"politique"},
-{fr:"clandestin",en:"illegal immigrant (male)",phon:"*klon-des-TAN*",def:"Sans papiers",ex:"Un passage clandestin.",level:21,cat:"politique"},
-{fr:"clandestine",en:"illegal immigrant (female)",phon:"*klon-des-TEEN*",def:"Sans papiers",ex:"Une migration clandestine.",level:21,cat:"politique"},
-{fr:"xénophobie",en:"xenophobia",phon:"*zay-no-fo-BEE*",def:"Rejet de l'étranger",ex:"La xénophobie monte.",level:21,cat:"politique"},
-{fr:"racisme",en:"racism",phon:"*ra-SEESM*",def:"Discrimination raciale",ex:"Lutter contre le racisme.",level:21,cat:"politique"},
-{fr:"discrimination",en:"discrimination",phon:"*dees-kree-mee-na-SYON*",def:"Traitement inégal",ex:"La discrimination à l'embauche.",level:21,cat:"politique"},
-{fr:"inégalité",en:"inequality",phon:"*ee-nay-ga-lee-TAY*",def:"Différence injuste",ex:"L'inégalité des revenus.",level:21,cat:"politique"},
-{fr:"pauvreté",en:"poverty",phon:"*poh-vruh-TAY*",def:"Manque de ressources",ex:"La pauvreté dans les banlieues.",level:21,cat:"politique"},
-{fr:"précarité",en:"precariousness",phon:"*pray-ka-ree-TAY*",def:"Situation instable",ex:"La précarité économique.",level:21,cat:"politique"},
-{fr:"chômage",en:"unemployment",phon:"*SHOH-mazh*",def:"Sans emploi",ex:"Le chômage des jeunes.",level:21,cat:"politique"},
-{fr:"SDF",en:"homeless",phon:"*es-day-EFF*",def:"Sans domicile fixe",ex:"Aider les SDF.",level:21,cat:"politique"},
-{fr:"inflation",en:"inflation",phon:"*on-fla-SYON*",def:"Hausse des prix",ex:"L'inflation galopante.",level:21,cat:"politique"},
-{fr:"récession",en:"recession",phon:"*ray-ses-SYON*",def:"Crise économique",ex:"La récession mondiale.",level:21,cat:"politique"},
-{fr:"dette",en:"debt",phon:"*DET*",def:"Argent dû",ex:"La dette publique.",level:21,cat:"politique"},
-{fr:"déficit",en:"deficit",phon:"*day-fee-SEET*",def:"Dépenses > recettes",ex:"Le déficit budgétaire.",level:21,cat:"politique"},
-{fr:"budget",en:"budget",phon:"*boo-ZHAY*",def:"Prévision de dépenses",ex:"Le budget de l'État.",level:21,cat:"politique"},
-{fr:"impôt",en:"tax",phon:"*on-POH*",def:"Prélèvement obligatoire",ex:"Les impôts sur le revenu.",level:21,cat:"politique"},
-{fr:"taxe",en:"tax / fee",phon:"*TAKS*",def:"Contribution",ex:"La taxe carbone.",level:21,cat:"politique"},
-{fr:"taux",en:"rate",phon:"*TOH*",def:"Pourcentage",ex:"Le taux de chômage.",level:21,cat:"politique"},
-{fr:"taux d'intérêt",en:"interest rate",phon:"*TOH don-tay-RAY*",def:"Coût de l'emprunt",ex:"Le taux d'intérêt augmente.",level:21,cat:"politique"},
-{fr:"crise financière",en:"financial crisis",phon:"*KREEZ fee-non-SEE-air*",def:"Effondrement économique",ex:"La crise financière de 2008.",level:21,cat:"politique"},
-{fr:"bulle spéculative",en:"speculative bubble",phon:"*BOOL spay-kew-la-TEEV*",def:"Surévaluation économique",ex:"La bulle immobilière.",level:21,cat:"politique"},
-{fr:"krach",en:"crash",phon:"*KRASH*",def:"Effondrement boursier",ex:"Le krach de 1929.",level:21,cat:"politique"},
-{fr:"bourse",en:"stock exchange",phon:"*BOORS*",def:"Marché financier",ex:"La Bourse de Paris.",level:21,cat:"politique"},
-{fr:"action",en:"share / stock",phon:"*ak-SYON*",def:"Titre de propriété",ex:"Acheter des actions.",level:21,cat:"politique"},
-{fr:"actionnaire",en:"shareholder",phon:"*ak-syo-NAIR*",def:"Propriétaire d'actions",ex:"Les actionnaires majoritaires.",level:21,cat:"politique"},
-{fr:"dividende",en:"dividend",phon:"*dee-vee-DONND*",def:"Part du bénéfice",ex:"Verser un dividende.",level:21,cat:"politique"},
-{fr:"bénéfice",en:"profit",phon:"*bay-nay-FEES*",def:"Gain financier",ex:"Les bénéfices record.",level:21,cat:"politique"},
-{fr:"perte",en:"loss",phon:"*PAIR-T*",def:"Perte financière",ex:"Des pertes colossales.",level:21,cat:"politique"},
-{fr:"faillite",en:"bankruptcy",phon:"*fa-YEET*",def:"Insolvabilité",ex:"La faillite de l'entreprise.",level:21,cat:"politique"},
-{fr:"liquidation",en:"liquidation",phon:"*lee-kwee-da-SYON*",def:"Vente des actifs",ex:"La liquidation judiciaire.",level:21,cat:"politique"},
-{fr:"redressement judiciaire",en:"receivership",phon:"*ruh-dres-uh-MON zhoo-dee-SYAIR*",def:"Procédure de sauvegarde",ex:"Le redressement judiciaire.",level:21,cat:"politique"},
-{fr:"plan social",en:"redundancy plan",phon:"*PLON so-SYAL*",def:"Licenciements collectifs",ex:"Un plan social annoncé.",level:21,cat:"politique"},
-{fr:"licenciement",en:"dismissal / layoff",phon:"*lee-son-ee-MON*",def:"Rupture du contrat",ex:"Un licenciement économique.",level:21,cat:"politique"},
-{fr:"délocalisation",en:"offshoring",phon:"*day-lo-ka-lee-za-SYON*",def:"Transfert à l'étranger",ex:"La délocalisation en Chine.",level:21,cat:"politique"},
-{fr:"mondialisation",en:"globalization",phon:"*mon-dee-a-lee-za-SYON*",def:"Intégration mondiale",ex:"La mondialisation économique.",level:21,cat:"politique"},
-{fr:"protectionnisme",en:"protectionism",phon:"*pro-tek-syo-NEESM*",def:"Barrières commerciales",ex:"Le protectionnisme américain.",level:21,cat:"politique"},
-{fr:"libre-échange",en:"free trade",phon:"*LEEB-ray-SHONZH*",def:"Commerce sans barrières",ex:"L'accord de libre-échange.",level:21,cat:"politique"},
-{fr:"tarif douanier",en:"customs tariff",phon:"*ta-REEF doo-a-NYAY*",def:"Taxe à l'importation",ex:"Les tarifs douaniers.",level:21,cat:"politique"},
-{fr:"dumping",en:"dumping",phon:"*DOM-ping*",def:"Vente à perte à l'export",ex:"Le dumping chinois.",level:21,cat:"politique"},
-{fr:"subvention",en:"subsidy",phon:"*soob-ven-SYON*",def:"Aide financière",ex:"Les subventions agricoles.",level:21,cat:"politique"},
-{fr:"aide d'État",en:"state aid",phon:"*ED day-TA*",def:"Aide publique",ex:"L'aide d'État à l'industrie.",level:21,cat:"politique"},
-{fr:"nationalisation",en:"nationalization",phon:"*na-syo-na-lee-za-SYON*",def:"Passage en propriété publique",ex:"La nationalisation des banques.",level:21,cat:"politique"},
-{fr:"privatisation",en:"privatization",phon:"*pree-va-tee-za-SYON*",def:"Passage en propriété privée",ex:"La privatisation des services.",level:21,cat:"politique"},
-{fr:"service public",en:"public service",phon:"*SAIR-vees poo-BLEEK*",def:"Service géré par l'État",ex:"Les services publics en grève.",level:21,cat:"politique"},
-{fr:"fonction publique",en:"civil service",phon:"*fonk-SYON poo-BLEEK*",def:"Emploi d'État",ex:"La fonction publique territoriale.",level:21,cat:"politique"},
-{fr:"collectivité territoriale",en:"local authority",phon:"*ko-lek-tee-vee-tay tair-ree-to-ree-AL*",def:"Entité locale",ex:"Les collectivités territoriales.",level:21,cat:"politique"},
-{fr:"intercommunalité",en:"inter-municipality",phon:"*on-tair-ko-moo-na-lee-TAY*",def:"Groupement de communes",ex:"L'intercommunalité rurale.",level:21,cat:"politique"},
-{fr:"désertification",en:"rural exodus",phon:"*day-zair-tee-fee-ka-SYON*",def:"Dépeuplement rural",ex:"La désertification des campagnes.",level:21,cat:"politique"},
-{fr:"aménagement du territoire",en:"spatial planning",phon:"*a-may-nazh-uh-MON doo tair-ee-TWAHR*",def:"Organisation du territoire",ex:"L'aménagement du territoire.",level:21,cat:"politique"},
-{fr:"écologie",en:"ecology",phon:"*ay-ko-lo-ZHEE*",def:"Science de l'environnement",ex:"L'écologie politique.",level:21,cat:"politique"},
-{fr:"environnement",en:"environment",phon:"*on-vee-ron-muh-MON*",def:"Milieu naturel",ex:"Protéger l'environnement.",level:21,cat:"politique"},
-{fr:"développement durable",en:"sustainable development",phon:"*day-vel-op-uh-MON doo-RAH-bluh*",def:"Croissance responsable",ex:"Le développement durable.",level:21,cat:"politique"},
-{fr:"changement climatique",en:"climate change",phon:"*shanzh-uh-MON klee-ma-TEEK*",def:"Réchauffement planétaire",ex:"Le changement climatique.",level:21,cat:"politique"},
-{fr:"réchauffement",en:"warming",phon:"*ray-shof-uh-MON*",def:"Augmentation de température",ex:"Le réchauffement global.",level:21,cat:"politique"},
-{fr:"émission de CO2",en:"CO2 emissions",phon:"*ay-mee-SYON duh say-oh-DOO*",def:"Rejet de gaz carbonique",ex:"Réduire les émissions de CO2.",level:21,cat:"politique"},
-{fr:"énergie renouvelable",en:"renewable energy",phon:"*ay-nair-ZHEE ruh-noo-vuh-LA-bluh*",def:"Énergie non épuisable",ex:"Les énergies renouvelables.",level:21,cat:"politique"},
-{fr:"nucléaire",en:"nuclear",phon:"*noo-KLAY-air*",def:"Énergie atomique",ex:"Le débat sur le nucléaire.",level:21,cat:"politique"},
-{fr:"déchets",en:"waste",phon:"*day-SHAY*",def:"Produits jetés",ex:"La gestion des déchets.",level:21,cat:"politique"},
-{fr:"recyclage",en:"recycling",phon:"*ruh-see-KLAZH*",def:"Retraitement des déchets",ex:"Le recyclage des plastiques.",level:21,cat:"politique"},
-{fr:"pollution",en:"pollution",phon:"*po-loo-SYON*",def:"Contamination",ex:"La pollution de l'air.",level:21,cat:"politique"},
-{fr:"pesticide",en:"pesticide",phon:"*pes-tee-SEED*",def:"Produit anti-ravageurs",ex:"L'interdiction des pesticides.",level:21,cat:"politique"},
-{fr:"OGM",en:"GMO",phon:"*oh-zhay-EM*",def:"Organisme génétiquement modifié",ex:"Le débat sur les OGM.",level:21,cat:"politique"},
-{fr:"alimentation",en:"food / nutrition",phon:"*a-lee-mon-ta-SYON*",def:"Nourriture",ex:"L'alimentation bio.",level:21,cat:"politique"},
-{fr:"santé publique",en:"public health",phon:"*son-TAY poo-BLEEK*",def:"Santé collective",ex:"La santé publique en danger.",level:21,cat:"politique"},
-{fr:"système de santé",en:"healthcare system",phon:"*sees-TEM duh son-TAY*",def:"Organisation médicale",ex:"Le système de santé français.",level:21,cat:"politique"},
-{fr:"sécurité sociale",en:"social security",phon:"*say-kew-ree-TAY so-SYAL*",def:"Assurance maladie",ex:"La Sécurité sociale.",level:21,cat:"politique"},
-{fr:"retraite",en:"retirement / pension",phon:"*ruh-TRET*",def:"Fin de carrière",ex:"L'âge de la retraite.",level:21,cat:"politique"},
-{fr:"réforme des retraites",en:"pension reform",phon:"*ray-FORM day ruh-TRET*",def:"Modification des pensions",ex:"La réforme des retraites.",level:21,cat:"politique"},
-{fr:"grève générale",en:"general strike",phon:"*GREV zhay-nay-RAL*",def:"Arrêt de travail national",ex:"La grève générale du 7 mars.",level:21,cat:"politique"},
-{fr:"motion de censure",en:"motion of censure",phon:"*mo-SYON duh son-SOOR*",def:"Vote de défiance",ex:"La motion de censure rejetée.",level:21,cat:"politique"},
-{fr:"dissolution",en:"dissolution",phon:"*dee-so-loo-SYON*",def:"Fin de l'Assemblée",ex:"La dissolution de l'Assemblée.",level:21,cat:"politique"},
-{fr:"assemblée nationale",en:"National Assembly",phon:"*a-som-BLAY na-syo-NAL*",def:"Chambre basse du Parlement",ex:"L'Assemblée nationale vote.",level:21,cat:"politique"},
-{fr:"sénat",en:"Senate",phon:"*say-NA*",def:"Chambre haute du Parlement",ex:"Le Sénat a adopté le texte.",level:21,cat:"politique"},
-{fr:"parlement",en:"parliament",phon:"*par-luh-MON*",def:"Assemblée législative",ex:"Le Parlement britannique.",level:21,cat:"politique"},
-{fr:"loi",en:"law",phon:"*LWA*",def:"Règle légale",ex:"Adopter une loi.",level:21,cat:"politique"},
-{fr:"projet de loi",en:"bill",phon:"*pro-ZHAY duh LWA*",def:"Texte législatif",ex:"Le projet de loi sur les retraites.",level:21,cat:"politique"},
-{fr:"amendement",en:"amendment",phon:"*a-monnd-MON*",def:"Modification d'un texte",ex:"Un amendement adopté.",level:21,cat:"politique"},
-{fr:"article",en:"article (law)",phon:"*ar-TEE-kluh*",def:"Paragraphe de loi",ex:"L'article 1er de la Constitution.",level:21,cat:"politique"},
-{fr:"constitution",en:"constitution",phon:"*kon-stee-too-SYON*",def:"Loi fondamentale",ex:"La Constitution de 1958.",level:21,cat:"politique"},
-{fr:"référendum",en:"referendum",phon:"*ray-fay-RONND-dom*",def:"Vote du peuple",ex:"Le référendum de 2005.",level:21,cat:"politique"},
-{fr:"initiative citoyenne",en:"citizens' initiative",phon:"*ee-nee-sya-TEEV see-twa-YENN*",def:"Proposition du peuple",ex:"L'initiative citoyenne européenne.",level:21,cat:"politique"},
-{fr:"pétition",en:"petition",phon:"*pay-tee-SYON*",def:"Liste de signatures",ex:"Signer une pétition.",level:21,cat:"politique"},
-{fr:"motion",en:"motion",phon:"*mo-SYON*",def:"Proposition de vote",ex:"Une motion d'urgence.",level:21,cat:"politique"},
-{fr:"déclaration",en:"statement / declaration",phon:"*day-kla-ra-SYON*",def:"Annonce officielle",ex:"La déclaration du président.",level:21,cat:"politique"},
-{fr:"communiqué",en:"press release",phon:"*ko-moo-nee-KAY*",def:"Note officielle",ex:"Un communiqué de presse.",level:21,cat:"politique"},
-{fr:"intention de vote",en:"voting intention",phon:"*on-tan-SYON duh VOT*",def:"Ce qu'on compte voter",ex:"Les intentions de vote.",level:21,cat:"politique"},
-{fr:"bulletin de vote",en:"ballot paper",phon:"*bool-tee-TAN duh VOT*",def:"Papier pour voter",ex:"Déposer son bulletin.",level:21,cat:"politique"},
-{fr:"urne",en:"ballot box",phon:"*OORN*",def:"Boîte de vote",ex:"Mettre dans l'urne.",level:21,cat:"politique"},
-{fr:"dépouillement",en:"vote counting",phon:"*day-poo-yuh-MON*",def:"Comptage des voix",ex:"Le dépouillement des votes.",level:21,cat:"politique"},
-{fr:"scrutin",en:"ballot / poll",phon:"*SKROO-teen*",def:"Opération de vote",ex:"Le scrutin présidentiel.",level:21,cat:"politique"},
-{fr:"tour",en:"round",phon:"*TOOR*",def:"Phase électorale",ex:"Le second tour.",level:21,cat:"politique"},
-{fr:"abstention",en:"abstention",phon:"*ab-ston-SYON*",def:"Non-participation au vote",ex:"L'abstention record.",level:21,cat:"politique"},
-{fr:"vote blanc",en:"blank vote",phon:"*VOT BLAHN*",def:"Bulletin sans choix",ex:"Le vote blanc comptabilisé.",level:21,cat:"politique"},
-{fr:"vote nul",en:"spoilt ballot",phon:"*VOT NOOL*",def:"Bulletin invalide",ex:"Les votes nuls.",level:21,cat:"politique"},
-{fr:"résultat",en:"result",phon:"*ray-zoo-LTA*",def:"Issue du vote",ex:"Les résultats définitifs.",level:21,cat:"politique"},
-{fr:"vainqueur",en:"winner (male)",phon:"*VAN-kur*",def:"Qui gagne",ex:"Le vainqueur de l'élection.",level:21,cat:"politique"},
-{fr:"vainqueure",en:"winner (female)",phon:"*VAN-kur*",def:"Qui gagne",ex:"La vainqueure du scrutin.",level:21,cat:"politique"},
-{fr:"perdant",en:"loser (male)",phon:"*PAIR-don*",def:"Qui perd",ex:"Le perdant accepte le résultat.",level:21,cat:"politique"},
-{fr:"perdante",en:"loser (female)",phon:"*PAIR-dont*",def:"Qui perd",ex:"La perdante félicite le vainqueur.",level:21,cat:"politique"},
-{fr:"écart",en:"gap / margin",phon:"*ay-KAR*",def:"Différence de voix",ex:"Un écart de 5%.",level:21,cat:"politique"},
-{fr:"majorité",en:"majority",phon:"*ma-zho-ree-TAY*",def:"Plus de 50%",ex:"La majorité absolue.",level:21,cat:"politique"},
-{fr:"minorité",en:"minority",phon:"*mee-no-ree-TAY*",def:"Moins de 50%",ex:"La minorité d'opposition.",level:21,cat:"politique"},
-{fr:"coalition",en:"coalition",phon:"*ko-a-lee-SYON*",def:"Alliance politique",ex:"Une coalition gouvernementale.",level:21,cat:"politique"},
-{fr:"gouvernement",en:"government",phon:"*goo-vair-nuh-MON*",def:"Exécutif",ex:"Le gouvernement Macron.",level:21,cat:"politique"},
-{fr:"exécutif",en:"executive",phon:"*eg-ze-koo-TEEF*",def:"Pouvoir exécutif",ex:"L'exécutif et le législatif.",level:21,cat:"politique"},
-{fr:"législatif",en:"legislative",phon:"*lay-zhee-sla-TEEF*",def:"Pouvoir de loi",ex:"Le pouvoir législatif.",level:21,cat:"politique"},
-{fr:"judiciaire",en:"judicial",phon:"*zhoo-dee-SYAIR*",def:"Pouvoir de justice",ex:"Le pouvoir judiciaire.",level:21,cat:"politique"},
-{fr:"séparation des pouvoirs",en:"separation of powers",phon:"*say-pa-ra-SYON day poo-VWAHR*",def:"Indépendance des 3 pouvoirs",ex:"La séparation des pouvoirs.",level:21,cat:"politique"},
-{fr:"état de droit",en:"rule of law",phon:"*ay-TA duh DRWA*",def:"Primauté de la loi",ex:"L'état de droit menacé.",level:21,cat:"politique"},
-{fr:"liberté d'expression",en:"freedom of speech",phon:"*lee-bair-TAY dek-spre-SYON*",def:"Droit de s'exprimer",ex:"La liberté d'expression.",level:21,cat:"politique"},
-{fr:"liberté de la presse",en:"press freedom",phon:"*lee-bair-TAY duh la PRESS*",def:"Indépendance journalistique",ex:"La liberté de la presse.",level:21,cat:"politique"},
-{fr:"droits de l'homme",en:"human rights",phon:"*DRWA duh LOM*",def:"Droits fondamentaux",ex:"Les droits de l'homme.",level:21,cat:"politique"},
-{fr:"démocratie",en:"democracy",phon:"*day-mo-kra-SEE*",def:"Gouvernement du peuple",ex:"La démocratie représentative.",level:21,cat:"politique"},
-{fr:"république",en:"republic",phon:"*ray-poo-BLEEK*",def:"Régime non monarchique",ex:"La République française.",level:21,cat:"politique"},
-{fr:"monarchie",en:"monarchy",phon:"*mo-nar-SHEE*",def:"Gouvernement royal",ex:"La monarchie britannique.",level:21,cat:"politique"},
-{fr:"présidentiel",en:"presidential",phon:"*pray-zee-don-SYEL*",def:"Relatif au président",ex:"Le système présidentiel.",level:21,cat:"politique"},
-{fr:"parlementaire",en:"parliamentary",phon:"*par-luh-mon-TAIR*",def:"Relatif au Parlement",ex:"Le régime parlementaire.",level:21,cat:"politique"},
-{fr:"président de la République",en:"President of the Republic",phon:"*pray-zee-DON duh la ray-poo-BLEEK*",def:"Chef de l'État français",ex:"Le Président de la République.",level:21,cat:"politique"},
-{fr:"Premier ministre",en:"Prime Minister",phon:"*pruh-MYAY mee-NEESTR*",def:"Chef du gouvernement",ex:"Le Premier ministre français.",level:21,cat:"politique"},
-{fr:"ministre de l'Intérieur",en:"Minister of the Interior",phon:"*mee-NEESTR duh lon-TAY-ryur*",def:"Police et sécurité",ex:"Le ministre de l'Intérieur a parlé.",level:21,cat:"politique"},
-{fr:"ministre des Affaires étrangères",en:"Minister of Foreign Affairs",phon:"*mee-NEESTR day za-FAIR ay-tron-ZHER*",def:"Relations internationales",ex:"Le ministre des Affaires étrangères.",level:21,cat:"politique"},
-{fr:"ministre de l'Économie",en:"Minister of the Economy",phon:"*mee-NEESTR duh lay-ko-no-MEE*",def:"Finances publiques",ex:"Le ministre de l'Économie.",level:21,cat:"politique"},
-{fr:"ministre de la Défense",en:"Minister of Defense",phon:"*mee-NEESTR duh la day-FONSS*",def:"Armée et sécurité",ex:"Le ministre de la Défense.",level:21,cat:"politique"},
-{fr:"ministre de la Justice",en:"Minister of Justice",phon:"*mee-NEESTR duh la zhoo-TEES*",def:"Garde des Sceaux",ex:"Le ministre de la Justice.",level:21,cat:"politique"},
-{fr:"ministre de l'Éducation",en:"Minister of Education",phon:"*mee-NEESTR duh lay-dew-ka-SYON*",def:"École et université",ex:"Le ministre de l'Éducation nationale.",level:21,cat:"politique"},
-{fr:"ministre de la Santé",en:"Minister of Health",phon:"*mee-NEESTR duh la son-TAY*",def:"Système de santé",ex:"Le ministre de la Santé.",level:21,cat:"politique"},
-{fr:"ministre du Travail",en:"Minister of Labour",phon:"*mee-NEESTR doo TRA-vahy*",def:"Emploi et formation",ex:"Le ministre du Travail.",level:21,cat:"politique"},
-{fr:"ministre de l'Agriculture",en:"Minister of Agriculture",phon:"*mee-NEESTR duh la-gree-kool-TOOR*",def:"Fermes et alimentation",ex:"Le ministre de l'Agriculture.",level:21,cat:"politique"},
-{fr:"ministre de la Culture",en:"Minister of Culture",phon:"*mee-NEESTR duh la kool-TOOR*",def:"Arts et patrimoine",ex:"Le ministre de la Culture.",level:21,cat:"politique"},
-{fr:"ministre de l'Environnement",en:"Minister of the Environment",phon:"*mee-NEESTR duh lon-vee-ron-muh-MON*",def:"Écologie",ex:"Le ministre de l'Environnement.",level:21,cat:"politique"},
-{fr:"secrétaire d'État",en:"Secretary of State",phon:"*su-kray-TAIR day-TA*",def:"Ministre junior",ex:"Le secrétaire d'État au Numérique.",level:21,cat:"politique"},
-{fr:"militant",en:"activist / party member (male)",phon:"*mee-lee-TON*",def:"Membre engagé",ex:"Un militant syndical.",level:21,cat:"politique"},
-{fr:"militante",en:"activist / party member (female)",phon:"*mee-lee-TONT*",def:"Membre engagée",ex:"Une militante écologiste.",level:21,cat:"politique"},
-{fr:"sympathisant",en:"supporter (male)",phon:"*san-pa-tee-ZON*",def:"Qui soutient sans adhérer",ex:"Un sympathisant de gauche.",level:21,cat:"politique"},
-{fr:"sympathisante",en:"supporter (female)",phon:"*san-pa-tee-ZONT*",def:"Qui soutient sans adhérer",ex:"Une sympathisante du parti.",level:21,cat:"politique"},
-{fr:"adhérent",en:"member (male)",phon:"*a-day-RON*",def:"Membre inscrit",ex:"Un adhérent depuis 20 ans.",level:21,cat:"politique"},
-{fr:"adhérente",en:"member (female)",phon:"*a-day-RONT*",def:"Membre inscrite",ex:"Une adhérente active.",level:21,cat:"politique"},
-{fr:"cotisation",en:"membership fee",phon:"*ko-tee-za-SYON*",def:"Dû d'adhésion",ex:"Payer sa cotisation syndicale.",level:21,cat:"politique"},
-{fr:"carte d'adhérent",en:"membership card",phon:"*KART a-day-RON*",def:"Preuve d'adhésion",ex:"Présenter sa carte d'adhérent.",level:21,cat:"politique"},
-{fr:"réunion publique",en:"public meeting",phon:"*ray-OO-nyon poo-BLEEK*",def:"Rassemblement politique",ex:"Une réunion publique ce soir.",level:21,cat:"politique"},
-{fr:"meeting",en:"rally / meeting",phon:"*MEE-ting*",def:"Grand rassemblement",ex:"Le meeting du candidat.",level:21,cat:"politique"},
-{fr:"discours",en:"speech",phon:"*dees-KOOR*",def:"Allocation publique",ex:"Le discours du président.",level:21,cat:"politique"},
-{fr:"allocution",en:"address",phon:"*a-lo-koo-SYON*",def:"Discours officiel",ex:"L'allocution télévisée.",level:21,cat:"politique"},
-{fr:"conférence de presse",en:"press conference",phon:"*kon-fair-RONSS duh PRESS*",def:"Rencontre journalistes",ex:"Une conférence de presse.",level:21,cat:"politique"},
-{fr:"point presse",en:"press briefing",phon:"*PWAN PRESS*",def:"Point d'information",ex:"Le point presse du ministère.",level:21,cat:"politique"},
-{fr:"déclaration à la presse",en:"statement to the press",phon:"*day-kla-ra-SYON a la PRESS*",def:"Annonce médiatique",ex:"Une déclaration à la presse.",level:21,cat:"politique"},
-{fr:"affaire",en:"scandal / case",phon:"*a-FAIR*",def:"Affaire politique",ex:"L'affaire Fillon.",level:21,cat:"politique"},
-{fr:"polémique",en:"controversy",phon:"*po-lay-MEEK*",def:"Débat houleux",ex:"La polémique sur la réforme.",level:21,cat:"politique"},
-{fr:"scandale",en:"scandal",phon:"*skon-DAL*",def:"Révélation choquante",ex:"Un scandale financier.",level:21,cat:"politique"},
-{fr:"affaire d'État",en:"state affair",phon:"*a-FAIR day-TA*",def:"Affaire touchant l'État",ex:"Une affaire d'État.",level:21,cat:"politique"},
-{fr:"démission",en:"resignation",phon:"*day-mee-SYON*",def:"Départ volontaire",ex:"La démission du ministre.",level:21,cat:"politique"},
-{fr:"revirement",en:"U-turn / reversal",phon:"*ruh-vee-ruh-MON*",def:"Changement brutal",ex:"Un revirement de politique.",level:21,cat:"politique"},
-{fr:"volte-face",en:"about-face / U-turn",phon:"*VOLT fa-SS*",def:"Changement complet",ex:"Une volte-face du gouvernement.",level:21,cat:"politique"},
-{fr:"reculade",en:"climbdown / backdown",phon:"*ruh-kew-LAHD*",def:"Recul politique",ex:"Une reculade du ministère.",level:21,cat:"politique"},
-{fr:"marche arrière",en:"reverse / backtrack",phon:"*MARSH a-RYAIR*",def:"Retour en arrière",ex:"Faire marche arrière.",level:21,cat:"politique"},
-{fr:"arbitrage",en:"arbitration",phon:"*ar-bee-TRAZH*",def:"Décision d'un tiers",ex:"L'arbitrage du président.",level:21,cat:"politique"},
-{fr:"compromis",en:"compromise",phon:"*kom-pro-MEE*",def:"Accord partiel",ex:"Trouver un compromis.",level:21,cat:"politique"},
-{fr:"consensus",en:"consensus",phon:"*kon-SON-soo*",def:"Accord général",ex:"Rechercher le consensus.",level:21,cat:"politique"},
-{fr:"Assemblée nationale",en:"National Assembly",phon:"*a-som-BLAY na-syo-NAL*",def:"Chambre basse du Parlement français.",ex:"L'Assemblée nationale a adopté le projet de loi.",level:21,cat:"politique"},
-{fr:"Sénat",en:"Senate",phon:"*say-NA*",def:"Chambre haute du Parlement français.",ex:"Le Sénat a rejeté l'amendement.",level:21,cat:"politique"},
-{fr:"Conseil de l'Europe",en:"Council of Europe",phon:"*kon-SAY duh LUR-rop*",def:"Organisation internationale de 46 États.",ex:"Le Conseil de l'Europe défend les droits de l'homme.",level:21,cat:"politique"},
-{fr:"Cour de cassation",en:"Court of Cassation",phon:"*koor duh ka-sa-SYON*",def:"Juridiction suprême française pour le droit civil.",ex:"La Cour de cassation a annulé le jugement.",level:21,cat:"politique"},
-{fr:"Conseil d'État",en:"Council of State",phon:"*kon-SAY day-TAT*",def:"Juridiction suprême française pour le droit administratif.",ex:"Le Conseil d'État a examiné le recours.",level:21,cat:"politique"},
-{fr:"candidature",en:"candidacy",phon:"*kon-dee-da-TOOR*",def:"Action de se présenter à une élection.",ex:"Sa candidature a été acceptée.",level:21,cat:"politique"},
-{fr:"piquet",en:"picket",phon:"*pee-KAY*",def:"Groupe de grévistes bloquant l'accès.",ex:"Les piquets de grève empêchaient l'entrée de l'usine.",level:21,cat:"politique"},
-{fr:"juge",en:"judge",phon:"*ZHOZH*",def:"Magistrat chargé de rendre la justice.",ex:"Le juge a prononcé la sentence.",level:21,cat:"politique"},
-{fr:"tribunal",en:"court",phon:"*tree-bew-NAL*",def:"Juridiction où l'on juge les affaires.",ex:"L'affaire sera jugée au tribunal.",level:21,cat:"politique"},
-{fr:"prison",en:"prison",phon:"*pree-ZON*",def:"Établissement où l'on détient les condamnés.",ex:"Il a été condamné à cinq ans de prison.",level:21,cat:"politique"},
-{fr:"garde à vue",en:"police custody",phon:"*gard ah VEE*",def:"Mesure de privation de liberté par la police.",ex:"Le suspect a été placé en garde à vue.",level:21,cat:"politique"},
-{fr:"inculpation",en:"indictment",phon:"*on-kewl-pa-SYON*",def:"Acte par lequel on charge quelqu'un d'un crime.",ex:"L'inculpation du ministre a provoqué un scandale.",level:21,cat:"politique"},
-{fr:"procès",en:"trial",phon:"*pro-SAY*",def:"Ensemble des débats judiciaires.",ex:"Le procès a duré trois semaines.",level:21,cat:"politique"},
-{fr:"verdict",en:"verdict",phon:"*vair-DIKT*",def:"Décision finale d'un jury ou d'un juge.",ex:"Le verdict a été rendu ce matin.",level:21,cat:"politique"},
-{fr:"condamnation",en:"conviction / sentence",phon:"*kon-dom-na-SYON*",def:"Décision judiciaire pénale.",ex:"Sa condamnation a été confirmée en appel.",level:21,cat:"politique"},
-{fr:"DGSE",en:"DGSE",phon:"*day zhay es uh*",def:"Direction générale de la Sécurité extérieure.",ex:"La DGSE est le service de renseignement français à l'étranger.",level:21,cat:"politique"},
-{fr:"DGSI",en:"DGSI",phon:"*day zhay es ee*",def:"Direction générale de la Sécurité intérieure.",ex:"La DGSI lutte contre le terrorisme sur le territoire national.",level:21,cat:"politique"},
-{fr:"CIA",en:"CIA",phon:"*see ee ah*",def:"Central Intelligence Agency (États-Unis).",ex:"La CIA a été accusée d'espionnage.",level:21,cat:"politique"},
-{fr:"FBI",en:"FBI",phon:"*ef bee ee*",def:"Federal Bureau of Investigation (États-Unis).",ex:"Le FBI enquête sur cette affaire.",level:21,cat:"politique"},
-{fr:"NSA",en:"NSA",phon:"*en es ah*",def:"National Security Agency (États-Unis).",ex:"La NSA a été impliquée dans un scandale d'écoute.",level:21,cat:"politique"},
-{fr:"KGB",en:"KGB",phon:"*ka zhay bay*",def:"Ancien service de renseignement soviétique.",ex:"Le KGB a été dissous en 1991.",level:21,cat:"politique"},
-{fr:"FSB",en:"FSB",phon:"*ef es bay*",def:"Service de sécurité fédéral russe.",ex:"Le FSB est l'héritier du KGB en Russie.",level:21,cat:"politique"},
-{fr:"espion",en:"spy",phon:"*es-PYON*",def:"Personne qui recueille des informations secrètes.",ex:"L'espion a été arrêté par les autorités.",level:21,cat:"politique"},
-{fr:"agent double",en:"double agent",phon:"*a-ZHON doo-BL*",def:"Agent travaillant pour deux services ennemis.",ex:"L'agent double a trahi les deux camps.",level:21,cat:"politique"},
-{fr:"cyberattaque",en:"cyberattack",phon:"*see-bair-a-TAK*",def:"Attaque informatique visant un système.",ex:"Une cyberattaque a paralysé les services de l'État.",level:21,cat:"politique"},
-{fr:"cyberguerre",en:"cyberwarfare",phon:"*see-bair-GAIR*",def:"Conflit utilisant les technologies numériques.",ex:"La cyberguerre est devenue une réalité.",level:21,cat:"politique"},
-{fr:"fichage",en:"filing / data collection",phon:"*fee-SHAZH*",def:"Action de recueillir des données sur des personnes.",ex:"Le fichage des citoyens soulève des questions éthiques.",level:21,cat:"politique"},
-{fr:"écoute téléphonique",en:"phone tapping",phon:"*ay-KOOT tay-lay-fo-NEEK*",def:"Surveillance des communications téléphoniques.",ex:"Les écoutes téléphoniques ont été autorisées par le juge.",level:21,cat:"politique"},
-{fr:"terrorisme",en:"terrorism",phon:"*tay-ro-reesM*",def:"Usage de la violence à des fins politiques.",ex:"Le terrorisme est une menace mondiale.",level:21,cat:"politique"},
-{fr:"attentat",en:"attack / bombing",phon:"*a-ton-TA*",def:"Acte de violence visant à terroriser.",ex:"Un attentat a fait plusieurs victimes.",level:21,cat:"politique"},
-{fr:"djihad",en:"jihad",phon:"*zhee-HAD*",def:"Guerre sainte menée par certains groupes islamistes.",ex:"Le djihad a été invoqué pour justifier les attentats.",level:21,cat:"politique"},
-{fr:"radicalisation",en:"radicalization",phon:"*ra-dee-ka-lee-za-SYON*",def:"Processus d'adoption d'idéologies extrêmes.",ex:"La radicalisation en ligne est un phénomène croissant.",level:21,cat:"politique"},
-{fr:"déradicalisation",en:"deradicalization",phon:"*day-ra-dee-ka-lee-za-SYON*",def:"Processus inverse de la radicalisation.",ex:"Les programmes de déradicalisation ont montré des résultats.",level:21,cat:"politique"},
-{fr:"centre de déradicalisation",en:"deradicalization center",phon:"*son-truh duh day-ra-dee-ka-lee-za-SYON*",def:"Établissement visant à réintégrer les radicalisés.",ex:"Le centre de déradicalisation accueille des jeunes.",level:21,cat:"politique"},
-{fr:"corruption",en:"corruption",phon:"*ko-reewp-SYON*",def:"Abus de pouvoir pour un gain personnel.",ex:"La corruption politique est un fléau.",level:21,cat:"politique"},
-{fr:"pot-de-vin",en:"bribe",phon:"*po duh VAN*",def:"Somme d'argent versée illégalement.",ex:"Il a été accusé d'avoir accepté un pot-de-vin.",level:21,cat:"politique"},
-{fr:"blanchiment",en:"money laundering",phon:"*blon-shee-MAHN*",def:"Processus de dissimulation de l'origine illégale de fonds.",ex:"Le blanchiment d'argent est un crime financier.",level:21,cat:"politique"},
-{fr:"détournement de fonds",en:"embezzlement",phon:"*day-toor-nuh-mon duh FON*",def:"Utilisation frauduleuse de fonds publics.",ex:"Le détournement de fonds publics a été découvert.",level:21,cat:"politique"},
-{fr:"conflit d'intérêts",en:"conflict of interest",phon:"*kon-FLEE dan-tay-RAIR*",def:"Situation où les intérêts personnels interfèrent avec les devoirs.",ex:"Un conflit d'intérêts a été révélé.",level:21,cat:"politique"},
-{fr:"lanceur d'alerte",en:"whistleblower",phon:"*lon-SUR dal-AIRT*",def:"Personne qui révèle des informations compromettantes.",ex:"Le lanceur d'alerte a révélé le scandale.",level:21,cat:"politique"},
-{fr:"transparence",en:"transparency",phon:"*tron-spa-RAHNS*",def:"Qualité de ce qui est clair et compréhensible.",ex:"La transparence est essentielle en politique.",level:21,cat:"politique"},
-
-// --- MÉTIER (66 entrées) ---
-
-{fr:"journaliste",en:"journalist",phon:"*zhoor-na-LEEST*",def:"Professionnel de l'info",ex:"Le journaliste a interviewé le maire.",level:21,cat:"métier"},
-{fr:"reporter",en:"reporter",phon:"*ruh-POR-tair*",def:"Envoyé spécial",ex:"Le reporter sur le terrain.",level:21,cat:"métier"},
-{fr:"présentateur",en:"news anchor (male)",phon:"*pray-zon-ta-TUR*",def:"Qui présente le JT",ex:"Le présentateur du 20 heures.",level:21,cat:"métier"},
-{fr:"présentatrice",en:"news anchor (female)",phon:"*pray-zon-ta-TREES*",def:"Qui présente le JT",ex:"La présentatrice météo.",level:21,cat:"métier"},
-{fr:"politicien",en:"politician (male)",phon:"*po-lee-tee-SYAN*",def:"Homme politique",ex:"Un politicien corrompu.",level:21,cat:"métier"},
-{fr:"politicienne",en:"politician (female)",phon:"*po-lee-tee-SYAN*",def:"Femme politique",ex:"Une politicienne courageuse.",level:21,cat:"métier"},
-{fr:"ambassadeur",en:"ambassador (male)",phon:"*om-ba-sa-DUR*",def:"Représentant diplomatique",ex:"L'ambassadeur des USA.",level:21,cat:"métier"},
-{fr:"ambassadrice",en:"ambassador (female)",phon:"*om-ba-sa-DREES*",def:"Représentante diplomatique",ex:"L'ambassadrice d'Ukraine.",level:21,cat:"métier"},
-{fr:"fonctionnaire",en:"civil servant (male)",phon:"*fonk-syo-NAIR*",def:"Employé d'État",ex:"Un fonctionnaire de police.",level:21,cat:"métier"},
-{fr:"porte-parole",en:"spokesperson",phon:"*PORT par-WOL*",def:"Qui parle au nom de",ex:"Le porte-parole du gouvernement.",level:21,cat:"métier"},
-{fr:"spin doctor",en:"spin doctor",phon:"*SPIN dok-TUR*",def:"Conseiller en communication",ex:"Les spin doctors de l'Élysée.",level:21,cat:"métier"},
-{fr:"porte-parole du gouvernement",en:"government spokesperson",phon:"*PORT par-WOL doo goo-vair-nuh-MON*",def:"Qui communique pour l'exécutif",ex:"Le porte-parole du gouvernement.",level:21,cat:"métier"},
-{fr:"conseiller présidentiel",en:"presidential advisor (male)",phon:"*kon-say-YAY pray-zee-don-SYEL*",def:"Conseiller de l'Élysée",ex:"Un conseiller présidentiel.",level:21,cat:"métier"},
-{fr:"conseillère présidentielle",en:"presidential advisor (female)",phon:"*kon-say-YAIR pray-zee-don-SYEL*",def:"Conseillère de l'Élysée",ex:"Une conseillère présidentielle.",level:21,cat:"métier"},
-{fr:"directeur de cabinet",en:"chief of staff (male)",phon:"*dee-rek-TUR duh ka-bee-NA*",def:"Bras droit politique",ex:"Le directeur de cabinet du Premier ministre.",level:21,cat:"métier"},
-{fr:"directrice de cabinet",en:"chief of staff (female)",phon:"*dee-rek-TREES duh ka-bee-NA*",def:"Bras droit politique",ex:"La directrice de cabinet.",level:21,cat:"métier"},
-{fr:"attaché politique",en:"political attaché (male)",phon:"*a-ta-SHAY po-lee-TEEK*",def:"Collaborateur politique",ex:"Un attaché politique à l'ambassade.",level:21,cat:"métier"},
-{fr:"attachée politique",en:"political attaché (female)",phon:"*a-ta-SHAY po-lee-TEEK*",def:"Collaboratrice politique",ex:"Une attachée politique.",level:21,cat:"métier"},
-{fr:"lobbyiste",en:"lobbyist",phon:"*lo-bee-IST*",def:"Influenceur politique",ex:"Un lobbyiste pharmaceutique.",level:21,cat:"métier"},
-{fr:"think tank",en:"think tank",phon:"*TINK TANK*",def:"Groupe de réflexion",ex:"Un think tank libéral.",level:21,cat:"métier"},
-{fr:"institut de sondage",en:"polling institute",phon:"*on-stee-TOO son-DAZH*",def:"Organisme de sondages",ex:"L'institut IFOP.",level:21,cat:"métier"},
-{fr:"sondeur",en:"pollster (male)",phon:"*son-DUR*",def:"Qui fait les sondages",ex:"Le sondeur a analysé les résultats.",level:21,cat:"métier"},
-{fr:"sondeuse",en:"pollster (female)",phon:"*son-DOOZ*",def:"Qui fait les sondages",ex:"La sondeuse a commenté.",level:21,cat:"métier"},
-{fr:"éditorialiste",en:"editorialist (male)",phon:"*ay-dee-to-ree-a-LEEST*",def:"Qui écrit des éditoriaux",ex:"L'éditorialiste du Monde.",level:21,cat:"métier"},
-{fr:"chroniqueur politique",en:"political columnist (male)",phon:"*kro-nee-KUR po-lee-TEEK*",def:"Qui commente la politique",ex:"Le chroniqueur politique.",level:21,cat:"métier"},
-{fr:"chroniqueuse politique",en:"political columnist (female)",phon:"*kro-nee-KOOZ po-lee-TEEK*",def:"Qui commente la politique",ex:"La chroniqueuse politique.",level:21,cat:"métier"},
-{fr:"pundit",en:"pundit / expert",phon:"*PUN-dit*",def:"Expert médiatique",ex:"Le pundit a donné son avis.",level:21,cat:"métier"},
-{fr:"analyste politique",en:"political analyst",phon:"*a-na-LEEST po-lee-TEEK*",def:"Qui analyse la politique",ex:"Un analyste politique indépendant.",level:21,cat:"métier"},
-{fr:"stratège",en:"strategist",phon:"*stra-THEZH*",def:"Concepteur de stratégie",ex:"Le stratège de la campagne.",level:21,cat:"métier"},
-{fr:"community manager politique",en:"political community manager",phon:"*ko-MYOO-nee-tee ma-NA-zher po-lee-TEEK*",def:"Gestionnaire réseaux sociaux",ex:"Le community manager du candidat.",level:21,cat:"métier"},
-{fr:"médiateur",en:"mediator (male)",phon:"*may-dya-TUR*",def:"Conciliateur",ex:"Un médiateur nommé.",level:21,cat:"métier"},
-{fr:"médiatrice",en:"mediator (female)",phon:"*may-dya-TREES*",def:"Conciliatrice",ex:"Une médiatrice de la République.",level:21,cat:"métier"},
-{fr:"community manager",en:"community manager",phon:"*ko-mew-nee-tee MA-na-zher*",def:"Personne gérant la communication en ligne.",ex:"Le community manager politique anime les réseaux sociaux.",level:21,cat:"métier"},
-{fr:"conseiller",en:"advisor",phon:"*kon-say-YAY*",def:"Personne qui donne des conseils.",ex:"Le conseiller du président a démissionné.",level:21,cat:"métier"},
-{fr:"ministre des Transports",en:"Minister of Transport",phon:"*mee-NEESTR day tron-SPOOR*",def:"Ministre chargé des infrastructures.",ex:"Le ministre des Transports a inauguré la nouvelle ligne.",level:21,cat:"métier"},
-{fr:"ministre des Sports",en:"Minister of Sports",phon:"*mee-NEESTR day spor*",def:"Ministre chargé du sport.",ex:"Le ministre des Sports a félicité les athlètes.",level:21,cat:"métier"},
-{fr:"ministre de la Jeunesse",en:"Minister of Youth",phon:"*mee-NEESTR duh lah zhuh-NES*",def:"Ministre chargé des jeunes.",ex:"Le ministre de la Jeunesse a lancé un nouveau programme.",level:21,cat:"métier"},
-{fr:"ministre des Solidarités",en:"Minister of Solidarity",phon:"*mee-NEESTR day so-lee-da-ree-TAY*",def:"Ministre chargé de la protection sociale.",ex:"Le ministre des Solidarités a annoncé de nouvelles aides.",level:21,cat:"métier"},
-{fr:"ministre de la Ville",en:"Minister of the City",phon:"*mee-NEESTR duh lah VEEL*",def:"Ministre chargé des politiques urbaines.",ex:"Le ministre de la Ville a visité les quartiers défavorisés.",level:21,cat:"métier"},
-{fr:"ministre de l'Outre-mer",en:"Minister of Overseas Territories",phon:"*mee-NEESTR duh loo-truh-MAIR*",def:"Ministre chargé des territoires d'outre-mer.",ex:"Le ministre de l'Outre-mer a visité la Guadeloupe.",level:21,cat:"métier"},
-{fr:"ministre des Anciens combattants",en:"Minister of Veterans",phon:"*mee-NEESTR day zon-SYAN kon-ba-TON*",def:"Ministre chargé des anciens combattants.",ex:"Le ministre des Anciens combattants a commémoré le 11 novembre.",level:21,cat:"métier"},
-{fr:"ministre de la Mer",en:"Minister of the Sea",phon:"*mee-NEESTR duh lah MAIR*",def:"Ministre chargé des politiques maritimes.",ex:"Le ministre de la Mer a défendu les pêcheurs.",level:21,cat:"métier"},
-{fr:"ministre de la Recherche",en:"Minister of Research",phon:"*mee-NEESTR duh lah ruh-SHAIRSH*",def:"Ministre chargé de la science.",ex:"Le ministre de la Recherche a annoncé un financement.",level:21,cat:"métier"},
-{fr:"ministre de l'Enseignement supérieur",en:"Minister of Higher Education",phon:"*mee-NEESTR duh lon-son-yuh-mon soo-pay-RYUR*",def:"Ministre chargé des universités.",ex:"Le ministre de l'Enseignement supérieur a réformé les cursus.",level:21,cat:"métier"},
-{fr:"ministre de la Francophonie",en:"Minister of La Francophonie",phon:"*mee-NEESTR duh lah fron-ko-fo-NEE*",def:"Ministre chargé des relations avec les pays francophones.",ex:"Le ministre de la Francophonie a participé au sommet.",level:21,cat:"métier"},
-{fr:"ministre de l'Égalité",en:"Minister of Equality",phon:"*mee-NEESTR duh lay-ga-lee-TAY*",def:"Ministre chargé de l'égalité entre les sexes.",ex:"Le ministre de l'Égalité a lancé une campagne.",level:21,cat:"métier"},
-{fr:"ministre du Numérique",en:"Minister of Digital Affairs",phon:"*mee-NEESTR duh new-may-REEEK*",def:"Ministre chargé du numérique.",ex:"Le ministre du Numérique a annoncé un plan fibre.",level:21,cat:"métier"},
-{fr:"ministre de la Transition écologique",en:"Minister of Ecological Transition",phon:"*mee-NEESTR duh lah tron-zee-SYON ay-ko-lo-ZHEEK*",def:"Ministre chargé de la transition énergétique.",ex:"Le ministre de la Transition écologique a présenté le plan.",level:21,cat:"métier"},
-{fr:"ministre de la Cohésion des territoires",en:"Minister of Territorial Cohesion",phon:"*mee-NEESTR duh lah ko-ay-ZYON day tay-ree-TWAH*",def:"Ministre chargé de l'aménagement du territoire.",ex:"Le ministre de la Cohésion des territoires a visité la région.",level:21,cat:"métier"},
-{fr:"ministre des Relations avec le Parlement",en:"Minister of Parliamentary Relations",phon:"*mee-NEESTR day ray-la-SYON ahvek luh par-luh-MAHN*",def:"Ministre chargé des relations législatives.",ex:"Le ministre des Relations avec le Parlement a défendu le texte.",level:21,cat:"métier"},
-{fr:"ministre de la Fonction publique",en:"Minister of Civil Service",phon:"*mee-NEESTR duh lah fonk-SYON pew-BLEEK*",def:"Ministre chargé de la fonction publique.",ex:"Le ministre de la Fonction publique a annoncé des recrutements.",level:21,cat:"métier"},
-{fr:"ministre de la Transformation",en:"Minister of Transformation",phon:"*mee-NEESTR duh lah tron-sfor-ma-SYON*",def:"Ministre chargé de la modernisation.",ex:"Le ministre de la Transformation a lancé des projets numériques.",level:21,cat:"métier"},
-{fr:"ministre délégué",en:"Deputy Minister",phon:"*mee-NEESTR day-lay-GWAY*",def:"Ministre subordonné à un ministre de plein exercice.",ex:"Le ministre délégué aux Affaires européennes a participé.",level:21,cat:"métier"},
-{fr:"haut fonctionnaire",en:"senior civil servant",phon:"*oh fonk-syon-AIR*",def:"Fonctionnaire de haut rang.",ex:"Le haut fonctionnaire a dirigé la réforme administrative.",level:21,cat:"métier"},
-{fr:"préfet",en:"prefect",phon:"*pray-FAY*",def:"Représentant de l'État dans un département.",ex:"Le préfet a pris un arrêté.",level:21,cat:"métier"},
-{fr:"sous-préfet",en:"sub-prefect",phon:"*soo pray-FAY*",def:"Représentant de l'État dans un arrondissement.",ex:"Le sous-préfet a visité la commune.",level:21,cat:"métier"},
-{fr:"maire adjoint",en:"deputy mayor",phon:"*MAIR a-ZHWAN*",def:"Adjoint au maire.",ex:"Le maire adjoint est chargé des finances.",level:21,cat:"métier"},
-{fr:"conseiller régional",en:"regional councilor",phon:"*kon-say-YAY ray-zhyo-NAL*",def:"Membre du conseil régional.",ex:"Le conseiller régional a défendu son territoire.",level:21,cat:"métier"},
-{fr:"conseiller départemental",en:"departmental councilor",phon:"*kon-say-YAY day-par-tuh-mon-TAL*",def:"Membre du conseil départemental.",ex:"Le conseiller départemental a voté le budget.",level:21,cat:"métier"},
-{fr:"député européen",en:"Member of European Parliament",phon:"*day-poo-TAY ay-ro-pay-AN*",def:"Représentant élu au Parlement européen.",ex:"Le député européen a défendu une directive.",level:21,cat:"métier"},
-{fr:"première ministre",en:"Prime Minister (female)",phon:"*pruh-MYAIR mee-NEESTR*",def:"Chef du gouvernement (femme).",ex:"La première ministre a présenté sa démission.",level:21,cat:"métier"},
-{fr:"ministre (féminin)",en:"minister (female)",phon:"*mee-NEESTR*",def:"Membre du gouvernement (femme).",ex:"La ministre de la Culture a inauguré l'exposition.",level:21,cat:"métier"},
-{fr:"élu",en:"elected official",phon:"*ay-LEW*",def:"Personne choisie par le vote.",ex:"L'élu a tenu ses promesses de campagne.",level:21,cat:"métier"},
-{fr:"élue",en:"elected official (female)",phon:"*ay-LEW*",def:"Personne choisie par le vote (femme).",ex:"L'élue a défendu son territoire.",level:21,cat:"métier"},
-{fr:"opposant",en:"opponent",phon:"*o-po-ZON*",def:"Personne qui s'oppose au pouvoir en place.",ex:"L'opposant a critiqué la politique du gouvernement.",level:21,cat:"métier"},
-{fr:"opposante",en:"opponent (female)",phon:"*o-po-ZONT*",def:"Personne qui s'oppose au pouvoir en place (femme).",ex:"L'opposante a mené campagne dans la rue.",level:21,cat:"métier"},
-
-// --- VERBE (20 entrées) ---
-
-{fr:"démissionner",en:"to resign",phon:"*day-mee-syo-NAY*",def:"Quitter son poste",ex:"Il a démissionné.",level:21,cat:"verbe"},
-{fr:"limoger",en:"to dismiss / sack",phon:"*lee-mo-ZHAY*",def:"Renvoyer brutalement",ex:"Le président l'a limogé.",level:21,cat:"verbe"},
-{fr:"concéder",en:"to concede",phon:"*kon-say-DAY*",def:"Accorder à contre-cœur",ex:"Le gouvernement a concédé.",level:21,cat:"verbe"},
-{fr:"transiger",en:"to compromise",phon:"*tron-zhee-ZHAY*",def:"Faire des concessions",ex:"Il faut transiger.",level:21,cat:"verbe"},
-{fr:"négocier",en:"to negotiate",phon:"*nay-go-see-AY*",def:"Discuter pour un accord",ex:"Négocier avec l'opposition.",level:21,cat:"verbe"},
-{fr:"voter",en:"to vote",phon:"*vo-TAY*",def:"Exprimer son choix lors d'une élection.",ex:"Je vais voter dimanche aux élections.",level:21,cat:"verbe"},
-{fr:"élire",en:"to elect",phon:"*ay-LEER*",def:"Choisir par le vote.",ex:"Le peuple a élu un nouveau président.",level:21,cat:"verbe"},
-{fr:"gouverner",en:"to govern",phon:"*goo-vair-NAY*",def:"Diriger un État.",ex:"Le parti gouverne depuis dix ans.",level:21,cat:"verbe"},
-{fr:"légiférer",en:"to legislate",phon:"*lay-zhee-fay-RAY*",def:"Faire des lois.",ex:"Le Parlement légifère sur les questions sociales.",level:21,cat:"verbe"},
-{fr:"débattre",en:"to debate",phon:"*day-BATR*",def:"Discuter d'une question.",ex:"Les députés ont débattu de la réforme.",level:21,cat:"verbe"},
-{fr:"adopter",en:"to adopt",phon:"*a-dop-TAY*",def:"Approuver définitivement un texte.",ex:"L'Assemblée a adopté le projet de loi.",level:21,cat:"verbe"},
-{fr:"rejeter",en:"to reject",phon:"*ruh-zhuh-TAY*",def:"Refuser d'adopter un texte.",ex:"Le Sénat a rejeté l'amendement.",level:21,cat:"verbe"},
-{fr:"signer",en:"to sign",phon:"*see-NYAY*",def:"Apposer sa signature sur un document.",ex:"Le président a signé le traité de paix.",level:21,cat:"verbe"},
-{fr:"ratifier",en:"to ratify",phon:"*ra-tee-FYAY*",def:"Approuver définitivement un traité.",ex:"Le Parlement a ratifié l'accord.",level:21,cat:"verbe"},
-{fr:"révoquer",en:"to revoke",phon:"*ray-vo-KAY*",def:"Annuler une décision ou destituer.",ex:"Le président a révoqué le gouverneur.",level:21,cat:"verbe"},
-{fr:"destituer",en:"to impeach / remove from office",phon:"*des-tee-TWAY*",def:"Priver quelqu'un de ses fonctions.",ex:"Le président a été destitué par le Parlement.",level:21,cat:"verbe"},
-{fr:"dissoudre",en:"to dissolve",phon:"*dee-SOODR*",def:"Mettre fin à une assemblée.",ex:"Le président a dissous l'Assemblée nationale.",level:21,cat:"verbe"},
-{fr:"interdire",en:"to ban",phon:"*on-tair-DEER*",def:"Prohiber quelque chose par la loi.",ex:"Le gouvernement a interdit les pesticides.",level:21,cat:"verbe"},
-{fr:"autoriser",en:"to authorize",phon:"*o-to-ree-ZAY*",def:"Permettre par la loi.",ex:"Le Parlement a autorisé l'intervention militaire.",level:21,cat:"verbe"},
-{fr:"surveiller",en:"to monitor / watch",phon:"*soor-vay-YAY*",def:"Observer attentivement.",ex:"Les services de renseignement surveillent les suspects.",level:21,cat:"verbe"},
-
-// --- LIEU (18 entrées) ---
-
-{fr:"ambassade",en:"embassy",phon:"*om-ba-SAHD*",def:"Représentation diplomatique",ex:"L'ambassade de France.",level:21,cat:"lieu"},
-{fr:"consulat",en:"consulate",phon:"*kon-soo-LA*",def:"Représentation locale",ex:"Le consulat à Marseille.",level:21,cat:"lieu"},
-{fr:"frontière",en:"border",phon:"*fron-TYAIR*",def:"Limite entre pays",ex:"La frontière fermée.",level:21,cat:"lieu"},
-{fr:"région",en:"region",phon:"*ray-ZHON*",def:"Division territoriale",ex:"La région Nouvelle-Aquitaine.",level:21,cat:"lieu"},
-{fr:"département",en:"department",phon:"*day-par-tuh-MON*",def:"Division administrative",ex:"Le département de la Vienne.",level:21,cat:"lieu"},
-{fr:"commune",en:"municipality / commune",phon:"*ko-MOON*",def:"Ville ou village",ex:"Ma commune a 3000 habitants.",level:21,cat:"lieu"},
-{fr:"métropole",en:"metropolis",phon:"*may-tro-POL*",def:"Grande ville centrale",ex:"La métropole de Bordeaux.",level:21,cat:"lieu"},
-{fr:"agglomération",en:"urban area",phon:"*a-glo-may-ra-SYON*",def:"Zone urbaine",ex:"L'agglomération de Poitiers.",level:21,cat:"lieu"},
-{fr:"périphérie",en:"periphery / outskirts",phon:"*pay-ree-fay-REE*",def:"Banlieue, périphérie",ex:"La périphérie de Paris.",level:21,cat:"lieu"},
-{fr:"banlieue",en:"suburb",phon:"*bon-LYUH*",def:"Zone périurbaine",ex:"La banlieue parisienne.",level:21,cat:"lieu"},
-{fr:"quartier",en:"neighborhood / district",phon:"*kar-TYAY*",def:"Secteur de ville",ex:"Mon quartier est calme.",level:21,cat:"lieu"},
-{fr:"centre-ville",en:"city center / downtown",phon:"*SON-truh-VEEL*",def:"Cœur de la ville",ex:"Le centre-ville piéton.",level:21,cat:"lieu"},
-{fr:"zone rurale",en:"rural area",phon:"*ZOHN roo-RAL*",def:"Campagne",ex:"La zone rurale française.",level:21,cat:"lieu"},
-{fr:"palais",en:"palace",phon:"*pa-LAY*",def:"Bâtiment officiel du pouvoir.",ex:"Le palais de l'Élysée est la résidence du président.",level:21,cat:"lieu"},
-{fr:"hémicycle",en:"hemicycle",phon:"*ay-mee-SEEKL*",def:"Salle de délibération parlementaire.",ex:"Les députés siègent dans l'hémicycle.",level:21,cat:"lieu"},
-{fr:"bureau de vote",en:"polling station",phon:"*bew-RO duh vot*",def:"Lieu où l'on vote.",ex:"Le bureau de vote ouvre à 8h.",level:21,cat:"lieu"},
-{fr:"mairie",en:"town hall",phon:"*may-REE*",def:"Bâtiment administratif d'une commune.",ex:"La mairie est en centre-ville.",level:21,cat:"lieu"},
-{fr:"préfecture",en:"prefecture",phon:"*pray-fek-TOOR*",def:"Administration représentant l'État dans un département.",ex:"La préfecture délivre les cartes d'identité.",level:21,cat:"lieu"},
-
-// --- MÉDIA (14 entrées) ---
-
-{fr:"actualité",en:"current events / news",phon:"*ak-too-a-lee-TAY*",def:"Ce qui se passe maintenant",ex:"Les actualités du soir.",level:21,cat:"média"},
-{fr:"information",en:"news / information",phon:"*on-for-ma-SYON*",def:"Nouvelle communiquée",ex:"Une information de dernière minute.",level:21,cat:"média"},
-{fr:"journal",en:"newspaper / news",phon:"*zhoor-NAL*",def:"Périodique d'information",ex:"Je lis le journal chaque matin.",level:21,cat:"média"},
-{fr:"télévision",en:"television / TV",phon:"*tay-lay-vee-ZYON*",def:"Média audiovisuel",ex:"Je regarde la télévision.",level:21,cat:"média"},
-{fr:"chaîne",en:"TV channel",phon:"*SHEN*",def:"Canal de télé",ex:"Zappez sur une autre chaîne.",level:21,cat:"média"},
-{fr:"émission",en:"TV show / broadcast",phon:"*ay-mee-SYON*",def:"Programme télé",ex:"Une émission politique.",level:21,cat:"média"},
-{fr:"interview",en:"interview",phon:"*on-tair-VYOO*",def:"Entretien avec questions",ex:"Une interview exclusive.",level:21,cat:"média"},
-{fr:"off",en:"off the record",phon:"*OF*",def:"Hors micro",ex:"C'est en off, d'accord ?",level:21,cat:"média"},
-{fr:"background",en:"background briefing",phon:"*BAK-groond*",def:"Information non attribuable",ex:"Un background sur la réforme.",level:21,cat:"média"},
-{fr:"exclusive",en:"exclusive",phon:"*ek-skloo-ZEEV*",def:"Information en avant-première",ex:"Une exclusive du journal.",level:21,cat:"média"},
-{fr:"scoop",en:"scoop",phon:"*SKOOP*",def:"Révélation exclusive",ex:"Un scoop politique.",level:21,cat:"média"},
-{fr:"révélation",en:"revelation",phon:"*ray-vay-la-SYON*",def:"Information dévoilée",ex:"Des révélations embarrassantes.",level:21,cat:"média"},
-{fr:"radio",en:"radio",phon:"*ra-DYOH*",def:"Moyen de diffusion sonore.",ex:"J'écoute la radio tous les matins.",level:21,cat:"média"},
-{fr:"presse",en:"press",phon:"*PRESS*",def:"Ensemble des journaux et magazines.",ex:"La presse a largement couvert cet événement.",level:21,cat:"média"},
-
-];
-
-// Export pour Node.js (si besoin)
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { VOCABULARY_NIVEAU21 };
-}
+})();
