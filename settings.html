@@ -7,223 +7,90 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Daily French 🥖 — Settings</title>
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/quiz.css">
   <script src="js/nav.js"></script>
   <style>
-    .settings-page { max-width: 600px; margin: 0 auto; padding: var(--space-md); }
-    .settings-section { background: var(--white); border-radius: var(--r); padding: var(--space-lg); margin-bottom: var(--space-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
-    .settings-section h2 { font-size: var(--font-lg); font-weight: 700; color: var(--text); margin-bottom: var(--space-md); display: flex; align-items: center; gap: 8px; }
-    .settings-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); padding: var(--space-sm) 0; border-bottom: 1px solid var(--border); }
-    .settings-row:last-child { border-bottom: none; }
-    .settings-row span { font-size: var(--font-sm); color: var(--text); font-weight: 500; }
-    .theme-preview { width: 24px; height: 24px; border-radius: 50%; display: inline-block; margin-right: 8px; vertical-align: middle; }
-    .theme-ardoise { background: #4A5568; }
-    .theme-mauve { background: #7C3AED; }
-    .theme-terra { background: #9A3412; }
-    .settings-row select { min-width: 140px; }
+    .settings-page{max-width:600px;margin:0 auto;padding:var(--space-md)}
+    .settings-section{background:var(--white);border-radius:var(--r);padding:var(--space-lg);margin-bottom:var(--space-md);box-shadow:var(--shadow-sm);border:1px solid var(--border)}
+    .settings-section h2{font-size:var(--font-lg);font-weight:700;color:var(--text);margin-bottom:var(--space-md);display:flex;align-items:center;gap:8px}
+    .settings-row{display:flex;align-items:center;justify-content:space-between;gap:var(--space-sm);padding:var(--space-sm) 0;border-bottom:1px solid var(--border)}
+    .settings-row:last-child{border-bottom:none}
+    .settings-row span{font-size:var(--font-sm);color:var(--text);font-weight:500}
+    .theme-preview{width:24px;height:24px;border-radius:50%;display:inline-block;margin-right:8px;vertical-align:middle}
+    .theme-ardoise{background:#4A5568}
+    .theme-mauve{background:#7C3AED}
+    .theme-terra{background:#9A3412}
+    .settings-row select{min-width:140px}
   </style>
 </head>
 <body>
-
   <div id="toast" class="toast"></div>
-
-  <!-- Modal joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
-      <input type="text" id="mInput" maxlength="30" placeholder="Your name"
-        autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="mInput" maxlength="30" placeholder="Your name" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
       <div class="modal-actions">
         <button id="btnCancelModal" class="btn-ghost" onclick="closeModal()">Cancel</button>
         <button id="btnCreatePlayer" class="btn-primary" onclick="confirmNewPlayer()">Create</button>
       </div>
     </div>
   </div>
-
-  <!-- HERO sans bouton Settings -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">⚙️<span class="hero-lvl-badge" id="heroLvl">1</span></div>
-    <div class="hero-info">
-      <div class="hero-name" id="heroName">Guest</div>
-    </div>
+    <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
     <div class="hero-xp">
       <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
-      <div class="xp-text" id="xpText">
-        <span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts
-      </div>
+      <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
     </div>
     <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
-        <option value="">Choose a player</option>
-      </select>
+      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
     </div>
   </header>
-
-  <!-- BENTO -->
   <div class="bento-grid">
-    <div class="bento-tile">
-      <div class="bento-num" id="b1">1</div>
-      <div class="bento-label">Level</div>
-    </div>
-    <div class="bento-tile">
-      <div class="bento-num" id="b2">0</div>
-      <div class="bento-label">Points</div>
-    </div>
-    <div class="bento-tile">
-      <div class="bento-num" id="b3">0/20</div>
-      <div class="bento-label">Done</div>
-    </div>
+    <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
+    <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
+    <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
-
   <div class="settings-page">
-    <!-- THEME -->
     <div class="settings-section">
       <h2>🎨 Theme</h2>
-      <div class="settings-row">
-        <span><span class="theme-preview theme-ardoise"></span> Ardoise</span>
-        <button class="btn-ghost btn-small" onclick="applyThemePick('ardoise')">Select</button>
-      </div>
-      <div class="settings-row">
-        <span><span class="theme-preview theme-mauve"></span> Mauve</span>
-        <button class="btn-ghost btn-small" onclick="applyThemePick('mauve')">Select</button>
-      </div>
-      <div class="settings-row">
-        <span><span class="theme-preview theme-terra"></span> Terra Cotta</span>
-        <button class="btn-ghost btn-small" onclick="applyThemePick('terra')">Select</button>
-      </div>
+      <div class="settings-row"><span><span class="theme-preview theme-ardoise"></span> Ardoise</span><button class="btn-ghost btn-small" onclick="applyThemePick('ardoise')">Select</button></div>
+      <div class="settings-row"><span><span class="theme-preview theme-mauve"></span> Mauve</span><button class="btn-ghost btn-small" onclick="applyThemePick('mauve')">Select</button></div>
+      <div class="settings-row"><span><span class="theme-preview theme-terra"></span> Terra Cotta</span><button class="btn-ghost btn-small" onclick="applyThemePick('terra')">Select</button></div>
     </div>
-
-    <!-- DIRECTION -->
     <div class="settings-section">
       <h2>🌐 Question Direction</h2>
-      <div class="settings-row">
-        <span>🇬🇧 English → 🇫🇷 French</span>
-        <button class="btn-ghost btn-small" onclick="applyDirectionPick('en-first')">Select</button>
-      </div>
-      <div class="settings-row">
-        <span>🇫🇷 French → 🇬🇧 English</span>
-        <button class="btn-ghost btn-small" onclick="applyDirectionPick('fr-first')">Select</button>
-      </div>
-      <div class="settings-row">
-        <span>🔄 Mixed</span>
-        <button class="btn-ghost btn-small" onclick="applyDirectionPick('mixed')">Select</button>
-      </div>
+      <div class="settings-row"><span>🇬🇧 English → 🇫🇷 French</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('en-first')">Select</button></div>
+      <div class="settings-row"><span>🇫🇷 French → 🇬🇧 English</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('fr-first')">Select</button></div>
+      <div class="settings-row"><span>🔄 Mixed</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('mixed')">Select</button></div>
     </div>
-
-    <!-- PER-MODULE DIRECTION -->
     <div class="settings-section">
       <h2>🔧 Advanced — Per Module</h2>
-      <div class="settings-row">
-        <span>Quiz Direction</span>
-        <select id="quizDirection" onchange="saveModuleDirection('quiz', this.value)">
-          <option value="global">Use global</option>
-          <option value="en-first">EN→FR</option>
-          <option value="fr-first">FR→EN</option>
-          <option value="mixed">Mixed</option>
-        </select>
-      </div>
-      <div class="settings-row">
-        <span>Lessons Direction</span>
-        <select id="lessonsDirection" onchange="saveModuleDirection('lessons', this.value)">
-          <option value="global">Use global</option>
-          <option value="en-first">EN→FR</option>
-          <option value="fr-first">FR→EN</option>
-        </select>
-      </div>
-      <div class="settings-row">
-        <span>SOS Direction</span>
-        <select id="sosDirection" onchange="saveModuleDirection('sos', this.value)">
-          <option value="global">Use global</option>
-          <option value="en-first">EN→FR</option>
-          <option value="fr-first">FR→EN</option>
-        </select>
-      </div>
+      <div class="settings-row"><span>Quiz Direction</span><select id="quizDirection" onchange="saveModuleDirection('quiz',this.value)"><option value="global">Use global</option><option value="en-first">EN→FR</option><option value="fr-first">FR→EN</option><option value="mixed">Mixed</option></select></div>
+      <div class="settings-row"><span>Lessons Direction</span><select id="lessonsDirection" onchange="saveModuleDirection('lessons',this.value)"><option value="global">Use global</option><option value="en-first">EN→FR</option><option value="fr-first">FR→EN</option></select></div>
+      <div class="settings-row"><span>SOS Direction</span><select id="sosDirection" onchange="saveModuleDirection('sos',this.value)"><option value="global">Use global</option><option value="en-first">EN→FR</option><option value="fr-first">FR→EN</option></select></div>
     </div>
-
-    <!-- PROFILE -->
     <div class="settings-section">
       <h2>💾 Profile</h2>
-      <div class="settings-row">
-        <span>Export backup</span>
-        <button class="btn-ghost btn-small" onclick="doExport()">Export</button>
-      </div>
-      <div class="settings-row">
-        <span>Import backup</span>
-        <input type="file" id="importFile" accept=".json" onchange="doImport(event)" style="display:none;">
-        <button class="btn-ghost btn-small" onclick="document.getElementById('importFile').click()">Import</button>
-      </div>
+      <div class="settings-row"><span>Export backup</span><button class="btn-ghost btn-small" onclick="doExport()">Export</button></div>
+      <div class="settings-row"><span>Import backup</span><input type="file" id="importFile" accept=".json" onchange="doImport(event)" style="display:none"><button class="btn-ghost btn-small" onclick="document.getElementById('importFile').click()">Import</button></div>
     </div>
-
-    <!-- ABOUT -->
     <div class="settings-section">
       <h2>ℹ️ About</h2>
-      <div class="settings-row">
-        <span>Version</span>
-        <span style="color:var(--muted);font-size:var(--font-sm);">v3.0</span>
-      </div>
-      <div class="settings-row">
-        <span>Storage used</span>
-        <span id="storageUsed" style="color:var(--muted);font-size:var(--font-sm);">—</span>
-      </div>
+      <div class="settings-row"><span>Version</span><span style="color:var(--muted);font-size:var(--font-sm)">v3.0</span></div>
+      <div class="settings-row"><span>Storage used</span><span id="storageUsed" style="color:var(--muted);font-size:var(--font-sm)">—</span></div>
     </div>
   </div>
-
-  <!-- Scripts -->
   <script src="js/config.js"></script>
   <script src="js/data.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
-
   <script>
-    // Direction toggle
-    function applyDirectionPick(direction) {
-      if (typeof gameState !== 'undefined') gameState.questionDirection = direction;
-      localStorage.setItem('dailyFrench_direction', direction);
-      if (typeof toast === 'function') toast('Direction: ' + direction.replace('-', '→').toUpperCase());
-    }
-    
-    // Theme toggle
-    function applyThemePick(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('dailyFrench_theme', theme);
-      if (typeof toast === 'function') toast('Theme: ' + theme);
-    }
-    
-    // Language toggle
-    function applyLangPick(lang) {
-      localStorage.setItem('dailyFrench_lang', lang);
-      if (typeof toast === 'function') toast('Language: ' + lang.toUpperCase());
-    }
-    
-    // Module direction
-    function saveModuleDirection(module, value) {
-      localStorage.setItem('dailyFrench_direction_' + module, value);
-      if (typeof toast === 'function') toast(module + ' direction saved');
-    }
-    
-    // Restore settings on load
-    (function() {
-      const savedDir = localStorage.getItem('dailyFrench_direction') || 'en-first';
-      if (typeof gameState !== 'undefined') gameState.questionDirection = savedDir;
-      
-      const savedTheme = localStorage.getItem('dailyFrench_theme');
-      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
-      
-      // Restore per-module selects
-      ['quiz', 'lessons', 'sos'].forEach(m => {
-        const val = localStorage.getItem('dailyFrench_direction_' + m) || 'global';
-        const el = document.getElementById(m + 'Direction');
-        if (el) el.value = val;
-      });
-      
-      // Storage used
-      const used = document.getElementById('storageUsed');
-      if (used && typeof Storage !== 'undefined' && Storage.getUsage) {
-        used.textContent = Storage.getUsage();
-      }
-    })();
+    function applyDirectionPick(d){if(typeof gameState!=='undefined')gameState.questionDirection=d;localStorage.setItem('dailyFrench_direction',d);if(typeof toast==='function')toast('Direction: '+d.replace('-','→').toUpperCase())}
+    function applyThemePick(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('dailyFrench_theme',t);if(typeof toast==='function')toast('Theme: '+t)}
+    function applyLangPick(l){localStorage.setItem('dailyFrench_lang',l);if(typeof toast==='function')toast('Language: '+l.toUpperCase())}
+    function saveModuleDirection(m,v){localStorage.setItem('dailyFrench_direction_'+m,v);if(typeof toast==='function')toast(m+' direction saved')}
+    (function(){const d=localStorage.getItem('dailyFrench_direction')||'en-first';if(typeof gameState!=='undefined')gameState.questionDirection=d;const t=localStorage.getItem('dailyFrench_theme');if(t)document.documentElement.setAttribute('data-theme',t);['quiz','lessons','sos'].forEach(function(m){var el=document.getElementById(m+'Direction');if(el)el.value=localStorage.getItem('dailyFrench_direction_'+m)||'global'});var used=document.getElementById('storageUsed');if(used&&typeof Storage!=='undefined'&&Storage.getUsage)used.textContent=Storage.getUsage()})();
   </script>
-
 </body>
 </html>
