@@ -1,18 +1,12 @@
-
 /**
- * quiz.css — Styles spécifiques au quiz Daily French
+ * quiz.css — Styles spécifiques au quiz Daily French v3.0
  * 
- * Complète base.css avec :
- *   • Sélecteur de mode (mixte / QCM / écrit)
- *   • Cartes de leçons collapsibles
- *   • Grille des niveaux 1-20
- *   • Zone de jeu : question, options QCM, input libre, feedback
- *   • Écran de résultats avec cercle de progression
- *   • Responsive ajusté pour la concentration en jeu
+ * RÈGLE : Ce fichier ne contient QUE ce qui n'existe pas dans base.css.
+ * Pas de .btn, .card, .section, .feedback-area, .game-actions, etc.
  */
 
 /* ═══════════════════════════════════════════════════════════════════
-   1. SÉLECTEUR DE MODE — Trois boutons toggle exclusifs
+   1. SÉLECTEUR DE MODE
    ═══════════════════════════════════════════════════════════════════ */
 
 .mode-selector {
@@ -46,23 +40,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   2. APPELS À L'ACTION — Groupe de boutons sur l'accueil
-   ═══════════════════════════════════════════════════════════════════ */
-
-.cta-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  margin-top: var(--space-md);
-}
-
-.cta-group .btn {
-  width: 100%;
-  justify-content: center;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   3. CARTES DE LEÇONS — Collapsible, numérotées, vocabulaire surligné
+   2. CARTES DE LEÇONS
    ═══════════════════════════════════════════════════════════════════ */
 
 .lessons-container {
@@ -80,9 +58,7 @@
   transition: box-shadow var(--transition-fast);
 }
 
-.lesson-card.open {
-  box-shadow: var(--shadow);
-}
+.lesson-card.open { box-shadow: var(--shadow); }
 
 .lesson-header {
   display: flex;
@@ -94,20 +70,14 @@
   transition: background var(--transition-fast);
 }
 
-.lesson-header:hover {
-  background: var(--bg-card);
-}
-
-.lesson-header:active {
-  background: var(--primary-light);
-}
+.lesson-header:hover { background: var(--bg-card); }
+.lesson-header:active { background: var(--primary-light); }
 
 .lesson-num {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 36px; height: 36px;
   border-radius: 50%;
   background: var(--primary);
   color: var(--white);
@@ -130,9 +100,7 @@
   flex-shrink: 0;
 }
 
-.lesson-card.open .lesson-chevron {
-  transform: rotate(180deg);
-}
+.lesson-card.open .lesson-chevron { transform: rotate(180deg); }
 
 .lesson-body {
   padding: 0 var(--space-md) var(--space-md);
@@ -142,12 +110,10 @@
   display: none;
 }
 
-.lesson-body .vocab-word {
-  font-size: inherit;
-}
+.lesson-body .vocab-word { font-size: inherit; }
 
 /* ═══════════════════════════════════════════════════════════════════
-   4. GRILLE DES NIVEAUX — 20 tuiles cliquables
+   3. GRILLE DES NIVEAUX
    ═══════════════════════════════════════════════════════════════════ */
 
 .levels-container {
@@ -181,6 +147,7 @@
   color: var(--primary);
   line-height: 1;
 }
+
 .tile-name {
   font-size: 0.6rem;
   font-weight: 600;
@@ -191,14 +158,17 @@
   max-width: 90%;
 }
 
-.level-tile:hover  { transform: translateY(-2px); box-shadow: var(--shadow); }
+.level-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
 .level-tile:active { transform: scale(0.96); }
 
 .level-tile.locked {
-  background: var(--bg-card); border-color: var(--border);
-  cursor: not-allowed; opacity: 0.5;
+  background: var(--bg-card);
+  border-color: var(--border);
+  cursor: not-allowed;
+  opacity: 0.5;
 }
-.level-tile.locked .tile-num  { color: var(--subtle); }
+
+.level-tile.locked .tile-num,
 .level-tile.locked .tile-name { color: var(--subtle); }
 
 .level-tile.active {
@@ -206,19 +176,19 @@
   background: var(--primary-light);
   box-shadow: 0 0 0 3px var(--primary-light);
 }
+
 .level-tile.active .tile-num { color: var(--primary); }
 
 .level-tile.completed {
   border-color: var(--green);
   background: var(--green-light);
 }
-.level-tile.completed .tile-num  { color: var(--green); }
+
+.level-tile.completed .tile-num,
 .level-tile.completed .tile-name { color: var(--green); }
-  white-space: nowrap;
-}
 
 /* ═══════════════════════════════════════════════════════════════════
-   5. ZONE DE JEU — En-tête, compteur, barre de progression
+   4. ZONE DE JEU
    ═══════════════════════════════════════════════════════════════════ */
 
 .game-area {
@@ -229,9 +199,7 @@
   border: 1px solid var(--border);
 }
 
-.game-header {
-  margin-bottom: var(--space-lg);
-}
+.game-header { margin-bottom: var(--space-lg); }
 
 .game-title {
   font-size: var(--font-lg);
@@ -249,33 +217,10 @@
   margin-bottom: var(--space-sm);
 }
 
-.counter {
-  font-weight: 600;
-}
+.counter { font-weight: 600; }
+.score { font-weight: 700; color: var(--primary); }
 
-.score {
-  font-weight: 700;
-  color: var(--primary);
-}
-
-.progress-track {
-  height: 8px;
-  background: var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--primary), var(--primary-mid));
-  border-radius: 4px;
-  transition: width 400ms ease;
-  width: 0%;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   6. TEXTE DE LA QUESTION — Grande taille pour lisibilité
-   ═══════════════════════════════════════════════════════════════════ */
+/* Barre de progression du jeu — utilise .bar-track/.bar-fill de base.css */
 
 .question-text {
   font-size: var(--font-lg);
@@ -286,12 +231,10 @@
   word-wrap: break-word;
 }
 
-.question-text .vocab-word {
-  font-size: inherit;
-}
+.question-text .vocab-word { font-size: inherit; }
 
 /* ═══════════════════════════════════════════════════════════════════
-   7. OPTIONS QCM — Boutons verticaux, états selected/correct/wrong
+   5. OPTIONS QCM
    ═══════════════════════════════════════════════════════════════════ */
 
 .qcm-options {
@@ -318,14 +261,8 @@
   min-height: 56px;
 }
 
-.option-btn:hover {
-  border-color: var(--primary-mid);
-  background: var(--primary-light);
-}
-
-.option-btn:active {
-  transform: scale(0.98);
-}
+.option-btn:hover { border-color: var(--primary-mid); background: var(--primary-light); }
+.option-btn:active { transform: scale(0.98); }
 
 .option-btn.selected {
   border-color: var(--primary);
@@ -345,11 +282,10 @@
   color: var(--red);
 }
 
-/* Indicateur visuel devant l'option */
+/* Indicateur radio */
 .option-btn::before {
   content: '';
-  width: 24px;
-  height: 24px;
+  width: 24px; height: 24px;
   border-radius: 50%;
   border: 2px solid var(--subtle);
   flex-shrink: 0;
@@ -375,12 +311,10 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   8. INPUT ÉCRIT — Champ large, centré, touche Entrée pour valider
+   6. INPUT ÉCRIT
    ═══════════════════════════════════════════════════════════════════ */
 
-.libre-input {
-  margin-bottom: var(--space-lg);
-}
+.libre-input { margin-bottom: var(--space-lg); }
 
 .answer-input {
   font-size: var(--font-lg);
@@ -389,86 +323,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   9. BOÎTE D'INDICE — Apparition conditionnelle sous la question
-   ═══════════════════════════════════════════════════════════════════ */
-
-.hint-box {
-  background: var(--gold-light);
-  border-left: 4px solid var(--gold);
-  border-radius: 0 var(--r-sm) var(--r-sm) 0;
-  padding: var(--space-sm) var(--space-md);
-  font-size: var(--font-sm);
-  color: var(--text);
-  margin-bottom: var(--space-lg);
-  line-height: 1.5;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   10. BOUTONS DE JEU — Validate et Next, disposition centrée
-   ═══════════════════════════════════════════════════════════════════ */
-
-.game-actions {
-  display: flex;
-  gap: var(--space-sm);
-  justify-content: center;
-  margin-top: var(--space-md);
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   11. FEEDBACK — Bandeau post-validation, couleur selon résultat
-   ═══════════════════════════════════════════════════════════════════ */
-
-.feedback-area {
-  border-radius: var(--r);
-  padding: var(--space-md);
-  margin-top: var(--space-lg);
-  animation: slideUp 300ms ease;
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.feedback-success {
-  background: var(--green-light);
-  border: 1px solid var(--green);
-}
-
-.feedback-error {
-  background: var(--red-light);
-  border: 1px solid var(--red);
-}
-
-.feedback-title {
-  font-size: var(--font-lg);
-  font-weight: 700;
-  margin-bottom: var(--space-xs);
-}
-
-.feedback-success .feedback-title {
-  color: var(--green);
-}
-
-.feedback-error .feedback-title {
-  color: var(--red);
-}
-
-.feedback-correct {
-  font-size: var(--font-md);
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: var(--space-xs);
-}
-
-.feedback-explanation {
-  font-size: var(--font-sm);
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   12. INTRO DE LEÇON — Avant le début des questions
+   7. INTRO DE LEÇON
    ═══════════════════════════════════════════════════════════════════ */
 
 .lesson-intro {
@@ -511,37 +366,8 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   13. ÉCRAN DE RÉSULTATS — Cercle, message, actions post-niveau
+   8. ÉCRAN DE RÉSULTATS
    ═══════════════════════════════════════════════════════════════════ */
-
-.result-circle {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  background: conic-gradient(var(--primary) calc(var(--pct, 0) * 1%), var(--bg-card) 0);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto var(--space-lg);
-  position: relative;
-  box-shadow: var(--shadow);
-}
-
-.result-circle::before {
-  content: '';
-  position: absolute;
-  inset: 12px;
-  border-radius: 50%;
-  background: var(--white);
-}
-
-.result-pct {
-  position: relative;
-  z-index: 1;
-  font-size: var(--font-xxl);
-  font-weight: 800;
-  color: var(--primary);
-}
 
 .result-message {
   text-align: center;
@@ -560,69 +386,9 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   14. RESPONSIVE QUIZ — Ajustements pour petits écrans en jeu
+   9. BOUTON TRADUCTION
    ═══════════════════════════════════════════════════════════════════ */
 
-@media (max-width: 480px) {
-  .game-area {
-    padding: var(--space-md);
-    border-radius: var(--r);
-  }
-
-  .question-text {
-    font-size: var(--font-md);
-  }
-
-  .option-btn {
-    padding: var(--space-sm);
-    font-size: var(--font-sm);
-    min-height: 48px;
-  }
-
-  .result-circle {
-    width: 120px;
-    height: 120px;
-  }
-
-  .result-pct {
-    font-size: var(--font-xl);
-  }
-
-  .levels-container {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    padding: 0;
-  }
-  .level-tile {
-    min-height: 64px;
-    padding: 8px 4px;
-  }
-}
-
-@media (min-width: 768px) {
-  .levels-container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .cta-group {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .cta-group .btn {
-    width: auto;
-    flex: 1;
-    min-width: 200px;
-  }
-
-  .result-actions {
-    flex-direction: row;
-    justify-content: center;
-    max-width: none;
-  }
-}
-
-/* ── BOUTON TRADUCTION ANGLAISE ── */
 .lesson-ex-btn {
   display: inline-flex;
   align-items: center;
@@ -641,6 +407,7 @@
   transition: all var(--transition-fast);
   white-space: nowrap;
 }
+
 .lesson-ex-btn:hover {
   background: var(--primary-light);
   border-color: var(--primary);
@@ -654,4 +421,44 @@
   padding: 4px 8px;
   background: var(--green-light);
   border-radius: 6px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   10. RESPONSIVE QUIZ
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  .game-area {
+    padding: var(--space-md);
+    border-radius: var(--r);
+  }
+  .question-text { font-size: var(--font-md); }
+  .option-btn {
+    padding: var(--space-sm);
+    font-size: var(--font-sm);
+    min-height: 48px;
+  }
+  .score-circle {
+    width: 120px;
+    height: 120px;
+  }
+  .score-pct { font-size: var(--font-xl); }
+  .levels-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    padding: 0;
+  }
+  .level-tile {
+    min-height: 64px;
+    padding: 8px 4px;
+  }
+}
+
+@media (min-width: 768px) {
+  .levels-container { grid-template-columns: repeat(4, 1fr); }
+  .result-actions {
+    flex-direction: row;
+    justify-content: center;
+    max-width: none;
+  }
 }
