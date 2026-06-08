@@ -20,6 +20,7 @@
     .direction-btn:hover { border-color: var(--primary-mid); background: var(--primary-light); }
     .direction-btn.active { background: var(--primary); color: var(--white); border-color: var(--primary); }
   </style>
+  <script src="js/nav.js"></script>
 </head>
 <body>
 
@@ -46,45 +47,7 @@
     </div>
   </div>
 
-  <!-- NAVIGATION TOP -->
-  <nav class="nav-top">
-    <a href="emergency.html" class="nav-top-item">
-      <span class="nav-top-icon">🚨</span>SOS
-    </a>
-    <a href="conversation.html" class="nav-top-item">
-      <span class="nav-top-icon">💬</span>Talk
-    </a>
-    <a href="games/listen.html" class="nav-top-item">
-      <span class="nav-top-icon">🎧</span>Listen
-    </a>
-    <a href="games/phrase-builder.html" class="nav-top-item">
-      <span class="nav-top-icon">🧩</span>Phrase
-    </a>
-    <a href="dashboard.html" class="nav-top-item">
-      <span class="nav-top-icon">⚙️</span>Config
-    </a>
-  </nav>
-
-  <!-- NAVIGATION BOTTOM -->
-  <nav class="nav-bottom">
-    <a href="quiz.html" class="nav-item active">
-      <span class="nav-icon">🏠</span><span>Start</span>
-    </a>
-    <a href="quiz.html?section=lecons" class="nav-item">
-      <span class="nav-icon">📚</span><span>Lessons</span>
-    </a>
-    <a href="quiz.html?section=levels" class="nav-item">
-      <span class="nav-icon">🎮</span><span>Play</span>
-    </a>
-    <a href="vocabulary.html" class="nav-item">
-      <span class="nav-icon">📖</span><span>Vocab</span>
-    </a>
-    <a href="dashboard.html" class="nav-item">
-      <span class="nav-icon">📊</span><span>Dashboard</span>
-    </a>
-  </nav>
-
-  <!-- HERO avec bouton Settings -->
+  <!-- HERO sans bouton Settings -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">?
       <span class="hero-lvl-badge" id="heroLvl">1</span>
@@ -105,33 +68,6 @@
       </select>
       <button class="btn-ghost btn-small"
         onclick="if(typeof openModal==='function')openModal()">+ New</button>
-      <button class="btn-settings" onclick="toggleSettings()" title="Settings" aria-label="Settings">⚙️</button>
-    </div>
-    <!-- Panel settings -->
-    <div id="settingsPanel" class="settings-panel" style="display:none;">
-      <div class="settings-row">
-        <span>Theme</span>
-        <div class="theme-dots">
-          <button class="theme-dot" data-theme="ardoise" onclick="applyThemePick('ardoise')" title="Ardoise">🌑</button>
-          <button class="theme-dot" data-theme="mauve" onclick="applyThemePick('mauve')" title="Mauve">🟣</button>
-          <button class="theme-dot" data-theme="terra" onclick="applyThemePick('terra')" title="Terra">🟤</button>
-        </div>
-      </div>
-      <div class="settings-row">
-        <span>Interface</span>
-        <div class="lang-btns">
-          <button onclick="applyLangPick('en')">🇬🇧 EN</button>
-          <button onclick="applyLangPick('fr')">🇫🇷 FR</button>
-        </div>
-      </div>
-      <div class="settings-row">
-        <span>Direction</span>
-        <div class="direction-btns">
-          <button class="direction-btn" data-direction="en-first" onclick="applyDirectionPick('en-first')">🇬🇧→🇫🇷</button>
-          <button class="direction-btn" data-direction="fr-first" onclick="applyDirectionPick('fr-first')">🇫🇷→🇬🇧</button>
-          <button class="direction-btn" data-direction="mixed" onclick="applyDirectionPick('mixed')">🔄</button>
-        </div>
-      </div>
     </div>
   </header>
 
@@ -276,13 +212,6 @@
   <script src="js/quiz.js"></script>
 
   <script>
-    // Settings toggle
-    function toggleSettings() {
-      const panel = document.getElementById('settingsPanel');
-      if (!panel) return;
-      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-    }
-    
     // Direction toggle
     function applyDirectionPick(direction) {
       if (typeof gameState !== 'undefined') gameState.questionDirection = direction;
