@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <!-- Popup vocabulaire — CORRIGÉ Juin 2026 -->
+  <!-- Popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
@@ -34,9 +34,7 @@
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       NAVIGATION TOP — Barre du haut (Juin 2026)
-       ═══════════════════════════════════════════════════════════════════ -->
+  <!-- NAVIGATION TOP -->
   <nav class="nav-top">
     <a href="emergency.html" class="nav-top-item">
       <span class="nav-top-icon">🚨</span>SOS
@@ -55,10 +53,7 @@
     </a>
   </nav>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       NAVIGATION BOTTOM — Navigation principale
-       MODIFIÉ Juin 2026 : "Home" → "Start", "Space" → "Dashboard"
-       ═══════════════════════════════════════════════════════════════════ -->
+  <!-- NAVIGATION BOTTOM -->
   <nav class="nav-bottom">
     <a href="quiz.html" class="nav-item">
       <span class="nav-icon">🏠</span><span>Start</span>
@@ -77,7 +72,7 @@
     </a>
   </nav>
 
-  <!-- HERO — hero-tag supprimé (doublon avec bento tiles) -->
+  <!-- HERO avec bouton Settings -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">?<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info">
@@ -96,7 +91,7 @@
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
       <button class="btn-settings" onclick="toggleSettings()" title="Settings" aria-label="Settings">⚙️</button>
     </div>
-    <!-- Panel settings flottant -->
+    <!-- Panel settings -->
     <div id="settingsPanel" class="settings-panel" style="display:none;">
       <div class="settings-row">
         <span>Theme</span>
@@ -113,10 +108,9 @@
           <button onclick="applyLangPick('fr')">🇫🇷 FR</button>
         </div>
       </div>
-      <!-- NOUVEAU v2.1 : Toggle direction -->
       <div class="settings-row">
         <span>Direction</span>
-        <div class="lang-btns">
+        <div class="direction-btns">
           <button class="direction-btn" data-direction="en-first" onclick="applyDirectionPick('en-first')">🇬🇧→🇫🇷</button>
           <button class="direction-btn" data-direction="fr-first" onclick="applyDirectionPick('fr-first')">🇫🇷→🇬🇧</button>
           <button class="direction-btn" data-direction="mixed" onclick="applyDirectionPick('mixed')">🔄</button>
@@ -125,7 +119,7 @@
     </div>
   </header>
 
-  <!-- BENTO — identique sur toutes les pages -->
+  <!-- BENTO -->
   <div class="bento-grid">
     <div class="bento-tile">
       <div class="bento-num" id="b1">1</div>
@@ -142,9 +136,6 @@
   </div>
 
   <main class="dashboard-main">
-    <!-- ═══════════════════════════════════════════════════════════════════
-         SECTION : MY LIFE IN FRANCE — RÉPARÉ v2.1
-         ═══════════════════════════════════════════════════════════════════ -->
     <section class="dash-section" id="dash-life">
       <h2 class="dash-title">🇫🇷 My Life in France</h2>
       <div id="lifeSkillsGrid" class="life-skills-grid"></div>
@@ -189,7 +180,53 @@
   <script src="js/dashboard.js"></script>
 
   <script>
-    // Init dashboard au chargement
+    // Settings toggle
+    function toggleSettings() {
+      const panel = document.getElementById('settingsPanel');
+      if (!panel) return;
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    }
+    
+    // Direction toggle
+    function applyDirectionPick(direction) {
+      if (typeof gameState !== 'undefined') gameState.questionDirection = direction;
+      localStorage.setItem('dailyFrench_direction', direction);
+      
+      document.querySelectorAll('.direction-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.direction === direction);
+      });
+      
+      if (typeof toast === 'function') {
+        toast('Direction: ' + direction.replace('-', '→').toUpperCase());
+      }
+    }
+    
+    // Theme toggle
+    function applyThemePick(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('dailyFrench_theme', theme);
+      if (typeof toast === 'function') toast('Theme: ' + theme);
+    }
+    
+    // Language toggle
+    function applyLangPick(lang) {
+      localStorage.setItem('dailyFrench_lang', lang);
+      if (typeof toast === 'function') toast('Language: ' + lang.toUpperCase());
+    }
+    
+    // Restore settings on load
+    (function() {
+      const savedDir = localStorage.getItem('dailyFrench_direction') || 'en-first';
+      if (typeof gameState !== 'undefined') gameState.questionDirection = savedDir;
+      document.querySelectorAll('.direction-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.direction === savedDir);
+      });
+      
+      const savedTheme = localStorage.getItem('dailyFrench_theme');
+      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+    
+    // Init dashboard
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof initDashboard === 'function') initDashboard();
     });
