@@ -26,52 +26,29 @@
     <div class="vocab-popup-content">
       <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
       <div id="vocab-popup-body">
-        <div class="vocab-popup-fr" id="vocabPopupFr"></div>
-        <div class="vocab-popup-phon" id="vocabPopupPhon"></div>
-        <div class="vocab-popup-en" id="vocabPopupEn"></div>
-        <div class="vocab-popup-def" id="vocabPopupDef"></div>
-        <div class="vocab-popup-ex" id="vocabPopupEx"></div>
-        <div class="vocab-popup-cat" id="vocabPopupCat"></div>
-      </div>
-    </div>
-  </div>
-  <header class="hero">
-    <div class="hero-avatar" id="heroAv">?<span class="hero-lvl-badge" id="heroLvl">1</span></div>
-    <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
-    <div class="hero-xp">
-      <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
-      <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
-    </div>
-    <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
-      <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
-    </div>
-  </header>
-  <div class="bento-grid">
-    <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
-    <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
-    <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
-  </div>
-  <section id="vocabSection" class="section active">
-    <div class="vocab-toolbar">
-      <input type="text" id="vocabSearch" placeholder="🔍 Search a word…" autocomplete="off" autocorrect="off" spellcheck="false">
-      <select id="vocabFilterLevel"><option value="">All Levels</option></select>
-      <select id="vocabFilterCat"><option value="">All Categories</option></select>
-    </div>
-    <div class="vocab-meta" id="vocabCount">Loading…</div>
-    <div id="vocabGrid" class="vocab-grid"></div>
-  </section>
+">
+    <section class="dash-section" id="dash-life"><h2 class="dash-title">🇫🇷 My Life in France</h2><div id="lifeSkillsGrid" class="life-skills-grid"></div></section>
+    <section class="dash-section" id="dash-levels"><h2 class="dash-title">🗺️ Journey</h2><div id="journeyMap" class="journey-map"></div></section>
+    <section class="dash-section" id="dash-badges"><h2 class="dash-title">🏅 Badges</h2><div id="badgesGrid" class="badges-grid"></div></section>
+    <section class="dash-section" id="dash-cameleon"><h2 class="dash-title">🦎 Cameleon</h2><div id="cameleonStage" class="cameleon-stage"></div></section>
+    <section class="dash-section" id="dash-history"><h2 class="dash-title">📜 History</h2><div id="historyList" class="history-list"></div></section>
+    <section class="dash-section" id="dash-genius"><h2 class="dash-title">🪔 Mon Génie</h2><div id="geniusPanel" class="genius-panel"></div></section>
+  </main>
   <script src="js/config.js"></script>
   <script src="js/data.js"></script>
   <script src="js/vocabulary-data.js"></script>
   <script src="js/vocabulary-engine.js"></script>
+  <script src="js/emergency-data.js"></script>
+  <script src="js/conversation-data.js"></script>
+  <script src="js/life-skills-data.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
-  <script src="js/vocabulary.js"></script>
+  <script src="js/dashboard.js"></script>
   <script>
     function applyThemePick(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('dailyFrench_theme',t);if(typeof toast==='function')toast('Theme: '+t)}
     function applyLangPick(l){localStorage.setItem('dailyFrench_lang',l);if(typeof toast==='function')toast('Language: '+l.toUpperCase())}
     (function(){const t=localStorage.getItem('dailyFrench_theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
+    document.addEventListener('DOMContentLoaded',function(){if(typeof initDashboard==='function')initDashboard()});
   </script>
 </body>
 </html>
