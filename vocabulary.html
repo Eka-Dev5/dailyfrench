@@ -16,9 +16,203 @@
   <!-- Modal joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
-      <h3 id="modalTitle">New Player</</div>
-    <p>Loading Daily French…</p>
-    <p><a href="quiz.html">Click here if not redirected</a></p>
+      <h3 id="modalTitle">New Player</h3>
+      <input type="text" id="mInput" maxlength="30" placeholder="Your name"
+        autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+      <div class="modal-actions">
+        <button id="btnCancelModal" class="btn-ghost">Cancel</button>
+        <button id="btnCreatePlayer" class="btn-primary">Create</button>
+      </div>
+    </div>
   </div>
+
+  <!-- Popup vocabulaire -->
+  <div id="vocabulary-popup-modal" class="vocab-popup-modal">
+    <div class="vocab-popup-content">
+      <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
+      <div id="vocab-popup-body">
+        <div class="vocab-popup-fr" id="vocabPopupFr"></div>
+        <div class="vocab-popup-phon" id="vocabPopupPhon"></div>
+        <div class="vocab-popup-en" id="vocabPopupEn"></div>
+        <div class="vocab-popup-def" id="vocabPopupDef"></div>
+        <div class="vocab-popup-ex" id="vocabPopupEx"></div>
+        <div class="vocab-popup-cat" id="vocabPopupCat"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION TOP -->
+  <nav class="nav-top">
+    <a href="emergency.html" class="nav-top-item">
+      <span class="nav-top-icon">🚨</span>SOS
+    </a>
+    <a href="conversation.html" class="nav-top-item">
+      <span class="nav-top-icon">💬</span>Talk
+    </a>
+    <a href="games/listen.html" class="nav-top-item">
+      <span class="nav-top-icon">🎧</span>Listen
+    </a>
+    <a href="games/phrase-builder.html" class="nav-top-item">
+      <span class="nav-top-icon">🧩</span>Phrase
+    </a>
+    <a href="dashboard.html" class="nav-top-item">
+      <span class="nav-top-icon">⚙️</span>Config
+    </a>
+  </nav>
+
+  <!-- NAVIGATION BOTTOM -->
+  <nav class="nav-bottom">
+    <a href="quiz.html" class="nav-item">
+      <span class="nav-icon">🏠</span><span>Start</span>
+    </a>
+    <a href="quiz.html?section=lecons" class="nav-item">
+      <span class="nav-icon">📚</span><span>Lessons</span>
+    </a>
+    <a href="quiz.html?section=levels" class="nav-item">
+      <span class="nav-icon">🎮</span><span>Play</span>
+    </a>
+    <a href="vocabulary.html" class="nav-item active">
+      <span class="nav-icon">📖</span><span>Vocab</span>
+    </a>
+    <a href="dashboard.html" class="nav-item">
+      <span class="nav-icon">📊</span><span>Dashboard</span>
+    </a>
+  </nav>
+
+  <!-- HERO avec bouton Settings -->
+  <header class="hero">
+    <div class="hero-avatar" id="heroAv">?<span class="hero-lvl-badge" id="heroLvl">1</span></div>
+    <div class="hero-info">
+      <div class="hero-name" id="heroName">Guest</div>
+    </div>
+    <div class="hero-xp">
+      <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
+      <div class="xp-text" id="xpText">
+        <span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts
+      </div>
+    </div>
+    <div class="hero-switch">
+      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
+        <option value="">Choose a player</option>
+      </select>
+      <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
+      <button class="btn-settings" onclick="toggleSettings()" title="Settings" aria-label="Settings">⚙️</button>
+    </div>
+    <!-- Panel settings -->
+    <div id="settingsPanel" class="settings-panel" style="display:none;">
+      <div class="settings-row">
+        <span>Theme</span>
+        <div class="theme-dots">
+          <button class="theme-dot" data-theme="ardoise" onclick="applyThemePick('ardoise')" title="Ardoise">🌑</button>
+          <button class="theme-dot" data-theme="mauve" onclick="applyThemePick('mauve')" title="Mauve">🟣</button>
+          <button class="theme-dot" data-theme="terra" onclick="applyThemePick('terra')" title="Terra">🟤</button>
+        </div>
+      </div>
+      <div class="settings-row">
+        <span>Interface</span>
+        <div class="lang-btns">
+          <button onclick="applyLangPick('en')">🇬🇧 EN</button>
+          <button onclick="applyLangPick('fr')">🇫🇷 FR</button>
+        </div>
+      </div>
+      <div class="settings-row">
+        <span>Direction</span>
+        <div class="direction-btns">
+          <button class="direction-btn" data-direction="en-first" onclick="applyDirectionPick('en-first')">🇬🇧→🇫🇷</button>
+          <button class="direction-btn" data-direction="fr-first" onclick="applyDirectionPick('fr-first')">🇫🇷→🇬🇧</button>
+          <button class="direction-btn" data-direction="mixed" onclick="applyDirectionPick('mixed')">🔄</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BENTO -->
+  <div class="bento-grid">
+    <div class="bento-tile">
+      <div class="bento-num" id="b1">1</div>
+      <div class="bento-label">Level</div>
+    </div>
+    <div class="bento-tile">
+      <div class="bento-num" id="b2">0</div>
+      <div class="bento-label">Points</div>
+    </div>
+    <div class="bento-tile">
+      <div class="bento-num" id="b3">0/20</div>
+      <div class="bento-label">Done</div>
+    </div>
+  </div>
+
+  <!-- SECTION VOCABULAIRE -->
+  <section id="vocabSection" class="section active">
+    <div class="vocab-toolbar">
+      <input type="text" id="vocabSearch" placeholder="🔍 Search a word…" autocomplete="off" autocorrect="off" spellcheck="false">
+      <select id="vocabFilterLevel">
+        <option value="">All Levels</option>
+      </select>
+      <select id="vocabFilterCat">
+        <option value="">All Categories</option>
+      </select>
+    </div>
+    <div class="vocab-meta" id="vocabCount">Loading…</div>
+    <div id="vocabGrid" class="vocab-grid"></div>
+  </section>
+
+  <!-- Scripts — ordre obligatoire -->
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/vocabulary-data.js"></script>
+  <script src="js/vocabulary-engine.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/ui-utils.js"></script>
+  <script src="js/vocabulary.js"></script>
+
+  <script>
+    // Settings toggle
+    function toggleSettings() {
+      const panel = document.getElementById('settingsPanel');
+      if (!panel) return;
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    }
+    
+    // Direction toggle
+    function applyDirectionPick(direction) {
+      if (typeof gameState !== 'undefined') gameState.questionDirection = direction;
+      localStorage.setItem('dailyFrench_direction', direction);
+      
+      document.querySelectorAll('.direction-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.direction === direction);
+      });
+      
+      if (typeof toast === 'function') {
+        toast('Direction: ' + direction.replace('-', '→').toUpperCase());
+      }
+    }
+    
+    // Theme toggle
+    function applyThemePick(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('dailyFrench_theme', theme);
+      if (typeof toast === 'function') toast('Theme: ' + theme);
+    }
+    
+    // Language toggle
+    function applyLangPick(lang) {
+      localStorage.setItem('dailyFrench_lang', lang);
+      if (typeof toast === 'function') toast('Language: ' + lang.toUpperCase());
+    }
+    
+    // Restore settings on load
+    (function() {
+      const savedDir = localStorage.getItem('dailyFrench_direction') || 'en-first';
+      if (typeof gameState !== 'undefined') gameState.questionDirection = savedDir;
+      document.querySelectorAll('.direction-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.direction === savedDir);
+      });
+      
+      const savedTheme = localStorage.getItem('dailyFrench_theme');
+      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
+
 </body>
 </html>
