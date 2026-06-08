@@ -5,18 +5,53 @@
 // ═══════════════════════════════════════════════════════════════════
 
 const VOCAB_LEVEL_3 = [
-  {fr:"une fleur",en:"a flower",phon:"*oon FLUHR*",def:"Partie colorée et parfumée d'une plante.",ex:"Une belle fleur rouge.",ex_en:"A beautiful red flower.",level:3,cat:"nature"},
-  {fr:"un arbre",en:"a tree",phon:"*uh NAR-bruh*",def:"Plante ligneuse de grande taille.",ex:"Un vieil arbre dans le jardin.",ex_en:"An old tree in the garden.",level:3,cat:"nature"},
-  {fr:"l'herbe",en:"grass",phon:"*LAR-buh*",def:"Plantes basses qui couvrent le sol.",ex:"L'herbe est bien verte.",ex_en:"The grass is very green.",level:3,cat:"nature"},
-  {fr:"une feuille",en:"a leaf",phon:"*oon FUH-yuh*",def:"Organe vert des plantes.",ex:"Les feuilles tombent en automne.",ex_en:"The leaves fall in autumn.",level:3,cat:"nature"},
-  {fr:"un potager",en:"vegetable garden",phon:"*uh po-ta-ZHAY*",def:"Jardin où l'on cultive des légumes.",ex:"Mon potager derrière la maison.",ex_en:"My vegetable garden behind the house.",level:3,cat:"nature"},
-  {fr:"une serre",en:"greenhouse",phon:"*oon SAIR*",def:"Construction vitrée pour cultiver des plantes.",ex:"Des tomates dans la serre.",ex_en:"Tomatoes in the greenhouse.",level:3,cat:"nature"},
-  {fr:"un arrosoir",en:"watering can",phon:"*uh na-roz-WAHR*",def:"Récipient pour arroser les plantes.",def_en:"Container for watering plants.",ex:"Remplir l'arrosoir.",ex_en:"Fill the watering can.",level:3,cat:"outil"},
-  {fr:"planter",en:"to plant",phon:"*plan-TAY*",def:"Mettre une plante en terre.",ex:"Je plante des tomates.",ex_en:"I plant tomatoes.",level:3,cat:"verbe"},
-  {fr:"arroser",en:"to water",phon:"*a-roh-ZAY*",def:"Donner de l'eau aux plantes.",ex:"Il faut arroser le soir.",ex_en:"You must water in the evening.",level:3,cat:"verbe"},
-  {fr:"tailler",en:"to prune",phon:"*TIE-yay*",def:"Couper pour former ou nettoyer.",ex:"Tailler la haie.",ex_en:"Trim the hedge.",level:3,cat:"verbe"},
-  {fr:"récolter",en:"to harvest",phon:"*ray-kol-TAY*",def:"Cueillir les fruits de son travail.",ex:"Récolter les légumes.",ex_en:"Harvest the vegetables.",level:3,cat:"verbe"},
-  {fr:"faucher",en:"to mow",phon:"*foh-SHAY*",def:"Couper l'herbe ou les céréales.",ex:"Faucher la pelouse.",ex_en:"Mow the lawn.",level:3,cat:"verbe"}
+   // === AJOUTS NIVEAU 3 (38 entrées supplémentaires) ===
+  
+  // Nature / Jardin
+  {fr:"fleur",en:"flower",phon:"*FLUR*",def:"Plante à pétales colorés",ex:"Une belle fleur rouge.",level:3,cat:"nature"},
+  {fr:"rose",en:"rose",phon:"*ROHZ*",def:"Fleur épineuse parfumée",ex:"Une rose rouge.",level:3,cat:"nature"},
+  {fr:"tulipe",en:"tulip",phon:"*too-LEEP*",def:"Fleur bulbeuse printanière",ex:"Des tulipes jaunes.",level:3,cat:"nature"},
+  {fr:"marguerite",en:"daisy",phon:"*mar-guh-REET*",def:"Fleur blanche simple",ex:"Une marguerite des champs.",level:3,cat:"nature"},
+  {fr:"tournesol",en:"sunflower",phon:"*toor-nuh-SOL*",def:"Grande fleur jaune",ex:"Un champ de tournesols.",level:3,cat:"nature"},
+  {fr:"lavande",en:"lavender",phon:"*la-VONND*",def:"Plante violette parfumée",ex:"De la lavande de Provence.",level:3,cat:"nature"},
+  {fr:"herbe",en:"grass",phon:"*AIRB*",def:"Végétation basse verte",ex:"L'herbe est bien verte.",level:3,cat:"nature"},
+  {fr:"mousse",en:"moss",phon:"*MOOSS*",def:"Petite plante verte dense",ex:"De la mousse sur les pierres.",level:3,cat:"nature"},
+  {fr:"feuille",en:"leaf",phon:"*FUH-yuh*",def:"Organe vert des plantes",ex:"Une feuille morte.",level:3,cat:"nature"},
+  {fr:"branche",en:"branch",phon:"*BRONSH*",def:"Partie d'arbre",ex:"Une branche cassée.",level:3,cat:"nature"},
+  {fr:"tronc",en:"trunk",phon:"*TROHNK*",def:"Corps principal d'arbre",ex:"Le tronc est épais.",level:3,cat:"nature"},
+  {fr:"racine",en:"root",phon:"*ra-SEEN*",def:"Partie souterraine",ex:"Les racines de l'arbre.",level:3,cat:"nature"},
+  {fr:"graine",en:"seed",phon:"*GREN*",def:"Élément de reproduction",ex:"Planter des graines.",level:3,cat:"nature"},
+  {fr:"terreau",en:"potting soil",phon:"*tair-ROH*",def:"Terre enrichie",ex:"Du terreau pour les pots.",level:3,cat:"nature"},
+  {fr:"compost",en:"compost",phon:"*kom-POST*",def:"Déchets organiques décomposés",ex:"Le compost du jardin.",level:3,cat:"nature"},
+  
+  // Outils de jardin
+  {fr:"bêche",en:"spade",phon:"*BESH*",def:"Outil pour creuser",ex:"Une bêche neuve.",level:3,cat:"outil"},
+  {fr:"rateau",en:"rake",phon:"*ra-TOH*",def:"Outil pour ramasser",ex:"Un rateau en bois.",level:3,cat:"outil"},
+  {fr:"sécateur",en:"pruning shears",phon:"*say-ka-TUR*",def:"Outil de coupe",ex:"Couper avec le sécateur.",level:3,cat:"outil"},
+  {fr:"arrosoir",en:"watering can",phon:"*a-roz-WAHR*",def:"Récipient pour arroser",ex:"Remplir l'arrosoir.",level:3,cat:"outil"},
+  {fr:"tuyau",en:"hose",phon:"*twee-YOH*",def:"Tube pour l'eau",ex:"Le tuyau d'arrosage.",level:3,cat:"outil"},
+  {fr:"pot",en:"pot",phon:"*POH*",def:"Récipient pour plante",ex:"Un pot de fleurs.",level:3,cat:"outil"},
+  {fr:"jardinière",en:"planter box",phon:"*zhar-dee-NAIR*",def:"Bac pour plantes",ex:"Des jardinières au balcon.",level:3,cat:"outil"},
+  {fr:"serre",en:"greenhouse",phon:"*SAIR*",def:"Abri de verre pour plantes",ex:"Une serre chaude.",level:3,cat:"lieu"},
+  {fr:"abri de jardin",en:"garden shed",phon:"*a-BREE duh zhar-DAN*",def:"Petit bâtiment de jardin",ex:"Les outils dans l'abri.",level:3,cat:"lieu"},
+  
+  // Verbes de jardin
+  {fr:"planter",en:"to plant",phon:"*plan-TAY*",def:"Mettre en terre",ex:"Planter des tomates.",level:3,cat:"verbe"},
+  {fr:"repiquer",en:"to transplant",phon:"*ruh-pee-KAY*",def:"Déplacer une plante",ex:"Repiquer les salades.",level:3,cat:"verbe"},
+  {fr:"tailler",en:"to prune",phon:"*tah-YAY*",def:"Couper pour former",ex:"Tailler la haie.",level:3,cat:"verbe"},
+  {fr:"fertiliser",en:"to fertilize",phon:"*fair-tee-lee-ZAY*",def:"Apporter des nutriments",ex:"Fertiliser les rosiers.",level:3,cat:"verbe"},
+  {fr:"désherber",en:"to weed",phon:"*day-zair-BAY*",def:"Enlever les mauvaises herbes",ex:"Désherber le potager.",level:3,cat:"verbe"},
+  {fr:"récolter",en:"to harvest",phon:"*ray-kol-TAY*",def:"Cueillir les fruits/légumes",ex:"Récolter les fraises.",level:3,cat:"verbe"},
+  {fr:"bouturer",en:"to take cuttings",phon:"*boo-tew-RAY*",def:"Multiplier une plante",ex:"Bouturer le laurier.",level:3,cat:"verbe"},
+  
+  // Animaux du jardin
+  {fr:"oiseau",en:"bird",phon:"*wa-ZOH*",def:"Animal ailé",ex:"Un oiseau sur la branche.",level:3,cat:"animal"},
+  {fr:"papillon",en:"butterfly",phon:"*pa-pee-YON*",def:"Insecte aux ailes colorées",ex:"Un papillon jaune.",level:3,cat:"animal"},
+  {fr:"abeille",en:"bee",phon:"*a-BAY*",def:"Insecte pollinisateur",ex:"Une abeille sur la fleur.",level:3,cat:"animal"},
+  {fr:"escargot",en:"snail",phon:"*es-kar-GOH*",def:"Animal à coquille",ex:"Un escargot après la pluie.",level:3,cat:"animal"},
+  {fr:"ver de terre",en:"earthworm",phon:"*VAIR duh TAIR*",def:"Ver vivant dans le sol",ex:"Les vers de terre enrichissent.",level:3,cat:"animal"},
+  {fr:"coccinelle",en:"ladybug",phon:"*kok-see-NEL*",def:"Petit insecte rouge à points",ex:"Une coccinelle porte-bonheur.",level:3,cat:"animal"}
+
 ];
 
 if (typeof window !== 'undefined') {
