@@ -1,25 +1,28 @@
 // ═══════════════════════════════════════════════════════════════════
-// NAV.JS — Menus haut et bas — Source unique de vérité
-// Injecte automatiquement les menus sur TOUTES les pages
+// NAV.JS — Daily French 🥖
+// SOURCE UNIQUE DE VÉRITÉ pour les menus haut et bas
+// 
+// À inclure dans TOUTES les pages : <script src="js/nav.js"></script>
+// (ou <script src="../js/nav.js"></script> depuis /games/)
+// 
+// Injection automatique au DOMContentLoaded
 // ═══════════════════════════════════════════════════════════════════
 
 (function() {
   'use strict';
 
-  // Détecter le dossier courant pour ajuster les chemins
+  // ─── DÉTECTION DU DOSSIER COURANT ───────────────────────────────
   const path = window.location.pathname;
   const isInGamesFolder = path.includes('/games/');
   const prefix = isInGamesFolder ? '../' : '';
 
-  // ═════════════════════════════════════════════════════════════════
-  // CONFIG DES MENUS (modifié ici = modifié partout)
-  // ═════════════════════════════════════════════════════════════════
+  // ─── CONFIG CENTRALE DES MENUS (modifier ici = partout) ─────────
   const TOP_MENU = [
-    { icon: '🚨', label: 'SOS',      href: 'emergency.html' },
-    { icon: '💬', label: 'Talk',     href: 'conversation.html' },
-    { icon: '🎧', label: 'Listen',   href: 'games/listen.html' },
-    { icon: '🧩', label: 'Phrase',   href: 'games/phrase-builder.html' },
-    { icon: '⚙️', label: 'Config',   href: 'settings.html' }
+    { icon: '🚨', label: 'SOS',    href: 'emergency.html' },
+    { icon: '💬', label: 'Talk',   href: 'conversation.html' },
+    { icon: '🎧', label: 'Listen', href: 'games/listen.html' },
+    { icon: '🧩', label: 'Phrase', href: 'games/phrase-builder.html' },
+    { icon: '⚙️', label: 'Config', href: 'settings.html' }
   ];
 
   const BOTTOM_MENU = [
@@ -30,18 +33,14 @@
     { icon: '📊', label: 'Dashboard', href: 'dashboard.html' }
   ];
 
-  // ═════════════════════════════════════════════════════════════════
-  // FONCTION : injecter les menus
-  // ═════════════════════════════════════════════════════════════════
+  // ─── FONCTION D'INJECTION ───────────────────────────────────────
   function injectNav() {
-    // Ne pas injecter si déjà présent
-    if (document.querySelector('.nav-top')) return;
+    if (document.querySelector('.nav-top')) return; // Déjà injecté
 
-    // Page courante pour marquer "active"
     const currentPage = path.split('/').pop() || 'quiz.html';
     const currentHref = window.location.href;
 
-    // ─── MENU HAUT ───
+    // Menu haut
     const topNav = document.createElement('nav');
     topNav.className = 'nav-top';
     topNav.innerHTML = TOP_MENU.map(item => {
@@ -53,7 +52,7 @@
     }).join('');
     document.body.insertBefore(topNav, document.body.firstChild);
 
-    // ─── MENU BAS ───
+    // Menu bas
     const bottomNav = document.createElement('nav');
     bottomNav.className = 'nav-bottom';
     bottomNav.innerHTML = BOTTOM_MENU.map(item => {
@@ -67,16 +66,12 @@
     document.body.appendChild(bottomNav);
   }
 
-  // ═════════════════════════════════════════════════════════════════
-  // LANCER AU CHARGEMENT
-  // ═════════════════════════════════════════════════════════════════
+  // ─── LANCEMENT ──────────────────────────────────────────────────
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', injectNav);
   } else {
     injectNav();
   }
 
-  // Exposer globalement si besoin de re-injecter
   window.injectNav = injectNav;
-
 })();
