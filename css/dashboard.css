@@ -1,423 +1,373 @@
-/**
- * dashboard.css — Styles tableau de bord Daily French v3.0
- * 
- * RÈGLE : Ce fichier ne contient QUE ce qui n'existe pas dans base.css.
- */
-
 /* ═══════════════════════════════════════════════════════════════════
-   1. CONTENEUR PRINCIPAL
+   DASHBOARD.CSS — Daily French 🥖 v3.0
+   Fichier complet — remplace l'ancienne version
+   Corrections : grid badges 4 colonnes + padding bottom nav
    ═══════════════════════════════════════════════════════════════════ */
 
-.dashboard-main {
-  overflow-x: hidden;
-  padding: var(--space-md);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-  padding-bottom: calc(var(--space-xl) + 90px);
+/* ─── GRILLE BADGES — 4 colonnes fixes, pas de décalage ────────── */
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-sm);
+  padding: var(--space-sm);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   2. SECTIONS DASHBOARD
-   ═══════════════════════════════════════════════════════════════════ */
+/* Mobile : 3 colonnes */
+@media (max-width: 480px) {
+  .badges-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
-.dash-section {
+/* Badge individuel */
+.badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm);
   background: var(--white);
-  border-radius: var(--r-lg);
-  padding: var(--space-lg);
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--r);
   border: 1px solid var(--border);
+  text-align: center;
+  min-height: 80px;
+  transition: all 0.2s;
+}
+
+.badge-item .badge-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-xs);
+  line-height: 1;
+}
+
+.badge-item .badge-name {
+  font-size: var(--font-xs);
+  color: var(--muted);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Badge débloqué */
+.badge-item.unlocked {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.badge-item.unlocked .badge-icon {
+  filter: none;
+  opacity: 1;
+}
+
+/* Badge verrouillé (grisé) */
+.badge-item.locked {
+  opacity: 0.5;
+}
+
+.badge-item.locked .badge-icon {
+  filter: grayscale(100%);
+}
+
+/* ─── DASHBOARD MAIN — Padding bottom pour nav-bottom ──────────── */
+.dashboard-main {
+  padding: var(--space-md);
+  padding-bottom: calc(var(--space-xl) + 70px); /* Espace pour nav-bottom fixe */
+}
+
+/* ─── DASH SECTIONS ───────────────────────────────────────────── */
+.dash-section {
+  margin-bottom: var(--space-lg);
 }
 
 .dash-title {
   font-size: var(--font-lg);
   font-weight: 700;
   color: var(--text);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
+  padding: 0 var(--space-sm);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   3. JOURNEY MAP
-   ═══════════════════════════════════════════════════════════════════ */
-
+/* ─── JOURNEY MAP ──────────────────────────────────────────────── */
 .journey-map {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 5px;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+}
+
+@media (max-width: 480px) {
+  .journey-map {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .journey-tile {
-  aspect-ratio: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  background: var(--bg-card);
+  padding: var(--space-sm);
+  background: var(--white);
+  border-radius: var(--r-sm);
   border: 2px solid var(--border);
-  border-radius: 10px;
   cursor: pointer;
-  transition: all var(--transition-fast);
-  position: relative;
-  font-size: var(--font-md);
-  font-weight: 700;
-  color: var(--text);
-  min-height: 44px;
+  transition: all 0.2s;
+  min-height: 60px;
 }
 
-.journey-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-.journey-tile:active { transform: scale(0.95); }
-
-.journey-tile.locked {
-  background: var(--bg);
-  color: var(--subtle);
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.journey-tile.active {
-  border-color: var(--primary);
-  background: var(--primary-light);
-  box-shadow: 0 0 0 3px var(--primary-light), var(--shadow);
-  animation: tile-pulse 2s ease-in-out infinite;
-}
-
-@keyframes tile-pulse {
-  0%,100% { box-shadow: 0 0 0 3px var(--primary-light), var(--shadow); }
-  50%     { box-shadow: 0 0 0 6px var(--primary-light), var(--shadow); }
+.journey-tile:hover {
+  border-color: var(--primary-mid);
+  transform: translateY(-2px);
 }
 
 .journey-tile.completed {
   border-color: var(--green);
   background: var(--green-light);
-  color: var(--green);
 }
 
-.journey-tile .check {
-  position: absolute;
-  bottom: 3px; right: 5px;
+.journey-tile.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.journey-tile.locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.journey-tile .journey-num {
+  font-size: var(--font-lg);
+  font-weight: 800;
+  color: var(--text);
+}
+
+.journey-tile .journey-name {
   font-size: var(--font-xs);
-  font-weight: 700;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   4. BADGES
-   ═══════════════════════════════════════════════════════════════════ */
-
-.badges-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.badge-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 8px 4px;
-  border-radius: var(--r);
-  background: var(--bg-card);
-  border: 2px solid var(--border);
-  transition: all var(--transition-fast);
-  text-align: center;
-  min-height: 80px;
-  justify-content: center;
-}
-
-.badge-item.locked { opacity: 0.35; filter: grayscale(1); }
-
-.badge-item.unlocked {
-  background: var(--gold-light);
-  border-color: var(--gold);
-  box-shadow: var(--shadow-sm);
-}
-
-.badge-item.unlocked:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: var(--shadow);
-}
-
-.badge-icon { font-size: 1.9rem; line-height: 1; }
-
-.badge-label {
-  font-size: var(--font-xs);
-  font-weight: 600;
   color: var(--muted);
+  text-align: center;
   line-height: 1.2;
 }
 
-.badge-item.unlocked .badge-label { color: var(--text); }
-
-/* ═══════════════════════════════════════════════════════════════════
-   5. CAMELEON
-   ═══════════════════════════════════════════════════════════════════ */
-
+/* ─── CAMÉLÉON STAGE ───────────────────────────────────────────── */
 .cameleon-stage {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: var(--space-sm);
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
 }
 
 .cameleon-avatar {
-  font-size: 3.8rem;
+  font-size: 4rem;
   line-height: 1;
-  animation: cam-bounce 3s ease-in-out infinite;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,.1));
 }
 
-@keyframes cam-bounce {
-  0%,100% { transform: translateY(0); }
-  50%     { transform: translateY(-8px); }
-}
-
-.cameleon-name { font-size: var(--font-lg); font-weight: 700; color: var(--primary); }
-.cameleon-msg {
-  font-size: var(--font-sm);
-  color: var(--muted);
-  font-style: italic;
-  max-width: 280px;
-  line-height: 1.4;
-}
-
-.cameleon-bar {
+.cameleon-bar-track {
   width: 100%;
-  max-width: 280px;
-  height: 10px;
-  background: var(--border);
-  border-radius: 5px;
+  max-width: 300px;
+  height: 8px;
+  background: var(--bg-card);
+  border-radius: 999px;
   overflow: hidden;
 }
 
-.cameleon-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--coral), var(--gold));
-  border-radius: 5px;
-  transition: width 600ms ease;
-}
-
-.cameleon-count { font-size: var(--font-xs); color: var(--subtle); }
-
-/* ═══════════════════════════════════════════════════════════════════
-   6. HISTORIQUE
-   ═══════════════════════════════════════════════════════════════════ */
-
-.history-list { display: flex; flex-direction: column; gap: 2px; }
-
-.history-row {
-  display: grid;
-  grid-template-columns: 1fr auto auto auto;
-  gap: var(--space-sm);
-  align-items: center;
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--r-sm);
-  font-size: var(--font-sm);
-  transition: background var(--transition-fast);
-}
-
-.history-row:hover { background: var(--bg-card); }
-.history-row:nth-child(even) { background: rgba(241,245,249,.5); }
-
-.h-date { color: var(--muted); font-size: var(--font-xs); }
-.h-level {
-  font-weight: 600;
-  color: var(--primary);
-  font-size: var(--font-xs);
-  background: var(--primary-light);
-  padding: 2px 8px;
-  border-radius: 8px;
-}
-.h-score { font-weight: 600; color: var(--text); }
-.h-pct {
-  font-weight: 700;
-  color: var(--green);
-  font-size: var(--font-xs);
-  min-width: 36px;
-  text-align: right;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   7. MON GÉNIE
-   ═══════════════════════════════════════════════════════════════════ */
-
-.genius-panel { display: flex; flex-direction: column; gap: var(--space-md); }
-.genius-list { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
-
-.genius-chip {
-  display: inline-flex;
-  align-items: center;
-  background: var(--primary-light);
-  color: var(--primary);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: var(--font-sm);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.genius-chip:hover { background: var(--primary); color: var(--white); transform: translateY(-1px); }
-.genius-chip:active { transform: scale(0.95); }
-
-/* ═══════════════════════════════════════════════════════════════════
-   8. LIFE SKILLS
-   ═══════════════════════════════════════════════════════════════════ */
-
-.life-skills-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-}
-
-.life-skill-global {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, var(--primary-light), var(--white));
-  border-radius: var(--r);
-  margin-bottom: 0.5rem;
-  border: 1px solid var(--border);
-}
-
-.life-skill-global-label {
-  font-size: var(--font-sm);
-  font-weight: 600;
-  color: var(--text);
-  white-space: nowrap;
-}
-
-.life-skill-global-bar {
-  flex: 1;
-  height: 10px;
-  background: var(--border);
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.life-skill-global-fill {
+.cameleon-bar-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--primary), var(--primary-mid));
-  border-radius: 5px;
-  transition: width 800ms ease;
+  border-radius: 999px;
+  transition: width 0.5s ease;
 }
 
-.life-skill-global-pct {
-  font-size: var(--font-sm);
+.cameleon-info {
+  text-align: center;
+}
+
+.cameleon-name {
   font-weight: 700;
-  color: var(--primary);
-  min-width: 40px;
-  text-align: right;
+  font-size: var(--font-md);
+}
+
+.cameleon-sessions {
+  font-size: var(--font-sm);
+  color: var(--muted);
+}
+
+.cameleon-next {
+  font-size: var(--font-xs);
+  color: var(--muted);
+}
+
+/* ─── LIFE SKILLS GRID ─────────────────────────────────────────── */
+.life-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+}
+
+@media (min-width: 640px) {
+  .life-skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .life-skill-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
   background: var(--white);
   border-radius: var(--r);
-  border-left: 4px solid var(--primary);
-  padding: 0.875rem 1rem;
-  box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
-  border-left-width: 4px;
-  transition: all var(--transition-fast);
+  border-left: 4px solid var(--primary);
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .life-skill-card:hover {
+  transform: translateY(-2px);
   box-shadow: var(--shadow);
-  transform: translateX(4px);
 }
 
 .life-skill-header {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  margin-bottom: 0.5rem;
+  gap: var(--space-sm);
 }
 
 .life-skill-icon {
-  width: 36px; height: 36px;
-  border-radius: var(--r-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  flex-shrink: 0;
-}
-
-.life-skill-info { flex: 1; min-width: 0; }
-
-.life-skill-title {
-  font-size: var(--font-sm);
-  font-weight: 600;
-  color: var(--text);
-  line-height: 1.3;
-}
-
-.life-skill-subtitle { font-size: var(--font-xs); color: var(--muted); }
-
-.life-skill-score { text-align: right; flex-shrink: 0; }
-
-.life-skill-stars {
-  font-size: var(--font-sm);
-  letter-spacing: 0.05em;
-  color: var(--gold);
+  font-size: 1.5rem;
   line-height: 1;
 }
 
-.life-skill-level {
-  font-size: var(--font-xs);
-  font-weight: 600;
-  margin-top: 0.125rem;
+.life-skill-title {
+  font-weight: 700;
+  font-size: var(--font-sm);
+  color: var(--text);
 }
 
 .life-skill-bar-track {
   width: 100%;
   height: 6px;
-  background: var(--bg);
-  border-radius: 3px;
+  background: var(--bg-card);
+  border-radius: 999px;
   overflow: hidden;
-  margin-bottom: 0.375rem;
 }
 
 .life-skill-bar-fill {
   height: 100%;
-  border-radius: 3px;
-  transition: width 600ms ease;
+  border-radius: 999px;
+  transition: width 0.5s ease;
 }
 
-.life-skill-desc {
+.life-skill-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: var(--font-xs);
-  color: var(--subtle);
-  line-height: 1.4;
+  color: var(--muted);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   9. RESPONSIVE DASHBOARD
-   ═══════════════════════════════════════════════════════════════════ */
-
-@media(max-width:480px) {
-  .journey-map { grid-template-columns: repeat(4,1fr); gap: 6px; }
-  .journey-tile { min-height: 48px; }
-  .badges-grid  { grid-template-columns: repeat(4,1fr); gap: 5px; }
-  .history-row  { grid-template-columns: 1fr auto; }
-  .h-date { grid-column: 1/-1; }
+/* ─── HISTORY LIST ─────────────────────────────────────────────── */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
 }
 
-@media(min-width:768px) {
+.history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--white);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+}
+
+.history-item .history-level {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.history-item .history-score {
+  font-size: var(--font-sm);
+  color: var(--muted);
+}
+
+.history-item .history-date {
+  font-size: var(--font-xs);
+  color: var(--muted);
+}
+
+.history-empty {
+  text-align: center;
+  color: var(--muted);
+  padding: var(--space-lg);
+}
+
+/* ─── GENIUS PANEL ─────────────────────────────────────────────── */
+.genius-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+}
+
+.genius-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.genius-word {
+  padding: 4px 12px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 999px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.genius-word:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────────── */
+@media (max-width: 480px) {
   .dashboard-main {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-lg);
+    padding: var(--space-sm);
+    padding-bottom: calc(var(--space-xl) + 70px);
   }
-  #dash-levels, #dash-history, #dash-life { grid-column: 1/-1; }
-  .journey-map { grid-template-columns: repeat(10,1fr); }
-  .badges-grid { grid-template-columns: repeat(6,1fr); }
-  .life-skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-  .life-skill-global { grid-column: 1/-1; }
+  
+  .dash-title {
+    font-size: var(--font-md);
+  }
+  
+  .badge-item {
+    min-height: 70px;
+    padding: var(--space-xs);
+  }
+  
+  .badge-item .badge-icon {
+    font-size: 1.5rem;
+  }
+  
+  .badge-item .badge-name {
+    font-size: 10px;
+  }
 }
+h
