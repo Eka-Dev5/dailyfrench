@@ -7,104 +7,67 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Daily French 🥖 — Listen & Repeat 🎧</title>
   <link rel="stylesheet" href="../css/base.css">
-  <link rel="stylesheet" href="../css/quiz.css">
   <script src="../js/nav.js"></script>
   <style>
-    /* Styles spécifiques Listen (conservés du fichier original) */
-    .listen-container { max-width: 680px; margin: 0 auto; padding: var(--space-md); }
-    .listen-header { text-align: center; margin-bottom: var(--space-lg); }
-    .listen-header h1 { font-size: var(--font-xl); font-weight: 800; color: var(--primary); }
-    .listen-header p { color: var(--muted); font-size: var(--font-sm); }
-    .voice-circle-container { display: flex; justify-content: center; margin: var(--space-xl) 0; }
-    .voice-circle { width: 180px; height: 180px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-mid), var(--primary)); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.3s; box-shadow: 0 0 40px rgba(99,102,241,0.3); }
-    .voice-circle:hover { transform: scale(1.05); }
-    .voice-circle .circle-inner { width: 140px; height: 140px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
-    .phrase-container { text-align: center; margin-bottom: var(--space-lg); min-height: 80px; }
-    .phrase-words { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: var(--space-sm); }
-    .word-pill { display: inline-block; padding: 8px 16px; border-radius: 999px; font-size: var(--font-md); font-weight: 600; border: 2px solid var(--border); background: var(--bg-card); color: var(--muted); transition: all 0.3s; }
-    .word-pill.correct { background: var(--green); color: white; border-color: var(--green); }
-    .word-pill.incorrect { background: var(--red); color: white; border-color: var(--red); }
-    .phonetic-text { font-style: italic; color: var(--muted); font-size: var(--font-sm); }
-    .translation-text { color: var(--muted); font-size: var(--font-sm); margin-top: var(--space-sm); padding: var(--space-sm) var(--space-md); background: var(--bg-card); border-radius: var(--r-sm); }
-    .listen-actions { display: flex; gap: var(--space-sm); justify-content: center; margin-top: var(--space-lg); flex-wrap: wrap; }
-    .level-bar { display: flex; gap: 8px; overflow-x: auto; padding: 4px; margin-bottom: var(--space-md); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-    .level-bar::-webkit-scrollbar { display: none; }
-    .level-dot { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: var(--font-xs); font-weight: 700; cursor: pointer; border: 2px solid var(--border); background: var(--white); color: var(--muted); transition: all 0.3s; }
-    .level-dot.active { background: var(--primary); color: white; border-color: var(--primary); }
-    .stats-bar { display: flex; gap: var(--space-sm); justify-content: center; margin-bottom: var(--space-md); flex-wrap: wrap; }
-    .stat-pill { background: var(--white); border-radius: 999px; padding: 8px 16px; display: flex; align-items: center; gap: 6px; font-size: var(--font-xs); font-weight: 600; box-shadow: var(--shadow-sm); border: 1px solid var(--border); }
+    .listen-container{max-width:680px;margin:0 auto;padding:var(--space-md)}
+    .listen-header{text-align:center;margin-bottom:var(--space-lg)}
+    .listen-header h1{font-size:var(--font-xl);font-weight:800;color:var(--primary)}
+    .listen-header p{color:var(--muted);font-size:var(--font-sm)}
+    .voice-circle-container{display:flex;justify-content:center;margin:var(--space-xl) 0}
+    .voice-circle{width:180px;height:180px;border-radius:50%;background:linear-gradient(135deg,var(--primary-mid),var(--primary));display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .3s;box-shadow:0 0 40px rgba(99,102,241,.3)}
+    .voice-circle:hover{transform:scale(1.05)}
+    .voice-circle .circle-inner{width:140px;height:140px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:3rem}
+    .phrase-container{text-align:center;margin-bottom:var(--space-lg);min-height:80px}
+    .phrase-words{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:var(--space-sm)}
+    .word-pill{display:inline-block;padding:8px 16px;border-radius:999px;font-size:var(--font-md);font-weight:600;border:2px solid var(--border);background:var(--bg-card);color:var(--muted);transition:all .3s}
+    .word-pill.correct{background:var(--green);color:#fff;border-color:var(--green)}
+    .word-pill.incorrect{background:var(--red);color:#fff;border-color:var(--red)}
+    .phonetic-text{font-style:italic;color:var(--muted);font-size:var(--font-sm)}
+    .translation-text{color:var(--muted);font-size:var(--font-sm);margin-top:var(--space-sm);padding:var(--space-sm) var(--space-md);background:var(--bg-card);border-radius:var(--r-sm)}
+    .listen-actions{display:flex;gap:var(--space-sm);justify-content:center;margin-top:var(--space-lg);flex-wrap:wrap}
+    .level-bar{display:flex;gap:8px;overflow-x:auto;padding:4px;margin-bottom:var(--space-md);-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .level-bar::-webkit-scrollbar{display:none}
+    .level-dot{flex-shrink:0;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--font-xs);font-weight:700;cursor:pointer;border:2px solid var(--border);background:var(--white);color:var(--muted);transition:all .3s}
+    .level-dot.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .stats-bar{display:flex;gap:var(--space-sm);justify-content:center;margin-bottom:var(--space-md);flex-wrap:wrap}
+    .stat-pill{background:var(--white);border-radius:999px;padding:8px 16px;display:flex;align-items:center;gap:6px;font-size:var(--font-xs);font-weight:600;box-shadow:var(--shadow-sm);border:1px solid var(--border)}
   </style>
 </head>
 <body>
-
   <div id="toast" class="toast"></div>
-
-  <!-- Modal joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
-      <input type="text" id="mInput" maxlength="30" placeholder="Your name"
-        autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="mInput" maxlength="30" placeholder="Your name" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
       <div class="modal-actions">
         <button id="btnCancelModal" class="btn-ghost" onclick="closeModal()">Cancel</button>
         <button id="btnCreatePlayer" class="btn-primary" onclick="confirmNewPlayer()">Create</button>
       </div>
     </div>
   </div>
-
-  <!-- HERO sans bouton Settings -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">🎧<span class="hero-lvl-badge" id="heroLvl">1</span></div>
-    <div class="hero-info">
-      <div class="hero-name" id="heroName">Guest</div>
-    </div>
+    <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
     <div class="hero-xp">
       <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
-      <div class="xp-text" id="xpText">
-        <span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts
-      </div>
+      <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
     </div>
     <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
-        <option value="">Choose a player</option>
-      </select>
+      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
     </div>
   </header>
-
-  <!-- BENTO -->
   <div class="bento-grid">
-    <div class="bento-tile">
-      <div class="bento-num" id="b1">1</div>
-      <div class="bento-label">Level</div>
-    </div>
-    <div class="bento-tile">
-      <div class="bento-num" id="b2">0</div>
-      <div class="bento-label">Points</div>
-    </div>
-    <div class="bento-tile">
-      <div class="bento-num" id="b3">0/20</div>
-      <div class="bento-label">Done</div>
-    </div>
+    <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
+    <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
+    <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
-
   <div class="listen-container">
-    <div class="listen-header">
-      <h1>🎧 Listen & Repeat</h1>
-      <p>Shadowing practice — Perfect your French accent</p>
-    </div>
-
+    <div class="listen-header"><h1>🎧 Listen & Repeat</h1><p>Shadowing practice — Perfect your French accent</p></div>
     <div class="stats-bar">
-      <div class="stat-pill">
-        <span>🔥</span>
-        <span id="streakCount">0</span> streak
-      </div>
-      <div class="stat-pill">
-        <span>🎯</span>
-        <span id="accuracyValue">0%</span> accuracy
-      </div>
+      <div class="stat-pill"><span>🔥</span><span id="streakCount">0</span> streak</div>
+      <div class="stat-pill"><span>🎯</span><span id="accuracyValue">0%</span> accuracy</div>
     </div>
-
     <div class="level-bar" id="levelBar">
       <div class="level-dot active" data-level="all">All</div>
       <div class="level-dot" data-level="1">1</div>
@@ -113,46 +76,25 @@
       <div class="level-dot" data-level="4">4</div>
       <div class="level-dot" data-level="5">5</div>
     </div>
-
-    <div class="voice-circle-container">
-      <div class="voice-circle" id="voiceCircle">
-        <div class="circle-inner">🔊</div>
-      </div>
-    </div>
-
+    <div class="voice-circle-container"><div class="voice-circle" id="voiceCircle"><div class="circle-inner">🔊</div></div></div>
     <div class="phrase-container">
       <div class="phrase-words" id="phraseWords"></div>
       <div class="phonetic-text" id="phoneticText"></div>
       <div class="translation-text" id="translationText"></div>
     </div>
-
     <div class="listen-actions">
       <button class="btn btn-primary" id="btnListen">🔊 Listen</button>
       <button class="btn btn-secondary" id="btnRecord">🎤 Record</button>
       <button class="btn btn-ghost" id="btnNext">🔄 Next</button>
     </div>
   </div>
-
-  <!-- Scripts -->
   <script src="../js/config.js"></script>
   <script src="../js/data.js"></script>
   <script src="../js/core.js"></script>
   <script src="../js/ui-utils.js"></script>
-
   <script>
-    // Theme toggle
-    function applyThemePick(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('dailyFrench_theme', theme);
-      if (typeof toast === 'function') toast('Theme: ' + theme);
-    }
-    
-    // Restore settings on load
-    (function() {
-      const savedTheme = localStorage.getItem('dailyFrench_theme');
-      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
-    })();
+    function applyThemePick(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('dailyFrench_theme',t);if(typeof toast==='function')toast('Theme: '+t)}
+    (function(){const t=localStorage.getItem('dailyFrench_theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
   </script>
-
 </body>
 </html>
