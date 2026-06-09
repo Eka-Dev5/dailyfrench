@@ -1,0 +1,44 @@
+/* ═══════════════════════════════════════════════════════════════════
+   foundation/variables.css — Daily French 🥖 v3.0
+   Variables CSS + thèmes alternatifs
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── THÈME ARDOISE (défaut) ───────────────────────────────────── */
+:root {
+  /* Palette principale */
+  --primary:        #4A5568;
+  --primary-mid:    #64748B;
+  --primary-light:  #F1F5F9;
+  --hero-from:      #475569;
+  --hero-via:       #64748B;
+  --hero-to:        #CBD5E1;
+
+  /* Accents fonctionnels */
+  --coral:          #F97316;
+  --coral-light:    #FFF7ED;
+  --gold:           #F59E0B;
+  --gold-light:     #FFFBEB;
+  --green:          #059669;
+  --green-light:    #ens sandbox, je vais tout afficher dans ma réponse pour que tu puisses copier-coller.
+
+---
+
+## 1. Fichiers CSS (9 fichiers)
+
+### `css/base.css`
+
+```css
+/* ═══════════════════════════════════════════════════════════════════
+   base.css — Daily French 🥖 v3.0
+   Point d'entrée unique : importe tous les modules CSS
+   ═══════════════════════════════════════════════════════════════════ */
+
+@import url('foundation/variables.css');
+@import url('foundation/reset.css');
+@import url('foundation/layout.css');
+@import url('navigation/nav.css');
+@import url('ui/hero.css');
+@import url('ui/components.css');
+@import url('ui/settings.css');
+@import url('ui/vocab.css');
+@import url('ui/game.css');
