@@ -1,7 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════════
    foundation/variables.css — Daily French 🥖 v3.0
+   Variables CSS universelles + 3 thèmes
    ═══════════════════════════════════════════════════════════════════ */
 
+/* ── 1. THÈME ARDOISE (défaut) ─────────────────────────────────── */
 :root {
   /* Palette principale */
   --primary:        #4A5568;
@@ -42,12 +44,12 @@
 
   /* Typographie — base 16px */
   --font-base:      16px;
-  --font-xs:        0.75rem;
-  --font-sm:        0.875rem;
-  --font-md:        1rem;
-  --font-lg:        1.125rem;
-  --font-xl:        1.375rem;
-  --font-xxl:       1.75rem;
+  --font-xs:        0.75rem;   /* 12px */
+  --font-sm:        0.875rem;  /* 14px */
+  --font-md:        1rem;      /* 16px */
+  --font-lg:        1.125rem;  /* 18px */
+  --font-xl:        1.375rem;  /* 22px */
+  --font-xxl:       1.75rem;   /* 28px */
 
   /* Espacement */
   --space-unit:     1rem;
@@ -62,6 +64,7 @@
   --transition-base: 250ms ease;
 }
 
+/* ── 2. THÈME MAUVE ────────────────────────────────────────────── */
 [data-theme="mauve"] {
   --primary:        #7C3AED;
   --primary-mid:    #8B5CF6;
@@ -73,6 +76,7 @@
   --shadow-lg:      0 16px 48px rgba(124,58,237,0.18);
 }
 
+/* ── 3. THÈME TERRA ────────────────────────────────────────────── */
 [data-theme="terra"] {
   --primary:        #9A3412;
   --primary-mid:    #C2410C;
