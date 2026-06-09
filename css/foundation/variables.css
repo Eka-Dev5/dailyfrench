@@ -1,9 +1,11 @@
 /* ═══════════════════════════════════════════════════════════════════
    foundation/variables.css — Daily French 🥖 v3.0
-   Variables CSS + thèmes alternatifs
    ═══════════════════════════════════════════════════════════════════ */
 
-/* ─── THÈME ARDOISE (défaut) ───────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════
+   1. VARIABLES CSS — Thème Ardoise (défaut)
+   ═══════════════════════════════════════════════════════════════════ */
+
 :root {
   /* Palette principale */
   --primary:        #4A5568;
@@ -64,7 +66,10 @@
   --transition-base: 250ms ease;
 }
 
-/* ─── THÈME MAUVE ──────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════
+   2. THÈMES ALTERNATIFS
+   ═══════════════════════════════════════════════════════════════════ */
+
 [data-theme="mauve"] {
   --primary:        #7C3AED;
   --primary-mid:    #8B5CF6;
@@ -76,30 +81,13 @@
   --shadow-lg:      0 16px 48px rgba(124,58,237,0.18);
 }
 
-/* ─── THÈME TERRA ──────────────────────────────────────────────── */
 [data-theme="terra"] {
   --primary:        #9A3412;
   --primary-mid:    #C2410C;
-ens sandbox, je vais tout afficher dans ma réponse pour que tu puisses copier-coller.
-
----
-
-## 1. Fichiers CSS (9 fichiers)
-
-### `css/base.css`
-
-```css
-/* ═══════════════════════════════════════════════════════════════════
-   base.css — Daily French 🥖 v3.0
-   Point d'entrée unique : importe tous les modules CSS
-   ═══════════════════════════════════════════════════════════════════ */
-
-@import url('foundation/variables.css');
-@import url('foundation/reset.css');
-@import url('foundation/layout.css');
-@import url('navigation/nav.css');
-@import url('ui/hero.css');
-@import url('ui/components.css');
-@import url('ui/settings.css');
-@import url('ui/vocab.css');
-@import url('ui/game.css');
+  --primary-light:  #FFF7ED;
+  --hero-from:      #7C2D12;
+  --hero-via:       #9A3412;
+  --hero-to:        #EA580C;
+  --shadow:         0 4px 16px rgba(154,52,18,0.12);
+  --shadow-lg:      0 16px 48px rgba(154,52,18,0.18);
+}
