@@ -19,7 +19,68 @@
   --gold:           #F59E0B;
   --gold-light:     #FFFBEB;
   --green:          #059669;
-  --green-light:    #ens sandbox, je vais tout afficher dans ma réponse pour que tu puisses copier-coller.
+  --green-light:    #ECFDF5;
+  --red:            #DC2626;
+  --red-light:      #FFF5F5;
+
+  /* Texte et surfaces */
+  --text:           #1E293B;
+  --muted:          #64748B;
+  --subtle:         #94A3B8;
+  --border:         #E2E8F0;
+  --bg:             #F5F7FA;
+  --bg-card:        #F8FAFC;
+  --white:          #FFFFFF;
+
+  /* Ombres */
+  --shadow-sm:      0 1px 3px rgba(0,0,0,0.06);
+  --shadow:         0 4px 16px rgba(51,65,85,0.12);
+  --shadow-lg:      0 16px 48px rgba(51,65,85,0.18);
+
+  /* Rayons */
+  --r-sm:           12px;
+  --r:              16px;
+  --r-lg:           24px;
+
+  /* Typographie — base 16px */
+  --font-base:      16px;
+  --font-xs:        0.75rem;   /* 12px */
+  --font-sm:        0.875rem;  /* 14px */
+  --font-md:        1rem;      /* 16px */
+  --font-lg:        1.125rem;  /* 18px */
+  --font-xl:        1.375rem;  /* 22px */
+  --font-xxl:       1.75rem;   /* 28px */
+
+  /* Espacement */
+  --space-unit:     1rem;
+  --space-xs:       0.5rem;
+  --space-sm:       0.75rem;
+  --space-md:       1.25rem;
+  --space-lg:       2rem;
+  --space-xl:       3rem;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+}
+
+/* ─── THÈME MAUVE ──────────────────────────────────────────────── */
+[data-theme="mauve"] {
+  --primary:        #7C3AED;
+  --primary-mid:    #8B5CF6;
+  --primary-light:  #EDE9FE;
+  --hero-from:      #581C87;
+  --hero-via:       #7C3AED;
+  --hero-to:        #A855F7;
+  --shadow:         0 4px 16px rgba(124,58,237,0.12);
+  --shadow-lg:      0 16px 48px rgba(124,58,237,0.18);
+}
+
+/* ─── THÈME TERRA ──────────────────────────────────────────────── */
+[data-theme="terra"] {
+  --primary:        #9A3412;
+  --primary-mid:    #C2410C;
+ens sandbox, je vais tout afficher dans ma réponse pour que tu puisses copier-coller.
 
 ---
 
