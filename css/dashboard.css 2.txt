@@ -1,0 +1,373 @@
+/* ═══════════════════════════════════════════════════════════════════
+   DASHBOARD.CSS — Daily French 🥖 v3.0
+   Fichier complet — remplace l'ancienne version
+   Corrections : grid badges 4 colonnes + padding bottom nav
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── GRILLE BADGES — 4 colonnes fixes, pas de décalage ────────── */
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+}
+
+/* Mobile : 3 colonnes */
+@media (max-width: 480px) {
+  .badges-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Badge individuel */
+.badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm);
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  text-align: center;
+  min-height: 80px;
+  transition: all 0.2s;
+}
+
+.badge-item .badge-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-xs);
+  line-height: 1;
+}
+
+.badge-item .badge-name {
+  font-size: var(--font-xs);
+  color: var(--muted);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Badge débloqué */
+.badge-item.unlocked {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.badge-item.unlocked .badge-icon {
+  filter: none;
+  opacity: 1;
+}
+
+/* Badge verrouillé (grisé) */
+.badge-item.locked {
+  opacity: 0.5;
+}
+
+.badge-item.locked .badge-icon {
+  filter: grayscale(100%);
+}
+
+/* ─── DASHBOARD MAIN — Padding bottom pour nav-bottom ──────────── */
+.dashboard-main {
+  padding: var(--space-md);
+  padding-bottom: calc(var(--space-xl) + 70px); /* Espace pour nav-bottom fixe */
+}
+
+/* ─── DASH SECTIONS ───────────────────────────────────────────── */
+.dash-section {
+  margin-bottom: var(--space-lg);
+}
+
+.dash-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: var(--space-sm);
+  padding: 0 var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── JOURNEY MAP ──────────────────────────────────────────────── */
+.journey-map {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+}
+
+@media (max-width: 480px) {
+  .journey-map {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.journey-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm);
+  background: var(--white);
+  border-radius: var(--r-sm);
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 60px;
+}
+
+.journey-tile:hover {
+  border-color: var(--primary-mid);
+  transform: translateY(-2px);
+}
+
+.journey-tile.completed {
+  border-color: var(--green);
+  background: var(--green-light);
+}
+
+.journey-tile.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.journey-tile.locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.journey-tile .journey-num {
+  font-size: var(--font-lg);
+  font-weight: 800;
+  color: var(--text);
+}
+
+.journey-tile .journey-name {
+  font-size: var(--font-xs);
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* ─── CAMÉLÉON STAGE ───────────────────────────────────────────── */
+.cameleon-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+}
+
+.cameleon-avatar {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.cameleon-bar-track {
+  width: 100%;
+  max-width: 300px;
+  height: 8px;
+  background: var(--bg-card);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.cameleon-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-mid));
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+
+.cameleon-info {
+  text-align: center;
+}
+
+.cameleon-name {
+  font-weight: 700;
+  font-size: var(--font-md);
+}
+
+.cameleon-sessions {
+  font-size: var(--font-sm);
+  color: var(--muted);
+}
+
+.cameleon-next {
+  font-size: var(--font-xs);
+  color: var(--muted);
+}
+
+/* ─── LIFE SKILLS GRID ─────────────────────────────────────────── */
+.life-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+}
+
+@media (min-width: 640px) {
+  .life-skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.life-skill-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.life-skill-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.life-skill-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.life-skill-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.life-skill-title {
+  font-weight: 700;
+  font-size: var(--font-sm);
+  color: var(--text);
+}
+
+.life-skill-bar-track {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-card);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.life-skill-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+
+.life-skill-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-xs);
+  color: var(--muted);
+}
+
+/* ─── HISTORY LIST ─────────────────────────────────────────────── */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--white);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+}
+
+.history-item .history-level {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.history-item .history-score {
+  font-size: var(--font-sm);
+  color: var(--muted);
+}
+
+.history-item .history-date {
+  font-size: var(--font-xs);
+  color: var(--muted);
+}
+
+.history-empty {
+  text-align: center;
+  color: var(--muted);
+  padding: var(--space-lg);
+}
+
+/* ─── GENIUS PANEL ─────────────────────────────────────────────── */
+.genius-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+}
+
+.genius-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.genius-word {
+  padding: 4px 12px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 999px;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.genius-word:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .dashboard-main {
+    padding: var(--space-sm);
+    padding-bottom: calc(var(--space-xl) + 70px);
+  }
+  
+  .dash-title {
+    font-size: var(--font-md);
+  }
+  
+  .badge-item {
+    min-height: 70px;
+    padding: var(--space-xs);
+  }
+  
+  .badge-item .badge-icon {
+    font-size: 1.5rem;
+  }
+  
+  .badge-item .badge-name {
+    font-size: 10px;
+  }
+}
+h
