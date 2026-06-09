@@ -2,10 +2,6 @@
    foundation/variables.css — Daily French 🥖 v3.0
    ═══════════════════════════════════════════════════════════════════ */
 
-/* ═══════════════════════════════════════════════════════════════════
-   1. VARIABLES CSS — Thème Ardoise (défaut)
-   ═══════════════════════════════════════════════════════════════════ */
-
 :root {
   /* Palette principale */
   --primary:        #4A5568;
@@ -46,12 +42,12 @@
 
   /* Typographie — base 16px */
   --font-base:      16px;
-  --font-xs:        0.75rem;   /* 12px */
-  --font-sm:        0.875rem;  /* 14px */
-  --font-md:        1rem;      /* 16px */
-  --font-lg:        1.125rem;  /* 18px */
-  --font-xl:        1.375rem;  /* 22px */
-  --font-xxl:       1.75rem;   /* 28px */
+  --font-xs:        0.75rem;
+  --font-sm:        0.875rem;
+  --font-md:        1rem;
+  --font-lg:        1.125rem;
+  --font-xl:        1.375rem;
+  --font-xxl:       1.75rem;
 
   /* Espacement */
   --space-unit:     1rem;
@@ -65,10 +61,6 @@
   --transition-fast: 150ms ease;
   --transition-base: 250ms ease;
 }
-
-/* ═══════════════════════════════════════════════════════════════════
-   2. THÈMES ALTERNATIFS
-   ═══════════════════════════════════════════════════════════════════ */
 
 [data-theme="mauve"] {
   --primary:        #7C3AED;
