@@ -79,75 +79,79 @@ textarea {
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-px solid var(--border);
-  margin-bottom: var(--space-sm);
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-mid);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   UTILITAIRES
+   MODAL
    ═══════════════════════════════════════════════════════════════════ */
 
-.hidden { display: none !important; }
-
-.sr-only {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
+.modal-wrap {
+  position: fixed;
+  inset: 0;
+  background: rgba(30,41,59,0.6);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: var(--space-md);
 }
 
-.text-center { text-align: center; }
-.mt-sm { margin-top: var(--space-sm); }
-.mt-md { margin-top: var(--space-md); }
-.mb-sm { margin-bottom: var(--space-sm); }
-.mb-md { margin-bottom: var(--space-md); }
+.modal-wrap.open { display: flex; }
 
-.empty-state {
-  text-align: center;
-  color: var(--subtle);
+.modal {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  padding: var(--space-lg);
+  width: 100%;
+  max-width: 420px;
+  box-shadow: var(--shadow-lg);
+  animation: modalIn 250ms ease;
+}
+
+.modal h3 {
+  font-size: var(--font-lg);
+  margin-bottom: var(--space-md);
+  color: var(--text);
+}
+
+.modal-actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TOAST
+   ═══════════════════════════════════════════════════════════════════ */
+
+.toast {
+  position: fixed;
+  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--text);
+  color: var(--white);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--r-sm);
   font-size: var(--font-sm);
-  padding: var(--space-xl) var(--space-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 300;
+  opacity: 0;
+  transition: all 300ms ease;
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 90vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   KEYFRAMES
-   ═══════════════════════════════════════════════════════════════════ */
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes modalIn {
-  from { opacity: 0; transform: translateY(20px) scale(0.96); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════════════════════════════ */
-
-@media (min-width: 768px) {
-  body { padding-bottom: 0; }
-  .nav-bottom { display: none; }
-  .nav-top { position: sticky; top: 0; }
-  .bento-grid { max-width: 600px; margin-left: auto; margin-right: auto; }
-  .section { max-width: 720px; margin-left: auto; margin-right: auto; }
-}
-
-@media (min-width: 1024px) {
-  :root { --font-base: 22px; }
-  .hero {
-    border-radius: var(--r-lg);
-    margin: var(--space-md);
-    margin-bottom: 0;
-  }
+.toast.on {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
