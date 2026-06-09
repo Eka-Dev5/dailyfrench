@@ -1,0 +1,34 @@
+/* ═══════════════════════════════════════════════════════════════════
+   navigation/nav.css — Daily French 🥖 v3.0
+   Navigation top (fixe) + navigation bottom (fixe)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── NAVIGATION TOP ───────────────────────────────────────────── */
+.nav-top {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: calc(48px + env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
+  background: rgba(255,255,255ens sandbox, je vais tout afficher dans ma réponse pour que tu puisses copier-coller.
+
+---
+
+## 1. Fichiers CSS (9 fichiers)
+
+### `css/base.css`
+
+```css
+/* ═══════════════════════════════════════════════════════════════════
+   base.css — Daily French 🥖 v3.0
+   Point d'entrée unique : importe tous les modules CSS
+   ═══════════════════════════════════════════════════════════════════ */
+
+@import url('foundation/variables.css');
+@import url('foundation/reset.css');
+@import url('foundation/layout.css');
+@import url('navigation/nav.css');
+@import url('ui/hero.css');
+@import url('ui/components.css');
+@import url('ui/settings.css');
+@import url('ui/vocab.css');
+@import url('ui/game.css');
