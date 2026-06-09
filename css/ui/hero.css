@@ -1,0 +1,30 @@
+/* ═══════════════════════════════════════════════════════════════════
+   ui/hero.css — Daily French 🥖 v3.0
+   Hero (bandeau joueur) + Bento grid (stats rapides)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── HERO ─────────────────────────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, var(--hero-from) 0%,ens sandbox, je vais tout afficher dans ma réponse pour que tu puisses copier-coller.
+
+---
+
+## 1. Fichiers CSS (9 fichiers)
+
+### `css/base.css`
+
+```css
+/* ═══════════════════════════════════════════════════════════════════
+   base.css — Daily French 🥖 v3.0
+   Point d'entrée unique : importe tous les modules CSS
+   ═══════════════════════════════════════════════════════════════════ */
+
+@import url('foundation/variables.css');
+@import url('foundation/reset.css');
+@import url('foundation/layout.css');
+@import url('navigation/nav.css');
+@import url('ui/hero.css');
+@import url('ui/components.css');
+@import url('ui/settings.css');
+@import url('ui/vocab.css');
+@import url('ui/game.css');
