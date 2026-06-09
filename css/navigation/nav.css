@@ -1,34 +1,113 @@
 /* ═══════════════════════════════════════════════════════════════════
-   navigation/nav.css — Daily French 🥖 v3.0
-   Navigation top (fixe) + navigation bottom (fixe)
+   nav.css — Daily French 🥖 v3.0
+   navigation/nav.css
    ═══════════════════════════════════════════════════════════════════ */
 
-/* ─── NAVIGATION TOP ───────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════
+   NAVIGATION TOP
+   ═══════════════════════════════════════════════════════════════════ */
+
 .nav-top {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: calc(48px + env(safe-area-inset-top, 0px));
   padding-top: env(safe-area-inset-top, 0px);
-  background: rgba(255,255,255ens sandbox, je vais tout afficher dans ma réponse pour que tu puisses copier-coller.
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1.5px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
 
----
+.nav-top-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-decoration: none;
+  color: var(--muted);
+  min-height: 40px;
+  min-width: 44px;
+  flex: 1;
+  padding: 4px 2px;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
 
-## 1. Fichiers CSS (9 fichiers)
+.nav-top-item:active { transform: scale(0.92); }
 
-### `css/base.css`
+.nav-top-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+  display: block;
+}
 
-```css
+.nav-top-item:hover,
+.nav-top-item.active { color: var(--primary); }
+
+.nav-top-item.active .nav-top-icon { transform: translateY(-1px); }
+
 /* ═══════════════════════════════════════════════════════════════════
-   base.css — Daily French 🥖 v3.0
-   Point d'entrée unique : importe tous les modules CSS
+   NAVIGATION BOTTOM
    ═══════════════════════════════════════════════════════════════════ */
 
-@import url('foundation/variables.css');
-@import url('foundation/reset.css');
-@import url('foundation/layout.css');
-@import url('navigation/nav.css');
-@import url('ui/hero.css');
-@import url('ui/components.css');
-@import url('ui/settings.css');
-@import url('ui/vocab.css');
-@import url('ui/game.css');
+.nav-bottom {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: calc(72px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1.5px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-decoration: none;
+  color: var(--muted);
+  min-height: 52px;
+  min-width: 52px;
+  flex: 1;
+  padding: 6px 4px;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item:active { transform: scale(0.92); }
+
+.nav-icon {
+  font-size: 1.55rem;
+  line-height: 1;
+  display: block;
+}
+
+.nav-item span:not(.nav-icon) {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.nav-item:hover,
+.nav-item.active { color: var(--primary); }
+
+.nav-item.active .nav-icon { transform: translateY(-1px); }
