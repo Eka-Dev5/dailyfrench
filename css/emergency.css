@@ -1,16 +1,14 @@
 /* ═══════════════════════════════════════════════════════════════════
-   EMERGENCY.CSS — Daily French 🥖 v3.0
-   Styles spécifiques page emergency.html
-   RÈGLE : Ne contient QUE ce qui n'existe pas dans base.css
+   EMERGENCY.CSS — Daily French 🥖
+   Styles du mode SOS : catégories, phrases, TTS, favoris
    ═══════════════════════════════════════════════════════════════════ */
 
 /* ── HERO ───────────────────────────────────────────────────────── */
 .emergency-hero {
-  /* Rouge d'urgence — partiellement variabilisé */
-  background: linear-gradient(135deg, var(--red) 0%, #EF4444 50%, var(--coral) 100%) !important;
+  background: linear-gradient(135deg, #DC2626 0%, #EF4444 50%, #F97316 100%) !important;
 }
 
-/* ── BARRE DE RECHERCHE ───────────────────────────────────────── */
+/* ── BARRE DE RECHERCHE ─────────────────────────────────────────── */
 .sos-search-bar {
   padding: 0.75rem var(--space-md);
   max-width: 600px;
@@ -38,7 +36,7 @@
   color: var(--subtle);
 }
 
-/* ── GRILLE CATÉGORIES ────────────────────────────────────────── */
+/* ── GRILLE CATÉGORIES ──────────────────────────────────────────── */
 .sos-categories {
   display: grid;
   grid-template-columns: 1fr;
@@ -118,7 +116,7 @@
   flex-shrink: 0;
 }
 
-/* ── VUE PHRASES — HEADER ─────────────────────────────────────── */
+/* ── VUE PHRASES — HEADER ───────────────────────────────────────── */
 .sos-phrases {
   padding: 0.5rem var(--space-md) var(--space-xl);
   max-width: 600px;
@@ -154,7 +152,7 @@
   color: var(--muted);
 }
 
-/* ── CARTE PHRASE ─────────────────────────────────────────────── */
+/* ── CARTE PHRASE ───────────────────────────────────────────────── */
 .sos-phrase-card {
   display: flex;
   gap: 0.875rem;
@@ -273,7 +271,7 @@
   background: var(--bg);
 }
 
-/* ── ÉTAT VIDE ────────────────────────────────────────────────── */
+/* ── ÉTAT VIDE ──────────────────────────────────────────────────── */
 .sos-empty {
   text-align: center;
   padding: 3rem 1rem;
@@ -283,10 +281,10 @@
 
 /* ── MAIN ───────────────────────────────────────────────────────── */
 .emergency-main {
-  padding-bottom: calc(var(--space-xl) + 60px);
+  padding-bottom: calc(var(--space-xl) + 60px); /* espace pour nav-bottom */
 }
 
-/* ── SCROLLBAR STYLING ────────────────────────────────────────── */
+/* ── SCROLLBAR STYLING ──────────────────────────────────────────── */
 .sos-phrases::-webkit-scrollbar {
   width: 6px;
 }
@@ -299,3 +297,7 @@
   background: var(--subtle);
   border-radius: 3px;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   FIN emergency.css
+   ═══════════════════════════════════════════════════════════════════ */
