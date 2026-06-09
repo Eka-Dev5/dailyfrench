@@ -1,102 +1,116 @@
-/* ═══════════════════════════════════════════════════════════════════
-   ui/game.css — Daily French 🥖 v3.0
-   Feedback + barres progression + cercle score
-   ═══════════════════════════════════════════════════════════════════ */
-
-/* ── 13. FEEDBACK & ALERTES ───────────────────────────────────── */
-.feedback-area {
-  border-radius: var(--r);
-  padding: var(--space-md);
-  margin-top: var(--space-lg);
-  animation: slideUp 300ms ease;
-}
-
-.feedback-success {
-  background: var(--green-light);
-  border: 1px solid var(--green);
-}
-
-.feedback-error {
-  background: var(--red-light);
-  border: 1px solid var(--red);
-}
-
-.feedback-title {
-  font-size: var(--font-lg);
-  font-weight: 700;
-  margin-bottom: var(--space-xs);
-}
-
-.feedback-success .feedback-title { color: var(--green); }
-.feedback-error .feedback-title { color: var(--red); }
-
-.feedback-correct {
-  font-size: var(--font-md);
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: var(--space-xs);
-}
-
-.feedback-explanation {
-  font-size: var(--font-sm);
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-.hint-box {
-  background: var(--gold-light);
-  border-left: 4px solid var(--gold);
-  border-radius: 0 var(--r-sm) var(--r-sm) 0;
-  padding: var(--space-sm) var(--space-md);
-  font-size: var(--font-sm);
-  color: var(--text);
-  margin-bottom: var(--space-lg);
-  line-height: 1.5;
-}
-
-/* ── 14. BARRES DE PROGRESSION ─────────────────────────────────── */
-.bar-track {
-  width: 100%;
-  height: 8px;
-  background: var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--primary), var(--primary-mid));
-  border-radius: 4px;
-  transition: width 400ms ease;
-  width: 0%;
-}
-
-/* ── 15. CERCLE DE SCORE ───────────────────────────────────────── */
-.score-circle {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  background: conic-gradient(var(--primary) calc(var(--pct, 0) * 1%), var(--bg-card) 0);
-  display: flex;
+.btn,
+button {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto var(--space-lg);
-  position: relative;
+  gap: 6px;
+  font-family: inherit;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  border: none;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  min-height: 48px;
+  padding: 10px 20px;
+  transition: all var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
   box-shadow: var(--shadow);
 }
 
-.score-circle::before {
-  content: '';
-  position: absolute;
-  inset: 12px;
-  border-radius: 50%;
-  background: var(--white);
-}
+.btn-primary:hover { background: var(--primary-mid); transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
 
-.score-pct {
-  position: relative;
-  z-index: 1;
-  font-size: var(--font-xxl);
-  font-weight: 800;
+.btn-secondary {
+  background: var(--primary-light);
   color: var(--primary);
 }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.btn-large {
+  font-size: var(--font-md);
+  min-height: 56px;
+  padding: 14px 28px;
+  border-radius: var(--r);
+}
+
+.btn-small {
+  font-size: var(--font-xs);
+  min-height: 36px;
+  padding: 6px 12px;
+}
+
+input[type="text"],
+select,
+textarea {
+  font-family: inherit;
+  font-size: var(--font-sm);
+  color: var(--text);
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  width: 100%;
+  min-height: 48px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-mid);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.game-actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  margin-top: var(--space-md);
+}
+
+.modal-wrap {
+  position: fixed;
+  inset: 0;
+  background: rgba(30,41,59,0.6);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+ min-height: 52px;
+  min-width: 52px;
+  flex: 1;
+  padding: 6px 4px;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item:active { transform: scale(0.92); }
+
+.nav-icon {
+  font-size: 1.55rem;
+  line-height: 1;
+  display: block;
+}
+
+.nav-item span:not(.nav-icon) {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.nav-item:hover,
+.nav-item.active { color: var(--primary); }
+
+.nav-item.active .nav-icon { transform: translateY(-1px); }
