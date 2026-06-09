@@ -1,0 +1,133 @@
+/* ═══════════════════════════════════════════════════════════════════
+   vocab.css — Daily French 🥖 v3.0
+   ui/vocab.css
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════
+   VOCAB POPUP
+   ═══════════════════════════════════════════════════════════════════ */
+
+.vocab-popup-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(30,41,59,0.5);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 250;
+  padding: var(--space-md);
+}
+
+.vocab-popup-modal.open { display: flex; }
+
+.vocab-popup-content {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  padding: var(--space-lg);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  animation: modalIn 250ms ease;
+}
+
+/* Bouton fermeture — caché par défaut */
+.vocab-popup-close {
+  display: none;
+  position: absolute;
+  top: 12px; right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--muted);
+  cursor: pointer;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  min-height: auto;
+}
+
+.vocab-popup-modal.open .vocab-popup-close { display: flex; }
+
+.vocab-popup-close:hover { background: var(--bg); color: var(--text); }
+
+.vocab-popup-fr   { font-size: 1.2rem; font-weight: 800; color: var(--primary); padding-right: 32px; }
+.vocab-popup-phon { font-size: 0.85rem; color: var(--muted); font-style: italic; margin-top: 2px; }
+.vocab-popup-en   { font-size: 1rem; color: var(--text); margin-top: 6px; }
+.vocab-popup-def  { font-size: 0.85rem; color: var(--muted); margin-top: 10px; line-height: 1.5;
+                    border-top: 1px solid var(--border); padding-top: 8px solid var(--border);
+  margin-bottom: var(--space-sm);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   UTILITAIRES
+   ═══════════════════════════════════════════════════════════════════ */
+
+.hidden { display: none !important; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-center { text-align: center; }
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+
+.empty-state {
+  text-align: center;
+  color: var(--subtle);
+  font-size: var(--font-sm);
+  padding: var(--space-xl) var(--space-md);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   KEYFRAMES
+   ═══════════════════════════════════════════════════════════════════ */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 768px) {
+  body { padding-bottom: 0; }
+  .nav-bottom { display: none; }
+  .nav-top { position: sticky; top: 0; }
+  .bento-grid { max-width: 600px; margin-left: auto; margin-right: auto; }
+  .section { max-width: 720px; margin-left: auto; margin-right: auto; }
+}
+
+@media (min-width: 1024px) {
+  :root { --font-base: 22px; }
+  .hero {
+    border-radius: var(--r-lg);
+    margin: var(--space-md);
+    margin-bottom: 0;
+  }
+}
