@@ -2,10 +2,6 @@
    ui/vocab.css — Daily French 🥖 v3.0
    ═══════════════════════════════════════════════════════════════════ */
 
-/* ═══════════════════════════════════════════════════════════════════
-   19. VOCAB POPUP
-   ═══════════════════════════════════════════════════════════════════ */
-
 .vocab-popup-modal {
   position: fixed;
   inset: 0;
@@ -31,7 +27,6 @@
   animation: modalIn 250ms ease;
 }
 
-/* Bouton fermeture — caché par défaut */
 .vocab-popup-close {
   display: none;
   position: absolute;
@@ -62,10 +57,6 @@
 .vocab-popup-ex   { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-top: 6px; }
 .vocab-popup-cat  { font-size: 0.72rem; color: var(--subtle); margin-top: 8px;
                     background: var(--bg); padding: 3px 8px; border-radius: 8px; display: inline-block; }
-
-/* ═══════════════════════════════════════════════════════════════════
-   21. VOCAB WORD — Surlignement
-   ═══════════════════════════════════════════════════════════════════ */
 
 .vocab-word {
   color: var(--primary);
