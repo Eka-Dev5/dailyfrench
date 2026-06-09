@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════════════════
-   VOCABULARY.CSS — Daily French 🥖 v3.0
+   vocabulary.css — Daily French 🥖 v3.0
    Styles spécifiques page vocabulary.html
-   RÈGLE : Ce fichier ne contient QUE ce qui n'existe pas dans base.css
+   RÈGLE : Ne contient QUE ce qui n'existe pas dans base.css
    ═══════════════════════════════════════════════════════════════════ */
 
-/* ── 1. BARRE D'OUTILS ──────────────────────────────────────────── */
+/* ── 1. BARRE D'OUTILS ───────────────────────────────────────── */
 .vocab-toolbar {
   display: flex;
   gap: var(--space-sm);
@@ -17,8 +17,14 @@
   padding: var(--space-sm) 0;
 }
 
-.vocab-toolbar input[type="text"] { flex: 1; min-width: 180px; }
-.vocab-toolbar select { min-width: 130px; }
+.vocab-toolbar input[type="text"] {
+  flex: 1;
+  min-width: 180px;
+}
+
+.vocab-toolbar select {
+  min-width: 130px;
+}
 
 /* ── 2. MÉTA & GRILLE ─────────────────────────────────────────── */
 .vocab-meta {
@@ -51,7 +57,9 @@
   border-color: var(--primary-mid);
 }
 
-.vocab-card:active { transform: scale(0.98); }
+.vocab-card:active {
+  transform: scale(0.98);
+}
 
 .vocab-card-fr {
   font-size: var(--font-lg);
@@ -120,11 +128,14 @@
     grid-template-columns: 1fr;
     gap: var(--space-sm);
   }
+  
   .vocab-toolbar {
     flex-direction: column;
   }
+  
   .vocab-toolbar input[type="text"],
   .vocab-toolbar select {
     width: 100%;
+    min-width: auto;
   }
 }
