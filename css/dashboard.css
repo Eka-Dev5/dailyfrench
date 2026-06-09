@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════
    DASHBOARD.CSS — Daily French 🥖 v3.0
    Styles spécifiques page dashboard.html
-   RÈGLE : Ce fichier ne contient QUE ce qui n'existe pas dans base.css
+   RÈGLE : Ne contient QUE ce qui n'existe pas dans base.css
    ═══════════════════════════════════════════════════════════════════ */
 
 /* ─── 1. GRILLE BADGES ─────────────────────────────────────────── */
@@ -164,11 +164,14 @@
   line-height: 1;
 }
 
-/* Réutilise .bar-track de base.css + override couleur */
+/* Réutilise .bar-track de base.css + spécificités */
 .cameleon-bar-track {
-  composes: bar-track; /* ⚠️ CSS Modules uniquement — sinon copier */
+  width: 100%;
   max-width: 300px;
   height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .cameleon-bar-fill {
@@ -248,8 +251,11 @@
 
 /* Réutilise .bar-track de base.css */
 .life-skill-bar-track {
-  composes: bar-track;
+  width: 100%;
   height: 6px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
 }
 
 .life-skill-bar-fill {
@@ -266,7 +272,7 @@
   color: var(--muted);
 }
 
-/* ─── 7. HISTORY LIST ────────────────────────────────────────── */
+/* ─── 7. HISTORY LIST ──────────────────────────────────────────── */
 .history-list {
   display: flex;
   flex-direction: column;
