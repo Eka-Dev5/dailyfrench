@@ -1,9 +1,3 @@
-/* ═══════════════════════════════════════════════════════════════════
-   ui/vocab.css — Daily French 🥖 v3.0
-   Popup vocabulaire + surlignement mots
-   ═══════════════════════════════════════════════════════════════════ */
-
-/* ── 19. VOCAB POPUP ───────────────────────────────────────────── */
 .vocab-popup-modal {
   position: fixed;
   inset: 0;
@@ -51,53 +45,15 @@
 
 .vocab-popup-close:hover { background: var(--bg); color: var(--text); }
 
-.vocab-popup-fr {
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--primary);
-  padding-right: 32px;
-}
+.vocab-popup-fr   { font-size: 1.2rem; font-weight: 800; color: var(--primary); padding-right: 32px; }
+.vocab-popup-phon { font-size: 0.85rem; color: var(--muted); font-style: italic; margin-top: 2px; }
+.vocab-popup-en   { font-size: 1rem; color: var(--text); margin-top: 6px; }
+.vocab-popup-def  { font-size: 0.85rem; color: var(--muted); margin-top: 10px; line-height: 1.5;
+                    border-top: 1px solid var(--border); padding-top: 8px; }
+.vocab-popup-ex   { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-top: 6px; }
+.vocab-popup-cat  { font-size: 0.72rem; color: var(--subtle); margin-top: 8px;
+                    background: var(--bg); padding: 3px 8px; border-radius: 8px; display: inline-block; }
 
-.vocab-popup-phon {
-  font-size: 0.85rem;
-  color: var(--muted);
-  font-style: italic;
-  margin-top: 2px;
-}
-
-.vocab-popup-en {
-  font-size: 1rem;
-  color: var(--text);
-  margin-top: 6px;
-}
-
-.vocab-popup-def {
-  font-size: 0.85rem;
-  color: var(--muted);
-  margin-top: 10px;
-  line-height: 1.5;
-  border-top: 1px solid var(--border);
-  padding-top: 8px;
-}
-
-.vocab-popup-ex {
-  font-size: 0.82rem;
-  color: var(--muted);
-  font-style: italic;
-  margin-top: 6px;
-}
-
-.vocab-popup-cat {
-  font-size: 0.72rem;
-  color: var(--subtle);
-  margin-top: 8px;
-  background: var(--bg);
-  padding: 3px 8px;
-  border-radius: 8px;
-  display: inline-block;
-}
-
-/* ── 21. VOCAB WORD — Surlignement ─────────────────────────────── */
 .vocab-word {
   color: var(--primary);
   border-bottom: 2px dotted var(--primary);
