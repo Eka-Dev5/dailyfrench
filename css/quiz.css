@@ -1,10 +1,14 @@
+/**
+ * quiz.css — Styles spécifiques au quiz Daily French v3.0
+ * 
+ * RÈGLE : Ce fichier ne contient QUE ce qui n'existe pas dans base.css.
+ * Pas de .btn, .card, .section, .feedback-area, .game-actions, etc.
+ */
+
 /* ═══════════════════════════════════════════════════════════════════
-   quiz.css — Daily French 🥖 v3.0
-   Styles spécifiques quiz.html
-   RÈGLE : Ne contient QUE ce qui n'existe pas dans base.css
+   1. SÉLECTEUR DE MODE
    ═══════════════════════════════════════════════════════════════════ */
 
-/* ── 1. SÉLECTEUR DE MODE ──────────────────────────────────────── */
 .mode-selector {
   display: flex;
   gap: var(--space-xs);
@@ -12,84 +16,449 @@
   background: var(--bg-card);
   padding: 6px;
   border-radius: var(--r);
- 8;
-  --primary-mid:    #64748B;
-  --primary-light:  #F1F5F9;
-  --hero-from:      #475569;
-  --hero-via:       #64748B;
-  --hero-to:        #CBD5E1;
-
-  /* Accents fonctionnels */
-  --coral:          #F97316;
-  --coral-light:    #FFF7ED;
-  --gold:           #F59E0B;
-  --gold-light:     #FFFBEB;
-  --green:          #059669;
-  --green-light:    #ECFDF5;
-  --red:            #DC2626;
-  --red-light:      #FFF5F5;
-
-  /* Texte et surfaces */
-  --text:           #1E293B;
-  --muted:          #64748B;
-  --subtle:         #94A3B8;
-  --border:         #E2E8F0;
-  --bg:             #F5F7FA;
-  --bg-card:        #F8FAFC;
-  --white:          #FFFFFF;
-
-  /* Ombres */
-  --shadow-sm:      0 1px 3px rgba(0,0,0,0.06);
-  --shadow:         0 4px 16px rgba(51,65,85,0.12);
-  --shadow-lg:      0 16px 48px rgba(51,65,85,0.18);
-
-  /* Rayons */
-  --r-sm:           12px;
-  --r:              16px;
-  --r-lg:           24px;
-
-  /* Typographie — base 16px */
-  --font-base:      16px;
-  --font-xs:        0.75rem;   /* 12px */
-  --font-sm:        0.875rem;  /* 14px */
-  --font-md:        1rem;      /* 16px */
-  --font-lg:        1.125rem;  /* 18px */
-  --font-xl:        1.375rem;  /* 22px */
-  --font-xxl:       1.75rem;   /* 28px */
-
-  /* Espacement */
-  --space-unit:     1rem;
-  --space-xs:       0.5rem;
-  --space-sm:       0.75rem;
-  --space-md:       1.25rem;
-  --space-lg:       2rem;
-  --space-xl:       3rem;
-
-  /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-base: 250ms ease;
+  border: 1px solid var(--border);
 }
 
-/* ── 2. THÈME MAUVE ────────────────────────────────────────────── */
-[data-theme="mauve"] {
-  --primary:        #7C3AED;
-  --primary-mid:    #8B5CF6;
-  --primary-light:  #EDE9FE;
-  --hero-from:      #581C87;
-  --hero-via:       #7C3AED;
-  --hero-to:        #A855F7;
-  --shadow:         0 4px 16px rgba(124,58,237,0.12);
-  --shadow-lg:      0 16px 48px rgba(124,58,237,0.18);
+.mode-btn {
+  flex: 1;
+  font-size: var(--font-sm);
+  font-weight: 600;
+  padding: 12px 8px;
+  border-radius: var(--r-sm);
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-height: 48px;
 }
 
-/* ── 3. THÈME TERRA ────────────────────────────────────────────── */
-[data-theme="terra"] {
-  --primary:        #9A3412;
-  --primary-mid:    #C2410C;
-  --primary-light:  #FFF7ED;
-  --hero-from:      #7C2D12;
-  --hero-via:       #9A3412;
-  --hero-to:        #EA580C;
-  --shadow:         0 4px 16px rgba(154,52,18,0.12);
-  --shadow-lg:      0 16px 48px rgba(154,52,18,0.18);
+.mode-btn.active {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   2. CARTES DE LEÇONS
+   ═══════════════════════════════════════════════════════════════════ */
+
+.lessons-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.lesson-card {
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
+}
+
+.lesson-card.open { box-shadow: var(--shadow); }
+
+.lesson-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--transition-fast);
+}
+
+.lesson-header:hover { background: var(--bg-card); }
+.lesson-header:active { background: var(--primary-light); }
+
+.lesson-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--white);
+  font-size: var(--font-sm);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.lesson-title {
+  flex: 1;
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.lesson-chevron {
+  font-size: var(--font-sm);
+  color: var(--subtle);
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.lesson-card.open .lesson-chevron { transform: rotate(180deg); }
+
+.lesson-body {
+  padding: 0 var(--space-md) var(--space-md);
+  font-size: var(--font-sm);
+  line-height: 1.7;
+  color: var(--text);
+  display: none;
+}
+
+.lesson-body .vocab-word { font-size: inherit; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   3. GRILLE DES NIVEAUX
+   ═══════════════════════════════════════════════════════════════════ */
+
+.levels-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 0 2px;
+}
+
+.level-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--r);
+  padding: 10px 4px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-height: 72px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.tile-num {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.tile-name {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 90%;
+}
+
+.level-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.level-tile:active { transform: scale(0.96); }
+
+.level-tile.locked {
+  background: var(--bg-card);
+  border-color: var(--border);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.level-tile.locked .tile-num,
+.level-tile.locked .tile-name { color: var(--subtle); }
+
+.level-tile.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.level-tile.active .tile-num { color: var(--primary); }
+
+.level-tile.completed {
+  border-color: var(--green);
+  background: var(--green-light);
+}
+
+.level-tile.completed .tile-num,
+.level-tile.completed .tile-name { color: var(--green); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   4. ZONE DE JEU
+   ═══════════════════════════════════════════════════════════════════ */
+
+.game-area {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.game-header { margin-bottom: var(--space-lg); }
+
+.game-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: var(--space-xs);
+}
+
+.game-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-sm);
+  color: var(--muted);
+  margin-bottom: var(--space-sm);
+}
+
+.counter { font-weight: 600; }
+.score { font-weight: 700; color: var(--primary); }
+
+/* Barre de progression du jeu — utilise .bar-track/.bar-fill de base.css */
+
+.question-text {
+  font-size: var(--font-lg);
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: var(--space-lg);
+  word-wrap: break-word;
+}
+
+.question-text .vocab-word { font-size: inherit; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   5. OPTIONS QCM
+   ═══════════════════════════════════════════════════════════════════ */
+
+.qcm-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.option-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  text-align: left;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--r);
+  padding: var(--space-md);
+  font-size: var(--font-md);
+  color: var(--text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-height: 56px;
+}
+
+.option-btn:hover { border-color: var(--primary-mid); background: var(--primary-light); }
+.option-btn:active { transform: scale(0.98); }
+
+.option-btn.selected {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.option-btn.correct {
+  border-color: var(--green);
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.option-btn.wrong {
+  border-color: var(--red);
+  background: var(--red-light);
+  color: var(--red);
+}
+
+/* Indicateur radio */
+.option-btn::before {
+  content: '';
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--subtle);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.option-btn.selected::before {
+  border-color: var(--primary);
+  background: var(--primary);
+  box-shadow: inset 0 0 0 4px var(--white);
+}
+
+.option-btn.correct::before {
+  border-color: var(--green);
+  background: var(--green);
+  box-shadow: inset 0 0 0 4px var(--white);
+}
+
+.option-btn.wrong::before {
+  border-color: var(--red);
+  background: var(--red);
+  box-shadow: inset 0 0 0 4px var(--white);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   6. INPUT ÉCRIT
+   ═══════════════════════════════════════════════════════════════════ */
+
+.libre-input { margin-bottom: var(--space-lg); }
+
+.answer-input {
+  font-size: var(--font-lg);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   7. INTRO DE LEÇON
+   ═══════════════════════════════════════════════════════════════════ */
+
+.lesson-intro {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  margin-bottom: var(--space-md);
+}
+
+.intro-title {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: var(--space-sm);
+}
+
+.intro-objective {
+  font-size: var(--font-md);
+  color: var(--muted);
+  margin-bottom: var(--space-md);
+  font-style: italic;
+}
+
+.intro-content {
+  font-size: var(--font-sm);
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: var(--space-md);
+}
+
+.intro-vocab {
+  font-size: var(--font-sm);
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--r-sm);
+  margin-bottom: var(--space-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   8. ÉCRAN DE RÉSULTATS
+   ═══════════════════════════════════════════════════════════════════ */
+
+.result-message {
+  text-align: center;
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: var(--space-lg);
+}
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   9. BOUTON TRADUCTION
+   ═══════════════════════════════════════════════════════════════════ */
+
+.lesson-ex-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  color: var(--primary);
+  vertical-align: middle;
+  margin-left: 6px;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.lesson-ex-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+}
+
+.lesson-ex-en {
+  display: none;
+  color: var(--green);
+  font-size: 0.85rem;
+  margin-top: 4px;
+  padding: 4px 8px;
+  background: var(--green-light);
+  border-radius: 6px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   10. RESPONSIVE QUIZ
+   ═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 480px) {
+  .game-area {
+    padding: var(--space-md);
+    border-radius: var(--r);
+  }
+  .question-text { font-size: var(--font-md); }
+  .option-btn {
+    padding: var(--space-sm);
+    font-size: var(--font-sm);
+    min-height: 48px;
+  }
+  .score-circle {
+    width: 120px;
+    height: 120px;
+  }
+  .score-pct { font-size: var(--font-xl); }
+  .levels-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    padding: 0;
+  }
+  .level-tile {
+    min-height: 64px;
+    padding: 8px 4px;
+  }
+}
+
+@media (min-width: 768px) {
+  .levels-container { grid-template-columns: repeat(4, 1fr); }
+  .result-actions {
+    flex-direction: row;
+    justify-content: center;
+    max-width: none;
+  }
 }
