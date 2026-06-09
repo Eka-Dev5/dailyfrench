@@ -4,11 +4,11 @@
 
 | Fichier | Rôle | Fréquence de modification |
 |---------|------|---------------------------|
-| `hero.css` | Bandeau joueur + bento stats | Rare |
-| `components.css` | Boutons, inputs, modals, toast | Moyenne |
-| `settings.css` | Panel settings (thème/langue/direction) | Rare |
-| `vocab.css` | Popup vocabulaire + surlignement mots | Moyenne |
-| `game.css` | Tout le quiz : QCM, feedback, barres, score | Fréquente |
+| `hero.css` | Bandeau joueur (avatar, nom, XP) + bento stats (3 tuiles) | Rare |
+| `components.css` | Boutons (primary, secondary, ghost, large, small), inputs, modals, toast | Moyenne |
+| `settings.css` | Panel settings (thème, langue, direction) | Rare |
+| `vocab.css` | Popup vocabulaire (définition mot) + surlignement `.vocab-word` | Moyenne |
+| `game.css` | Tout le quiz : QCM, feedback, barres, score-circle, game-actions, levels, lessons, modes | Fréquente |
 
 ## Règles
 
@@ -21,7 +21,33 @@
 | Tu veux changer... | Tu modifies... |
 |-------------------|----------------|
 | La couleur d'un bouton | `components.css` |
-| Le style du quiz | `game.css` |
+| Le style du quiz (QCM, feedback, etc.) | `game.css` |
 | Le popup de vocabulaire | `vocab.css` |
 | Le bandeau joueur | `hero.css` |
 | Le panel settings | `settings.css` |
+| Les menus top/bottom | `navigation/nav.css` (pas ici) |
+
+## Classes importantes
+
+### Boutons
+- `.btn-primary` : Bouton principal (fond coloré)
+- `.btn-secondary` : Bouton secondaire (fond clair)
+- `.btn-ghost` : Bouton fantôme (bordure)
+- `.btn-large`, `.btn-small` : Tailles
+
+### Modal
+- `.modal-wrap` : Overlay
+- `.modal-wrap.open` : Overlay visible
+- `.modal` : Contenu
+- `.modal-actions` : Zone boutons
+
+### Toast
+- `.toast` : Notification (cachée par défaut)
+- `.toast.on` : Notification visible
+
+### Game
+- `.feedback-area`, `.feedback-success`, `.feedback-error`
+- `.qcm-options`, `.option-btn`, `.option-btn.selected`
+- `.bar-track`, `.bar-fill`
+- `.score-circle`, `.score-pct`
+- `.level-tile`, `.level-tile.completed`, `.level-tile.active`, `.level-tile.locked`
