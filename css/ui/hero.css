@@ -1,30 +1,151 @@
 /* ═══════════════════════════════════════════════════════════════════
-   ui/hero.css — Daily French 🥖 v3.0
-   Hero (bandeau joueur) + Bento grid (stats rapides)
+   hero.css — Daily French 🥖 v3.0
+   ui/hero.css
    ═══════════════════════════════════════════════════════════════════ */
 
-/* ─── HERO ─────────────────────────────────────────────────────── */
-.hero {
-  background: linear-gradient(135deg, var(--hero-from) 0%,ens sandbox, je vais tout afficher dans ma réponse pour que tu puisses copier-coller.
-
----
-
-## 1. Fichiers CSS (9 fichiers)
-
-### `css/base.css`
-
-```css
 /* ═══════════════════════════════════════════════════════════════════
-   base.css — Daily French 🥖 v3.0
-   Point d'entrée unique : importe tous les modules CSS
+   HERO
    ═══════════════════════════════════════════════════════════════════ */
 
-@import url('foundation/variables.css');
-@import url('foundation/reset.css');
-@import url('foundation/layout.css');
-@import url('navigation/nav.css');
-@import url('ui/hero.css');
-@import url('ui/components.css');
-@import url('ui/settings.css');
-@import url('ui/vocab.css');
-@import url('ui/game.css');
+.hero {
+  background: linear-gradient(135deg, var(--hero-from) 0%, var(--hero-via) 50%, var(--hero-to) 100%);
+  color: var(--white);
+  padding: calc(58px + env(safe-area-inset-top, 0px)) 14px 10px;
+  display: grid;
+  grid-template-areas: "avatar info switch" ". xp xp";
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 4px 10px;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-avatar {
+  grid-area: avatar;
+  width: 38px; height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  position: relative;
+}
+
+.hero-lvl-badge {
+  position: absolute;
+  bottom: -3px; right: -3px;
+  background: var(--gold);
+  color: var(--text);
+  font-size: 9px;
+  font-weight: 700;
+  width: 17px; height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--white);
+}
+
+.hero-info { grid-area: info; min-width: 0; }
+
+.hero-name {
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-xp {
+  grid-area: xp;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.xp-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 2px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.xp-fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: width var(--transition-base);
+  width: 0%;
+}
+
+.xp-text {
+  font-size: 10px;
+  opacity: 0.8;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.hero-switch {
+  grid-area: switch;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.hero-switch select {
+  font-size: 11px;
+  max-width: 110px;
+  min-width: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BENTO
+   ═══════════════════════════════════════════════════════════════════ */
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 8px 12px 0;
+  margin-top: 0;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bento-tile {
+  background: var(--white);
+  border-radius: var(--r);
+  padding: 10px 6px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  transition: transform var(--transition-fast);
+  min-width: 0;
+}
+
+.bento-tile:active { transform: scale(0.96); }
+
+.bento-num {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+}
+
+.bento-label {
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
