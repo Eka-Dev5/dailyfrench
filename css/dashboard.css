@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════════════════
    DASHBOARD.CSS — Daily French 🥖 v3.0
-   Fichier complet — remplace l'ancienne version
-   Corrections : grid badges 4 colonnes + padding bottom nav
+   Styles spécifiques page dashboard.html
+   RÈGLE : Ce fichier ne contient QUE ce qui n'existe pas dans base.css
    ═══════════════════════════════════════════════════════════════════ */
 
-/* ─── GRILLE BADGES — 4 colonnes fixes, pas de décalage ────────── */
+/* ─── 1. GRILLE BADGES ─────────────────────────────────────────── */
 .badges-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -12,14 +12,12 @@
   padding: var(--space-sm);
 }
 
-/* Mobile : 3 colonnes */
 @media (max-width: 480px) {
   .badges-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Badge individuel */
 .badge-item {
   display: flex;
   flex-direction: column;
@@ -31,7 +29,7 @@
   border: 1px solid var(--border);
   text-align: center;
   min-height: 80px;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
 }
 
 .badge-item .badge-icon {
@@ -47,7 +45,6 @@
   line-height: 1.2;
 }
 
-/* Badge débloqué */
 .badge-item.unlocked {
   border-color: var(--primary);
   background: var(--primary-light);
@@ -58,7 +55,6 @@
   opacity: 1;
 }
 
-/* Badge verrouillé (grisé) */
 .badge-item.locked {
   opacity: 0.5;
 }
@@ -67,13 +63,13 @@
   filter: grayscale(100%);
 }
 
-/* ─── DASHBOARD MAIN — Padding bottom pour nav-bottom ──────────── */
+/* ─── 2. DASHBOARD MAIN ────────────────────────────────────────── */
 .dashboard-main {
   padding: var(--space-md);
-  padding-bottom: calc(var(--space-xl) + 70px); /* Espace pour nav-bottom fixe */
+  padding-bottom: calc(var(--space-xl) + 70px);
 }
 
-/* ─── DASH SECTIONS ───────────────────────────────────────────── */
+/* ─── 3. DASH SECTIONS ───────────────────────────────────────── */
 .dash-section {
   margin-bottom: var(--space-lg);
 }
@@ -89,7 +85,7 @@
   gap: 8px;
 }
 
-/* ─── JOURNEY MAP ──────────────────────────────────────────────── */
+/* ─── 4. JOURNEY MAP ─────────────────────────────────────────── */
 .journey-map {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -113,7 +109,7 @@
   border-radius: var(--r-sm);
   border: 2px solid var(--border);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
   min-height: 60px;
 }
 
@@ -151,7 +147,7 @@
   line-height: 1.2;
 }
 
-/* ─── CAMÉLÉON STAGE ───────────────────────────────────────────── */
+/* ─── 5. CAMÉLÉON STAGE ──────────────────────────────────────── */
 .cameleon-stage {
   display: flex;
   flex-direction: column;
@@ -168,13 +164,11 @@
   line-height: 1;
 }
 
+/* Réutilise .bar-track de base.css + override couleur */
 .cameleon-bar-track {
-  width: 100%;
+  composes: bar-track; /* ⚠️ CSS Modules uniquement — sinon copier */
   max-width: 300px;
   height: 8px;
-  background: var(--bg-card);
-  border-radius: 999px;
-  overflow: hidden;
 }
 
 .cameleon-bar-fill {
@@ -203,7 +197,7 @@
   color: var(--muted);
 }
 
-/* ─── LIFE SKILLS GRID ─────────────────────────────────────────── */
+/* ─── 6. LIFE SKILLS GRID ────────────────────────────────────── */
 .life-skills-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -227,7 +221,7 @@
   border: 1px solid var(--border);
   border-left: 4px solid var(--primary);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
 }
 
 .life-skill-card:hover {
@@ -252,12 +246,10 @@
   color: var(--text);
 }
 
+/* Réutilise .bar-track de base.css */
 .life-skill-bar-track {
-  width: 100%;
+  composes: bar-track;
   height: 6px;
-  background: var(--bg-card);
-  border-radius: 999px;
-  overflow: hidden;
 }
 
 .life-skill-bar-fill {
@@ -274,7 +266,7 @@
   color: var(--muted);
 }
 
-/* ─── HISTORY LIST ─────────────────────────────────────────────── */
+/* ─── 7. HISTORY LIST ────────────────────────────────────────── */
 .history-list {
   display: flex;
   flex-direction: column;
@@ -313,7 +305,7 @@
   padding: var(--space-lg);
 }
 
-/* ─── GENIUS PANEL ─────────────────────────────────────────────── */
+/* ─── 8. GENIUS PANEL ────────────────────────────────────────── */
 .genius-panel {
   display: flex;
   flex-direction: column;
@@ -338,7 +330,7 @@
   font-size: var(--font-sm);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--transition-fast);
 }
 
 .genius-word:hover {
@@ -346,7 +338,7 @@
   color: var(--white);
 }
 
-/* ─── RESPONSIVE ───────────────────────────────────────────────── */
+/* ─── 9. RESPONSIVE ──────────────────────────────────────────── */
 @media (max-width: 480px) {
   .dashboard-main {
     padding: var(--space-sm);
@@ -370,4 +362,3 @@
     font-size: 10px;
   }
 }
-h
