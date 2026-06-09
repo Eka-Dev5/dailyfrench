@@ -1,0 +1,132 @@
+/* ═══════════════════════════════════════════════════════════════════
+   foundation/layout.css — Daily French 🥖 v3.0
+   Orbes décoratifs, sections, conteneurs, responsive global
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── ORBES DÉCORATIFS ─────────────────────────────────────────── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.orb-1 {
+  width: 400px; height: 400px;
+  background: var(--primary-mid);
+  top: -100px; right: -100px;
+}
+
+.orb-2 {
+  width: 300px; height: 300px;
+  background: var(--coral);
+  bottom: 100px; left: -80px;
+}
+
+/* ─── SECTIONS & CONTENEURS ────────────────────────────────────── */
+.section {
+  display: none;
+  padding: var(--space-md);
+  animation: fadeIn 300ms ease;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.section.active { display: block; }
+
+.page-title {
+  font-size: var(--font-xxl);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: var(--space-xs);
+  line-height: 1.2;
+}
+
+.page-subtitle {
+  font-size: var(--font-md);
+  color: var(--muted);
+  margin-bottom: var(--space-lg);
+}
+
+.section-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── CARTES ───────────────────────────────────────────────────── */
+.card {
+  background: var(--white);
+  border-radius: var(--r);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  margin-bottom: var(--space-sm);
+}
+
+/* ─── UTILITAIRES ──────────────────────────────────────────────── */
+.hidden { display: none !important; }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-center { text-align: center; }
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+
+.empty-state {
+  text-align: center;
+  color: var(--subtle);
+  font-size: var(--font-sm);
+  padding: var(--space-xl) var(--space-md);
+}
+
+/* ─── KEYFRAMES ────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── RESPONSIVE GLOBAL ────────────────────────────────────────── */
+@media (min-width: 768px) {
+  body { padding-bottom: 0; }
+  .nav-bottom { display: none; }
+  .nav-top { position: sticky; top: 0; }
+  .bento-grid { max-width: 600px; margin-left: auto; margin-right: auto; }
+  .section { max-width: 720px; margin-left: auto; margin-right: auto; }
+}
+
+@media (min-width: 1024px) {
+  :root { --font-base: 22px; }
+  .hero {
+    border-radius: var(--r-lg);
+    margin: var(--space-md);
+    margin-bottom: 0;
+  }
+}
