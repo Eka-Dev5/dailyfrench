@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test Vocab</title>
+  <style>
+    body { font-family: monospace; padding: 10px; background: #111; color: #0f0; font-size: 14px; }
+    .ok { color: #0f0; }
+    .warn { color: #fa0; }
+    .err { color: #f00; }
+    .line { margin: 2px 0; }
+  </style>
+</head>
+<body>
+  <h3>🔍 Test Chargement Vocabulaire</h3>
+  <div id="out"></div>
+
+  <script src="js/config.js"></script>
+  <script>
+    document.getElementById('out').innerHTML += '<div class="line ok">✓ config.js chargé</div>';
+  </script>
+
+  <script>
+    // On charge les 21 fichiers un par un et on compte
+    const BASE_PATH = 'js/vocab-levels/';
+    const LEVEL_FILES = [];
+    for (let i = 1; i <= 21; i++) LEVEL_FILES.push('vocab-level-' + i + '.js');
+
+    let loaded = 0;
+    let totalWords = 0;
+    let missing = [];
+
+    function loadOne(index) {
+      if (index >= LEVEL_FILES.length) {
+        // Tous chargés, afficher résultat
+        let html = '<hr><div class="line ok"><b>RÉSULTAT :</b></div>';
+        html += '<div class="line ok">Fichiers chargés : ' + loaded + '/21</div>';
+        html += '<div class="line ' + (totalWords >= 800 ? 'ok' : 'warn') + '">Total mots : ' + totalWords + '</div>';
+        if (missing.length > 0) {
+          html += '<div class="line err">Manquants : ' + missing.join(', ') + '</div>';
+        }
+        if (totalWords < 800) {
+          html += '<div class="line err">⚠️ Attendu : 818+ mots</div>';
+        } else {
+          html += '<div class="line ok">✓ Tous les mots sont là !</div>';
+        }
+        document.getElementById('out').innerHTML += html;
+        return;
+      }
+
+      const src = BASE_PATH + LEVEL_FILES[index];
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = false;
+
+      script.onload = function() {
+        const levelVar = window['VOCAB_LEVEL_' + (index + 1)];
+        const count = (Array.isArray(levelVar) && levelVar.length) ? levelVar.length : 0;
+        if (count > 0) {
+          loaded++;
+          totalWords += count;
+          document.getElementById('out').innerHTML += '<div class="line ok">Niveau ' + (index+1) + ' : ' + count + ' mots</div>';
+        } else {
+          missing.push(index + 1);
+          document.getElementById('out').innerHTML += '<div class="line err">Niveau ' + (index+1) + ' : MANQUANT</div>';
+        }
+        loadOne(index + 1);
+      };
+
+      script.onerror = function() {
+        missing.push(index + 1);
+        document.getElementById('out').innerHTML += '<div class="line err">Niveau ' + (index+1) + ' : ERREUR 404</div>';
+        loadOne(index + 1);
+      };
+
+      document.head.appendChild(script);
+    }
+
+    document.getElementById('out').innerHTML += '<div class="line">Chargement séquentiel...</div>';
+    loadOne(0);
+  </script>
+</body>
+</html>
