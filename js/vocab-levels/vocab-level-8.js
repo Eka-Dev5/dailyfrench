@@ -1,85 +1,69 @@
 // ═══════════════════════════════════════════════════════════════════
 // vocab-level-8.js — Daily French 🥖
 // NIVEAU 8 — Le temps & la météo 🌤️
-// Entrées : 14
+// Entrées : 50
 // ═══════════════════════════════════════════════════════════════════
 
 const VOCAB_LEVEL_8 = [
-  {fr:"il fait beau",en:"it's nice weather",phon:"*eel FAY bo*",def:"Description d'un temps agréable.",ex:"Il fait beau, allons nous promener.",ex_en:"The weather is nice, let's go for a walk.",level:8,cat:"météo"},
-  {fr:"il pleut",en:"it's raining",phon:"*eel PLUH*",def:"Chute de gouttes d'eau.",ex:"Il pleut, prenez un parapluie.",ex_en:"It's raining, take an umbrella.",level:8,cat:"météo"},
-  {fr:"il neige",en:"it's snowing",phon:"*eel NEHZH*",def:"Chute de neige.",ex:"Il neige dans le nord.",ex_en:"It's snowing in the north.",level:8,cat:"météo"},
-  {fr:"il fait du vent",en:"it's windy",phon:"*eel FAY dew VON*",def:"Présence de vent.",ex:"Il fait du vent, fermez la porte.",ex_en:"It's windy, close the door.",level:8,cat:"météo"},
-  {fr:"il fait chaud",en:"it's hot",phon:"*eel FAY sho*",def:"Température élevée.",def_en:"High temperature.",ex:"Il fait chaud, buvez de l'eau.",ex_en:"It's hot, drink some water.",level:8,cat:"météo"},
-  {fr:"il fait froid",en:"it's cold",phon:"*eel FAY FRWAH*",def:"Température basse.",def_en:"Low temperature.",ex:"Il fait froid, allumez le chauffage.",ex_en:"It's cold, put the heating on.",level:8,cat:"météo"},
-  {fr:"il fait frais",en:"it's cool / chilly",phon:"*eel FAY FRAY*",def:"Température fraîche.",ex:"Il fait frais, prenez un pull.",ex_en:"It's cool, take a jumper.",level:8,cat:"météo"},
-  {fr:"aujourd'hui",en:"today",phon:"*oh-zhoord-DWEE*",def:"Le jour présent.",ex:"Aujourd'hui, il fait beau.",ex_en:"Today the weather is nice.",level:8,cat:"temps"},
-  {fr:"demain",en:"tomorrow",phon:"*duh-MAN*",def:"Le jour suivant.",ex:"À demain, Madame.",ex_en:"See you tomorrow, Mrs.",level:8,cat:"temps"},
-  {fr:"après-demain",en:"the day after tomorrow",phon:"*a-PRAY duh-MAN*",def:"Deux jours après aujourd'hui.",ex:"À après-demain !",ex_en:"See you the day after tomorrow!",level:8,cat:"temps"},
-  {fr:"au printemps",en:"in spring",phon:"*oh PRAN-ton*",def:"Saison du renouveau, mars à mai.",ex:"Au printemps, les fleurs éclosent.",ex_en:"In spring, the flowers bloom.",level:8,cat:"saison"},
-  {fr:"en été",en:"in summer",phon:"*on ay-TAY*",def:"Saison chaude, juin à août.",ex:"En été, le jardin est beau.",ex_en:"In summer, the garden is beautiful.",level:8,cat:"saison"},
-  {fr:"en automne",en:"in autumn",phon:"*on no-TON*",def:"Saison des feuilles mortes.",ex:"En automne, les feuilles tombent.",ex_en:"In autumn, the leaves fall.",level:8,cat:"saison"},
-  {fr:"en hiver",en:"in winter",phon:"*on ee-VAIR*",def:"Saison froide, décembre à février.",ex:"En hiver, le jardin dort.",ex_en:"In winter, the garden sleeps.",level:8,cat:"saison"}
-  // === AJOUTS NIVEAU 8 (36 entrées supplémentaires) ===
-  
-  // Météo / Climat
-  {fr:"climat",en:"climate",phon:"*klee-MA*",def:"Conditions atmosphériques régionales",ex:"Le climat méditerranéen.",level:8,cat:"météo"},
-  {fr:"température",en:"temperature",phon:"*tom-pay-ra-TOOR*",def:"Degré de chaleur",ex:"La température extérieure.",level:8,cat:"météo"},
-  {fr:"degré",en:"degree",phon:"*duh-GRAY*",def:"Unité de température",ex:"Il fait 25 degrés.",level:8,cat:"météo"},
-  {fr:"thermomètre",en:"thermometer",phon:"*tair-mo-MET-truh*",def:"Instrument de mesure",ex:"Le thermomètre affiche 30°.",level:8,cat:"objet"},
-  {fr:"baromètre",en:"barometer",phon:"*ba-ro-MET-truh*",def:"Instrument de pression",ex:"Le baromètre descend.",level:8,cat:"objet"},
-  {fr:"humidité",en:"humidity",phon:"*oo-mee-dee-TAY",ex:"L'ascenseur est en panne.",level:4,cat:"lieu"},
-  {fr:"boîte aux lettres",en:"mailbox",phon:"*bwat oh LET-truh*",def:"Réceptacle du courrier",ex:"Vérifier la boîte aux lettres.",level:4,cat:"lieu"},
-  {fr:"interphone",en:"intercom",phon:"*on-tair-FON*",def:"Système de communication",ex:"Sonner à l'interphone.",level:4,cat:"objet"},
-  {fr:"sonnette",en:"doorbell",phon:"*son-NET*",def:"Dispositif d'appel",ex:"La sonnette de l'appartement.",level:4,cat:"objet"},
-  {fr:"clé",en:"key",phon:"*KLAY*",def:"Objet pour ouvrir",ex:"La clé de la cave.",level:4,cat:"objet"},
-  {fr:"badge",en:"badge / access card",phon:"*BAZH*",def:"Carte d'accès",ex:"Badger pour entrer.",level:4,cat:"objet"},
-  {fr:"digicode",en:"keypad code",phon:"*dee-zhee-KOH*",def:"Code d'entrée numérique",ex:"Le digicode de la porte.",level:4,cat:"objet"},
-  
-  // Verbes sociaux
-  {fr:"présenter",en:"to introduce",phon:"*pray-zon-TAY*",def:"Faire connaître",ex:"Je te présente mon voisin.",level:4,cat:"verbe"},
-  {fr:"saluer",en:"to greet",phon:"*sa-LWAY*",def:"Dire bonjour",ex:"Saluer les voisins.",level:4,cat:"verbe"},
-  {fr:"inviter",en:"to invite",phon:"*on-vee-TAY*",def:"Demander de venir",ex:"Inviter à dîner.",level:4,cat:"verbe"},
-  {fr:"recevoir",en:"to receive",phon:"*ruh-suh-VWAHR*",def:"Accueillir chez soi",ex:"Recevoir des amis.",level:4,cat:"verbe"},
-  {fr:"déranger",en:"to disturb",phon:"*day-ron-ZHAY*",def:"Gêner quelqu'un",ex:"Pardon de vous déranger.",level:4,cat:"verbe"},
-  {fr:"aider",en:"to help",phon:"*ay-DAY*",def:"Assister",ex:"Aider le voisin âgé.",level:4,cat:"verbe"},
-  {fr:"emprunter",en:"to borrow",phon:"*om-pron-TAY*",def:"Preter temporairement",ex:"Emprunter du sucre.",level:4,cat:"verbe"},
-  {fr:"prêter",en:"to lend",phon:"*PRAY-tay*",def:"Donner temporairement",ex:"Prêter un outil.",level:4,cat:"verbe"},
-  {fr:"rendre",en:"to give back",phon:"*RON-druh*",def:"Retourner ce qui est prêté",ex:"Rendre le livre emprunté.",level:4,cat:"verbe"},
-  {fr:"partager",en:"to share",phon:"*par-ta-ZHAY*",def:"Mettre en commun",ex:"Partager un repas.",level:4,cat:"verbe"},
-  {fr:"discuter",en:"to discuss",phon:"*dees-kew-TAY*",def:"Parler ensemble",ex:"Discuter avec les voisins.",level:4,cat:"verbe"},
-  {fr:"se plaindre",en:"to complain",phon:"*suh PLAN-druh*",def:"Exprimer un mécontentement",ex:"Se plaindre du bruit.",level:4,cat:"verbe"},
-  {fr:"tolerer",en:"to tolerate",phon:"*to-lay-RAY*",def:"Supporter",ex:"Tolérer le bruit.",level:4,cat:"verbe"},
-  {fr:"respecter",en:"to respect",phon:"*res-pek-TAY*",def:"Tenir en estime",ex:"Respecter le voisinage.",level:4,cat:"verbe"},
-  
-  // Politesse voisinage
-  {fr:"bonjour madame",en:"hello madam",phon:"*bon-ZHOOR ma-DAM*",def:"Salutation formelle",ex:"Bonjour madame, comment allez-vous ?",level:4,cat:"politesse"},
-  {fr:"bonjour monsieur",en:"hello sir",phon:"*bon-ZHOOR muh-SYUR*",def:"Salutation formelle",ex:"Bonjour monsieur, enchanté.",level:4,cat:"politesse"},
-  {fr:"au revoir madame",en:"goodbye madam",phon:"*oh ruh-VWAHR ma-DAM*",def:"Départ formel",ex:"Au revoir madame, bonne journée.",level:4,cat:"politesse"},
-  {fr:"excusez le dérangement",en:"sorry for the disturbance",phon:"*ek-skew-zay luh day-ron-ZH-mon*",def:"Présentation d'excuses",ex:"Excusez le dérangement.",level:4,cat:"politesse"},
-  {fr:"c'est gentil",en:"that's kind",phon:"*say zhon-TEE*",def:"Remerciement",ex:"C'est gentil à vous.",level:4,cat:"politesse"},
-  {fr:"c'est aimable",en:"that's nice of you",phon:"*say ze-MA-bluh*",def:"Remerciement",ex:"C'est aimable, merci.",level:4,cat:"politesse"},
-  {fr:"je vous remercie",en:"I thank you",phon:"*zhuh voo ruh-mair-SEE*",def:"Remerciement formel",ex:"Je vous remercie beaucoup.",level:4,cat:"politesse"},
-  {fr:"tout le plaisir est pour moi",en:"the pleasure is all mine",phon:"*too luh pleh-ZEER ay poor MWA*",def:"Réponse à un remerciement",ex:"Tout le plaisir est pour moi.",level:4,cat:"politesse"},
-  {fr:"n'hésitez pas",en:"don't hesitate",phon:"*nay-zee-tay PA*",def:"Invitation à demander",ex:"N'hésitez pas à frapper.",level:4,cat:"politesse"},
-  {fr:"faites comme chez vous",en:"make yourself at home",phon:"*fet kom SHAY voo*",def:"Invitation à se sentir à l'aise",ex:"Faites comme chez vous.",level:4,cat:"politesse"},
-  
-  // Expressions de voisinage
-  {fr:"faire du bruit",en:"to make noise",phon:"*FAIR doo brwee*",def:"Produire du son gênant",ex:"Ne faites pas trop de bruit.",level:4,cat:"expression"},
-  {fr:"soirée",en:"evening party",phon:"*swa-RAY*",def:"Réunion du soir",ex:"Une soirée entre voisins.",level:4,cat:"expression"},
-  {fr:"fête",en:"party / celebration",phon:"*FET*",def:"Célébration",ex:"La fête des voisins.",level:4,cat:"expression"},
-  {fr:"apéritif",en:"aperitif",phon:"*a-pay-ree-TEEF*",def:"Boisson avant le repas",ex:"Un apéritif entre voisins.",level:4,cat:"expression"},
-  {fr:"barbecue",en:"barbecue",phon:"*bar-bay-KYOO*",def:"Grillade en plein air",ex:"Un barbecue dans le jardin.",level:4,cat:"expression"},
-  {fr:"réunion",en:"meeting",phon:"*ray-OO-nyon*",def:"Assemblée",ex:"Une réunion de copropriété.",level:4,cat:"expression"},
-  {fr:"copropriété",en:"co-ownership",phon:"*ko-pro-pree-ay-TAY*",def:"Régime de propriété collective",ex:"La copropriété de l'immeuble.",level:4,cat:"expression"},
-  {fr:"syndic",en:"property management",phon:"*san-DEEK*",def:"Gestionnaire d'immeuble",ex:"Le syndic de copropriété.",level:4,cat:"expression"},
-  {fr:"charges",en:"service charges",phon:"*SHARZH*",def:"Frais communs",ex:"Les charges de copropriété.",level:4,cat:"expression"},
-  {fr:"travaux",en:"renovation work",phon:"*tra-VOH*",def:"Ouvrage de réparation",ex:"Des travaux dans l'immeuble.",level:4,cat:"expression"},
-  {fr:"parking",en:"parking lot",phon:"*par-KING*",def:"Espace de stationnement",ex:"Le parking souterrain.",level:4,cat:"lieu"},
-  {fr:"cave",en:"cellar",phon:"*KAV*",def:"Espace sous le sol",ex:"Ma cave à vin.",level:4,cat:"lieu"},
-  {fr:"grenier",en:"attic",phon:"*gruh-NYAY*",def:"Espace sous le toit",ex:"Le grenier commun.",level:4,cat:"lieu"},
-  {fr:"jardin commun",en:"shared garden",phon:"*zhar-DAN ko-MON*",def:"Espace vert collectif",ex:"Le jardin commun de la résidence.",level:4,cat:"lieu"},
-  {fr:"terrain de jeu",en:"playground",phon:"*tair-AN duh ZHUH*",def:"Espace pour enfants",ex:"Le terrain de jeu derrière.",level:4,cat:"lieu"}
+  // === TEMPS PRÉSENT (10) ===
+  {fr:"aujourd'hui",en:"today",phon:"*oh-zhoord-DWEE*",def:"Le jour présent.",ex:"Aujourd'hui, il fait beau.",level:8,cat:"temps"},
+  {fr:"demain",en:"tomorrow",phon:"*duh-MAN*",def:"Le jour suivant.",ex:"À demain, Madame.",level:8,cat:"temps"},
+  {fr:"hier",en:"yesterday",phon:"*YAIR*",def:"Le jour précédent.",ex:"Hier, il a plu.",level:8,cat:"temps"},
+  {fr:"maintenant",en:"now",phon:"*man-tuh-NAN*",def:"À ce moment.",ex:"Il pleut maintenant.",level:8,cat:"temps"},
+  {fr:"tout de suite",en:"right away",phon:"*too duh SWEET*",def:"Immédiatement.",ex:"Viens tout de suite !",level:8,cat:"temps"},
+  {fr:"bientôt",en:"soon",phon:"*byan-TOH*",def:"Dans peu de temps.",ex:"Il va bientôt pleuvoir.",level:8,cat:"temps"},
+  {fr:"plus tard",en:"later",phon:"*plew TAR*",def:"Après, dans le futur.",ex:"On verra plus tard.",level:8,cat:"temps"},
+  {fr:"tôt",en:"early",phon:"*TOH*",def:"De bonne heure.",ex:"Je me lève tôt.",level:8,cat:"temps"},
+  {fr:"tard",en:"late",phon:"*TAR*",def:"Après l'heure.",ex:"Il arrive tard.",level:8,cat:"temps"},
+  {fr:"en ce moment",en:"at the moment",phon:"*on suh mo-MAN*",def:"Actuellement.",ex:"En ce moment, il fait froid.",level:8,cat:"temps"},
 
+  // === MÉTÉO (15) ===
+  {fr:"il fait beau",en:"it's nice weather",phon:"*eel FAY bo*",def:"Temps agréable.",ex:"Il fait beau, allons nous promener.",level:8,cat:"météo"},
+  {fr:"il pleut",en:"it's raining",phon:"*eel PLUH*",def:"Chute de pluie.",ex:"Il pleut, prenez un parapluie.",level:8,cat:"météo"},
+  {fr:"il neige",en:"it's snowing",phon:"*eel NEHZH*",def:"Chute de neige.",ex:"Il neige dans le nord.",level:8,cat:"météo"},
+  {fr:"il fait du vent",en:"it's windy",phon:"*eel FAY dew VON*",def:"Présence de vent.",ex:"Il fait du vent, fermez la porte.",level:8,cat:"météo"},
+  {fr:"il fait chaud",en:"it's hot",phon:"*eel FAY sho*",def:"Température élevée.",ex:"Il fait chaud, buvez de l'eau.",level:8,cat:"météo"},
+  {fr:"il fait froid",en:"it's cold",phon:"*eel FAY FRWAH*",def:"Température basse.",ex:"Il fait froid, allumez le chauffage.",level:8,cat:"météo"},
+  {fr:"il fait frais",en:"it's cool",phon:"*eel FAY FRAY*",def:"Température fraîche.",ex:"Il fait frais, prenez un pull.",level:8,cat:"météo"},
+  {fr:"il fait du soleil",en:"it's sunny",phon:"*eel FAY dew so-LAY*",def:"Présence de soleil.",ex:"Il fait du soleil aujourd'hui.",level:8,cat:"météo"},
+  {fr:"il fait gris",en:"it's grey / overcast",phon:"*eel FAY GREE*",def:"Ciel couvert.",ex:"Il fait gris, ça va pleuvoir.",level:8,cat:"météo"},
+  {fr:"il y a des nuages",en:"it's cloudy",phon:"*eel yah day NWAHZH*",def:"Présence de nuages.",ex:"Il y a des nuages ce matin.",level:8,cat:"météo"},
+  {fr:"il y a du brouillard",en:"it's foggy",phon:"*eel yah dew broo-YAR*",def:"Présence de brouillard.",ex:"Il y a du brouillard sur la route.",level:8,cat:"météo"},
+  {fr:"il y a de l'orage",en:"there's a storm",phon:"*eel yah duh lo-RAZH*",def:"Tempête avec tonnerre.",ex:"Il y a de l'orage ce soir.",level:8,cat:"météo"},
+  {fr:"il gèle",en:"it's freezing",phon:"*eel ZHEL*",def:"Température sous zéro.",ex:"Il gèle, attention au verglas.",level:8,cat:"météo"},
+  {fr:"la température",en:"temperature",phon:"*lah tom-pay-ra-TOOR*",def:"Degré de chaleur.",ex:"La température extérieure.",level:8,cat:"météo"},
+  {fr:"le thermomètre",en:"thermometer",phon:"*luh tair-mo-MET-truh*",def:"Instrument de mesure.",ex:"Le thermomètre affiche 30°.",level:8,cat:"objet"},
+
+  // === SAISONS (8) ===
+  {fr:"le printemps",en:"spring",phon:"*luh PRAN-ton*",def:"Saison du renouveau, mars à mai.",ex:"Au printemps, les fleurs éclosent.",level:8,cat:"saison"},
+  {fr:"l'été",en:"summer",phon:"*lay-TAY*",def:"Saison chaude, juin à août.",ex:"En été, le jardin est beau.",level:8,cat:"saison"},
+  {fr:"l'automne",en:"autumn",phon:"*lo-TON*",def:"Saison des feuilles mortes.",ex:"En automne, les feuilles tombent.",level:8,cat:"saison"},
+  {fr:"l'hiver",en:"winter",phon:"*lee-VAIR*",def:"Saison froide, décembre à février.",ex:"En hiver, le jardin dort.",level:8,cat:"saison"},
+  {fr:"au printemps",en:"in spring",phon:"*oh PRAN-ton*",def:"Pendant le printemps.",ex:"Au printemps, les fleurs éclosent.",level:8,cat:"saison"},
+  {fr:"en été",en:"in summer",phon:"*on ay-TAY*",def:"Pendant l'été.",ex:"En été, il fait chaud.",level:8,cat:"saison"},
+  {fr:"en automne",en:"in autumn",phon:"*on no-TON*",def:"Pendant l'automne.",ex:"En automne, les feuilles tombent.",level:8,cat:"saison"},
+  {fr:"en hiver",en:"in winter",phon:"*on ee-VAIR*",def:"Pendant l'hiver.",ex:"En hiver, il fait froid.",level:8,cat:"saison"},
+
+  // === VÊTEMENTS MÉTÉO (10) ===
+  {fr:"un parapluie",en:"an umbrella",phon:"*uh pa-ra-PLOO-ee*",def:"Protection contre la pluie.",ex:"Prenez un parapluie.",level:8,cat:"objet"},
+  {fr:"un imperméable",en:"a raincoat",phon:"*uh on-pair-may-AH-bluh*",def:"Manteau de pluie.",ex:"Mets ton imperméable.",level:8,cat:"objet"},
+  {fr:"un manteau",en:"a coat",phon:"*uh man-TOH*",def:"Vêtement chaud d'hiver.",ex:"Mon manteau d'hiver.",level:8,cat:"objet"},
+  {fr:"un pull",en:"a sweater",phon:"*uh POOL*",def:"Vêtement en laine.",ex:"Un pull en laine.",level:8,cat:"objet"},
+  {fr:"un bonnet",en:"a beanie / hat",phon:"*uh bo-NAY*",def:"Couvre-chef chaud.",ex:"Mets ton bonnet.",level:8,cat:"objet"},
+  {fr:"une écharpe",en:"a scarf",phon:"*oon ay-SHARP*",def:"Accessoire chaud pour le cou.",ex:"Une écharpe en laine.",level:8,cat:"objet"},
+  {fr:"des gants",en:"gloves",phon:"*day GAN*",def:"Protection pour les mains.",ex:"Des gants en cuir.",level:8,cat:"objet"},
+  {fr:"des bottes",en:"boots",phon:"*day BOT*",def:"Chaussures hautes.",ex:"Des bottes de pluie.",level:8,cat:"objet"},
+  {fr:"des lunettes de soleil",en:"sunglasses",phon:"*day lew-NET duh so-LAY*",def:"Protection solaire pour les yeux.",ex:"Mes lunettes de soleil.",level:8,cat:"objet"},
+  {fr:"la crème solaire",en:"sunscreen",phon:"*lah KREM so-LAIR*",def:"Protection UV pour la peau.",ex:"Mets de la crème solaire.",level:8,cat:"objet"},
+
+  // === EXPRESSIONS (7) ===
+  {fr:"Quel temps fait-il ?",en:"What's the weather like?",phon:"*kel ton FAY-teel*",def:"Demander la météo.",ex:"Quel temps fait-il aujourd'hui ?",level:8,cat:"expression"},
+  {fr:"Il fait un temps de chien",en:"The weather is awful",phon:"*eel FAY uh ton duh shee-AN*",def:"Expression pour mauvais temps.",ex:"Il fait un temps de chien.",level:8,cat:"expression"},
+  {fr:"Il fait un froid de canard",en:"It's freezing cold",phon:"*eel FAY uh FRWAH duh ka-NAR*",def:"Expression pour très froid.",ex:"Il fait un froid de canard.",level:8,cat:"expression"},
+  {fr:"La pluie et le beau temps",en:"Rain or shine",phon:"*lah PLOO-ee ay luh bo ton*",def:"Quoi qu'il arrive.",ex:"Il travaille la pluie et le beau temps.",level:8,cat:"expression"},
+  {fr:"Avoir un coup de soleil",en:"To get sunburned",phon:"*a-VWAHR uh koo duh so-LAY*",def:"Brûlure par le soleil.",ex:"J'ai un coup de soleil.",level:8,cat:"expression"},
+  {fr:"Se mettre au chaud",en:"To get warm",phon:"*suh meh-truh oh SHOH*",def:"Se réchauffer.",ex:"Rentre te mettre au chaud.",level:8,cat:"expression"},
+  {fr:"Geler à pierre fendre",en:"To be freezing cold",phon:"*zhuh-LAY ah PYAIR fon-druh*",def:"Expression pour un froid intense.",ex:"Il gèle à pierre fendre.",level:8,cat:"expression"}
 ];
 
 if (typeof window !== 'undefined') {
