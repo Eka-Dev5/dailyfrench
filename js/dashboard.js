@@ -1,10 +1,12 @@
 // ═══════════════════════════════════════════════════════════════════
-// DASHBOARD.JS — Daily French 🥖 v2.1
+// DASHBOARD.JS — Daily French 🥖 v3.1
 // Logique tableau de bord : journey, badges, caméléon, historique, skills
 //
-// CORRECTION v3.1 :
-//   - Suppression accolade orpheline à la fin
-//   - Protection sosFavorites undefined
+// CORRECTIONS v3.1 :
+//   - try/catch global pour éviter le blanc
+//   - Protection sosFavorites
+//   - Vérification existence LIFE_SKILLS avant rendu
+//   - Suppression accolade orpheline
 // ═══════════════════════════════════════════════════════════════════
 
 // ─── BADGES DEFINITIONS (26 badges) ─────────────────────────────
@@ -60,30 +62,47 @@ let lifeSimState = { scenario: null, questionIndex: 0, score: 0, answers: [] };
 // ═══════════════════════════════════════════════════════════════════
 
 function initDashboard() {
-  if (typeof initCore === 'function') initCore();
-  const current = PlayerManager.getCurrent();
-  if (!current) {
-    Modal.open();
-    return;
+  try {
+    if (typeof initCore === 'function') initCore();
+
+    const current = PlayerManager.getCurrent();
+    if (!current) {
+      if (typeof Modal !== 'undefined') Modal.open();
+      return;
+    }
+
+    updateDashboard();
+  } catch (e) {
+    console.error('[Dashboard] initDashboard error:', e);
+    const main = document.querySelector('.dashboard-main');
+    if (main) {
+      main.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--red)">⚠️ Dashboard error. Check console.</div>';
+    }
   }
-  updateDashboard();
 }
 
 function updateDashboard() {
-  const current = PlayerManager.getCurrent();
-  const p = PlayerManager.load(current);
-  if (!p) return;
+  try {
+    const current = PlayerManager.getCurrent();
+    const p = PlayerManager.load(current);
+    if (!p) {
+      console.warn('[Dashboard] No player loaded');
+      return;
+    }
 
-  renderJourneyMap(p);
-  renderBadges(p);
-  renderCameleon(p);
-  renderHistory(p);
-  renderGenius();
-  renderLifeSkills(p);
+    renderJourneyMap(p);
+    renderBadges(p);
+    renderCameleon(p);
+    renderHistory(p);
+    renderGenius();
+    renderLifeSkills(p);
+  } catch (e) {
+    console.error('[Dashboard] updateDashboard error:', e);
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 2. JOURNEY MAP — 20 niveaux
+// 2. JOURNEY MAP
 // ═══════════════════════════════════════════════════════════════════
 
 function renderJourneyMap(p) {
@@ -101,15 +120,12 @@ function renderJourneyMap(p) {
     const fullName = (typeof LEVEL_NAMES !== 'undefined' && LEVEL_NAMES[i]) ? LEVEL_NAMES[i] : 'Level ' + i;
     const shortName = fullName.replace(/\p{Emoji}/gu, '').trim();
 
-    if (done.includes(i)) {
+    if (done.includes(i) || i < currentLvl) {
       tile.classList.add('completed');
       tile.innerHTML = `<span class="journey-num">✓</span><span class="journey-name">${shortName}</span>`;
     } else if (i === currentLvl) {
       tile.classList.add('active');
       tile.innerHTML = `<span class="journey-num">${i}</span><span class="journey-name">${shortName}</span>`;
-    } else if (i < currentLvl) {
-      tile.classList.add('completed');
-      tile.innerHTML = `<span class="journey-num">✓</span><span class="journey-name">${shortName}</span>`;
     } else {
       tile.classList.add('locked');
       tile.innerHTML = `<span class="journey-num">🔒</span><span class="journey-name">${shortName}</span>`;
@@ -287,7 +303,13 @@ function renderGenius() {
 
 function renderLifeSkills(p) {
   const container = document.getElementById('lifeSkillsGrid');
-  if (!container || typeof LIFE_SKILLS === 'undefined') return;
+  if (!container) return;
+
+  // Si LIFE_SKILLS n'existe pas, afficher message d'erreur contrôlé
+  if (typeof LIFE_SKILLS === 'undefined') {
+    container.innerHTML = '<div style="text-align:center;color:var(--muted);padding:var(--space-lg)">Life Skills data not loaded.</div>';
+    return;
+  }
 
   container.innerHTML = '';
 
@@ -321,8 +343,8 @@ function renderLifeSkills(p) {
 function calculateSkillScore(skill, p) {
   let score = 0;
   const completed = p.completed || [];
-  // CORRECTION : protection si sosFavorites n'existe pas (emergency.js non chargé)
-  const favs = (typeof sosFavorites !== 'undefined') ? sosFavorites : [];
+  // CORRECTION : protection si sosFavorites n'existe pas
+  const favs = (typeof sosFavorites !== 'undefined' && Array.isArray(sosFavorites)) ? sosFavorites : [];
 
   if (skill.levels) {
     const done = skill.levels.filter(l => completed.includes(l)).length;
@@ -484,5 +506,9 @@ function showLifeResults() {
 // ═══════════════════════════════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (typeof initDashboard === 'function') initDashboard();
+  if (typeof initDashboard === 'function') {
+    initDashboard();
+  } else {
+    console.error('[Dashboard] initDashboard not found');
+  }
 });
