@@ -1,12 +1,30 @@
-// vocabulary.js — Logique page lexique (doc 5)
+// vocabulary.js — Logique page lexique (corrigé v2)
 function initVocabulary() {
   if (typeof initCore === 'function') initCore();
-  populateFilters();
-  const grid = document.getElementById('vocabGrid');
-  if (grid && typeof renderVocabularyList === 'function') {
-    renderVocabularyList(grid);
+
+  function tryInit() {
+    if (typeof VOCABULARY_BDD !== 'undefined' && VOCABULARY_BDD.length > 0) {
+      populateFilters();
+      const grid = document.getElementById('vocabGrid');
+      if (grid && typeof renderVocabularyList === 'function') {
+        renderVocabularyList(grid);
+      }
+      attachListeners();
+    } else {
+      if (!window._vocabRetryCount) window._vocabRetryCount = 0;
+      window._vocabRetryCount++;
+      if (window._vocabRetryCount < 50) {
+        setTimeout(tryInit, 100);
+      } else {
+        const grid = document.getElementById('vocabGrid');
+        if (grid) grid.innerHTML = '<div class="empty-state">⚠️ Vocabulary data failed to load.<br>Check console for errors.</div>';
+        const countEl = document.getElementById('vocabCount');
+        if (countEl) countEl.textContent = 'Error';
+      }
+    }
   }
-  attachListeners();
+
+  tryInit();
 }
 
 function populateFilters() {
