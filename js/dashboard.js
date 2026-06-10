@@ -1,15 +1,13 @@
 // ═══════════════════════════════════════════════════════════════════
 // DASHBOARD.JS — Daily French 🥖 v2.1
 // Logique tableau de bord : journey, badges, caméléon, historique, skills
-// 
-// AJOUTS v2.1 :
-//   + renderLifeSkills() : état "vide" explicite avec message + bouton
-//   + renderLifeSkills() : affiche toujours les 10 compétences
-//   + Mini-jeu "Life Simulator" intégré
-//   + initDashboard() : détecte joueur et redirige si besoin
-// V3.8 Corrections : renderBadges grid + padding bottom
-// ══════════════════════════════════════════════════════════════════
-// ─── BADGES DEFINITIONS (30 badges) ─────────────────────────────
+//
+// CORRECTION v3.1 :
+//   - Suppression accolade orpheline à la fin
+//   - Protection sosFavorites undefined
+// ═══════════════════════════════════════════════════════════════════
+
+// ─── BADGES DEFINITIONS (26 badges) ─────────────────────────────
 const BADGES_DEF = [
   { id: 'tasteful', icon: '💗', name: 'Tasteful', desc: 'Complete level 5' },
   { id: 'mall_rat', icon: '🏬', name: 'Mall Rat', desc: 'Complete level 6' },
@@ -93,14 +91,14 @@ function renderJourneyMap(p) {
   if (!container) return;
 
   container.innerHTML = '';
-  const max = SUBJECT_CONFIG?.maxLevel || 20;
+  const max = (typeof SUBJECT_CONFIG !== 'undefined' && SUBJECT_CONFIG.maxLevel) ? SUBJECT_CONFIG.maxLevel : 20;
   const done = p.completed || [];
   const currentLvl = p.currentLevel || 1;
 
   for (let i = 1; i <= max; i++) {
     const tile = document.createElement('div');
     tile.className = 'journey-tile';
-    const fullName = LEVEL_NAMES[i] || 'Level ' + i;
+    const fullName = (typeof LEVEL_NAMES !== 'undefined' && LEVEL_NAMES[i]) ? LEVEL_NAMES[i] : 'Level ' + i;
     const shortName = fullName.replace(/\p{Emoji}/gu, '').trim();
 
     if (done.includes(i)) {
@@ -128,7 +126,7 @@ function renderJourneyMap(p) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 3. BADGES — Grille corrigée v3.0
+// 3. BADGES
 // ═══════════════════════════════════════════════════════════════════
 
 function renderBadges(p) {
@@ -151,7 +149,6 @@ function renderBadges(p) {
   });
 }
 
-// ─── CHECK & UNLOCK BADGES ───────────────────────────────────────
 function checkBadges(p) {
   const newBadges = [];
   const completed = p.completed || [];
@@ -173,25 +170,18 @@ function checkBadges(p) {
   if (completed.includes(19) && !p.badges.includes('chef')) newBadges.push('chef');
   if (completed.includes(20) && !p.badges.includes('fluent')) newBadges.push('fluent');
 
-  // Streak badges
   if (p.streak >= 3 && !p.badges.includes('streak_3')) newBadges.push('streak_3');
   if (p.streak >= 7 && !p.badges.includes('streak_7')) newBadges.push('streak_7');
 
-  // Perfectionist (100% on any level)
   const hasPerfect = history.some(h => h.pct === 100);
   if (hasPerfect && !p.badges.includes('perfectionist')) newBadges.push('perfectionist');
 
-  // Halfway (10 levels)
   if (completed.length >= 10 && !p.badges.includes('halfway')) newBadges.push('halfway');
-
-  // Champion (all levels)
   if (completed.length >= 20 && !p.badges.includes('champion')) newBadges.push('champion');
 
-  // Explorer (all 3 modes)
   const modes = new Set(history.map(h => h.mode).filter(Boolean));
   if (modes.size >= 3 && !p.badges.includes('explorer')) newBadges.push('explorer');
 
-  // Early bird (play before 8am)
   const earlyPlays = history.filter(h => {
     const d = new Date(h.date);
     return d.getHours() < 8;
@@ -263,7 +253,7 @@ function renderHistory(p) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 6. GENIUS — Mots sauvegardés
+// 6. GENIUS
 // ═══════════════════════════════════════════════════════════════════
 
 function renderGenius() {
@@ -331,21 +321,19 @@ function renderLifeSkills(p) {
 function calculateSkillScore(skill, p) {
   let score = 0;
   const completed = p.completed || [];
-  const favs = sosFavorites || [];
+  // CORRECTION : protection si sosFavorites n'existe pas (emergency.js non chargé)
+  const favs = (typeof sosFavorites !== 'undefined') ? sosFavorites : [];
 
-  // Niveaux quiz complétés (max 2.5 pts)
   if (skill.levels) {
     const done = skill.levels.filter(l => completed.includes(l)).length;
     score += (done / skill.levels.length) * 2.5;
   }
 
-  // Favoris SOS liés (max 1.5 pts)
   if (skill.sosCategories) {
     const linked = favs.filter(f => skill.sosCategories.includes(f.category)).length;
     score += Math.min(linked * 0.3, 1.5);
   }
 
-  // Conversations réussies (max 1.0 pt)
   if (skill.convScenarios && p.conversationProgress) {
     const done = skill.convScenarios.filter(s => {
       const prog = p.conversationProgress[s];
@@ -381,7 +369,6 @@ function startLifeSimulator(skill) {
   const container = document.getElementById('lifeSkillsGrid');
   if (!container) return;
 
-  // Afficher les 3 scénarios
   container.innerHTML = '';
   const header = document.createElement('div');
   header.style.cssText = 'grid-column:1/-1;text-align:center;margin-bottom:var(--space-md);';
@@ -403,7 +390,6 @@ function startLifeSimulator(skill) {
     container.appendChild(card);
   });
 
-  // Bouton retour
   const back = document.createElement('div');
   back.style.cssText = 'grid-column:1/-1;text-align:center;';
   back.innerHTML = `<button class="btn btn-ghost btn-small" onclick="updateDashboard()">← Back to skills</button>`;
@@ -447,7 +433,6 @@ function answerLifeQuestion(choice) {
   lifeSimState.answers.push({ question: q.question, correct: isCorrect });
   if (isCorrect) lifeSimState.score++;
 
-  // Feedback
   const container = document.getElementById('lifeSkillsGrid');
   if (container) {
     const feedback = document.createElement('div');
@@ -482,7 +467,6 @@ function showLifeResults() {
     </div>
   `;
 
-  // Sauvegarder le score
   const current = PlayerManager.getCurrent();
   const p = PlayerManager.load(current);
   if (p) {
@@ -502,5 +486,3 @@ function showLifeResults() {
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof initDashboard === 'function') initDashboard();
 });
-
-}
