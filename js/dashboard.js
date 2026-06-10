@@ -1,12 +1,10 @@
 // ═══════════════════════════════════════════════════════════════════
-// DASHBOARD.JS — Daily French 🥖 v3.1
+// DASHBOARD.JS — Daily French 🥖 v3.2
 // Logique tableau de bord : journey, badges, caméléon, historique, skills
 //
-// CORRECTIONS v3.1 :
-//   - try/catch global pour éviter le blanc
-//   - Protection sosFavorites
-//   - Vérification existence LIFE_SKILLS avant rendu
-//   - Suppression accolade orpheline
+// CORRECTIONS v3.2 :
+//   - Life Simulator : ajout de vraies questions/réponses
+//   - Chargement séquentiel vocabulary-data.js (voir vocabulary-data.js v3.3)
 // ═══════════════════════════════════════════════════════════════════
 
 // ─── BADGES DEFINITIONS (26 badges) ─────────────────────────────
@@ -48,11 +46,122 @@ const CAM_STAGES = [
   { min: 50, icon: '👑', name: 'Dragon', color: '#F59E0B' }
 ];
 
-// ─── LIFE SIMULATOR SCENARIOS ─────────────────────────────────────
+// ─── LIFE SIMULATOR SCENARIOS — CORRIGÉ : vraies questions ──────
 const LIFE_SIMULATOR_SCENARIOS = [
-  { id: 'market', icon: '🛒', title: 'At the Market', desc: 'Buy groceries' },
-  { id: 'doctor', icon: '🩺', title: 'Doctor Visit', desc: 'Explain symptoms' },
-  { id: 'bank', icon: '🏦', title: 'At the Bank', desc: 'Open an account' }
+  {
+    id: 'market',
+    icon: '🛒',
+    title: 'At the Market',
+    desc: 'Buy groceries and ask for prices',
+    questions: [
+      {
+        question: 'You want to buy apples. How do you ask "How much is it per kilo?"',
+        options: [
+          'Combien ça coûte le kilo ?',
+          'Où sont les pommes ?',
+          'Je voudrais un kilo de pommes.'
+        ],
+        correct: 0,
+        explanation: '"Combien ça coûte le kilo ?" = How much is it per kilo?'
+      },
+      {
+        question: 'The vendor says "Ça fait 4 euros 50". What does it mean?',
+        options: [
+          'It costs 4.50€',
+          'It weighs 4.50kg',
+          'There are 4.50 items'
+        ],
+        correct: 0,
+        explanation: '"Ça fait 4 euros 50" = That makes 4.50€ (total price)'
+      },
+      {
+        question: 'You want to pay. What do you say?',
+        options: [
+          'Je peux payer par carte ?',
+          'C\'est trop cher !',
+          'Je ne veux pas ça.'
+        ],
+        correct: 0,
+        explanation: '"Je peux payer par carte ?" = Can I pay by card?'
+      }
+    ]
+  },
+  {
+    id: 'doctor',
+    icon: '🩺',
+    title: 'Doctor Visit',
+    desc: 'Explain your symptoms',
+    questions: [
+      {
+        question: 'You have a headache. How do you say it?',
+        options: [
+          'J\'ai mal à la tête.',
+          'J\'ai froid.',
+          'Je suis fatigué.'
+        ],
+        correct: 0,
+        explanation: '"J\'ai mal à la tête" = I have a headache (literally: I have pain to the head)'
+      },
+      {
+        question: 'The doctor asks "Depuis quand ?" What does it mean?',
+        options: [
+          'Since when? (how long?)',
+          'Why?',
+          'Where?'
+        ],
+        correct: 0,
+        explanation: '"Depuis quand ?" = Since when? / How long have you had this?'
+      },
+      {
+        question: 'You need a prescription. What do you ask?',
+        options: [
+          'Pouvez-vous me faire une ordonnance ?',
+          'Où est la pharmacie ?',
+          'Je veux des médicaments.'
+        ],
+        correct: 0,
+        explanation: '"Pouvez-vous me faire une ordonnance ?" = Can you write me a prescription?'
+      }
+    ]
+  },
+  {
+    id: 'bank',
+    icon: '🏦',
+    title: 'At the Bank',
+    desc: 'Open an account and ask about services',
+    questions: [
+      {
+        question: 'You want to open an account. What do you say?',
+        options: [
+          'Je voudrais ouvrir un compte bancaire.',
+          'Je veux retirer de l\'argent.',
+          'Où est le distributeur ?'
+        ],
+        correct: 0,
+        explanation: '"Je voudrais ouvrir un compte bancaire" = I would like to open a bank account.'
+      },
+      {
+        question: 'The banker asks "Quel type de compte ?" What does it mean?',
+        options: [
+          'What type of account?',
+          'How much money?',
+          'What is your name?'
+        ],
+        correct: 0,
+        explanation: '"Quel type de compte ?" = What type of account?'
+      },
+      {
+        question: 'You need your IBAN. How do you ask?',
+        options: [
+          'Pouvez-vous me donner mon RIB ?',
+          'Je veux fermer mon compte.',
+          'Où puis-je signer ?'
+        ],
+        correct: 0,
+        explanation: '"RIB" (Relevé d\'Identité Bancaire) = bank details document with IBAN'
+      }
+    ]
+  }
 ];
 
 let lifeSimState = { scenario: null, questionIndex: 0, score: 0, answers: [] };
@@ -305,7 +414,6 @@ function renderLifeSkills(p) {
   const container = document.getElementById('lifeSkillsGrid');
   if (!container) return;
 
-  // Si LIFE_SKILLS n'existe pas, afficher message d'erreur contrôlé
   if (typeof LIFE_SKILLS === 'undefined') {
     container.innerHTML = '<div style="text-align:center;color:var(--muted);padding:var(--space-lg)">Life Skills data not loaded.</div>';
     return;
@@ -343,7 +451,6 @@ function renderLifeSkills(p) {
 function calculateSkillScore(skill, p) {
   let score = 0;
   const completed = p.completed || [];
-  // CORRECTION : protection si sosFavorites n'existe pas
   const favs = (typeof sosFavorites !== 'undefined' && Array.isArray(sosFavorites)) ? sosFavorites : [];
 
   if (skill.levels) {
@@ -384,7 +491,7 @@ function getSkillLevelLabel(score) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// 8. LIFE SIMULATOR
+// 8. LIFE SIMULATOR — CORRIGÉ : vraies questions
 // ═══════════════════════════════════════════════════════════════════
 
 function startLifeSimulator(skill) {
@@ -427,7 +534,9 @@ function renderLifeQuestion() {
   const container = document.getElementById('lifeSkillsGrid');
   if (!container) return;
 
-  const q = lifeSimState.scenario.questions?.[lifeSimState.questionIndex];
+  const questions = lifeSimState.scenario.questions || [];
+  const q = questions[lifeSimState.questionIndex];
+
   if (!q) {
     showLifeResults();
     return;
@@ -438,7 +547,7 @@ function renderLifeQuestion() {
   card.style.cssText = 'grid-column:1/-1;background:var(--white);border-radius:var(--r);padding:var(--space-lg);border:1px solid var(--border);';
 
   card.innerHTML = `
-    <div style="font-size:var(--font-sm);color:var(--muted);margin-bottom:var(--space-sm)">Question ${lifeSimState.questionIndex + 1} / ${lifeSimState.scenario.questions.length}</div>
+    <div style="font-size:var(--font-sm);color:var(--muted);margin-bottom:var(--space-sm)">Question ${lifeSimState.questionIndex + 1} / ${questions.length}</div>
     <div style="font-size:var(--font-lg);font-weight:700;margin-bottom:var(--space-lg)">${q.question}</div>
     <div style="display:flex;flex-direction:column;gap:var(--space-sm)">
       ${q.options.map((opt, i) => `<button class="btn btn-ghost" style="text-align:left;justify-content:flex-start" onclick="answerLifeQuestion(${i})">${opt}</button>`).join('')}
@@ -449,7 +558,10 @@ function renderLifeQuestion() {
 }
 
 function answerLifeQuestion(choice) {
-  const q = lifeSimState.scenario.questions[lifeSimState.questionIndex];
+  const questions = lifeSimState.scenario.questions || [];
+  const q = questions[lifeSimState.questionIndex];
+  if (!q) return;
+
   const isCorrect = choice === q.correct;
 
   lifeSimState.answers.push({ question: q.question, correct: isCorrect });
@@ -473,9 +585,10 @@ function showLifeResults() {
   const container = document.getElementById('lifeSkillsGrid');
   if (!container) return;
 
-  const total = lifeSimState.scenario.questions.length;
+  const questions = lifeSimState.scenario.questions || [];
+  const total = questions.length;
   const correct = lifeSimState.score;
-  const pct = Math.round((correct / total) * 100);
+  const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
 
   container.innerHTML = `
     <div style="grid-column:1/-1;text-align:center;padding:var(--space-xl)">
