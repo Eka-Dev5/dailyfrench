@@ -2,13 +2,13 @@
 // vocab-level-21.js — Daily French 🥖
 // NIVEAU 21 — Actualités & vie sociale  📺
 // 642 entrées organisées par thème
-// PARTIE 1 : Médias, Communication & Opinion Publique
+// PARTIE 1 : Médias, Politique & Opinion Publique et instututions 
 // ═══════════════════════════════════════════════════════════════════
 
 const VOCAB_LEVEL_21 = [
-    # ═════════════════════════════════════════════════════════════════
-    # THÈME 1 : MÉDIAS & INFORMATION (12)
-    # ═════════════════════════════════════════════════════════════════
+// ═════════════════════════════════════════════════════════════════
+// THÈME 1 : MÉDIAS & INFORMATION (12)
+
     {"fr": "les actualités", "en": "the news", "phon": "*lay zak-too-a-lee-TAY*", "def": "Informations du jour.", "ex": "Je regarde les actualités du soir.", "level": 21, "cat": "média"},
     {"fr": "un journal", "en": "a newspaper", "phon": "*uh zhoor-NAL*", "def": "Périodique d'information.", "ex": "Je lis le journal le matin.", "level": 21, "cat": "média"},
     {"fr": "une chaîne (TV)", "en": "a TV channel", "phon": "*oon SHEN*", "def": "Canal de télévision.", "ex": "Zappe sur une autre chaîne.", "level": 21, "cat": "média"},
@@ -22,9 +22,9 @@ const VOCAB_LEVEL_21 = [
     {"fr": "censurer", "en": "to censor", "phon": "*son-sew-RAY*", "def": "Interdire la diffusion.", "ex": "Censurer un article.", "level": 21, "cat": "média"},
     {"fr": "désinformer", "en": "to misinform", "phon": "*day-zon-for-MAY*", "def": "Donner de fausses infos.", "ex": "Désinformer l'opinion publique.", "level": 21, "cat": "média"},
 
-    # ═════════════════════════════════════════════════════════════════
-    # THÈME 2 : POLITIQUE — ORIENTATIONS & PARTIS (10)
-    # ═════════════════════════════════════════════════════════════════
+//═════════════════════════════════════════════════════════════════
+// THÈME 2 : POLITIQUE — ORIENTATIONS & PARTIS (10)
+// ═════════════════════════════════════════════════════════════════
     {"fr": "la politique", "en": "politics / policy", "phon": "*la po-lee-TEEK*", "def": "Affaires publiques.", "ex": "Je ne fais pas de politique.", "level": 21, "cat": "politique"},
     {"fr": "un parti (politique)", "en": "a (political) party", "phon": "*uh par-TEE*", "def": "Groupe politique.", "ex": "Le parti socialiste.", "level": 21, "cat": "politique"},
     {"fr": "la gauche", "en": "the left", "phon": "*la GOHSH*", "def": "Orientation politique de gauche.", "ex": "Je suis de gauche.", "level": 21, "cat": "politique"},
@@ -36,9 +36,9 @@ const VOCAB_LEVEL_21 = [
     {"fr": "un électeur / une électrice", "en": "a voter", "phon": "*uh ay-lek-TUR / oon ay-lek-TREES*", "def": "Personne qui vote.", "ex": "L'électeur a choisi son candidat.", "level": 21, "cat": "politique"},
     {"fr": "un citoyen / une citoyenne", "en": "a citizen", "phon": "*uh see-twa-YON / oon see-twa-YENN*", "def": "Habitant d'un État.", "ex": "Un citoyen engagé.", "level": 21, "cat": "politique"},
 
-    # ═════════════════════════════════════════════════════════════════
-    # THÈME 3 : INSTITUTIONS & ÉLUS (14)
-    # ═════════════════════════════════════════════════════════════════
+ // ═════════════════════════════════════════════════════════════════//
+// THÈME 3 : INSTITUTIONS & ÉLUS (14)
+// ═════════════════════════════════════════════════════════════════
     {"fr": "le Président (de la République)", "en": "the President", "phon": "*luh pray-zee-DON*", "def": "Chef de l'État français.", "ex": "Le Président de la République.", "level": 21, "cat": "politique"},
     {"fr": "le Premier ministre", "en": "the Prime Minister", "phon": "*luh pruh-MYAY mee-NEESTR*", "def": "Chef du gouvernement.", "ex": "Le Premier ministre français.", "level": 21, "cat": "politique"},
     {fr:"déchets",en:"waste",phon:"*day-SHAY*",def:"Produits jetés",ex:"La gestion des déchets.",level:21,cat:"politique"},
