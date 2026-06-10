@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Test Un Fichier</title>
+  <style>
+    body { font-family: monospace; padding: 10px; background: #111; color: #0f0; font-size: 13px; }
+    .ok { color: #0f0; }
+    .err { color: #f00; }
+  </style>
+</head>
+<body>
+  <h3>🔍 Test vocab-level-1.js</h3>
+  <div id="out"></div>
+
+  <script src="js/vocab-levels/vocab-level-1.js"></script>
+  <script>
+    const out = document.getElementById('out');
+    const keys = Object.keys(window).filter(k => k.startsWith('VOCAB'));
+    out.innerHTML += '<div>Variables VOCAB* trouvées : ' + keys.length + '</div>';
+    keys.forEach(k => {
+      const val = window[k];
+      const isArray = Array.isArray(val);
+      const len = isArray ? val.length : 'N/A';
+      out.innerHTML += '<div class="' + (isArray && len > 0 ? 'ok' : 'err') + '">' + k + ' : ' + (typeof val) + ', length=' + len + '</div>';
+    });
+    if (keys.length === 0) {
+      out.innerHTML += '<div class="err">AUCUNE variable VOCAB* trouvée !</div>';
+      out.innerHTML += '<div class="err">Le fichier ne définit pas VOCAB_LEVEL_1</div>';
+    }
+  </script>
+</body>
+</html>
