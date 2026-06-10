@@ -8,11 +8,12 @@
   <title>Daily French 🥖 — My Space</title>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/dashboard.css">
-  <!-- nav.js enlevé temporairement pour test -->
+  <script src="js/nav.js"></script>
 </head>
 <body>
   <div id="toast" class="toast"></div>
 
+  <!-- MODAL -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
@@ -24,6 +25,7 @@
     </div>
   </div>
 
+  <!-- VOCAB POPUP -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
@@ -31,11 +33,16 @@
     </div>
   </div>
 
+  <!-- HERO — ORDRE CORRIGÉ : avatar → info → switch → xp -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">?<span class="hero-lvl-badge" id="heroLvl">1</span></div>
-    <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
+    <div class="hero-info">
+      <div class="hero-name" id="heroName">Guest</div>
+    </div>
     <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
+      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
+        <option value="">Choose a player</option>
+      </select>
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
     </div>
     <div class="hero-xp">
@@ -44,22 +51,42 @@
     </div>
   </header>
 
+  <!-- BENTO -->
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
     <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
     <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
 
+  <!-- MAIN -->
   <main class="dashboard-main">
-    <section class="dash-section" id="dash-life"><h2 class="dash-title">🇫🇷 My Life in France</h2><div id="lifeSkillsGrid" class="life-skills-grid"></div></section>
-    <section class="dash-section" id="dash-levels"><h2 class="dash-title">🗺️ Journey</h2><div id="journeyMap" class="journey-map"></div></section>
-    <section class="dash-section" id="dash-badges"><h2 class="dash-title">🏅 Badges</h2><div id="badgesGrid" class="badges-grid"></div></section>
-    <section class="dash-section" id="dash-cameleon"><h2 class="dash-title">🦎 Cameleon</h2><div id="cameleonStage" class="cameleon-stage"></div></section>
-    <section class="dash-section" id="dash-history"><h2 class="dash-title">📜 History</h2><div id="historyList" class="history-list"></div></section>
-    <section class="dash-section" id="dash-genius"><h2 class="dash-title">🪔 Mon Génie</h2><div id="geniusPanel" class="genius-panel"></div></section>
+    <section class="dash-section" id="dash-life">
+      <h2 class="dash-title">🇫🇷 My Life in France</h2>
+      <div id="lifeSkillsGrid" class="life-skills-grid"></div>
+    </section>
+    <section class="dash-section" id="dash-levels">
+      <h2 class="dash-title">🗺️ Journey</h2>
+      <div id="journeyMap" class="journey-map"></div>
+    </section>
+    <section class="dash-section" id="dash-badges">
+      <h2 class="dash-title">🏅 Badges</h2>
+      <div id="badgesGrid" class="badges-grid"></div>
+    </section>
+    <section class="dash-section" id="dash-cameleon">
+      <h2 class="dash-title">🦎 Cameleon</h2>
+      <div id="cameleonStage" class="cameleon-stage"></div>
+    </section>
+    <section class="dash-section" id="dash-history">
+      <h2 class="dash-title">📜 History</h2>
+      <div id="historyList" class="history-list"></div>
+    </section>
+    <section class="dash-section" id="dash-genius">
+      <h2 class="dash-title">🪔 Mon Génie</h2>
+      <div id="geniusPanel" class="genius-panel"></div>
+    </section>
   </main>
 
-  <!-- ORDRE CORRIGÉ : core.js AVANT vocabulary-data.js -->
+  <!-- SCRIPTS — ORDRE CORRIGÉ : core.js AVANT vocabulary-data.js -->
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
@@ -72,10 +99,22 @@
   <script src="js/dashboard.js"></script>
 
   <script>
-    function applyThemePick(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('dailyFrench_theme',t);if(typeof toast==='function')toast('Theme: '+t)}
-    function applyLangPick(l){localStorage.setItem('dailyFrench_lang',l);if(typeof toast==='function')toast('Language: '+l.toUpperCase())}
-    (function(){const t=localStorage.getItem('dailyFrench_theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
-    document.addEventListener('DOMContentLoaded',function(){if(typeof initDashboard==='function')initDashboard()});
+    function applyThemePick(t){
+      document.documentElement.setAttribute('data-theme',t);
+      localStorage.setItem('dailyFrench_theme',t);
+      if(typeof toast==='function')toast('Theme: '+t);
+    }
+    function applyLangPick(l){
+      localStorage.setItem('dailyFrench_lang',l);
+      if(typeof toast==='function')toast('Language: '+l.toUpperCase());
+    }
+    (function(){
+      const t=localStorage.getItem('dailyFrench_theme');
+      if(t)document.documentElement.setAttribute('data-theme',t);
+    })();
+    document.addEventListener('DOMContentLoaded',function(){
+      if(typeof initDashboard==='function')initDashboard();
+    });
   </script>
 </body>
 </html>
