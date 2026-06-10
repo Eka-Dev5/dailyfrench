@@ -6,87 +6,135 @@
 
 const VOCAB_LEVEL_14 = [
   // === BESOINS PHYSIOLOGIQUES (12) ===
-  {fr:"faim",en:"hunger",phon:"*FAN*",def:"Besoin de manger",ex:"J'ai faim.",level:14,cat:"besoin"},
-  {fr:"soif",en:"thirst",phon:"*SWAHF*",def:"Besoin de boire",ex:"J'ai soif.",level:14,cat:"besoin"},
-  {fr:"sommeil",en:"sleepiness",phon:"*som-MAY*",def:"Besoin de dormir",ex:"J'ai sommeil.",level:14,cat:"besoin"},
-  {fr:"fatigue",en:"tiredness",phon:"*fa-TEEG*",def:"Besoin de repos",ex:"J'ai de la fatigue.",level:14,cat:"besoin"},
-  {fr:"froid",en:"cold",phon:"*FRWAH*",def:"Besoin de chaleur",ex:"J'ai froid.",level:14,cat:"besoin"},
-  {fr:"chaud",en:"hot",phon:"*SHOH*",def:"Besoin de fraîcheur",ex:"J'ai chaud.",level:14,cat:"besoin"},
-  {fr:"toilettes",en:"need to use the restroom",phon:"*twa-LET*",def:"Besoin naturel",ex:"J'ai besoin des toilettes.",level:14,cat:"besoin"},
-  {fr:"douleur",en:"pain",phon:"*doo-LUR*",def:"Sensation désagréable",ex:"J'ai une douleur.",level:14,cat:"besoin"},
-  {fr:"mal",en:"ache / hurt",phon:"*MAL*",def:"Souffrance",ex:"J'ai mal à la t14 → 50 entrées)
+  {fr:"faim",en:"hunger",phon:"*FAN*",def:"Besoin de manger.",ex:"J'ai faim.",level:14,cat:"besoin"},
+  {fr:"soif",en:"thirst",phon:"*SWAHF*",def:"Besoin de boire.",aque fichier contient **deux morceaux de code collés ensemble** :
+
+1. **Le début du fichier** = le vrai contenu du niveau (ex: niveau 7, 6, 8, 14, 18)
+2. **À partir du commentaire `// === AJOUTS NIVEAU X ===`** = du contenu du **niveau 4** (voisinage) qui s'est écrasé par-dessus
+
+Regarde ces exemples :
+
+**vocab-level-7.js** (niveau 7 = amis & sorties) :
+- Ligne 13 : `// === AJOUTS NIVEAU 7 (39 entrées) ===`
+- Puis soudain : `{fr:"présenter",en:"to introduce"... level:4,cat:"verbe"}` ← **C'est du niveau 4 !**
+
+**vocab-level-6.js** (niveau 6 = commerçant) :
+- Même chose, le contenu du niveau 4 s'est collé à la fin
+
+**vocab-level-8.js** (niveau 8 = météo) :
+- Idem, niveau 4 écrasé à la fin
+
+**vocab-level-14.js** :
+- Même corruption, plus un morceau du niveau 13 dedans
+
+**vocab-level-18.js** :
+- Même pattern, et en plus il manque la déclaration `const VOCAB_LEVEL_18 = [` au début
+
+---
+
+## Pourquoi ça plante
+
+Le JavaScript ne peut pas parser ces fichiers car :
+- Des accolades `}` manquent ou sont en trop
+- Des virgules sont mal placées
+- Des morceaux de code se chevauchent
+
+Résultat : `VOCAB_LEVEL_X` n'est jamais défini → le navigateur saute le fichier → "MANQUANT" dans ton test.
+
+---
+
+## Ce qu'il s'est passé
+
+Quand tu as copié-collé mes fichiers précédents (niveaux 18, 19, 20), le contenu du **niveau 4** s'est mélangé avec. Probablement parce que :
+- Tu as fait un copier-coller depuis un fichier qui contenait déjà du niveau 4
+- Ou le presse-papiers avait encore l'ancien contenu
+- Ou tu as écrasé des fichiers existants sans vider le contenu d'abord
+
+---
+
+## Solution : Refaire les 5 fichiers propres
+
+Je vais te donner les **5 fichiers corrigés un par un**. Pour chacun :
+
+1. **Ouvre le fichier sur ton Mac**
+2. **Sélectionne TOUT le contenu** (Cmd+A) et **supprime** (Suppr)
+3. **Copie mon code ci-dessous**
+4. **Colle** (Cmd+V)
+5. **Sauvegarde**
+
+---
+
+### FICHIER 1 : `vocab-level-6.js` (chez le commerçant)
 
 ```javascript
 // ═══════════════════════════════════════════════════════════════════
-// vocab-level-13.js — Daily French 🥖
-// NIVEAU 13 — Mes Émotions 😊
+// vocab-level-6.js — Daily French 🥖
+// NIVEAU 6 — Chez le commerçant 🛍️
 // Entrées : 50
 // ═══════════════════════════════════════════════════════════════════
 
-const VOCAB_LEVEL_13 = [
-  // === JOIE / POSITIF (12) ===
-  {fr:"heureux",en:"happy (male)",phon:"*ur-RUR*",def:"Ressentir du bonheur",ex:"Je suis heureux.",level:13,cat:"sentiment"},
-  {fr:"heureuse",en:"happy (female)",phon:"*ur-RURZ*",def:"Ressentir du bonheur",ex:"Je suis heureuse.",level:13,cat:"sentiment"},
-  {fr:"content",en:"glad / pleased (male)",phon:"*kon-TON*",def:"Satisfait",ex:"Je suis content.",level:13,cat:"sentiment"},
-  {fr:"contente",en:"glad / pleased (female)",phon:"*kon-TONT*",def:"Satisfaite",ex:"Je suis contente.",level:13,cat:"sentiment"},
-  {fr:"joyeux",en:"joyful (male)",phon:"*zhwa-YUR*",def:"Plein de joie",ex:"Un enfant joyeux.",level:13,cat:"sentiment"},
-  {fr:"joyeuse",en:"joyful (female)",phon:"*zhwa-YURZ*",def:"Pleine de joie",ex:"Une journée joyeuse.",level:13,cat:"sentiment"},
-  {fr:"ravi",en:"delighted (male)",phon:"*ra-VEE*",def:"Très content",ex:"Je suis ravi de vous voir.",level:13,cat:"sentiment"},
-  {fr:"ravie",en:"delighted (female)",phon:"*ra-VEE*",def:"Très contente",ex:"Je suis ravie.",level:13,cat:"sentiment"},
-  {fr:"satisfait",en:"satisfied (male)",phon:"*sa-tees-FAY*",def:"Comblé",ex:"Je suis satisfait.",level:13,cat:"sentiment"},
-  {fr:"satisfaite",en:"satisfied (female)",phon:"*sa-tees-FET*",def:"Comblée",ex:"Je suis satisfaite.",level:13,cat:"sentiment"},
-  {fr:"fier",en:"proud (male)",phon:"*FYAIR*",def:"Ressentir de la fierté",ex:"Je suis fier de toi.",level:13,cat:"sentiment"},
-  {fr:"fière",en:"proud (female)",phon:"*FYAIR*",def:"Ressentir de la fierté",ex:"Je suis fière.",level:13,cat:"sentiment"},
+const VOCAB_LEVEL_6 = [
+  // === MAGASINS (10) ===
+  {fr:"la pâtisserie",en:"pastry shop",phon:"*pa-tee-suh-REE*",def:"Commerce de gâteaux et pâtisseries.",ex:"Une tarte à la pâtisserie.",level:6,cat:"commerce"},
+  {fr:"la boucherie",en:"butcher shop",phon:"*boo-shuh-REE*",def:"Commerce de viande.",ex:"De la viande à la boucherie.",level:6,cat:"commerce"},
+  {fr:"la charcuterie",en:"delicatessen",phon:"*shar-koo-tuh-REE*",def:"Commerce de salaison et charcuterie.",ex:"Du saucisson à la charcuterie.",level:6,cat:"commerce"},
+  {fr:"la pharmacie",en:"pharmacy",phon:"*far-ma-SEE*",def:"Commerce de médicaments.",ex:"À côté de la pharmacie.",level:6,cat:"commerce"},
+  {fr:"le tabac-presse",en:"newsagent / tobacconist",phon:"*ta-BAK PRESS*",def:"Commerce typique : cigarettes, timbres, journaux.",ex:"Acheter des timbres au tabac-presse.",level:6,cat:"commerce"},
+  {fr:"le supermarché",en:"supermarket",phon:"*soo-pair-mar-SHAY*",def:"Grand magasin alimentaire.",ex:"Faire les courses au supermarché.",level:6,cat:"commerce"},
+  {fr:"le marché",en:"market",phon:"*mar-SHAY*",def:"Lieu de vente en plein air.",ex:"Le marché du samedi matin.",level:6,cat:"commerce"},
+  {fr:"la boulangerie",en:"bakery",phon:"*boo-lan-zhuh-REE*",def:"Commerce de pain et viennoiseries.",ex:"La baguette à la boulangerie.",level:6,cat:"commerce"},
+  {fr:"l'épicerie",en:"grocery store",phon:"*lay-pee-suh-REE*",def:"Petit magasin alimentaire.",ex:"L'épicerie du coin.",level:6,cat:"commerce"},
+  {fr:"le primeur",en:"greengrocer",phon:"*pree-MUR*",def:"Commerce de fruits et légumes frais.",ex:"Les fraises chez le primeur.",level:6,cat:"commerce"},
 
-  // === TRISTESSE / NÉGATIF (12) ===
-  {fr:"triste",en:"sad",phon:"*TREEST*",def:"Ressentir de la peine",ex:"Je suis triste.",level:13,cat:"sentiment"},
-  {fr:"malheureux",en:"unhappy (male)",phon:"*mal-ur-RUR*",def:"Pas heureux",ex:"Il est malheureux.",level:13,cat:"sentiment"},
-  {fr:"malheureuse",en:"unhappy (female)",phon:"*mal-ur-RURZ*",def:"Pas heureuse",ex:"Elle est malheureuse.",level:13,cat:"sentiment"},
-  {fr:"déçu",en:"disappointed (male)",phon:"*day-SEW*",def:"Avoir une attente non remplie",ex:"Je suis déçu.",level:13,cat:"sentiment"},
-  {fr:"déçue",en:"disappointed (female)",phon:"*day-SEW*",def:"Avoir une attente non remplie",ex:"Je suis déçue.",level:13,cat:"sentiment"},
-  {fr:"frustré",en:"frustrated (male)",phon:"*froos-TRAY*",def:"Bloqué dans son désir",ex:"Je suis frustré.",level:13,cat:"sentiment"},
-  {fr:"frustrée",en:"frustrated (female)",phon:"*froos-TRAY*",def:"Bloquée dans son désir",ex:"Je suis frustrée.",level:13,cat:"sentiment"},
-  {fr:"déprimé",en:"depressed (male)",phon:"*day-pree-MAY*",def:"Moralement abattu",ex:"Il est déprimé.",level:13,cat:"sentiment"},
-  {fr:"déprimée",en:"depressed (female)",phon:"*day-pree-MAY*",def:"Moralement abattue",ex:"Elle est déprimée.",level:13,cat:"sentiment"},
-  {fr:"seul",en:"lonely (male)",phon:"*SURL*",def:"Isolé",ex:"Je me sens seul.",level:13,cat:"sentiment"},
-  {fr:"seule",en:"lonely (female)",phon:"*SURL*",def:"Isolée",ex:"Je me sens seule.",level:13,cat:"sentiment"},
-  {fr:"nostalgique",en:"nostalgic",phon:"*nos-tal-ZHEEK*",def:"Regretter le passé",ex:"Je suis nostalgique.",level:13,cat:"sentiment"},
+  // === PRODUITS (15) ===
+  {fr:"un timbre",en:"a stamp",phon:"*uh TAN-bruh*",def:"Vignette pour affranchir le courrier.",ex:"Un timbre pour l'étranger.",level:6,cat:"objet"},
+  {fr:"lait cru",en:"raw milk",phon:"*lay KROO*",def:"Lait non pasteurisé.",ex:"Du fromage au lait cru.",level:6,cat:"aliment"},
+  {fr:"sans gluten",en:"gluten-free",phon:"*SON gloo-TEN*",def:"Ne contenant pas de gluten.",ex:"Du pain sans gluten.",level:6,cat:"aliment"},
+  {fr:"bio",en:"organic",phon:"*BEE-oh*",def:"Produit sans pesticides.",ex:"Des légumes bio.",level:6,cat:"aliment"},
+  {fr:"le fromage",en:"cheese",phon:"*fro-MAZH*",def:"Produit laitier fermenté.",ex:"Du fromage de chèvre.",level:6,cat:"aliment"},
+  {fr:"le pain",en:"bread",phon:"*PAN*",def:"Aliment de base à base de farine.",ex:"Une baguette de pain.",level:6,cat:"aliment"},
+  {fr:"la viande",en:"meat",phon:"*VYAND*",def:"Chair animale pour l'alimentation.",ex:"De la viande de bœuf.",level:6,cat:"aliment"},
+  {fr:"le poisson",en:"fish",phon:"*pwa-SON*",def:"Animal aquatique comestible.",ex:"Du poisson frais.",level:6,cat:"aliment"},
+  {fr:"les fruits",en:"fruits",phon:"*FRWEE*",def:"Produits végétaux sucrés.",ex:"Des fruits de saison.",level:6,cat:"aliment"},
+  {fr:"les légumes",en:"vegetables",phon:"*lay-GOOM*",def:"Plantes comestibles.",ex:"Des légumes verts.",level:6,cat:"aliment"},
+  {fr:"les œufs",en:"eggs",phon:"*URZ*",def:"Produit de la poule.",ex:"Une douzaine d'œufs.",level:6,cat:"aliment"},
+  {fr:"le sucre",en:"sugar",phon:"*SOO-kruh*",def:"Édulcorant.",ex:"Du sucre en poudre.",level:6,cat:"aliment"},
+  {fr:"le sel",en:"salt",phon:"*SEL*",def:"Condiment.",ex:"Une pincée de sel.",level:6,cat:"aliment"},
+  {fr:"le poivre",en:"pepper",phon:"*PWAH-vruh*",def:"Épice.",ex:"Du poivre noir.",level:6,cat:"aliment"},
+  {fr:"l'huile",en:"oil",phon:"*LWEEL*",def:"Graisse liquide.",ex:"De l'huile d'olive.",level:6,cat:"aliment"},
 
-  // === COLÈRE / IRRITATION (8) ===
-  {fr:"énervé",en:"annoyed (male)",phon:"*ay-nair-VAY*",def:"Irrité",ex:"Je suis énervé.",level:13,cat:"sentiment"},
-  {fr:"énervée",en:"annoyed (female)",phon:"*ay-nair-VAY*",def:"Irritée",ex:"Je suis énervée.",level:13,cat:"sentiment"},
-  {fr:"fâché",en:"angry (male)",phon:"*fa-SHAY*",def:"En colère",ex:"Je suis fâché.",level:13,cat:"sentiment"},
-  {fr:"fâchée",en:"angry (female)",phon:"*fa-SHAY*",def:"En colère",ex:"Je suis fâchée.",level:13,cat:"sentiment"},
-  {fr:"furieux",en:"furious (male)",phon:"*few-RYUR*",def:"Très en colère",ex:"Il est furieux.",level:13,cat:"sentiment"},
-  {fr:"furieuse",en:"furious (female)",phon:"*few-RYURZ*",def:"Très en colère",ex:"Elle est furieuse.",level:13,cat:"sentiment"},
-  {fr:"agacé",en:"irritated (male)",phon:"*a-ga-SAY*",def:"Légèrement énervé",ex:"Je suis agacé.",level:13,cat:"sentiment"},
-  {fr:"agacée",en:"irritated (female)",phon:"*a-ga-SAY*",def:"Légèrement énervée",ex:"Je suis agacée.",level:13,cat:"sentiment"},
+  // === VERBES COMMERCE (10) ===
+  {fr:"acheter",en:"to buy",phon:"*a-shuh-TAY*",def:"Obtenir en payant.",ex:"J'achète du pain.",level:6,cat:"verbe"},
+  {fr:"vendre",en:"to sell",phon:"*VON-druh*",def:"Céder contre de l'argent.",ex:"Il vend des légumes.",level:6,cat:"verbe"},
+  {fr:"payer",en:"to pay",phon:"*pay-YAY*",def:"Donner de l'argent.",ex:"Je paie en espèces.",level:6,cat:"verbe"},
+  {fr:"commander",en:"to order",phon:"*ko-mon-DAY*",def:"Demander un produit.",ex:"Je commande une pizza.",level:6,cat:"verbe"},
+  {fr:"choisir",en:"to choose",phon:"*shwa-ZEER*",def:"Sélectionner.",ex:"Choisir un fruit.",level:6,cat:"verbe"},
+  {fr:"goûter",en:"to taste",phon:"*goo-TAY*",def:"Essayer la saveur.",ex:"Goûter le fromage.",level:6,cat:"verbe"},
+  {fr:"peser",en:"to weigh",phon:"*puh-ZAY*",def:"Mesurer le poids.",ex:"Peser les fruits.",level:6,cat:"verbe"},
+  {fr:"couper",en:"to cut",phon:"*koo-PAY*",def:"Séparer avec un outil tranchant.",ex:"Couper le pain.",level:6,cat:"verbe"},
+  {fr:"emballer",en:"to wrap / package",phon:"*om-ba-LAY*",def:"Mettre dans un emballage.",ex:"Emballer les courses.",level:6,cat:"verbe"},
+  {fr:"rendre la monnaie",en:"to give change",phon:"*RON-druh lah mon-NAY*",def:"Rendre l'excédent payé.",ex:"Il rend la monnaie.",level:6,cat:"expression"},
 
-  // === PEUR / ANXIÉTÉ (8) ===
-  {fr:"peur",en:"fear",phon:"*PUR*",def:"Sentiment de danger",ex:"J'ai peur du noir.",level:13,cat:"sentiment"},
-  {fr:"effrayé",en:"frightened (male)",phon:"*ay-fra-YAY*",def:"Rempli de peur",ex:"Je suis effrayé.",level:13,cat:"sentiment"},
-  {fr:"effrayée",en:"frightened (female)",phon:"*ay-fra-YAY*",def:"Remplie de peur",ex:"Je suis effrayée.",level:13,cat:"sentiment"},
-  {fr:"inquiet",en:"worried (male)",phon:"*an-kee-ET*",def:"Anxieux",ex:"Je suis inquiet.",level:13,cat:"sentiment"},
-  {fr:"inquiète",en:"worried (female)",phon:"*an-kee-ET*",def:"Anxieuse",ex:"Je suis inquiète.",level:13,cat:"sentiment"},
-  {fr:"stressé",en:"stressed (male)",phon:"*stres-SAY*",def:"Sous tension",ex:"Je suis stressé.",level:13,cat:"sentiment"},
-  {fr:"stressée",en:"stressed (female)",phon:"*stres-SAY*",def:"Sous tension",ex:"Je suis stressée.",level:13,cat:"sentiment"},
-  {fr:"paniqué",en:"panicked (male)",phon:"*pa-nee-KAY*",def:"En pleine panique",ex:"Je suis paniqué.",level:13,cat:"sentiment"},
+  // === EXPRESSIONS COMMERCE (10) ===
+  {fr:"combien ça coûte ?",en:"how much does it cost?",phon:"*kom-BYAN sa KOOT*",def:"Demander le prix.",ex:"Combien ça coûte ce fromage ?",level:6,cat:"expression"},
+  {fr:"c'est trop cher",en:"it's too expensive",phon:"*say troh SHAIR*",def:"Prix excessif.",ex:"C'est trop cher pour moi.",level:6,cat:"expression"},
+  {fr:"c'est bon marché",en:"it's cheap",phon:"*say bon mar-SHAY*",def:"Prix bas.",ex:"C'est bon marché ici.",level:6,cat:"expression"},
+  {fr:"je voudrais...",en:"I would like...",phon:"*zhuh voo-DRAY*",def:"Formule polie de demande.",ex:"Je voudrais un kilo de pommes.",level:6,cat:"expression"},
+  {fr:"je prends",en:"I'll take",phon:"*zhuh PRON*",def:"Décider d'acheter.",ex:"Je prends celui-ci.",level:6,cat:"expression"},
+  {fr:"avez-vous... ?",en:"do you have...?",phon:"*a-vay VOO*",def:"Demander la disponibilité.",ex:"Avez-vous du lait ?",level:6,cat:"expression"},
+  {fr:"c'est tout ?",en:"is that all?",phon:"*say TOO*",def:"Demander si la commande est complète.",ex:"C'est tout, merci.",level:6,cat:"expression"},
+  {fr:"un sachet",en:"a bag",phon:"*uh sa-SHAY*",def:"Petit sac en plastique ou papier.",ex:"Un sachet, s'il vous plaît.",level:6,cat:"objet"},
+  {fr:"un panier",en:"a basket",phon:"*uh pan-YAY*",def:"Récipient pour les courses.",ex:"Prenez un panier.",level:6,cat:"objet"},
+  {fr:"un caddie",en:"a shopping cart",phon:"*uh ka-DEE*",def:"Chariot de supermarché.",ex:"Poussez le caddie.",level:6,cat:"objet"},
 
-  // === SURPRISE / ÉTONNEMENT (6) ===
-  {fr:"surpris",en:"surprised (male)",phon:"*soor-PREE*",def:"Pris au dépourvu",ex:"Je suis surpris.",level:13,cat:"sentiment"},
-  {fr:"surprise",en:"surprised (female)",phon:"*soor-PREEZ*",def:"Prise au dépourvu",ex:"Je suis surprise.",level:13,cat:"sentiment"},
-  {fr:"étonné",en:"astonished (male)",phon:"*ay-to-NAY*",def:"Très surpris",ex:"Je suis étonné.",level:13,cat:"sentiment"},
-  {fr:"étonnée",en:"astonished (female)",phon:"*ay-to-NAY*",def:"Très surprise",ex:"Je suis étonnée.",level:13,cat:"sentiment"},
-  {fr:"stupéfait",en:"stunned (male)",phon:"*stew-pay-FAY*",def:"Sidéré",ex:"Je suis stupéfait.",level:13,cat:"sentiment"},
-  {fr:"stupéfaite",en:"stunned (female)",phon:"*stew-pay-FET*",def:"Sidérée",ex:"Je suis stupéfaite.",level:13,cat:"sentiment"},
-
-  // === EXPRESSIONS ÉMOTIONNELLES (4) ===
-  {fr:"avoir le cafard",en:"to feel down / have the blues",phon:"*a-VWAHR luh ka-FAR*",def:"Être déprimé",ex:"J'ai le cafard aujourd'hui.",level:13,cat:"expression"},
-  {fr:"être au septième ciel",en:"to be on cloud nine",phon:"*ET-truh oh set-YEM SYEL*",def:"Être très heureux",ex:"Je suis au septième ciel.",level:13,cat:"expression"},
-  {fr:"avoir les nerfs",en:"to be on edge",phon:"*a-VWAHR lay NAIR*",def:"Être irrité",ex:"J'ai les nerfs.",level:13,cat:"expression"},
-  {fr:"ne pas en croire ses yeux",en:"to not believe one's eyes",phon:"*nuh pa zon kwa-SEER say ZYUR*",def:"Être très surpris",ex:"Je n'en crois pas mes yeux.",level:13,cat:"expression"}
+  // === MONNAIE (5) ===
+  {fr:"un euro",en:"one euro",phon:"*uh UR-oh*",def:"Monnaie européenne.",ex:"Ça coûte un euro.",level:6,cat:"objet"},
+  {fr:"un centime",en:"one cent",phon:"*uh son-TEEM*",def:"Sous-unité de l'euro.",ex:"99 centimes.",level:6,cat:"objet"},
+  {fr:"en espèces",en:"in cash",phon:"*on ay-PESS*",def:"Paiement avec des billets/pièces.",ex:"Je paie en espèces.",level:6,cat:"expression"},
+  {fr:"par carte",en:"by card",phon:"*par KART*",def:"Paiement électronique.",ex:"Je paie par carte.",level:6,cat:"expression"},
+  {fr:"le ticket de caisse",en:"receipt",phon:"*luh tee-KAY duh KESS*",def:"Preuve d'achat.",ex:"Le ticket de caisse, s'il vous plaît.",level:6,cat:"objet"}
 ];
 
 if (typeof window !== 'undefined') {
-  window.VOCAB_LEVEL_13 = VOCAB_LEVEL_13;
+  window.VOCAB_LEVEL_6 = VOCAB_LEVEL_6;
 }
