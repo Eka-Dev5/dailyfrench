@@ -1,38 +1,54 @@
 // ═══════════════════════════════════════════════════════════════════
-// VOCABULARY.JS — Daily French 🥖 v3.0
+// VOCABULARY.JS — Daily French 🥖 v3.1
 // Logique page lexique : init, filtres, écouteurs
-// CORRECTION : attente asynchrone de VOCABULARY_BDD
+// CORRECTION : pas de clignotement, attente propre de VOCABULARY_BDD
 // ═══════════════════════════════════════════════════════════════════
 
 function initVocabulary() {
   if (typeof initCore === 'function') initCore();
 
-  // Attendre que VOCABULARY_BDD soit disponible (chargement dynamique)
-  function tryInit() {
+  const grid = document.getElementById('vocabGrid');
+  const countEl = document.getElementById('vocabCount');
+
+  // Si déjà chargé, afficher directement
+  if (typeof VOCABULARY_BDD !== 'undefined' && VOCABULARY_BDD.length > 0) {
+    doInit();
+    return;
+  }
+
+  // Sinon attendre l'événement vocabularyReady
+  if (typeof EventBus !== 'undefined') {
+    EventBus.on('vocabularyReady', function handler() {
+      doInit();
+      EventBus.off('vocabularyReady', handler);
+    });
+  }
+
+  // Fallback : timer de sécurité (5 secondes max)
+  let retries = 0;
+  const timer = setInterval(() => {
+    retries++;
     if (typeof VOCABULARY_BDD !== 'undefined' && VOCABULARY_BDD.length > 0) {
+      clearInterval(timer);
+      doInit();
+    } else if (retries > 50) {
+      clearInterval(timer);
+      if (grid) grid.innerHTML = '<div class="empty-state">⚠️ Vocabulary data failed to load.<br>Check that js/vocab-levels/ folder exists with 21 files.</div>';
+      if (countEl) countEl.textContent = 'Error';
+    }
+  }, 100);
+
+  function doInit() {
+    if (!window._vocabInitialized) {
+      window._vocabInitialized = true;
       populateFilters();
-      const grid = document.getElementById('vocabGrid');
       if (grid && typeof renderVocabularyList === 'function') {
         renderVocabularyList(grid);
       }
       attachListeners();
-      const countEl = document.getElementById('vocabCount');
       if (countEl) countEl.textContent = VOCABULARY_BDD.length + ' words';
-    } else {
-      if (!window._vocabRetryCount) window._vocabRetryCount = 0;
-      window._vocabRetryCount++;
-      if (window._vocabRetryCount < 50) {
-        setTimeout(tryInit, 100);
-      } else {
-        const grid = document.getElementById('vocabGrid');
-        if (grid) grid.innerHTML = '<div class="empty-state">⚠️ Vocabulary data failed to load.<br>Check that js/vocab-levels/ folder exists with 21 files.</div>';
-        const countEl = document.getElementById('vocabCount');
-        if (countEl) countEl.textContent = 'Error';
-      }
     }
   }
-
-  tryInit();
 }
 
 function populateFilters() {
