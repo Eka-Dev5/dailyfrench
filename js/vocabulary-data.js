@@ -1,17 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════
-// vocabulary-data.js — Daily French 🥖
-// CHARGEMENT DYNAMIQUE des niveaux modulaires v3.0
-// ═══════════════════════════════════════════════════════════════════
-//
-// Ce fichier charge dynamiquement les 21 fichiers niveau,
-// puis assemble VOCABULARY_BDD.
-//
-// Structure attendue :
-//   js/vocab-levels/vocab-level-1.js  → const VOCAB_LEVEL_1 = [...]
-//   js/vocab-levels/vocab-level-2.js  → const VOCAB_LEVEL_2 = [...]
-//   ...
-//   js/vocab-levels/vocab-level-21.js → const VOCAB_LEVEL_21 = [...]
-//
+// vocabulary-data.js — Daily French 🥖 v3.2
+// CHARGEMENT DYNAMIQUE des 21 niveaux modulaires
+// CORRECTION : attente réelle de l'exécution de tous les scripts
 // ═══════════════════════════════════════════════════════════════════
 
 (function() {
@@ -29,22 +19,22 @@
     'vocab-level-19.js', 'vocab-level-20.js', 'vocab-level-21.js'
   ];
 
-  // ─── CHARGEMENT D'UN SCRIPT (Promise) ─────────────────────────
+  // ─── CHARGEMENT SÉQUENTIEL (pas parallèle) pour garantir l'ordre ──
   function loadScript(src) {
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
       script.src = src;
-      script.async = true;
+      script.async = false; // ← SÉQUENTIEL : un après l'autre
       script.onload = () => resolve(src);
       script.onerror = () => {
         console.error('[vocabulary-data] Échec chargement : ' + src);
-        resolve(src); // Continuer même en cas d'erreur (pas reject)
+        reject(src);
       };
       document.head.appendChild(script);
     });
   }
 
-  // ─── ASSEMBLAGE FINAL ──────────────────────────────────────────
+  // ─── ASSEMBLAGE ────────────────────────────────────────────────────
   function assembleVocabulary() {
     window.VOCABULARY_BDD = [];
     let totalLoaded = 0;
@@ -61,10 +51,9 @@
       }
     }
 
-    console.log('[vocabulary-data] Assemblage terminé : ' +
+    console.log('[vocabulary-data] Assemblage : ' +
                 totalLoaded + '/21 niveaux, ' + totalEntries + ' entrées');
 
-    // Émettre événement de disponibilité
     if (typeof EventBus !== 'undefined') {
       EventBus.emit('vocabularyReady', {
         levels: totalLoaded,
@@ -72,30 +61,34 @@
       });
     }
 
-    // Fallback si vide : déclencher un événement d'erreur silencieuse
     if (totalEntries === 0) {
-      console.error('[vocabulary-data] AUCUNE entrée chargée ! Vérifiez le dossier js/vocab-levels/');
+      console.error('[vocabulary-data] AUCUNE entrée chargée !');
     }
   }
 
-  // ─── INITIALISATION ────────────────────────────────────────────
+  // ─── INITIALISATION ───────────────────────────────────────────────
   async function init() {
-    // Éviter double initialisation
     if (window.VOCABULARY_BDD && window.VOCABULARY_BDD.length > 0) {
       console.log('[vocabulary-data] Déjà initialisé (' + window.VOCABULARY_BDD.length + ' entrées)');
       return;
     }
 
-    console.log('[vocabulary-data] Chargement des 21 niveaux...');
+    console.log('[vocabulary-data] Chargement séquentiel des 21 niveaux...');
 
-    // Charger tous les fichiers en parallèle (ordre d'exécution garanti par async=false dans les fichiers niveau)
-    await Promise.all(LEVEL_FILES.map(f => loadScript(BASE_PATH + f)));
-
-    // Petite pause pour laisser les scripts s'exécuter (définir les const)
-    setTimeout(assembleVocabulary, 50);
+    try {
+      // Chargement SÉQUENTIEL : chaque fichier attend le précédent
+      for (const file of LEVEL_FILES) {
+        await loadScript(BASE_PATH + file);
+      }
+      // Tous chargés, assembler
+      assembleVocabulary();
+    } catch (err) {
+      console.error('[vocabulary-data] Erreur chargement:', err);
+      // Essayer quand même d'assembler ce qui a chargé
+      assembleVocabulary();
+    }
   }
 
-  // Démarrer
   init();
 
 })();
