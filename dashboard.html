@@ -3,144 +3,171 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Daily French 🥖 — My Space</title>
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/dashboard.css">
-  <script src="js/nav.js"></script>
+  <title>DEBUG Dashboard</title>
+  <style>
+    body { font-family: monospace; padding: 10px; background: #000; color: #0f0; }
+    .ok { color: #0f0; }
+    .err { color: #f00; font-weight: bold; }
+    .step { border: 1px solid #333; padding: 8px; margin: 4px 0; }
+  </style>
 </head>
 <body>
-  <div id="toast" class="toast"></div>
-
-  <!-- MODAL -->
-  <div id="modalWrap" class="modal-wrap">
-    <div class="modal">
-      <h3 id="modalTitle">New Player</h3>
-      <input type="text" id="mInput" maxlength="30" placeholder="Your name" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
-      <div class="modal-actions">
-        <button id="btnCancelModal" class="btn-ghost" onclick="closeModal()">Cancel</button>
-        <button id="btnCreatePlayer" class="btn-primary" onclick="confirmNewPlayer()">Create</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- VOCAB POPUP -->
-  <div id="vocabulary-popup-modal" class="vocab-popup-modal">
-    <div class="vocab-popup-content">
-      <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
-        <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Daily French 🥖 — My Space</title>
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/dashboard.css">
-  <script src="js/nav.js"></script>
-</head>
-<body>
-  <div id="toast" class="toast"></div>
-
-  <!-- MODAL -->
-  <div id="modalWrap" class="modal-wrap">
-    <div class="modal">
-      <h3 id="modalTitle">New Player</h3>
-      <input type="text" id="mInput" maxlength="30" placeholder="Your name" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
-      <div class="modal-actions">
-        <button id="btnCancelModal" class="btn-ghost" onclick="closeModal()">Cancel</button>
-        <button id="btnCreatePlayer" class="btn-primary" onclick="confirmNewPlayer()">Create</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- VOCAB POPUP -->
-  <div id="vocabulary-popup-modal" class="vocab-popup-modal">
-    <div class="vocab-popup-content">
-      <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
-      <div id="vocab-popup-body"></div>
-    </div>
-  </div>
-
-  <!-- HERO — ORDRE CORRIGÉ : avatar → info → switch → xp -->
-  <header class="hero">
-    <div class="hero-avatar" id="heroAv">?<span class="hero-lvl-badge" id="heroLvl">1</span></div>
-    <div class="hero-info">
-      <div class="hero-name" id="heroName">Guest</div>
-    </div>
-    <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
-        <option value="">Choose a player</option>
-      </select>
-      <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
-    </div>
-    <div class="hero-xp">
-      <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
-      <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
-    </div>
-  </header>
-
-  <!-- BENTO -->
-  <div class="bento-grid">
-    <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
-    <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
-    <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
-  </div>
-
-  <!-- MAIN -->
-  <main class="dashboard-main">
-    <section class="dash-section" id="dash-life">
-      <h2 class="dash-title">🇫🇷 My Life in France</h2>
-      <div id="lifeSkillsGrid" class="life-skills-grid"></div>
-    </section>
-    <section class="dash-section" id="dash-levels">
-      <h2 class="dash-title">🗺️ Journey</h2>
-      <div id="journeyMap" class="journey-map"></div>
-    </section>
-    <section class="dash-section" id="dash-badges">
-      <h2 class="dash-title">🏅 Badges</h2>
-      <div id="badgesGrid" class="badges-grid"></div>
-    </section>
-    <section class="dash-section" id="dash-cameleon">
-      <h2 class="dash-title">🦎 Cameleon</h2>
-      <div id="cameleonStage" class="cameleon-stage"></div>
-    </section>
-    <section class="dash-section" id="dash-history">
-      <h2 class="dash-title">📜 History</h2>
-      <div id="historyList" class="history-list"></div>
-    </section>
-    <section class="dash-section" id="dash-genius">
-      <h2 class="dash-title">🪔 Mon Génie</h2>
-      <div id="geniusPanel" class="genius-panel"></div>
-    </section>
-  </main>
-
-  <!-- SCRIPTS -->
-  <script src="js/config.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/vocabulary-data.js"></script>
-  <script src="js/vocabulary-engine.js"></script>
-  <script src="js/emergency-data.js"></script>
-  <script src="js/conversation-data.js"></script>
-  <script src="js/life-skills-data.js"></script>
-  <script src="js/core.js"></script>
-  <script src="js/ui-utils.js"></script>
-  <script src="js/dashboard.js"></script>
+  <h2>🔧 DEBUG Dashboard</h2>
+  <div id="d0" class="step">HTML loaded...</div>
 
   <script>
-    function applyThemePick(t){
-      document.documentElement.setAttribute('data-theme',t);
-      localStorage.setItem('dailyFrench_theme',t);
-      if(typeof toast==='function')toast('Theme: '+t);
-    }
-    function applyLangPick(l){
-      localStorage.setItem('dailyFrench_lang',l);
-      if(typeof toast==='function')toast('Language: '+l.toUpperCase());
-    }
-    (function(){
-      const t=localStorage.getItem('dailyFrench_theme');
-      if(t)document.documentElement.setAttribute('data-theme',t);
-    })();
-    document.addEventListener('DOMContentLoaded',function(){
-      if(typeof initDashboard==='function')initDashboard();
-    });
+    document.getElementById('d0').innerHTML += ' <span class="ok">✓</span>';
   </script>
+
+  <div id="d1" class="step">Loading config.js...</div>
+  <script src="js/config.js"></script>
+  <script>
+    try {
+      if (typeof SUBJECT_CONFIG !== 'undefined') {
+        document.getElementById('d1').innerHTML = 'config.js <span class="ok">✓ OK</span> (maxLevel=' + SUBJECT_CONFIG.maxLevel + ')';
+      } else {
+        document.getElementById('d1').innerHTML = 'config.js <span class="err">✗ SUBJECT_CONFIG missing</span>';
+      }
+    } catch(e) {
+      document.getElementById('d1').innerHTML = 'config.js <span class="err">✗ ERROR: ' + e.message + '</span>';
+    }
+  </script>
+
+  <div id="d2" class="step">Loading data.js...</div>
+  <script src="js/data.js"></script>
+  <script>
+    try {
+      if (typeof LESSONS_DATA !== 'undefined' && typeof QUESTIONS_DB !== 'undefined') {
+        document.getElementById('d2').innerHTML = 'data.js <span class="ok">✓ OK</span> (' + LESSONS_DATA.length + ' lessons, ' + Object.keys(QUESTIONS_DB).length + ' levels)';
+      } else {
+        document.getElementById('d2').innerHTML = 'data.js <span class="err">✗ Data missing</span>';
+      }
+    } catch(e) {
+      document.getElementById('d2').innerHTML = 'data.js <span class="err">✗ ERROR: ' + e.message + '</span>';
+    }
+  </script>
+
+  <div id="d3" class="step">Loading vocabulary-data.js...</div>
+  <script src="js/vocabulary-data.js"></script>
+  <script>
+    try {
+      document.getElementById('d3').innerHTML = 'vocabulary-data.js <span class="ok">✓ loaded</span> (async init running...)';
+    } catch(e) {
+      document.getElementById('d3').innerHTML = 'vocabulary-data.js <span class="err">✗ ERROR: ' + e.message + '</span>';
+    }
+  </script>
+
+  <div id="d4" class="step">Loading vocabulary-engine.js...</div>
+  <script src="js/vocabulary-engine.js"></script>
+  <script>
+    try {
+      if (typeof renderVocabularyList === 'function') {
+        document.getElementById('d4').innerHTML = 'vocabulary-engine.js <span class="ok">✓ OK</span>';
+      } else {
+        document.getElementById('d4').innerHTML = 'vocabulary-engine.js <span class="err">✗ Functions missing</span>';
+      }
+    } catch(e) {
+      document.getElementById('d4').innerHTML = 'vocabulary-engine.js <span class="err">✗ ERROR: ' + e.message + '</span>';
+    }
+  </script>
+
+  <div id="d5" class="step">Loading emergency-data.js...</div>
+  <script src="js/emergency-data.js"></script>
+  <script>
+    try {
+      if (typeof EMERGENCY_CATEGORIES !== 'undefined') {
+        document.getElementById('d5').innerHTML = 'emergency-data.js <span class="ok">✓ OK</span> (' + EMERGENCY_CATEGORIES.length + ' categories)';
+      } else {
+        document.getElementById('d5').innerHTML = 'emergency-data.js <span class="err">✗ Missing</span>';
+      }
+    } catch(e) {
+      document.getElementById('d5').innerHTML = 'emergency-data.js <span class="err">✗ ERROR: ' + e.message + '</span>';
+    }
+  </script>
+
+  <div id="d6" class="step">Loading conversation-data.js...</div>
+  <script src="js/conversation-data.js"></script>
+  <script>
+    try {
+      if (typeof CONVERSATION_SCENARIOS !== 'undefined') {
+        document.getElementById('d6').innerHTML = 'conversation-data.js <span class="ok">✓ OK</span> (' + CONVERSATION_SCENARIOS.length + ' scenarios)';
+      } else {
+        document.getElementById('d6').innerHTML = 'conversation-data.js <span class="err">✗ Missing</span>';
+      }
+    } catch(e) {
+      document.getElementById('d6').innerHTML = 'conversation-data.js <span class="err">✗ ERROR: ' + e.message + '</span>';
+    }
+  </script>
+
+  <div id="d7" class="step">Loading life-skills-data.js...</div>
+  <script src="js/life-skills-data.js"></script>
+  <script>
+    try {
+      if (typeof LIFE_SKILLS !== 'undefined') {
+        document.getElementById('d7').innerHTML = 'life-skills-data.js <span class="ok">✓ OK</span> (' + LIFE_SKILLS.length + ' skills)';
+      } else {
+        document.getElementById('d7').innerHTML = 'life-skills-data.js <span class="err">✗ Missing</span>';
+      }
+    } catch(e) {
+      document.getElementById('d7').innerHTML = 'life-skills-data.js <span class="err">✗ ERROR: ' + e.message + '</span>';
+    }
+  </script>
+
+  <div id="d8" class="step">Loading core.js...</div>
+  <script src="js/core.js"></script>
+  <script>
+    try {
+      if (typeof PlayerManager !== 'undefined' && typeof initCore === 'function') {
+        document.getElementById('d8').innerHTML = 'core.js <span class="ok">✓ OK</span>';
+      } else {
+        document.getElementById('d8').innerHTML = 'core.js <span class="err">✗ PlayerManager or initCore missing</span>';
+      }
+    } catch(e) {
+      document.getElementById('d8').innerHTML = 'core.js <span class="err">✗ ERROR: ' + e.message + '</span>';
+    }
+  </script>
+
+  <div id="d9" class="step">Loading ui-utils.js...</div>
+  <script src="js/ui-utils.js"></script>
+  <script>
+    try {
+      if (typeof showToast === 'function') {
+        document.getElementById('d9').innerHTML = 'ui-utils.js <span class="ok">✓ OK</span>';
+      } else {
+        document.getElementById('d9').innerHTML = 'ui-utils.js <span class="err">✗ Missing</span>';
+      }
+    } catch(e) {
+      document.getElementById('d9').innerHTML = 'ui-utils.js <span class="err">✗ ERROR: ' + e.message + '</span>';
+    }
+  </script>
+
+  <div id="d10" class="step">Loading dashboard.js...</div>
+  <script src="js/dashboard.js"></script>
+  <script>
+    try {
+      if (typeof initDashboard === 'function') {
+        document.getElementById('d10').innerHTML = 'dashboard.js <span class="ok">✓ OK</span>';
+        // Essayer d'init
+        initCore();
+        const current = PlayerManager.getCurrent();
+        document.getElementById('d10').innerHTML += '<br>Player: ' + (current || 'NONE');
+        if (current) {
+          initDashboard();
+          document.getElementById('d10').innerHTML += '<br><span class="ok">initDashboard() called!</span>';
+        } else {
+          document.getElementById('d10').innerHTML += '<br><span class="err">No player — Modal should open</span>';
+        }
+      } else {
+        document.getElementById('d10').innerHTML = 'dashboard.js <span class="err">✗ initDashboard missing</span>';
+      }
+    } catch(e) {
+      document.getElementById('d10').innerHTML = 'dashboard.js <span class="err">✗ ERROR: ' + e.message + '</span>';
+    }
+  </script>
+
+  <div style="margin-top:20px;padding:10px;border:2px solid #f00;">
+    <strong>Si tu vois ce texte = le HTML fonctionne.</strong><br>
+    Si la page est VRAIMENT blanche (même pas ce texte noir), le problème est AVANT ce fichier (nav.js, ou le HTML lui-même).
+  </div>
 </body>
 </html>
