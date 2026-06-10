@@ -1,55 +1,71 @@
 // ═══════════════════════════════════════════════════════════════════
-// NIVEAU 18 — Ma Santé
+// vocab-level-18.js — Daily French 🥖
+// NIVEAU 18 — Ma Santé 💊
+// Entrées : 50
 // ═══════════════════════════════════════════════════════════════════
 
-{fr:"j'ai mal à la tête",en:"I have a headache",phon:"*zhuh mal ah lah TET*",def:"Douleur à la tête.",ex:"J'ai mal à la tête, je voudrais prendre rendez-vous.",ex_en:"I have a headache, I would like to make an appointment.",level:18,cat:"santé"},
-{fr:"j'ai mal au ventre",en:"I have a stomach ache",phon:"*zhuh mal oh VAN-truh*",def:"Douleur au ventre.",ex:"J'ai mal au ventre depuis ce matin.",ex_en:"I have had a stomach ache since this morning.",level:18,cat:"santé"},
-{fr:"j'ai mal au dos",en:"I have back pain",phon:"*zhuh mal oh DOH*",def:"Douleur au dos.",ex:"J'ai mal au dos quand je travaille trop.",ex_en:"I have back pain when I work too much.",level:18,cat:"santé"},
-{fr:"j'ai mal à la gorge",en:"I have a sore throat",phon:"*zhuh mal ah lah GORZH*",def:"Douleur à la gorge.",ex:"J'ai mal à la gorge, je ne peux pas parler.",ex_en:"I have a sore throat, I cannot speak.",level:18,cat:"santé"},
-{fr:"j'ai mal aux dents",en:"I have toothache",phon:"*zhuh mal oh DAN*",def:"Douleur aux dents.",ex:"J'ai mal aux dents, je dois aller chez le dentiste.",ex_en:"I have toothache, I need to go to the dentist.",level:18,cat:"santé"},
-{fr:"j'ai mal au cœur",en:"I feel sick / nauseous",phon:"*zhuh mal oh KUR*",def:"Sensation de nausée.",ex:"J'ai mal au cœur dans la voiture.",ex_en:"I feel sick in the car.",level:18,cat:"santé"},
-{fr:"j'ai mal aux yeux",en:"My eyes hurt",phon:"*zhuh mal oh ZYUH*",def:"Douleur aux yeux.",ex:"J'ai mal aux yeux à cause de l'écran.",ex_en:"My eyes hurt because of the screen.",level:18,cat:"santé"},
-{fr:"j'ai mal au cou",en:"My neck hurts",phon:"*zhuh mal oh KOO*",def:"Douleur au cou.",ex:"J'ai mal au cou depuis hier.",ex_en:"My neck has hurt since yesterday.",level:18,cat:"santé"},
-{fr:"j'ai mal à l'épaule",en:"My shoulder hurts",phon:"*zhuh mal ah lay-POHL*",def:"Douleur à l'épaule.",ex:"J'ai mal à l'épaule droite.",ex_en:"My right shoulder hurts.",level:18,cat:"santé"},
-{fr:"j'ai mal au genou",en:"My knee hurts",phon:"*zhuh mal oh zhuh-NOO*",def:"Douleur au genou.",ex:"J'ai mal au genou quand je monte les escaliers.",ex_en:"My knee hurts when I climb the stairs.",level:18,cat:"santé"},
-{fr:"j'ai de la fièvre",en:"I have a fever",phon:"*zhuh duh lah FEE-evr*",def:"Température corporelle élevée.",ex:"J'ai de la fièvre, 39 degrés.",ex_en:"I have a fever, 39 degrees.",level:18,cat:"santé"},
-{fr:"j'ai le nez bouché",en:"I have a blocked nose",phon:"*zhuh luh NAY boo-SHAY*",def:"Nez encombré, difficulté à respirer.",ex:"J'ai le nez bouché, je ne sens rien.",ex_en:"I have a blocked nose, I can't smell anything.",level:18,cat:"santé"},
-{fr:"j'ai le rhume",en:"I have a cold",phon:"*zhuh luh REWM*",def:"Maladie respiratoire bénigne.",ex:"J'ai le rhume, je éternue tout le temps.",ex_en:"I have a cold, I sneeze all the time.",level:18,cat:"santé"},
-{fr:"j'ai la grippe",en:"I have the flu",phon:"*zhuh lah GREEP*",def:"Infection virale plus forte qu'un rhume.",ex:"J'ai la grippe, je suis au lit depuis trois jours.",ex_en:"I have the flu, I've been in bed for three days.",level:18,cat:"santé"},
-{fr:"j'ai une allergie",en:"I have an allergy",phon:"*zhuh oon a-lair-ZHEE*",def:"Réaction immunitaire excessive.",ex:"J'ai une allergie aux pollens.",ex_en:"I have an allergy to pollen.",level:18,cat:"santé"},
-{fr:"j'ai une blessure",en:"I have an injury",phon:"*zhuh oon blay-SOOR*",def:"Lésion corporelle.",ex:"J'ai une blessure au bras.",ex_en:"I have an injury on my arm.",level:18,cat:"santé"},
-{fr:"j'ai une coupure",en:"I have a cut",phon:"*zhuh oon koo-poo-R*",def:"Plaie superficielle.",ex:"J'ai une coupure au doigt.",ex_en:"I have a cut on my finger.",level:18,cat:"santé"},
-{fr:"j'ai une égratignure",en:"I have a scratch",phon:"*zhuh oon ay-gra-tee-NOOR*",def:"Légère blessure à la peau.",ex:"J'ai une égratignure sur la jambe.",ex_en:"I have a scratch on my leg.",level:18,cat:"santé"},
-{fr:"j'ai une entorse",en:"I have a sprain",phon:"*zhuh oon on-TORSS*",def:"Torsion d'un ligament.",ex:"J'ai une entorse à la cheville.",ex_en:"I have a sprained ankle.",level:18,cat:"santé"},
-{fr:"j'ai une fracture",en:"I have a fracture",phon:"*zhuh oon frak-TOOR*",def:"Os cassé.",ex:"J'ai une fracture du poignet.",ex_en:"I have a fractured wrist.",level:18,cat:"santé"},
-{fr:"j'ai une brûlure",en:"I have a burn",phon:"*zhuh oon broo-LOOR*",def:"Lésion par la chaleur.",ex:"J'ai une brûlure au bras.",ex_en:"I have a burn on my arm.",level:18,cat:"santé"},
-{fr:"j'ai des nausées",en:"I feel nauseous",phon:"*zhuh day no-ZAY*",def:"Envie de vomir.",ex:"J'ai des nausées depuis le petit-déjeuner.",ex_en:"I have felt nauseous since breakfast.",level:18,cat:"santé"},
-{fr:"je tousse",en:"I cough",phon:"*zhuh TOOSS*",def:"Expulser l'air des poumons brusquement.",ex:"Je tousse beaucoup la nuit.",ex_en:"I cough a lot at night.",level:18,cat:"santé"},
-{fr:"j'éternue",en:"I sneeze",phon:"*zhay-tair-NEW*",def:"Expulser de l'air par le nez brusquement.",ex:"J'éternue à cause du pollen.",ex_en:"I sneeze because of the pollen.",level:18,cat:"santé"},
-{fr:"je suis en bonne santé",en:"I am in good health",phon:"*zhuh swee on bon son-TAY*",def:"Être bien physiquement.",ex:"Je suis en bonne santé, je fais du sport.",ex_en:"I am in good health, I do sports.",level:18,cat:"santé"},
-{fr:"je suis malade",en:"I am sick / ill",phon:"*zhuh swee ma-LAHD*",def:"Être atteint d'une maladie.",ex:"Je suis malade, je reste à la maison.",ex_en:"I am sick, I stay at home.",level:18,cat:"santé"},
-{fr:"je suis fatigué",en:"I am tired",phon:"*zhuh swee fa-tee-GAY*",def:"Manque d'énergie.",ex:"Je suis fatigué, j'ai mal dormi.",ex_en:"I am tired, I slept badly.",level:18,cat:"santé"},
-{fr:"je suis épuisé",en:"I am exhausted",phon:"*zhuh swee ay-pwee-ZAY*",def:"Très fatigué, sans force.",ex:"Je suis épuisé après le travail.",ex_en:"I am exhausted after work.",level:18,cat:"santé"},
-{fr:"je suis stressé",en:"I am stressed",phon:"*zhuh swee stres-SAY*",def:"Anxieux, sous pression.",ex:"Je suis stressé avant l'examen.",ex_en:"I am stressed before the exam.",level:18,cat:"santé"},
-{fr:"je suis enceinte",en:"I am pregnant",phon:"*zhuh swee on-SANT*",def:"Attendre un bébé.",ex:"Je suis enceinte de trois mois.",ex_en:"I am three months pregnant.",level:18,cat:"santé"},
-{fr:"prendre rendez-vous",en:"to make an appointment",phon:"*pran-druh ron-day-VOO*",def:"Fixer un rendez-vous.",ex:"Je voudrais prendre rendez-vous chez le médecin.",ex_en:"I would like to make a doctor's appointment.",level:18,cat:"expression"},
-{fr:"un médicament",en:"medication",phon:"*uh may-dee-ka-MAHN*",def:"Substance pour soigner.",ex:"Je prends un médicament trois fois par jour.",ex_en:"I take medication three times a day.",level:18,cat:"santé"},
-{fr:"les urgences",en:"emergency room",phon:"*layz oor-ZHANSS*",def:"Service hospitalier d'urgence.",ex:"Il faut aller aux urgences !",ex_en:"We need to go to the emergency room!",level:18,cat:"santé"},
-{fr:"une ordonnance",en:"prescription",phon:"*oon or-do-NANSS*",def:"Document médical pour les médicaments.",ex:"Le médecin m'a donné une ordonnance.",ex_en:"The doctor gave me a prescription.",level:18,cat:"santé"},
-{fr:"un médecin",en:"a doctor",phon:"*uh mayd-SAN*",def:"Professionnel de la santé.",ex:"Je vais chez le médecin demain.",ex_en:"I am going to the doctor tomorrow.",level:18,cat:"santé"},
-{fr:"un dentiste",en:"a dentist",phon:"*uh don-TEEST*",def:"Médecin des dents.",ex:"J'ai rendez-vous chez le dentiste.",ex_en:"I have an appointment with the dentist.",level:18,cat:"santé"},
-{fr:"un pharmacien",en:"a pharmacist (male)",phon:"*uh far-ma-SYAN*",def:"Professionnel de la pharmacie.",ex:"Le pharmacien m'a conseillé ce sirop.",ex_en:"The pharmacist recommended this syrup to me.",level:18,cat:"santé"},
-{fr:"une pharmacienne",en:"a pharmacist (female)",phon:"*oon far-ma-SYAN*",def:"Professionnelle de la pharmacie.",ex:"La pharmacienne a préparé ma commande.",ex_en:"The pharmacist prepared my order.",level:18,cat:"santé"},
-{fr:"une infirmière",en:"a nurse (female)",phon:"*oon on-fair-MYAIR*",def:"Professionnelle de soins.",ex:"L'infirmière a pris ma tension.",ex_en:"The nurse took my blood pressure.",level:18,cat:"santé"},
-{fr:"un infirmier",en:"a nurse (male)",phon:"*uh on-fair-MYAY*",def:"Professionnel de soins.",ex:"L'infirmier m'a fait une piqûre.",ex_en:"The nurse gave me an injection.",level:18,cat:"santé"},
-{fr:"un hôpital",en:"a hospital",phon:"*uh no-pee-TAL*",def:"Établissement de soins.",ex:"Il est à l'hôpital depuis hier.",ex_en:"He has been in hospital since yesterday.",level:18,cat:"santé"},
-{fr:"une clinique",en:"a clinic",phon:"*oon klee-NEEK*",def:"Établissement médical privé.",ex:"La clinique est très moderne.",ex_en:"The clinic is very modern.",level:18,cat:"santé"},
-{fr:"une piqûre",en:"an injection",phon:"*oon pee-KOOR*",def:"Injection avec une aiguille.",ex:"J'ai peur des piqûres.",ex_en:"I am afraid of injections.",level:18,cat:"santé"},
-{fr:"un pansement",en:"a bandage",phon:"*uh pon-suh-MON*",def:"Protection pour une plaie.",ex:"Il faut mettre un pansement.",ex_en:"We need to put a bandage on.",level:18,cat:"santé"},
-{fr:"un sirop",en:"syrup / cough medicine",phon:"*uh see-ROH*",def:"Médicament liquide.",ex:"Je prends un sirop pour la toux.",ex_en:"I take cough syrup.",level:18,cat:"santé"},
-{fr:"des comprimés",en:"tablets / pills",phon:"*day kom-pree-MAY*",def:"Médicaments en pastilles.",ex:"Je prends deux comprimés par jour.",ex_en:"I take two tablets a day.",level:18,cat:"santé"},
-{fr:"depuis",en:"since / for",phon:"*duh-PWEE*",def:"Indique la durée (avec le présent).",ex:"J'ai mal depuis trois jours.",ex_en:"I have been in pain for three days.",level:18,cat:"temps"},
-{fr:"guérir",en:"to heal / to recover",phon:"*gay-REER*",def:"Retrouver la santé.",ex:"J'espère guérir vite.",ex_en:"I hope to recover quickly.",level:18,cat:"verbe"},
-{fr:"soigner",en:"to treat / to care for",phon:"*swa-NYAY*",def:"Donner des soins médicaux.",ex:"Le médecin va me soigner.",ex_en:"The doctor is going to treat me.",level:18,cat:"verbe"},
-{fr:"examiner",en:"to examine",phon:"*eg-za-mee-NAY*",def:"Observer pour diagnostiquer.",ex:"Le médecin m'a examiné.",ex_en:"The doctor examined me.",level:18,cat:"verbe"},
-{fr:"ausculter",en:"to listen with a stethoscope",phon:"*os-kool-TAY*",def:"Examiner avec un stéthoscope.",ex:"Le médecin m'a ausculté.",ex_en:"The doctor listened to my chest.",level:18,cat:"verbe"},
+const VOCAB_LEVEL_18 = [
+  // === DOULEURS (10) ===
+  {fr:"j'ai mal à la tête",en:"I have a headache",phon:"*zhuh mal ah lah TET*",def:"Douleur à la tête.",ex:"J'ai mal à la tête, je voudrais prendre rendez-vous.",level:18,cat:"santé"},
+  {fr:"j'ai mal au ventre",en:"I have a stomach ache",phon:"*zhuh mal oh VAN-truh*",def:"Douleur au ventre.",ex:"J'ai mal au ventre depuis ce matin.",level:18,cat:"santé"},
+  {fr:"j'ai mal au dos",en:"I have back pain",phon:"*zhuh mal oh DOH*",def:"Douleur au dos.",ex:"J'ai mal au dos quand je travaille trop.",level:18,cat:"santé"},
+  {fr:"j'ai mal à la gorge",en:"I have a sore throat",phon:"*zhuh mal ah lah GORZH*",def:"Douleur à la gorge.",ex:"J'ai mal à la gorge, je ne peux pas parler.",level:18,cat:"santé"},
+  {fr:"j'ai mal aux dents",en:"I have toothache",phon:"*zhuh mal oh DAN*",def:"Douleur aux dents.",ex:"J'ai mal aux dents, je dois aller chez le dentiste.",level:18,cat:"santé"},
+  {fr:"j'ai mal au cœur",en:"I feel sick / nauseous",phon:"*zhuh mal oh KUR*",def:"Sensation de nausée.",ex:"J'ai mal au cœur dans la voiture.",level:18,cat:"santé"},
+  {fr:"j'ai mal aux yeux",en:"My eyes hurt",phon:"*zhuh mal oh ZYUH*",def:"Douleur aux yeux.",ex:"J'ai mal aux yeux à cause de l'écran.",level:18,cat:"santé"},
+  {fr:"j'ai mal au cou",en:"My neck hurts",phon:"*zhuh mal oh KOO*",def:"Douleur au cou.",ex:"J'ai mal au cou depuis hier.",level:18,cat:"santé"},
+  {fr:"j'ai mal à l'épaule",en:"My shoulder hurts",phon:"*zhuh mal ah lay-POHL*",def:"Douleur à l'épaule.",ex:"J'ai mal à l'épaule droite.",level:18,cat:"santé"},
+  {fr:"j'ai mal au genou",en:"My knee hurts",phon:"*zhuh mal oh zhuh-NOO*",def:"Douleur au genou.",ex:"J'ai mal au genou quand je monte les escaliers.",level:18,cat:"santé"},
+
+  // === MALADIES (10) ===
+  {fr:"j'ai de la fièvre",en:"I have a fever",phon:"*zhuh duh lah FEE-evr*",def:"Température corporelle élevée.",ex:"J'ai de la fièvre, 39 degrés.",level:18,cat:"santé"},
+  {fr:"j'ai le nez bouché",en:"I have a blocked nose",phon:"*zhuh luh NAY boo-SHAY*",def:"Nez encombré.",ex:"J'ai le nez bouché, je ne sens rien.",level:18,cat:"santé"},
+  {fr:"j'ai le rhume",en:"I have a cold",phon:"*zhuh luh REWM*",def:"Maladie respiratoire bénigne.",ex:"J'ai le rhume, j'éternue tout le temps.",level:18,cat:"santé"},
+  {fr:"j'ai la grippe",en:"I have the flu",phon:"*zhuh lah GREEP*",def:"Infection virale forte.",ex:"J'ai la grippe, je suis au lit depuis trois jours.",level:18,cat:"santé"},
+  {fr:"j'ai une allergie",en:"I have an allergy",phon:"*zhuh oon a-lair-ZHEE*",def:"Réaction immunitaire excessive.",ex:"J'ai une allergie aux pollens.",level:18,cat:"santé"},
+  {fr:"j'ai une blessure",en:"I have an injury",phon:"*zhuh oon blay-SOOR*",def:"Lésion corporelle.",ex:"J'ai une blessure au bras.",level:18,cat:"santé"},
+  {fr:"j'ai une coupure",en:"I have a cut",phon:"*zhuh oon koo-poo-R*",def:"Plaie superficielle.",ex:"J'ai une coupure au doigt.",level:18,cat:"santé"},
+  {fr:"j'ai une entorse",en:"I have a sprain",phon:"*zhuh oon on-TORSS*",def:"Torsion d'un ligament.",ex:"J'ai une entorse à la cheville.",level:18,cat:"santé"},
+  {fr:"j'ai une fracture",en:"I have a fracture",phon:"*zhuh oon frak-TOOR*",def:"Os cassé.",ex:"J'ai une fracture du poignet.",level:18,cat:"santé"},
+  {fr:"j'ai une brûlure",en:"I have a burn",phon:"*zhuh oon broo-LOOR*",def:"Lésion par la chaleur.",ex:"J'ai une brûlure au bras.",level:18,cat:"santé"},
+
+  // === SYMPTÔMES (10) ===
+  {fr:"j'ai des nausées",en:"I feel nauseous",phon:"*zhuh day no-ZAY*",def:"Envie de vomir.",ex:"J'ai des nausées depuis le petit-déjeuner.",level:18,cat:"santé"},
+  {fr:"je tousse",en:"I cough",phon:"*zhuh TOOSS*",def:"Expulser l'air des poumons.",ex:"Je tousse beaucoup la nuit.",level:18,cat:"santé"},
+  {fr:"j'éternue",en:"I sneeze",phon:"*zhay-tair-NEW*",def:"Expulser de l'air par le nez.",ex:"J'éternue à cause du pollen.",level:18,cat:"santé"},
+  {fr:"je suis en bonne santé",en:"I am in good health",phon:"*zhuh swee on bon son-TAY*",def:"Être bien physiquement.",ex:"Je suis en bonne santé, je fais du sport.",level:18,cat:"santé"},
+  {fr:"je suis malade",en:"I am sick",phon:"*zhuh swee ma-LAHD*",def:"Être atteint d'une maladie.",ex:"Je suis malade, je reste à la maison.",level:18,cat:"santé"},
+  {fr:"je suis fatigué",en:"I am tired",phon:"*zhuh swee fa-tee-GAY*",def:"Manque d'énergie.",ex:"Je suis fatigué, j'ai mal dormi.",level:18,cat:"santé"},
+  {fr:"je suis épuisé",en:"I am exhausted",phon:"*zhuh swee ay-pwee-ZAY*",def:"Très fatigué.",ex:"Je suis épuisé après le travail.",level:18,cat:"santé"},
+  {fr:"je suis stressé",en:"I am stressed",phon:"*zhuh swee stres-SAY*",def:"Anxieux, sous pression.",ex:"Je suis stressé avant l'examen.",level:18,cat:"santé"},
+  {fr:"je suis enceinte",en:"I am pregnant",phon:"*zhuh swee on-SANT*",def:"Attendre un bébé.",ex:"Je suis enceinte de trois mois.",level:18,cat:"santé"},
+  {fr:"je suis allergique",en:"I am allergic",phon:"*zhuh swee a-lair-ZHEEK*",def:"Réaction immunitaire.",ex:"Je suis allergique aux arachides.",level:18,cat:"santé"},
+
+  // === SOINS (10) ===
+  {fr:"un médicament",en:"medication",phon:"*uh may-dee-ka-MAHN*",def:"Substance pour soigner.",ex:"Je prends un médicament trois fois par jour.",level:18,cat:"santé"},
+  {fr:"une ordonnance",en:"prescription",phon:"*oon or-do-NANSS*",def:"Document médical.",ex:"Le médecin m'a donné une ordonnance.",level:18,cat:"santé"},
+  {fr:"un pansement",en:"a bandage",phon:"*uh pon-suh-MON*",def:"Protection pour une plaie.",ex:"Il faut mettre un pansement.",level:18,cat:"santé"},
+  {fr:"un sirop",en:"syrup / cough medicine",phon:"*uh see-ROH*",def:"Médicament liquide.",ex:"Je prends un sirop pour la toux.",level:18,cat:"santé"},
+  {fr:"des comprimés",en:"tablets / pills",phon:"*day kom-pree-MAY*",def:"Médicaments en pastilles.",ex:"Je prends deux comprimés par jour.",level:18,cat:"santé"},
+  {fr:"une piqûre",en:"an injection",phon:"*oon pee-KOOR*",def:"Injection avec une aiguille.",ex:"J'ai peur des piqûres.",level:18,cat:"santé"},
+  {fr:"prendre rendez-vous",en:"to make an appointment",phon:"*pran-druh ron-day-VOO*",def:"Fixer un rendez-vous.",ex:"Je voudrais prendre rendez-vous chez le médecin.",level:18,cat:"expression"},
+  {fr:"guérir",en:"to heal / recover",phon:"*gay-REER*",def:"Retrouver la santé.",ex:"J'espère guérir vite.",level:18,cat:"verbe"},
+  {fr:"soigner",en:"to treat / care for",phon:"*swa-NYAY*",def:"Donner des soins médicaux.",ex:"Le médecin va me soigner.",level:18,cat:"verbe"},
+  {fr:"examiner",en:"to examine",phon:"*eg-za-mee-NAY*",def:"Observer pour diagnostiquer.",ex:"Le médecin m'a examiné.",level:18,cat:"verbe"},
+
+  // === PROFESSIONNELS (10) ===
+  {fr:"un médecin",en:"a doctor",phon:"*uh mayd-SAN*",def:"Professionnel de la santé.",ex:"Je vais chez le médecin demain.",level:18,cat:"santé"},
+  {fr:"un dentiste",en:"a dentist",phon:"*uh don-TEEST*",def:"Médecin des dents.",ex:"J'ai rendez-vous chez le dentiste.",level:18,cat:"santé"},
+  {fr:"un pharmacien",en:"a pharmacist (male)",phon:"*uh far-ma-SYAN*",def:"Professionnel de la pharmacie.",ex:"Le pharmacien m'a conseillé ce sirop.",level:18,cat:"santé"},
+  {fr:"une pharmacienne",en:"a pharmacist (female)",phon:"*oon far-ma-SYAN*",def:"Professionnelle de la pharmacie.",ex:"La pharmacienne a préparé ma commande.",level:18,cat:"santé"},
+  {fr:"une infirmière",en:"a nurse (female)",phon:"*oon on-fair-MYAIR*",def:"Professionnelle de soins.",ex:"L'infirmière a pris ma tension.",level:18,cat:"santé"},
+  {fr:"un infirmier",en:"a nurse (male)",phon:"*uh on-fair-MYAY*",def:"Professionnel de soins.",ex:"L'infirmier m'a fait une piqûre.",level:18,cat:"santé"},
+  {fr:"un hôpital",en:"a hospital",phon:"*uh no-pee-TAL*",def:"Établissement de soins.",ex:"Il est à l'hôpital depuis hier.",level:18,cat:"santé"},
+  {fr:"une clinique",en:"a clinic",phon:"*oon klee-NEEK*",def:"Établissement médical privé.",ex:"La clinique est très moderne.",level:18,cat:"santé"},
+  {fr:"les urgences",en:"emergency room",phon:"*layz oor-ZHANSS*",def:"Service hospitalier d'urgence.",ex:"Il faut aller aux urgences !",level:18,cat:"santé"},
+  {fr:"un cabinet médical",en:"a doctor's office",phon:"*uh ka-bee-NAY may-dee-KAL*",def:"Bureau du médecin.",ex:"Le cabinet médical est au rez-de-chaussée.",level:18,cat:"santé"}
+];
+
+if (typeof window !== 'undefined') {
+  window.VOCAB_LEVEL_18 = VOCAB_LEVEL_18;
+}
