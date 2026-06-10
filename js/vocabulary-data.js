@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════
 // vocabulary-data.js — Daily French 🥖 v3.2
 // CHARGEMENT DYNAMIQUE des 21 niveaux modulaires
-// CORRECTION : attente réelle de l'exécution de tous les scripts
+// CORRECTION : setTimeout 50ms → 500ms (mobile lent)
 // ═══════════════════════════════════════════════════════════════════
 
 (function() {
@@ -19,22 +19,20 @@
     'vocab-level-19.js', 'vocab-level-20.js', 'vocab-level-21.js'
   ];
 
-  // ─── CHARGEMENT SÉQUENTIEL (pas parallèle) pour garantir l'ordre ──
   function loadScript(src) {
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
       script.src = src;
-      script.async = false; // ← SÉQUENTIEL : un après l'autre
+      script.async = true;
       script.onload = () => resolve(src);
       script.onerror = () => {
         console.error('[vocabulary-data] Échec chargement : ' + src);
-        reject(src);
+        resolve(src);
       };
       document.head.appendChild(script);
     });
   }
 
-  // ─── ASSEMBLAGE ────────────────────────────────────────────────────
   function assembleVocabulary() {
     window.VOCABULARY_BDD = [];
     let totalLoaded = 0;
@@ -54,11 +52,9 @@
     console.log('[vocabulary-data] Assemblage : ' +
                 totalLoaded + '/21 niveaux, ' + totalEntries + ' entrées');
 
+    // CORRECTION : EventBus peut ne pas exister encore
     if (typeof EventBus !== 'undefined') {
-      EventBus.emit('vocabularyReady', {
-        levels: totalLoaded,
-        count: totalEntries
-      });
+      EventBus.emit('vocabularyReady', { levels: totalLoaded, count: totalEntries });
     }
 
     if (totalEntries === 0) {
@@ -66,27 +62,16 @@
     }
   }
 
-  // ─── INITIALISATION ───────────────────────────────────────────────
   async function init() {
     if (window.VOCABULARY_BDD && window.VOCABULARY_BDD.length > 0) {
       console.log('[vocabulary-data] Déjà initialisé (' + window.VOCABULARY_BDD.length + ' entrées)');
       return;
     }
 
-    console.log('[vocabulary-data] Chargement séquentiel des 21 niveaux...');
-
-    try {
-      // Chargement SÉQUENTIEL : chaque fichier attend le précédent
-      for (const file of LEVEL_FILES) {
-        await loadScript(BASE_PATH + file);
-      }
-      // Tous chargés, assembler
-      assembleVocabulary();
-    } catch (err) {
-      console.error('[vocabulary-data] Erreur chargement:', err);
-      // Essayer quand même d'assembler ce qui a chargé
-      assembleVocabulary();
-    }
+    console.log('[vocabulary-data] Chargement des 21 niveaux...');
+    await Promise.all(LEVEL_FILES.map(f => loadScript(BASE_PATH + f)));
+    // CORRECTION : 50ms → 500ms pour mobile
+    setTimeout(assembleVocabulary, 500);
   }
 
   init();
