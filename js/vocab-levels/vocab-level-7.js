@@ -8,134 +8,52 @@ const VOCAB_LEVEL_7 = [
   // === RELATIONS (12) ===
   {fr:"un ami",en:"a friend (male)",phon:"*uh na-MEE*",def:"Personne liée par l'affection.",ex:"Mon ami d'enfance.",level:7,cat:"social"},
   {fr:"une amie",en:"a friend (female)",phon:"*oon na-MEE*",def:"Personne liée par l'affection.",ex:"Mon amie de toujours.",level:7,cat:"social"},
-  {fr:"un copain",en:"aque fichier contient **deux morceaux de code collés ensemble** :
+  {fr:"un copain",en:"a buddy (male)",phon:"*uh ko-PAN*",def:"Ami proche (familier).",ex:"Mon copain de classe.",level:7,cat:"social"},
+  {fr:"une copine",en:"a buddy (female)",phon:"*oon ko-PEEN*",def:"Amie proche (familier).",ex:"Ma copine de travail.",level:7,cat:"social"},
+  {fr:"un pote",en:"a mate",phon:"*uh POT*",def:"Ami (très familier).",ex:"Un pote de foot.",level:7,cat:"social"},
+  {fr:"le meilleur ami",en:"best friend (male)",phon:"*luh may-YUR a-MEE*",def:"Ami le plus proche.",ex:"C'est mon meilleur ami.",level:7,cat:"social"},
+  {fr:"la meilleure amie",en:"best friend (female)",phon:"*lah may-YUR a-MEE*",def:"Amie la plus proche.",ex:"C'est ma meilleure amie.",level:7,cat:"social"},
+  {fr:"un fiancé",en:"fiancé",phon:"*uh fyan-SAY*",def:"Promis au mariage (homme).",ex:"Mon fiancé.",level:7,cat:"social"},
+  {fr:"une fiancée",en:"fiancée",phon:"*oon fyan-SAY*",def:"Promise au mariage (femme).",ex:"Ma fiancée.",level:7,cat:"social"},
+  {fr:"un petit ami",en:"boyfriend",phon:"*uh puh-TEE a-MEE*",def:"Amoureux.",ex:"Mon petit ami.",level:7,cat:"social"},
+  {fr:"une petite amie",en:"girlfriend",phon:"*oon puh-TEET a-MEE*",def:"Amoureuse.",ex:"Ma petite amie.",level:7,cat:"social"},
+  {fr:"une connaissance",en:"an acquaintance",phon:"*oon ko-nay-SONSS*",def:"Personne connue superficiellement.",ex:"Une simple connaissance.",level:7,cat:"social"},
 
-1. **Le début du fichier** = le vrai contenu du niveau (ex: niveau 7, 6, 8, 14, 18)
-2. **À partir du commentaire `// === AJOUTS NIVEAU X ===`** = du contenu du **niveau 4** (voisinage) qui s'est écrasé par-dessus
+  // === SORTIES (13) ===
+  {fr:"un rendez-vous",en:"an appointment / date",phon:"*uh ron-day-VOO*",def:"Rencontre fixée d'avance.",ex:"Un rendez-vous au café.",level:7,cat:"social"},
+  {fr:"sortir",en:"to go out",phon:"*sor-TEER*",def:"Quitter son domicile pour s'amuser.",ex:"Sortir le soir.",level:7,cat:"verbe"},
+  {fr:"inviter",en:"to invite",phon:"*on-vee-TAY*",def:"Demander à quelqu'un de venir.",ex:"Inviter des amis à dîner.",level:7,cat:"verbe"},
+  {fr:"se retrouver",en:"to meet up",phon:"*suh ruh-troo-VAY*",def:"Se rejoindre.",ex:"On se retrouve où ?",level:7,cat:"verbe"},
+  {fr:"libre",en:"free / available",phon:"*LEEB-ruh*",def:"Disponible, sans occupation.",ex:"Je suis libre samedi.",level:7,cat:"état"},
+  {fr:"occupé",en:"busy (male)",phon:"*ok-kew-PAY*",def:"Ayant une occupation.",ex:"Je suis occupé demain.",level:7,cat:"état"},
+  {fr:"le cinéma",en:"movie theater",phon:"*luh see-nay-MA*",def:"Lieu de projection.",ex:"Aller au cinéma.",level:7,cat:"lieu"},
+  {fr:"le théâtre",en:"theater",phon:"*luh tay-AH-truh*",def:"Lieu de spectacle.",ex:"Une pièce de théâtre.",level:7,cat:"lieu"},
+  {fr:"le concert",en:"concert",phon:"*luh kon-SAIR*",def:"Spectacle musical.",ex:"Un concert de rock.",level:7,cat:"lieu"},
+  {fr:"le musée",en:"museum",phon:"*luh mew-ZAY*",def:"Lieu d'exposition.",ex:"Le musée du Louvre.",level:7,cat:"lieu"},
+  {fr:"la discothèque",en:"nightclub",phon:"*lah dees-ko-TEK*",def:"Lieu de danse nocturne.",ex:"La discothèque du centre.",level:7,cat:"lieu"},
+  {fr:"le restaurant",en:"restaurant",phon:"*luh res-to-RON*",def:"Lieu pour manger.",ex:"Dîner au restaurant.",level:7,cat:"lieu"},
+  {fr:"le café",en:"café / coffee shop",phon:"*luh ka-FAY*",def:"Lieu pour boire un café.",ex:"Prendre un café.",level:7,cat:"lieu"},
 
-Regarde ces exemples :
+  // === TEMPS (10) ===
+  {fr:"aujourd'hui",en:"today",phon:"*oh-zhoord-DWEE*",def:"Le jour présent.",ex:"Aujourd'hui, il fait beau.",level:7,cat:"temps"},
+  {fr:"demain",en:"tomorrow",phon:"*duh-MAN*",def:"Le jour suivant.",ex:"À demain !",level:7,cat:"temps"},
+  {fr:"après-demain",en:"the day after tomorrow",phon:"*a-PRAY duh-MAN*",def:"Deux jours après aujourd'hui.",ex:"À après-demain !",level:7,cat:"temps"},
+  {fr:"la semaine prochaine",en:"next week",phon:"*lah suh-MEN pro-SHEN*",def:"La semaine qui vient.",ex:"La semaine prochaine.",level:7,cat:"temps"},
+  {fr:"le week-end",en:"weekend",phon:"*luh WEEK-end*",def:"Samedi et dimanche.",ex:"Ce week-end.",level:7,cat:"temps"},
+  {fr:"midi",en:"noon",phon:"*mee-DEE*",def:"12 heures.",ex:"On déjeune à midi.",level:7,cat:"temps"},
+  {fr:"le soir",en:"evening",phon:"*luh SWAHR*",def:"Fin de journée.",ex:"Le soir, je sors.",level:7,cat:"temps"},
+  {fr:"la nuit",en:"night",phon:"*lah NWEE*",def:"Période sans soleil.",ex:"La nuit, je dors.",level:7,cat:"temps"},
+  {fr:"tôt",en:"early",phon:"*TOH*",def:"De bonne heure.",ex:"Je me lève tôt.",level:7,cat:"temps"},
+  {fr:"tard",en:"late",phon:"*TAR*",def:"Après l'heure prévue.",ex:"Je suis en retard, désolé.",level:7,cat:"temps"},
 
-**vocab-level-7.js** (niveau 7 = amis & sorties) :
-- Ligne 13 : `// === AJOUTS NIVEAU 7 (39 entrées) ===`
-- Puis soudain : `{fr:"présenter",en:"to introduce"... level:4,cat:"verbe"}` ← **C'est du niveau 4 !**
-
-**vocab-level-6.js** (niveau 6 = commerçant) :
-- Même chose, le contenu du niveau 4 s'est collé à la fin
-
-**vocab-level-8.js** (niveau 8 = météo) :
-- Idem, niveau 4 écrasé à la fin
-
-**vocab-level-14.js** :
-- Même corruption, plus un morceau du niveau 13 dedans
-
-**vocab-level-18.js** :
-- Même pattern, et en plus il manque la déclaration `const VOCAB_LEVEL_18 = [` au début
-
----
-
-## Pourquoi ça plante
-
-Le JavaScript ne peut pas parser ces fichiers car :
-- Des accolades `}` manquent ou sont en trop
-- Des virgules sont mal placées
-- Des morceaux de code se chevauchent
-
-Résultat : `VOCAB_LEVEL_X` n'est jamais défini → le navigateur saute le fichier → "MANQUANT" dans ton test.
-
----
-
-## Ce qu'il s'est passé
-
-Quand tu as copié-collé mes fichiers précédents (niveaux 18, 19, 20), le contenu du **niveau 4** s'est mélangé avec. Probablement parce que :
-- Tu as fait un copier-coller depuis un fichier qui contenait déjà du niveau 4
-- Ou le presse-papiers avait encore l'ancien contenu
-- Ou tu as écrasé des fichiers existants sans vider le contenu d'abord
-
----
-
-## Solution : Refaire les 5 fichiers propres
-
-Je vais te donner les **5 fichiers corrigés un par un**. Pour chacun :
-
-1. **Ouvre le fichier sur ton Mac**
-2. **Sélectionne TOUT le contenu** (Cmd+A) et **supprime** (Suppr)
-3. **Copie mon code ci-dessous**
-4. **Colle** (Cmd+V)
-5. **Sauvegarde**
-
----
-
-### FICHIER 1 : `vocab-level-6.js` (chez le commerçant)
-
-```javascript
-// ═══════════════════════════════════════════════════════════════════
-// vocab-level-6.js — Daily French 🥖
-// NIVEAU 6 — Chez le commerçant 🛍️
-// Entrées : 50
-// ═══════════════════════════════════════════════════════════════════
-
-const VOCAB_LEVEL_6 = [
-  // === MAGASINS (10) ===
-  {fr:"la pâtisserie",en:"pastry shop",phon:"*pa-tee-suh-REE*",def:"Commerce de gâteaux et pâtisseries.",ex:"Une tarte à la pâtisserie.",level:6,cat:"commerce"},
-  {fr:"la boucherie",en:"butcher shop",phon:"*boo-shuh-REE*",def:"Commerce de viande.",ex:"De la viande à la boucherie.",level:6,cat:"commerce"},
-  {fr:"la charcuterie",en:"delicatessen",phon:"*shar-koo-tuh-REE*",def:"Commerce de salaison et charcuterie.",ex:"Du saucisson à la charcuterie.",level:6,cat:"commerce"},
-  {fr:"la pharmacie",en:"pharmacy",phon:"*far-ma-SEE*",def:"Commerce de médicaments.",ex:"À côté de la pharmacie.",level:6,cat:"commerce"},
-  {fr:"le tabac-presse",en:"newsagent / tobacconist",phon:"*ta-BAK PRESS*",def:"Commerce typique : cigarettes, timbres, journaux.",ex:"Acheter des timbres au tabac-presse.",level:6,cat:"commerce"},
-  {fr:"le supermarché",en:"supermarket",phon:"*soo-pair-mar-SHAY*",def:"Grand magasin alimentaire.",ex:"Faire les courses au supermarché.",level:6,cat:"commerce"},
-  {fr:"le marché",en:"market",phon:"*mar-SHAY*",def:"Lieu de vente en plein air.",ex:"Le marché du samedi matin.",level:6,cat:"commerce"},
-  {fr:"la boulangerie",en:"bakery",phon:"*boo-lan-zhuh-REE*",def:"Commerce de pain et viennoiseries.",ex:"La baguette à la boulangerie.",level:6,cat:"commerce"},
-  {fr:"l'épicerie",en:"grocery store",phon:"*lay-pee-suh-REE*",def:"Petit magasin alimentaire.",ex:"L'épicerie du coin.",level:6,cat:"commerce"},
-  {fr:"le primeur",en:"greengrocer",phon:"*pree-MUR*",def:"Commerce de fruits et légumes frais.",ex:"Les fraises chez le primeur.",level:6,cat:"commerce"},
-
-  // === PRODUITS (15) ===
-  {fr:"un timbre",en:"a stamp",phon:"*uh TAN-bruh*",def:"Vignette pour affranchir le courrier.",ex:"Un timbre pour l'étranger.",level:6,cat:"objet"},
-  {fr:"lait cru",en:"raw milk",phon:"*lay KROO*",def:"Lait non pasteurisé.",ex:"Du fromage au lait cru.",level:6,cat:"aliment"},
-  {fr:"sans gluten",en:"gluten-free",phon:"*SON gloo-TEN*",def:"Ne contenant pas de gluten.",ex:"Du pain sans gluten.",level:6,cat:"aliment"},
-  {fr:"bio",en:"organic",phon:"*BEE-oh*",def:"Produit sans pesticides.",ex:"Des légumes bio.",level:6,cat:"aliment"},
-  {fr:"le fromage",en:"cheese",phon:"*fro-MAZH*",def:"Produit laitier fermenté.",ex:"Du fromage de chèvre.",level:6,cat:"aliment"},
-  {fr:"le pain",en:"bread",phon:"*PAN*",def:"Aliment de base à base de farine.",ex:"Une baguette de pain.",level:6,cat:"aliment"},
-  {fr:"la viande",en:"meat",phon:"*VYAND*",def:"Chair animale pour l'alimentation.",ex:"De la viande de bœuf.",level:6,cat:"aliment"},
-  {fr:"le poisson",en:"fish",phon:"*pwa-SON*",def:"Animal aquatique comestible.",ex:"Du poisson frais.",level:6,cat:"aliment"},
-  {fr:"les fruits",en:"fruits",phon:"*FRWEE*",def:"Produits végétaux sucrés.",ex:"Des fruits de saison.",level:6,cat:"aliment"},
-  {fr:"les légumes",en:"vegetables",phon:"*lay-GOOM*",def:"Plantes comestibles.",ex:"Des légumes verts.",level:6,cat:"aliment"},
-  {fr:"les œufs",en:"eggs",phon:"*URZ*",def:"Produit de la poule.",ex:"Une douzaine d'œufs.",level:6,cat:"aliment"},
-  {fr:"le sucre",en:"sugar",phon:"*SOO-kruh*",def:"Édulcorant.",ex:"Du sucre en poudre.",level:6,cat:"aliment"},
-  {fr:"le sel",en:"salt",phon:"*SEL*",def:"Condiment.",ex:"Une pincée de sel.",level:6,cat:"aliment"},
-  {fr:"le poivre",en:"pepper",phon:"*PWAH-vruh*",def:"Épice.",ex:"Du poivre noir.",level:6,cat:"aliment"},
-  {fr:"l'huile",en:"oil",phon:"*LWEEL*",def:"Graisse liquide.",ex:"De l'huile d'olive.",level:6,cat:"aliment"},
-
-  // === VERBES COMMERCE (10) ===
-  {fr:"acheter",en:"to buy",phon:"*a-shuh-TAY*",def:"Obtenir en payant.",ex:"J'achète du pain.",level:6,cat:"verbe"},
-  {fr:"vendre",en:"to sell",phon:"*VON-druh*",def:"Céder contre de l'argent.",ex:"Il vend des légumes.",level:6,cat:"verbe"},
-  {fr:"payer",en:"to pay",phon:"*pay-YAY*",def:"Donner de l'argent.",ex:"Je paie en espèces.",level:6,cat:"verbe"},
-  {fr:"commander",en:"to order",phon:"*ko-mon-DAY*",def:"Demander un produit.",ex:"Je commande une pizza.",level:6,cat:"verbe"},
-  {fr:"choisir",en:"to choose",phon:"*shwa-ZEER*",def:"Sélectionner.",ex:"Choisir un fruit.",level:6,cat:"verbe"},
-  {fr:"goûter",en:"to taste",phon:"*goo-TAY*",def:"Essayer la saveur.",ex:"Goûter le fromage.",level:6,cat:"verbe"},
-  {fr:"peser",en:"to weigh",phon:"*puh-ZAY*",def:"Mesurer le poids.",ex:"Peser les fruits.",level:6,cat:"verbe"},
-  {fr:"couper",en:"to cut",phon:"*koo-PAY*",def:"Séparer avec un outil tranchant.",ex:"Couper le pain.",level:6,cat:"verbe"},
-  {fr:"emballer",en:"to wrap / package",phon:"*om-ba-LAY*",def:"Mettre dans un emballage.",ex:"Emballer les courses.",level:6,cat:"verbe"},
-  {fr:"rendre la monnaie",en:"to give change",phon:"*RON-druh lah mon-NAY*",def:"Rendre l'excédent payé.",ex:"Il rend la monnaie.",level:6,cat:"expression"},
-
-  // === EXPRESSIONS COMMERCE (10) ===
-  {fr:"combien ça coûte ?",en:"how much does it cost?",phon:"*kom-BYAN sa KOOT*",def:"Demander le prix.",ex:"Combien ça coûte ce fromage ?",level:6,cat:"expression"},
-  {fr:"c'est trop cher",en:"it's too expensive",phon:"*say troh SHAIR*",def:"Prix excessif.",ex:"C'est trop cher pour moi.",level:6,cat:"expression"},
-  {fr:"c'est bon marché",en:"it's cheap",phon:"*say bon mar-SHAY*",def:"Prix bas.",ex:"C'est bon marché ici.",level:6,cat:"expression"},
-  {fr:"je voudrais...",en:"I would like...",phon:"*zhuh voo-DRAY*",def:"Formule polie de demande.",ex:"Je voudrais un kilo de pommes.",level:6,cat:"expression"},
-  {fr:"je prends",en:"I'll take",phon:"*zhuh PRON*",def:"Décider d'acheter.",ex:"Je prends celui-ci.",level:6,cat:"expression"},
-  {fr:"avez-vous... ?",en:"do you have...?",phon:"*a-vay VOO*",def:"Demander la disponibilité.",ex:"Avez-vous du lait ?",level:6,cat:"expression"},
-  {fr:"c'est tout ?",en:"is that all?",phon:"*say TOO*",def:"Demander si la commande est complète.",ex:"C'est tout, merci.",level:6,cat:"expression"},
-  {fr:"un sachet",en:"a bag",phon:"*uh sa-SHAY*",def:"Petit sac en plastique ou papier.",ex:"Un sachet, s'il vous plaît.",level:6,cat:"objet"},
-  {fr:"un panier",en:"a basket",phon:"*uh pan-YAY*",def:"Récipient pour les courses.",ex:"Prenez un panier.",level:6,cat:"objet"},
-  {fr:"un caddie",en:"a shopping cart",phon:"*uh ka-DEE*",def:"Chariot de supermarché.",ex:"Poussez le caddie.",level:6,cat:"objet"},
-
-  // === MONNAIE (5) ===
-  {fr:"un euro",en:"one euro",phon:"*uh UR-oh*",def:"Monnaie européenne.",ex:"Ça coûte un euro.",level:6,cat:"objet"},
-  {fr:"un centime",en:"one cent",phon:"*uh son-TEEM*",def:"Sous-unité de l'euro.",ex:"99 centimes.",level:6,cat:"objet"},
-  {fr:"en espèces",en:"in cash",phon:"*on ay-PESS*",def:"Paiement avec des billets/pièces.",ex:"Je paie en espèces.",level:6,cat:"expression"},
-  {fr:"par carte",en:"by card",phon:"*par KART*",def:"Paiement électronique.",ex:"Je paie par carte.",level:6,cat:"expression"},
-  {fr:"le ticket de caisse",en:"receipt",phon:"*luh tee-KAY duh KESS*",def:"Preuve d'achat.",ex:"Le ticket de caisse, s'il vous plaît.",level:6,cat:"objet"}
+  // === EXPRESSIONS (5) ===
+  {fr:"ça vous dit ?",en:"do you fancy?",phon:"*sa voo DEE*",def:"Proposition informelle.",ex:"Ça vous dit d'aller au café ?",level:7,cat:"expression"},
+  {fr:"à bientôt",en:"see you soon",phon:"*a byan-TOH*",def:"Prendre congé.",ex:"Au revoir, à bientôt !",level:7,cat:"salutation"},
+  {fr:"s'amuser",en:"to have fun",phon:"*sa-mew-ZAY*",def:"Passer un bon moment.",ex:"On s'est bien amusés.",level:7,cat:"verbe"},
+  {fr:"rigoler",en:"to laugh / joke",phon:"*ree-go-LAY*",def:"Rire, plaisanter.",ex:"On a bien rigolé.",level:7,cat:"verbe"},
+  {fr:"faire la fête",en:"to party",phon:"*FAIR lah FET*",def:"Célébrer, s'amuser.",ex:"On fait la fête ce soir.",level:7,cat:"expression"}
 ];
 
 if (typeof window !== 'undefined') {
-  window.VOCAB_LEVEL_6 = VOCAB_LEVEL_6;
+  window.VOCAB_LEVEL_7 = VOCAB_LEVEL_7;
 }
