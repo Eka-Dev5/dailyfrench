@@ -8,12 +8,9 @@
   <title>Daily French 🥖 — My Space</title>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/dashboard.css">
-  <script src="js/nav.js"></script>
 </head>
 <body>
   <div id="toast" class="toast"></div>
-
-  <!-- MODAL -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
@@ -24,16 +21,12 @@
       </div>
     </div>
   </div>
-
-  <!-- VOCAB POPUP -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
       <div id="vocab-popup-body"></div>
     </div>
   </div>
-
-  <!-- HERO — ORDRE CORRIGÉ : avatar → info → switch → xp -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">?<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info">
@@ -50,15 +43,11 @@
       <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
     </div>
   </header>
-
-  <!-- BENTO -->
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
     <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
     <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
-
-  <!-- MAIN -->
   <main class="dashboard-main">
     <section class="dash-section" id="dash-life">
       <h2 class="dash-title">🇫🇷 My Life in France</h2>
@@ -86,17 +75,18 @@
     </section>
   </main>
 
-  <!-- SCRIPTS — ORDRE CORRIGÉ : core.js AVANT vocabulary-data.js -->
+  <!-- ✅ ORDRE CORRECT DES SCRIPTS -->
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
+  <script src="js/life-skills-data.js"></script>
   <script src="js/data.js"></script>
   <script src="js/vocabulary-data.js"></script>
   <script src="js/vocabulary-engine.js"></script>
   <script src="js/emergency-data.js"></script>
   <script src="js/conversation-data.js"></script>
-  <script src="js/life-skills-data.js"></script>
   <script src="js/dashboard.js"></script>
+  <script src="js/nav.js"></script>
 
   <script>
     function applyThemePick(t){
