@@ -1,4 +1,4 @@
-// my-emotions.js
+// lesson-13.js
 const LESSON_13 = {
   id: 13, title: "My Emotions", titleFr: "Mes émotions",
   objectiveEn: "Express how you feel using être + adjectives", objectiveFr: "Exprimer comment vous vous sentez en utilisant être + adjectifs",
