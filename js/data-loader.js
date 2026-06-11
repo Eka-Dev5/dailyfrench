@@ -1,12 +1,11 @@
 // ═══════════════════════════════════════════════════════════════════
 // DATA-LOADER.JS — Daily French 🥖 v2.4
 // Charge les leçons depuis lessons/lesson-01.js → lesson-20.js
-// `QUESTIONS_DB` est un objet clé = niveau
+// QUESTIONS_DB est un objet clé = niveau
 // ═══════════════════════════════════════════════════════════════════
 
 var LESSONS_DATA = [];
 var QUESTIONS_DB = {};
-
 const MAX_LESSON = 20;
 
 function pad2(n) {
@@ -99,7 +98,6 @@ function buildData() {
   if (typeof initQuiz === 'function') {
     initQuiz();
   }
-
   if (typeof initDashboard === 'function') {
     initDashboard();
   }
@@ -107,7 +105,6 @@ function buildData() {
 
 async function loadAllLessons() {
   console.log('[DataLoader] Starting load 01 →', pad2(MAX_LESSON));
-
   for (let i = 1; i <= MAX_LESSON; i++) {
     const file = lessonFile(i);
     const ok = await loadScript(file);
@@ -115,7 +112,6 @@ async function loadAllLessons() {
       console.warn('[DataLoader] Skipping missing file:', file);
     }
   }
-
   setTimeout(buildData, 300);
 }
 
