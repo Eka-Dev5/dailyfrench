@@ -1,75 +1,118 @@
-// js/data-loader.js — Charge les 20 leçons depuis lessons/ (fichiers lesson-01.js, lesson-02.js...)
+// js/data-loader.js -- Charge les 20 lecons depuis lessons/ (fichiers lesson-01.js a lesson-20.js)
 
 let LESSONS_DATA = [];
 let QUESTIONS_DB = {};
 
-async function loadLessons() {
+function loadLessons() {
   LESSONS_DATA = [];
   QUESTIONS_DB = {};
   
-  for (let i = 1; i <= CONFIG.LESSONS_COUNT; i++) {
-    try {
-      // Format avec 0 devant : lesson-01.js, lesson-02.js...
-      const script = document.createElement('script');
-      script.src = `lessons/lesson-${i.toString().padStart(2, '0')}.js`;
+  const count = (typeof CONFIG !== 'undefined' && CONFIG.LESSONS_COUNT) 
+    ? CONFIG.LESSONS_COUNT 
+    : ((typeof SUBJECT_CONFIG !== 'undefined' && SUBJECT_CONFIG.maxLevel) 
+      ? SUBJECT_CONFIG.maxLevel 
+      : 20);
+  
+  console.log('[DataLoader] Loading ' + count + ' lessons...');
+  
+  let loaded = 0;
+  let errors = 0;
+  
+  for (let i = 1; i <= count; i++) {
+    const numStr = i.toString().padStart(2, '0');
+    const script = document.createElement('script');
+    script.src = 'lessons/lesson-' + numStr + '.js';
+    
+    script.onload = function() {
+      const lessonVar = 'LESSON_' + numStr;
       
-      script.onload = () => {
-        // Variable nommée LESSON_01, LESSON_02, etc.
-        const lessonVar = `LESSON_${i.toString().padStart(2, '0')}`;
+      if (typeof window[lessonVar] !== 'undefined') {
+        const lesson = window[lessonVar];
         
-        if (typeof window[lessonVar] !== 'undefined') {
-          const lesson = window[lessonVar];
-          
-          // Ajuster l'ID si c'est un nombre (ex: 1 → "lesson1")
-          if (typeof lesson.id === 'number') {
-            lesson.id = `lesson${lesson.id}`;
-          }
-          
-          LESSONS_DATA.push(lesson);
-          
-          // Construire QUESTIONS_DB (qcm + libre)
-          if (lesson.qcm && lesson.qcm.length > 0) {
-            QUESTIONS_DB[lesson.id] = lesson.qcm;
-          }
-          if (lesson.libre && lesson.libre.length > 0) {
-            QUESTIONS_DB[lesson.id] = QUESTIONS_DB[lesson.id] || [];
-            QUESTIONS_DB[lesson.id].push(...lesson.libre);
-          }
-          
-          EventBus.emit('lessonLoaded', { id: lesson.id, lesson });
-        } else {
-          console.error(`Variable ${lessonVar} not found`);
+        // Normaliser l'ID
+        if (typeof lesson.id === 'number') {
+          lesson.id = 'lesson' + lesson.id;
+        }
+        
+        LESSONS_DATA.push(lesson);
+        
+        // Construire QUESTIONS_DB (qcm + libre)
+        if (lesson.qcm && lesson.qcm.length > 0) {
+          QUESTIONS_DB[lesson.id] = lesson.qcm;
+        }
+        if (lesson.libre && lesson.libre.length > 0) {
+          QUESTIONS_DB[lesson.id] = QUESTIONS_DB[lesson.id] || [];
+          QUESTIONS_DB[lesson.id] = QUESTIONS_DB[lesson.id].concat(lesson.libre);
+        }
+        
+        loaded++;
+        console.log('[DataLoader] Loaded lesson-' + numStr + '.js (' + loaded + '/' + count + ')');
+        
+        if (typeof EventBus !== 'undefined') {
+          EventBus.emit('lessonLoaded', { id: lesson.id, lesson: lesson });
+        }
+      } else {
+        errors++;
+        console.error('[DataLoader] Variable ' + lessonVar + ' not found in lesson-' + numStr + '.js');
+        if (typeof EventBus !== 'undefined') {
           EventBus.emit('lessonError', { id: i, error: 'Variable not found' });
         }
-      };
+      }
       
-      script.onerror = () => {
-        console.error(`Failed to load lesson-${i.toString().padStart(2, '0')}.js`);
+      // Si tout est charge, emettre l'evenement
+      if (loaded + errors === count) {
+        console.log('[DataLoader] All lessons processed. Loaded: ' + loaded + ', Errors: ' + errors);
+        if (typeof EventBus !== 'undefined') {
+          EventBus.emit('lessonsLoaded', { lessons: LESSONS_DATA, count: loaded });
+        }
+      }
+    };
+    
+    script.onerror = function() {
+      errors++;
+      console.error('[DataLoader] Failed to load lesson-' + numStr + '.js');
+      if (typeof EventBus !== 'undefined') {
         EventBus.emit('lessonError', { id: i, error: 'File not found' });
-      };
+      }
       
-      document.head.appendChild(script);
-      
-    } catch (err) {
-      console.error(`Error loading lesson ${i}:`, err);
-      EventBus.emit('lessonError', { id: i, error: err });
-    }
+      if (loaded + errors === count) {
+        console.log('[DataLoader] All lessons processed. Loaded: ' + loaded + ', Errors: ' + errors);
+        if (typeof EventBus !== 'undefined') {
+          EventBus.emit('lessonsLoaded', { lessons: LESSONS_DATA, count: loaded });
+        }
+      }
+    };
+    
+    document.head.appendChild(script);
   }
-  
-  // Attendre que tous les scripts soient chargés
-  setTimeout(() => {
-    EventBus.emit('lessonsLoaded', { lessons: LESSONS_DATA });
-    console.log(`✅ Loaded ${LESSONS_DATA.length} lessons`);
-  }, 1500);
 }
 
-// Lancer après core.js
+// Lancer quand core.js est pret
 if (typeof EventBus !== 'undefined') {
-  EventBus.on('coreInitialized', loadLessons);
+  EventBus.on('coreReady', function(data) {
+    console.log('[DataLoader] coreReady received, starting load...');
+    loadLessons();
+  });
 } else {
-  setTimeout(() => {
+  // Fallback : attendre que EventBus soit defini
+  console.log('[DataLoader] Waiting for EventBus...');
+  var checkInterval = setInterval(function() {
     if (typeof EventBus !== 'undefined') {
-      EventBus.on('coreInitialized', loadLessons);
+      clearInterval(checkInterval);
+      console.log('[DataLoader] EventBus found, registering...');
+      EventBus.on('coreReady', function(data) {
+        console.log('[DataLoader] coreReady received, starting load...');
+        loadLessons();
+      });
     }
-  }, 100);
+  }, 50);
+  
+  // Fallback ultime : charger apres 3 secondes quand meme
+  setTimeout(function() {
+    clearInterval(checkInterval);
+    if (LESSONS_DATA.length === 0) {
+      console.log('[DataLoader] Fallback: loading lessons now...');
+      loadLessons();
+    }
+  }, 3000);
 }
