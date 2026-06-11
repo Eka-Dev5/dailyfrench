@@ -1,4 +1,4 @@
-// neighbours-community.js
+// lesson-04.js
 const LESSON_04 = {
   id: 4, title: "Neighbours & Community", titleFr: "Voisins et communauté",
   objectiveEn: "Chat with neighbours, ask for information, be sociable", objectiveFr: "Discuter avec les voisins, demander des informations, être sociable",
