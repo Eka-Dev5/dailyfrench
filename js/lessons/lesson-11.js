@@ -1,4 +1,4 @@
-// daily-life-in-france.js
+//lesson-11.js
 const LESSON_11 = {
   id: 11, title: "Daily Life in France", titleFr: "La vie quotidienne en France",
   objectiveEn: "Handle admin, services and practical French daily life", objectiveFr: "Gérer les démarches administratives, les services et la vie quotidienne pratique en français",
