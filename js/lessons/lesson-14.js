@@ -1,4 +1,4 @@
-// my-needs.js
+// lesson-14.js
 const LESSON_14 = {
   id: 14, title: "My Needs", titleFr: "Mes besoins",
   objectiveEn: "Express hunger, thirst, tiredness and desires using avoir", objectiveFr: "Exprimer la faim, la soif, la fatigue et les désirs en utilisant avoir",
