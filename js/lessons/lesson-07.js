@@ -1,4 +1,4 @@
-// friends-going-out.js
+// lesson-07.js
 const LESSON_07 = {
   id: 7, title: "Friends & Going Out", titleFr: "Amis et sorties",
   objectiveEn: "Make and accept social invitations, arrange to meet", objectiveFr: "Faire et accepter des invitations, organiser des rencontres",
