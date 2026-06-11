@@ -5,16 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Daily French 🥖 — Quiz</title>
+  <title>Daily French -- Quiz</title>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/quiz.css">
-  <!-- ❌ SUPPRIMÉ : nav.js dans HEAD (avant core.js) -->
 </head>
 <body>
   <!-- Toast notification -->
   <div id="toast" class="toast"></div>
   
-  <!-- Modal pour créer un joueur -->
+  <!-- Modal pour creer un joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
@@ -29,7 +28,7 @@
   <!-- Modal popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
-      <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
+      <button class="vocab-popup-close" onclick="closeVocabPopup()">x</button>
       <div id="vocab-popup-body"></div>
     </div>
   </div>
@@ -46,191 +45,35 @@
     </div>
     <div class="hero-xp">
       <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
-      <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
+      <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts -- Next: <span id="xpGoal">100</span> pts</div>
     </div>
   </header>
   
   <!-- Bento grid (stats rapides) -->
   <div class="bento-grid">
-    <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
-    <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
-    <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
-  </div>
-  
-  <!-- Section 1: Home (accueil) -->
-  <section id="home" class="section active">
-    <div style="text-align:center;padding:var(--space-lg) 0;">
-      <div style="font-size:3.5rem;margin-bottom:var(--space-sm)">🥖</div>
-      <h1 class="page-title" style="text-align:center">Daily French</h1>
-      <p class="page-subtitle" style="text-align:center;max-width:400px;margin:0 auto var(--space-lg)">Learn everyday French through interactive quizzes, conversations, and vocabulary.</p>
-    </div>
-    <div class="mode-selector">
-      <button class="mode-btn active" data-mode="mixte">Mixed</button>
-      <button class="mode-btn" data-mode="qcm">QCM</button>
-      <button class="mode-btn" data-mode="libre">Written</button>
-    </div>
-    <div style="margin-top:var(--space-lg);text-align:center">
-      <div style="font-size:var(--font-sm);color:var(--muted);margin-bottom:var(--space-sm);font-weight:600">Question direction:</div>
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-        <button class="direction-btn active" data-direction="en-first" onclick="applyDirectionPick('en-first')">🇬🇧→🇫🇷 EN First</button>
-        <button class="direction-btn" data-direction="fr-first" onclick="applyDirectionPick('fr-first')">🇫🇷→🇬🇧 FR First</button>
-        <button class="direction-btn" data-direction="mixed" onclick="applyDirectionPick('mixed')">🔄 Mixed</button>
-      </div>
-    </div>
-    <div style="margin-top:var(--space-xl);text-align:center">
-      <a href="quiz.html?section=levels" class="btn btn-primary btn-large">🎮 Start Playing</a>
-      <p style="margin-top:var(--space-md);font-size:var(--font-sm);color:var(--muted)">Or explore <a href="quiz.html?section=lecons" style="color:var(--primary)">Lessons</a> first</p>
-    </div>
-  </section>
-  
-  <!-- Section 2: Lessons (leçons) -->
-  <section id="lecons" class="section" style="display:none">
-    <h2 class="section-title">📚 Lessons</h2>
-    <div id="lessonsContainer" class="lessons-container"></div>
-  </section>
-  
-  <!-- Section 3: Levels (niveaux) -->
-  <section id="levels" class="section" style="display:none">
-    <h2 class="section-title">🎮 Choose a Level</h2>
-    <div class="mode-selector">
-      <button class="mode-btn active" data-mode="mixte">Mixed</button>
-      <button class="mode-btn" data-mode="qcm">QCM</button>
-      <button class="mode-btn" data-mode="libre">Written</button>
-    </div>
-    <div id="levelsContainer" class="levels-container"></div>
-  </section>
-  
-  <!-- Section 4: Jeu (game area) -->
-  <section id="jeu" class="section" style="display:none">
-    <div id="lessonIntro" class="lesson-intro" style="display:none">
-      <h3 id="lessonIntroTitle" class="intro-title"></h3>
-      <p id="lessonIntroObj" class="intro-objective"></p>
-      <div id="lessonIntroContent" class="intro-content"></div>
-      <div id="lessonIntroVocabulary" class="intro-vocab"></div>
-      <button id="startLevelBtn" class="btn btn-primary btn-large">Start Level</button>
-    </div>
-    <div id="gameArea" class="game-area">
-      <div class="game-header">
-        <div id="gameTitle" class="game-title">Level 1</div>
-        <div class="game-meta">
-          <span id="questionCounter" class="counter">1 / 10</span>
-          <span id="scoreDisplay" class="score">0 pts</span>
-        </div>
-        <div class="bar-track"><div id="progressFill" class="bar-fill"></div></div>
-      </div>
-      <div id="questionText" class="question-text"></div>
-      <div id="qcmOptions" class="qcm-options"></div>
-      <div id="libreInput" class="libre-input" style="display:none">
-        <input type="text" id="answerInput" class="answer-input" placeholder="Type your answer here…" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
-      </div>
-      <div id="hintBox" class="hint-box" style="display:none"></div>
-      <div class="game-actions">
-        <button id="validateBtn" class="btn btn-primary btn-large">Validate</button>
-        <button id="nextBtn" class="btn btn-secondary btn-large" style="display:none">Next</button>
-      </div>
-      <div id="feedbackArea" class="feedback-area" style="display:none">
-        <div id="feedbackTitle" class="feedback-title"></div>
-        <div id="feedbackCorrect" class="feedback-correct"></div>
-        <div id="feedbackExplanation" class="feedback-explanation"></div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Section 5: Results (résultats) -->
-  <section id="resultats" class="section" style="display:none">
-    <h2 class="section-title">🎯 Results</h2>
-    <div class="score-circle" style="--pct:0">
-      <div id="resultPct" class="score-pct">0%</div>
-    </div>
-    <div id="resultMsg" class="result-message"></div>
-    <div class="result-actions">
-      <button id="retryBtn" class="btn btn-secondary btn-large">Retry</button>
-      <button id="nextLevelBtn" class="btn btn-primary btn-large">Next Level</button>
-      <button id="quitBtn" class="btn btn-ghost btn-large">Quit</button>
-    </div>
-  </section>
-
-  <!-- ✅ ORDRE CORRECT DES SCRIPTS (CORRIGÉ) -->
-  <!-- 1. config.js — Configuration globale -->
-  <script src="js/config.js"></script>
-  
-  <!-- 2. core.js — Moteur central (EventBus défini ici) -->
-  <script src="js/core.js"></script>
-  
-  <!-- 3. ui-utils.js — Utilitaires UI -->
-  <script src="js/ui-utils.js"></script>
-  
-  <!-- 4. data-loader.js — Charge les leçons (utilise EventBus ✅) -->
-  <script src="js/data-loader.js"></script>
-  
-  <!-- 5. vocabulary-data.js — Vocabulaire -->
-  <script src="js/vocabulary-data.js"></script>
-  
-  <!-- 6. vocabulary-engine.js — Moteur vocabulaire -->
-  <script src="js/vocabulary-engine.js"></script>
-  
-  <!-- 7. game-engine.js — Moteur de jeu -->
-  <script src="js/game-engine.js"></script>
-  
-  <!-- 8. quiz.js — Logique du quiz -->
-  <script src="js/quiz.js"></script>
-  
-  <!-- 9. nav.js — Navigation (après core.js ✅) -->
-  <script src="js/nav.js"></script>
-
-  <!-- Scripts inline pour Settings -->
-  <script>
-    // applyDirectionPick — Choisir la direction (utilise DirectionMode.set())
-    function applyDirectionPick(d) {
-      if (typeof DirectionMode !== 'undefined') {
-        DirectionMode.set(d);
-        toast('Direction: ' + DirectionMode.getLabel(d) + ' 🔄');
-      }
-      document.querySelectorAll('.direction-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.direction === d);
+    <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bReady received, starting load...');
+    loadLessons();
+  });
+} else {
+  // Fallback : attendre que EventBus soit defini
+  console.log('[DataLoader] Waiting for EventBus...');
+  var checkInterval = setInterval(function() {
+    if (typeof EventBus !== 'undefined') {
+      clearInterval(checkInterval);
+      console.log('[DataLoader] EventBus found, registering...');
+      EventBus.on('coreReady', function(data) {
+        console.log('[DataLoader] coreReady received, starting load...');
+        loadLessons();
       });
     }
-    
-    // applyThemePick — Choisir un thème
-    function applyThemePick(t) {
-      if (typeof Theme !== 'undefined') {
-        Theme.apply(t);
-      } else {
-        document.documentElement.setAttribute('data-theme', t);
-        localStorage.setItem('dailyFrench_theme', t);
-      }
-      if (typeof toast === 'function') toast('Theme: ' + t);
+  }, 50);
+  
+  // Fallback ultime : charger apres 3 secondes quand meme
+  setTimeout(function() {
+    clearInterval(checkInterval);
+    if (LESSONS_DATA.length === 0) {
+      console.log('[DataLoader] Fallback: loading lessons now...');
+      loadLessons();
     }
-    
-    // applyLangPick — Choisir une langue
-    function applyLangPick(l) {
-      if (typeof I18n !== 'undefined') {
-        I18n.current = l;
-        Storage.set('dailyFrench_lang', l);
-      }
-      localStorage.setItem('dailyFrench_lang', l);
-      if (typeof toast === 'function') toast('Language: ' + l.toUpperCase());
-    }
-    
-    // Initialisation
-    (function() {
-      // Appliquer la direction sauvegardée
-      const s = localStorage.getItem('dailyFrench_direction') || 'en-first';
-      if (typeof DirectionMode !== 'undefined') {
-        DirectionMode.set(s);
-      }
-      document.querySelectorAll('.direction-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.direction === s);
-      });
-      
-      // Appliquer le thème sauvegardé
-      const t = localStorage.getItem('dailyFrench_theme');
-      if (t && typeof Theme !== 'undefined') {
-        Theme.apply(t);
-      } else if (t) {
-        document.documentElement.setAttribute('data-theme', t);
-      }
-    })();
-  </script>
-</body>
-</html>
+  }, 3000);
+}
