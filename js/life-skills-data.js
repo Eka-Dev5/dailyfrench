@@ -1,17 +1,253 @@
 // ═══════════════════════════════════════════════════════════════════
-// LIFE-SKILLS-DATA.JS — Daily French 🥖
-// TOUTES les données Life Skills + Simulator + Badges + Caméléon
+// LIFE-SKILLS-DATA.JS — Daily French 🥖 v1.0
+// Compétences de vie + Badges + Caméléon + Simulateur
 // ═══════════════════════════════════════════════════════════════════
 
 // ─── LIFE SKILLS (10 compétences) ─────────────────────────────
-const LIFE_SKILLS = [ /* ... ton contenu actuel ... */ ];
+const LIFE_SKILLS = [
+  {
+    id: 'courses',
+    icon: '🛒',
+    title: 'Shopping',
+    titleFr: 'Faire les courses',
+    desc: 'Markets, bakery, supermarket, paying',
+    levels: [2, 6],
+    sosCategories: ['courses'],
+    convScenarios: ['boulanger'],
+    color: '#F59E0B'
+  },
+  {
+    id: 'medecin',
+    icon: '🏥',
+    title: 'Doctor',
+    titleFr: 'Aller chez le médecin',
+    desc: 'Appointments, symptoms, prescriptions',
+    levels: [18],
+    sosCategories: ['medecin'],
+    convScenarios: ['medecin'],
+    color: '#DC2626'
+  },
+  {
+    id: 'pharmacie',
+    icon: '💊',
+    title: 'Pharmacy',
+    titleFr: 'La pharmacie',
+    desc: 'Medication, pain, allergies, first aid',
+    levels: [],
+    sosCategories: ['pharmacie'],
+    convScenarios: [],
+    color: '#059669'
+  },
+  {
+    id: 'admin',
+    icon: '📋',
+    title: 'Administration',
+    titleFr: 'Les démarches admin',
+    desc: 'Town hall, paperwork, registration',
+    levels: [],
+    sosCategories: ['admin'],
+    convScenarios: ['mairie'],
+    color: '#4A5568'
+  },
+  {
+    id: 'voisinage',
+    icon: '🏘️',
+    title: 'Neighbours',
+    titleFr: 'Parler avec les voisins',
+    desc: 'Introductions, small talk, being polite',
+    levels: [4, 11],
+    sosCategories: [],
+    convScenarios: ['voisin'],
+    color: '#7C3AED'
+  },
+  {
+    id: 'restaurant',
+    icon: '🍽️',
+    title: 'Restaurant',
+    titleFr: 'Au restaurant',
+    desc: 'Ordering, allergies, paying the bill',
+    levels: [],
+    sosCategories: ['restaurant'],
+    convScenarios: ['cafe'],
+    color: '#EA580C'
+  },
+  {
+    id: 'transports',
+    icon: '🚆',
+    title: 'Transport',
+    titleFr: 'Prendre les transports',
+    desc: 'Train, bus, tickets, directions',
+    levels: [],
+    sosCategories: ['transports'],
+    convScenarios: ['gare'],
+    color: '#2563EB'
+  },
+  {
+    id: 'logement',
+    icon: '🏠',
+    title: 'Housing',
+    titleFr: 'Gérer son logement',
+    desc: 'Repairs, landlord, utilities',
+    levels: [15],
+    sosCategories: ['logement'],
+    convScenarios: [],
+    color: '#0891B2'
+  },
+  {
+    id: 'telephone',
+    icon: '📞',
+    title: 'Phone Calls',
+    titleFr: 'Au téléphone',
+    desc: 'Appointments, understanding, messages',
+    levels: [],
+    sosCategories: ['telephone'],
+    convScenarios: [],
+    color: '#6366F1'
+  },
+  {
+    id: 'ecole',
+    icon: '🎒',
+    title: "Child's School",
+    titleFr: "L'école de l'enfant",
+    desc: 'Enrollment, absences, speaking to teachers',
+    levels: [],
+    sosCategories: ['ecole'],
+    convScenarios: [],
+    color: '#EC4899'
+  }
+];
 
 // ─── BADGES (26 badges) ───────────────────────────────────────
 const BADGES_DEF = [
+  { id: 'first_step', icon: '🙋', name: 'First Step', desc: 'Complete level 1' },
+  { id: 'greengrocer', icon: '🛒', name: 'Greengrocer', desc: 'Complete level 2' },
+  { id: 'gardener', icon: '🌿', name: 'Gardener', desc: 'Complete level 3' },
+  { id: 'neighbour', icon: '🏘️', name: 'Neighbour', desc: 'Complete level 4' },
   { id: 'tasteful', icon: '💗', name: 'Tasteful', desc: 'Complete level 5' },
   { id: 'mall_rat', icon: '🏬', name: 'Mall Rat', desc: 'Complete level 6' },
   { id: 'socialite', icon: '👫', name: 'Socialite', desc: 'Complete level 7' },
-  { id: 'meteo', icon: '🌤️', name: 'Météo', desc: 'Complete level 8' },
+  { id: 'meteo', icon: '🌤️', name: 'Meteo', desc: 'Complete level 8' },
+  { id: 'verb_master', icon: '⚡', name: 'Verb Master', desc: 'Complete level 9' },
+  { id: 'polite', icon: '🎩', name: 'Polite', desc: 'Complete level 10' },
+  { id: 'local', icon: '🇫🇷', name: 'Local', desc: 'Complete level 11' },
+  { id: 'early_bird', icon: '🌅', name: 'Early Bird', desc: 'Play before 8am' },
+  { id: 'emotional', icon: '💭', name: 'Emotional', desc: 'Complete level 13' },
+  { id: 'fed', icon: '🍽️', name: 'Fed', desc: 'Complete level 14' },
+  { id: 'home_owner', icon: '🏡', name: 'Home Owner', desc: 'Complete level 15' },
+  { id: 'family', icon: '👨‍👩‍👧‍👦', name: 'Family', desc: 'Complete level 16' },
+  { id: 'planner', icon: '📅', name: 'Planner', desc: 'Complete level 17' },
+  { id: 'healthy', icon: '💊', name: 'Healthy', desc: 'Complete level 18' },
+  { id: 'chef', icon: '👨‍🍳', name: 'Chef', desc: 'Complete level 19' },
+  { id: 'fluent', icon: '🗣️', name: 'Fluent', desc: 'Complete level 20' },
+  { id: 'streak_3', icon: '🔥', name: 'Streak 3', desc: '3 levels in a row' },
+  { id: 'streak_7', icon: '🔥🔥', name: 'Streak 7', desc: '7 levels in a row' },
+  { id: 'perfectionist', icon: '💯', name: 'Perfectionist', desc: '100% on a level' },
+  { id: 'bookworm', icon: '📚', name: 'Bookworm', desc: 'Read all lessons' },
+  { id: 'sharpshooter', icon: '🎯', name: 'Sharpshooter', desc: '10 correct in a row' },
+  { id: 'halfway', icon: '🏆', name: 'Halfway', desc: 'Complete 10 levels' },
+  { id: 'champion', icon: '👑', name: 'Champion', desc: 'Complete all levels' },
+  { id: 'cameleon', icon: '🦎', name: 'Cameleon', desc: 'Use all features' },
+  { id: 'gen  },
+  {
+    id: 'pharmacie',
+    icon: '💊',
+    title: 'Pharmacy',
+    titleFr: 'La pharmacie',
+    desc: 'Medication, pain, allergies, first aid',
+    levels: [],
+    sosCategories: ['pharmacie'],
+    convScenarios: [],
+    color: '#059669'
+  },
+  {
+    id: 'admin',
+    icon: '📋',
+    title: 'Administration',
+    titleFr: 'Les démarches admin',
+    desc: 'Town hall, paperwork, registration',
+    levels: [],
+    sosCategories: ['admin'],
+    convScenarios: ['mairie'],
+    color: '#4A5568'
+  },
+  {
+    id: 'voisinage',
+    icon: '🏘️',
+    title: 'Neighbours',
+    titleFr: 'Parler avec les voisins',
+    desc: 'Introductions, small talk, being polite',
+    levels: [4, 11],
+    sosCategories: [],
+    convScenarios: ['voisin'],
+    color: '#7C3AED'
+  },
+  {
+    id: 'restaurant',
+    icon: '🍽️',
+    title: 'Restaurant',
+    titleFr: 'Au restaurant',
+    desc: 'Ordering, allergies, paying the bill',
+    levels: [],
+    sosCategories: ['restaurant'],
+    convScenarios: ['cafe'],
+    color: '#EA580C'
+  },
+  {
+    id: 'transports',
+    icon: '🚆',
+    title: 'Transport',
+    titleFr: 'Prendre les transports',
+    desc: 'Train, bus, tickets, directions',
+    levels: [],
+    sosCategories: ['transports'],
+    convScenarios: ['gare'],
+    color: '#2563EB'
+  },
+  {
+    id: 'logement',
+    icon: '🏠',
+    title: 'Housing',
+    titleFr: 'Gérer son logement',
+    desc: 'Repairs, landlord, utilities',
+    levels: [15],
+    sosCategories: ['logement'],
+    convScenarios: [],
+    color: '#0891B2'
+  },
+  {
+    id: 'telephone',
+    icon: '📞',
+    title: 'Phone Calls',
+    titleFr: 'Au téléphone',
+    desc: 'Appointments, understanding, messages',
+    levels: [],
+    sosCategories: ['telephone'],
+    convScenarios: [],
+    color: '#6366F1'
+  },
+  {
+    id: 'ecole',
+    icon: '🎒',
+    title: "Child's School",
+    titleFr: "L'école de l'enfant",
+    desc: 'Enrollment, absences, speaking to teachers',
+    levels: [],
+    sosCategories: ['ecole'],
+    convScenarios: [],
+    color: '#EC4899'
+  }
+];
+
+// ─── BADGES (26 badges) ───────────────────────────────────────
+const BADGES_DEF = [
+  { id: 'first_step', icon: '🙋', name: 'First Step', desc: 'Complete level 1' },
+  { id: 'greengrocer', icon: '🛒', name: 'Greengrocer', desc: 'Complete level 2' },
+  { id: 'gardener', icon: '🌿', name: 'Gardener', desc: 'Complete level 3' },
+  { id: 'neighbour', icon: '🏘️', name: 'Neighbour', desc: 'Complete level 4' },
+  { id: 'tasteful', icon: '💗', name: 'Tasteful', desc: 'Complete level 5' },
+  { id: 'mall_rat', icon: '🏬', name: 'Mall Rat', desc: 'Complete level 6' },
+  { id: 'socialite', icon: '👫', name: 'Socialite', desc: 'Complete level 7' },
+  { id: 'meteo', icon: '🌤️', name: 'Meteo', desc: 'Complete level 8' },
   { id: 'verb_master', icon: '⚡', name: 'Verb Master', desc: 'Complete level 9' },
   { id: 'polite', icon: '🎩', name: 'Polite', desc: 'Complete level 10' },
   { id: 'local', icon: '🇫🇷', name: 'Local', desc: 'Complete level 11' },
@@ -56,29 +292,29 @@ const LIFE_SIMULATOR_SCENARIOS = [
       {
         question: 'You want to buy apples. How do you ask "How much is it per kilo?"',
         options: [
-          'Combien ça coûte le kilo ?',
-          'Où sont les pommes ?',
+          'Combien ca coute le kilo ?',
+          'Ou sont les pommes ?',
           'Je voudrais un kilo de pommes.'
         ],
         correct: 0,
-        explanation: '"Combien ça coûte le kilo ?" = How much is it per kilo?'
+        explanation: '"Combien ca coute le kilo ?" = How much is it per kilo?'
       },
       {
-        question: 'The vendor says "Ça fait 4 euros 50". What does it mean?',
+        question: 'The vendor says "Ca fait 4 euros 50". What does it mean?',
         options: [
           'It costs 4.50€',
           'It weighs 4.50kg',
           'There are 4.50 items'
         ],
         correct: 0,
-        explanation: '"Ça fait 4 euros 50" = That makes 4.50€ (total price)'
+        explanation: '"Ca fait 4 euros 50" = That makes 4.50€ (total price)'
       },
       {
         question: 'You want to pay. What do you say?',
         options: [
           'Je peux payer par carte ?',
           'C\'est trop cher !',
-          'Je ne veux pas ça.'
+          'Je ne veux pas ca.'
         ],
         correct: 0,
         explanation: '"Je peux payer par carte ?" = Can I pay by card?'
@@ -94,12 +330,12 @@ const LIFE_SIMULATOR_SCENARIOS = [
       {
         question: 'You have a headache. How do you say it?',
         options: [
-          'J\'ai mal à la tête.',
+          'J\'ai mal a la tete.',
           'J\'ai froid.',
-          'Je suis fatigué.'
+          'Je suis fatigue.'
         ],
         correct: 0,
-        explanation: '"J\'ai mal à la tête" = I have a headache'
+        explanation: '"J\'ai mal a la tete" = I have a headache'
       },
       {
         question: 'The doctor asks "Depuis quand ?" What does it mean?',
@@ -115,8 +351,8 @@ const LIFE_SIMULATOR_SCENARIOS = [
         question: 'You need a prescription. What do you ask?',
         options: [
           'Pouvez-vous me faire une ordonnance ?',
-          'Où est la pharmacie ?',
-          'Je veux des médicaments.'
+          'Ou est la pharmacie ?',
+          'Je veux des medicaments.'
         ],
         correct: 0,
         explanation: '"Pouvez-vous me faire une ordonnance ?" = Can you write me a prescription?'
@@ -134,7 +370,7 @@ const LIFE_SIMULATOR_SCENARIOS = [
         options: [
           'Je voudrais ouvrir un compte bancaire.',
           'Je veux retirer de l\'argent.',
-          'Où est le distributeur ?'
+          'Ou est le distributeur ?'
         ],
         correct: 0,
         explanation: '"Je voudrais ouvrir un compte bancaire" = I would like to open a bank account.'
@@ -154,16 +390,61 @@ const LIFE_SIMULATOR_SCENARIOS = [
         options: [
           'Pouvez-vous me donner mon RIB ?',
           'Je veux fermer mon compte.',
-          'Où puis-je signer ?'
+          'Ou puis-je signer ?'
         ],
         correct: 0,
-        explanation: '"RIB" (Relevé d\'Identité Bancaire) = bank details document with IBAN'
+        explanation: '"RIB" (Releve d\'Identite Bancaire) = bank details document with IBAN'
       }
     ]
   }
 ];
 
 // ─── FONCTIONS UTILITAIRES ──────────────────────────────────
-function calculateSkillScore(skill, player) { /* ... ton contenu actuel ... */ }
-function renderStars(score) { /* ... ton contenu actuel ... */ }
-function getSkillLevelLabel(score) { /* ... ton contenu actuel ... */ }
+
+function calculateSkillScore(skill, player) {
+  if (!player) return 0;
+  let score = 0;
+  const maxScore = 5;
+  const completed = player.completed || [];
+  const relatedCompleted = skill.levels.filter(function(l) {
+    return completed.indexOf(l) > -1;
+  }).length;
+  score += Math.min(2.5, relatedCompleted * 0.8);
+
+  let sosFavs = [];
+  try {
+    sosFavs = JSON.parse(localStorage.getItem('dailyFrench_sosFavorites')) || [];
+  } catch(e) { sosFavs = []; }
+
+  const relatedFavs = sosFavs.filter(function(f) {
+    return skill.sosCategories.indexOf(f.category) > -1;
+  }).length;
+  score += Math.min(1.5, relatedFavs * 0.5);
+
+  const convDone = player.convProgress || {};
+  const relatedConv = skill.convScenarios.filter(function(s) {
+    return convDone[s] && convDone[s].completed;
+  }).length;
+  score += Math.min(1, relatedConv * 0.5);
+
+  return Math.min(maxScore, Math.round(score * 10) / 10);
+}
+
+function renderStars(score) {
+  const full = Math.floor(score);
+  const half = score % 1 >= 0.5 ? 1 : 0;
+  const empty = 5 - full - half;
+  let html = '';
+  for (let i = 0; i < full; i++) html += '★';
+  if (half) html += '½';
+  for (let i = 0; i < empty; i++) html += '☆';
+  return html;
+}
+
+function getSkillLevelLabel(score) {
+  if (score >= 4.5) return 'Expert';
+  if (score >= 3.5) return 'Advanced';
+  if (score >= 2.5) return 'Intermediate';
+  if (score >= 1) return 'Beginner';
+  return 'Novice';
+}
