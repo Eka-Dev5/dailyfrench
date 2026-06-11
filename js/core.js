@@ -341,37 +341,48 @@ const DirectionMode = {
     return index % 2 === 0 ? { qLang: 'en', aLang: 'fr' } : { qLang: 'fr', aLang: 'en' };
   },
 
-  // Inverse une question selon la direction
-  flipQuestion(q, index) {
-    if (!q) return q;
-    const dir = this.getDirectionForQuestion(index);
 
-    // Si EN→FR (défaut), pas d'inversion nécessaire
-    if (dir.qLang === 'en') return q;
+// REMPLACER la fonction flipQuestion() existante dans core.js par celle-ci :
 
-    // Si FR→EN, on inverse question et réponse
-    // On utilise les champs _fr s'ils existent, sinon on inverse logiquement
-    const flipped = { ...q };
-
-    // Pour QCM : la question devient FR, les options deviennent EN
-    if (q.options && q.correctIndex !== undefined) {
-      // Si les données ont des versions FR, on les utilise
-      // Sinon on garde tel quel (les données data.js restent en EN pour l'instant)
-      // NOTE : l'inversion complète nécessite data.js bilingue
-      flipped.question = q.questionFr || q.question;
-      flipped.options = q.optionsEn || q.options;
-      flipped.correctIndex = q.correctIndexEn !== undefined ? q.correctIndexEn : q.correctIndex;
-    }
-
-    // Pour libre : question FR, réponse EN
-    if (q.correct && !q.options) {
-      flipped.question = q.questionFr || q.question;
-      flipped.correct = q.correctEn || q.correct;
-    }
-
-    return flipped;
+flipQuestion(q, index) {
+  if (!q) return q;
+  const dir = this.getDirectionForQuestion(index);
+  
+  // EN First (défaut) : pas de changement
+  if (dir.qLang === 'en') return q;
+  
+  // FR First : inverser avec TA structure exacte
+  const flipped = { ...q };
+  
+  if (q.type === 'qcm') {
+    // Question : utiliser questionFr ou question
+    flipped.question = q.questionFr || q.question;
+    
+    // Options : utiliser optionsEn ou options
+    flipped.options = q.optionsEn || q.options;
+    
+    // Réponse correcte : utiliser correctEn ou correct
+    flipped.correct = q.correctEn || q.correct;
+    
+    // Explication : utiliser explanationFr
+    flipped.explanation = q.explanationFr || q.explanation;
   }
-};
+  
+  if (q.type === 'libre') {
+    // Question : utiliser questionFr ou question
+    flipped.question = q.questionFr || q.question;
+    
+    // Réponse correcte : utiliser correctEn ou correct
+    flipped.correct = q.correctEn || q.correct;
+    
+    // Explication : utiliser explanationFr
+    flipped.explanation = q.explanationFr || q.explanation;
+  }
+  
+  return flipped;
+}
+
+
 
 // ═══════════════════════════════════════════════════════════════════
 // 5. THEME ENGINE
