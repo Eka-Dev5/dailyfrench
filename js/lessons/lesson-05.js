@@ -1,260 +1,197 @@
-const LESSON_05 = {
-  id: 5,
-  title: "Tastes & Desires",
-  titleFr: "Goûts et désirs",
-  objectiveEn: "Express likes, dislikes and preferences in French",
-  objectiveFr: "Exprimer ses goûts, ses dégoûts et ses préférences en français",
-  hintEn: "'J'adore' is stronger than 'J'aime' — use it for real enthusiasm!",
-  hintFr: "'J'adore' est plus fort que 'J'aime' — utilisez-le pour un réel enthousiasme !",
-  vocabulary: [],
-  contentHtml: `<div class="lesson-rule">
-<h4>❤️ Likes and dislikes</h4>
-<table class="lesson-table">
-<thead>
-<tr><th>French</th><th>English</th></tr>
-</thead>
-<tbody>
-<tr><td>J'adore</td><td>I love</td></tr>
-<tr><td>J'aime</td><td>I like</td></tr>
-<tr><td>Je n'aime pas</td><td>I don't like</td></tr>
-<tr><td>Je préfère</td><td>I prefer</td></tr>
-<tr><td>Ça me plaît</td><td>I like it / It pleases me</td></tr>
-</tbody>
-</table>
-</div>`,
-  qcm: [
-    {
-      id: "5-1",
-      type: "qcm",
-      question: "'I love cheese!' in French:",
-      questionFr: "Traduisez : 'J'adore le fromage !'",
-      options: ["J'adore le fromage !", "J'aime bien fromage !", "Je veux le fromage !", "J'ai le fromage !"],
-      optionsEn: ["I love cheese!", "I like cheese!", "I want the cheese!", "I have the cheese!"],
-      correct: "J'adore le fromage !",
-      correctEn: "I love cheese!",
-      explanation: "J'adore = I love (strong).",
-      explanationFr: "J'adore = j'adore (fort)."
-    },
-    {
-      id: "5-2",
-      type: "qcm",
-      question: "'I don't like olives.' in French:",
-      questionFr: "Traduisez : 'Je n'aime pas les olives.'",
-      options: ["Je n'aime pas les olives.", "J'aime pas olive.", "Je veux pas olives.", "Pas les olives."],
-      optionsEn: ["I don't like olives.", "I like not olive.", "I want not olives.", "Not the olives."],
-      correct: "Je n'aime pas les olives.",
-      correctEn: "I don't like olives.",
-      explanation: "Je n'aime pas = I don't like.",
-      explanationFr: "Je n'aime pas = je n'aime pas."
-    },
-    {
-      id: "5-3",
-      type: "qcm",
-      question: "'I prefer red wine.' in French:",
-      questionFr: "Traduisez : 'Je préfère le vin rouge.'",
-      options: ["Je préfère le vin rouge.", "J'aime mieux rouge vin.", "Je veux vin rouge.", "Le vin rouge j'aime."],
-      optionsEn: ["I prefer red wine.", "I like better red wine.", "I want red wine.", "Red wine I like."],
-      correct: "Je préfère le vin rouge.",
-      correctEn: "I prefer red wine.",
-      explanation: "Je préfère = I prefer.",
-      explanationFr: "Je préfère = je préfère."
-    },
-    {
-      id: "5-4",
-      type: "qcm",
-      question: "'It's delicious!' in French:",
-      questionFr: "Traduisez : 'C'est délicieux !'",
-      options: ["C'est délicieux !", "C'est bon !", "C'est très bien !", "J'aime ça !"],
-      optionsEn: ["It's delicious!", "It's good!", "It's very good!", "I like that!"],
       correct: "C'est délicieux !",
       correctEn: "It's delicious!",
-      explanation: "C'est délicieux = it's delicious.",
-      explanationFr: "C'est délicieux = c'est délicieux."
+      explanation: "C'est délicieux (*say day-lee-SYUH*) = It's delicious! C'est bon = It's good (less enthusiastic).",
+      explanationFr: "C'est délicieux = c'est délicieux ! C'est bon = c'est bon (moins enthousiaste)."
     },
     {
-      id: "5-5",
+      id: "05-5",
       type: "qcm",
       question: "'I'm vegetarian.' in French:",
-      questionFr: "Comment dit-on 'Je suis végétarien' ?",
-      options: ["Je suis végétarien.", "Je veux pas viande.", "Je n'ai pas viande.", "Je mange pas bête."],
-      optionsEn: ["I'm vegetarian.", "I don't want meat.", "I don't have meat.", "I don't eat animal."],
+      questionFr: "'Je suis végétarien.' en anglais :",
+      options: ["Je suis végétarien.","Je veux pas viande.","Je n'ai pas viande.","Je mange pas bête."],
+      optionsEn: ["I'm vegetarian.","I don't want meat.","I don't have meat.","I don't eat beast."],
       correct: "Je suis végétarien.",
       correctEn: "I'm vegetarian.",
-      explanation: "Végétarien (m).",
-      explanationFr: "Végétarien (m)."
+      explanation: "Végétarien (m) / végétarienne (f). Je suis + adjective for describing yourself.",
+      explanationFr: "Végétarien (m) / végétarienne (f). Je suis + adjectif pour se décrire."
     },
     {
-      id: "5-6",
+      id: "05-6",
       type: "qcm",
       question: "'I'm allergic to nuts.' in French:",
-      questionFr: "Traduisez : 'Je suis allergique aux noix.'",
-      options: ["Je suis allergique aux noix.", "J'ai allergie noix.", "Je suis malade noix.", "Les noix je suis mal."],
-      optionsEn: ["I'm allergic to nuts.", "I have allergy nuts.", "I'm sick nuts.", "Nuts I am sick."],
+      questionFr: "'Je suis allergique aux noix.' en anglais :",
+      options: ["Je suis allergique aux noix.","J'ai allergie noix.","Je suis malade noix.","Les noix je suis mal."],
+      optionsEn: ["I'm allergic to nuts.","I have allergy nuts.","I'm sick nuts.","The nuts I am bad."],
       correct: "Je suis allergique aux noix.",
       correctEn: "I'm allergic to nuts.",
-      explanation: "Allergique à = allergic to.",
-      explanationFr: "Allergique à = allergique à."
+      explanation: "Allergique à (*a-lair-ZHEEK a*). À + les = aux. À + le = au.",
+      explanationFr: "Allergique à = allergique à. À + les = aux. À + le = au."
     },
     {
-      id: "5-7",
+      id: "05-7",
       type: "qcm",
       question: "'It pleases me.' (I like it) in French:",
-      questionFr: "Traduisez : 'Ça me plaît.'",
-      options: ["Ça me plaît.", "J'aime ça bien.", "Ça est bien.", "Je veux ça."],
-      optionsEn: ["It pleases me.", "I like it well.", "It is good.", "I want that."],
+      questionFr: "'Ça me plaît.' (I like it) en anglais :",
+      options: ["Ça me plaît.","J'aime ça bien.","Ça est bien.","Je veux ça."],
+      optionsEn: ["It pleases me.","I like that well.","That is good.","I want that."],
       correct: "Ça me plaît.",
       correctEn: "It pleases me.",
-      explanation: "Ça me plaît = I like it.",
-      explanationFr: "Ça me plaît = ça me plaît."
+      explanation: "Ça me plaît (*sa muh PLAY*) = I like it (literally 'it pleases me'). Very French!",
+      explanationFr: "Ça me plaît = ça me plaît (littéralement 'ça me plaît'). Très français !"
     },
     {
-      id: "5-8",
+      id: "05-8",
       type: "qcm",
       question: "'It's too salty.' in French:",
-      questionFr: "Traduisez : 'C'est trop salé.'",
-      options: ["C'est trop salé.", "C'est trop salt.", "Trop de sel.", "C'est très salé."],
-      optionsEn: ["It's too salty.", "It's too salt.", "Too much salt.", "It's very salty."],
+      questionFr: "'C'est trop salé.' en anglais :",
+      options: ["C'est trop salé.","C'est trop salt.","Trop de sel.","C'est très salé."],
+      optionsEn: ["It's too salty.","It's too salt.","Too much salt.","It's very salty."],
       correct: "C'est trop salé.",
       correctEn: "It's too salty.",
-      explanation: "Trop = too much.",
-      explanationFr: "Trop = trop."
+      explanation: "Trop (*troh*) = too much. Salé = salty. Sucré = sweet. Acide = sour.",
+      explanationFr: "Trop = trop. Salé = salé. Sucré = sucré. Acide = acide."
     },
     {
-      id: "5-9",
+      id: "05-9",
       type: "qcm",
       question: "'I really like this market.' in French:",
-      questionFr: "Traduisez : 'J'aime beaucoup ce marché.'",
-      options: ["J'aime beaucoup ce marché.", "J'aime très ce marché.", "Ce marché est bien.", "J'adore bien ce marché."],
-      optionsEn: ["I really like this market.", "I like very this market.", "This market is good.", "I love well this market."],
+      questionFr: "'J'aime beaucoup ce marché.' en anglais :",
+      options: ["J'aime beaucoup ce marché.","J'aime très ce marché.","Ce marché est bien.","J'adore bien ce marché."],
+      optionsEn: ["I really like this market.","I like very this market.","This market is good.","I love well this market."],
       correct: "J'aime beaucoup ce marché.",
       correctEn: "I really like this market.",
-      explanation: "J'aime beaucoup = I really like.",
-      explanationFr: "J'aime beaucoup = j'aime beaucoup."
+      explanation: "J'aime beaucoup = I really like. Beaucoup (*boh-KOO*) intensifies the feeling.",
+      explanationFr: "J'aime beaucoup = j'aime beaucoup. Beaucoup intensifie le sentiment."
     },
     {
-      id: "5-10",
+      id: "05-10",
       type: "qcm",
-      question: "What do you like?",
-      questionFr: "Comment dit-on 'Qu'est-ce que vous aimez ?'",
-      options: ["Qu'est-ce que vous aimez ?", "Vous aimez quoi ?", "Quoi vous voulez ?", "Qu'aimez-vous faire ?"],
-      optionsEn: ["What do you like?", "You like what?", "What do you want?", "What do you like to do?"],
+      question: "'What do you like?' in French:",
+      questionFr: "'Qu'est-ce que vous aimez ?' en anglais :",
+      options: ["Qu'est-ce que vous aimez ?","Vous aimez quoi ?","Quoi vous voulez ?","Qu'aimez-vous faire ?"],
+      optionsEn: ["What do you like?","You like what?","What do you want?","What do you like to do?"],
       correct: "Qu'est-ce que vous aimez ?",
       correctEn: "What do you like?",
-      explanation: "Qu'est-ce que vous aimez = what do you like.",
-      explanationFr: "Qu'est-ce que vous aimez = qu'est-ce que vous aimez."
+      explanation: "Qu'est-ce que vous aimez ? (*kess-kuh voo-zay-MAY*) = What do you like?",
+      explanationFr: "Qu'est-ce que vous aimez ? = qu'est-ce que vous aimez ?"
     }
   ],
   libre: [
     {
-      id: "5-l1",
+      id: "05-l1",
       type: "libre",
       question: "Say 'I love the French countryside.'",
       questionFr: "Dites 'J'adore la campagne française.'",
       correct: "J'adore la campagne française.",
       correctEn: "I love the French countryside.",
       alternatives: [],
-      explanation: "Campagne = countryside.",
-      explanationFr: "Campagne = campagne."
+      explanation: "Campagne = countryside. J'adore = I love (strong).",
+      explanationFr: "Campagne = campagne. J'adore = j'adore (fort)."
     },
     {
-      id: "5-l2",
+      id: "05-l2",
       type: "libre",
       question: "Translate: 'I don't like cold weather.'",
       questionFr: "Traduisez : 'Je n'aime pas le froid.'",
       correct: "Je n'aime pas le froid.",
       correctEn: "I don't like cold weather.",
       alternatives: ["Je n'aime pas le temps froid."],
-      explanation: "Le froid = the cold.",
-      explanationFr: "Le froid = le froid."
+      explanation: "Le froid = the cold. Je n'aime pas = I don't like.",
+      explanationFr: "Le froid = le froid. Je n'aime pas = je n'aime pas."
     },
     {
-      id: "5-l3",
+      id: "05-l3",
       type: "libre",
       question: "How do you say 'It's delicious!'?",
       questionFr: "Comment dit-on 'C'est délicieux !' ?",
       correct: "C'est délicieux !",
       correctEn: "It's delicious!",
       alternatives: [],
-      explanation: "C'est délicieux.",
-      explanationFr: "C'est délicieux."
+      explanation: "A classic compliment for French hosts!",
+      explanationFr: "Un compliment classique pour les hôtes français !"
     },
     {
-      id: "5-l4",
+      id: "05-l4",
       type: "libre",
       question: "Complete: 'Je préfère le café ___ le thé.'",
       questionFr: "Complétez : 'Je préfère le café ___ le thé.'",
       correct: "à",
       correctEn: "to",
       alternatives: [],
-      explanation: "Préférer A à B = to prefer A to B.",
-      explanationFr: "Préférer A à B = préférer A à B."
+      explanation: "Préférer A à B = to prefer A to B. Je préfère le café au thé.",
+      explanationFr: "Préférer A à B = préférer A à B. Je préfère le café au thé."
     },
     {
-      id: "5-l5",
+      id: "05-l5",
       type: "libre",
       question: "Translate: 'I am allergic to gluten.'",
       questionFr: "Traduisez : 'Je suis allergique au gluten.'",
       correct: "Je suis allergique au gluten.",
       correctEn: "I am allergic to gluten.",
       alternatives: [],
-      explanation: "Au = à + le.",
-      explanationFr: "Au = à + le."
+      explanation: "Au = à + le. Gluten is the same in French!",
+      explanationFr: "Au = à + le. Gluten est le même mot en français !"
     },
     {
-      id: "5-l6",
+      id: "05-l6",
       type: "libre",
       question: "How do you say 'I really like this village'?",
       questionFr: "Comment dit-on 'J'aime beaucoup ce village' ?",
       correct: "J'aime beaucoup ce village.",
       correctEn: "I really like this village.",
       alternatives: ["J'adore ce village."],
-      explanation: "J'aime beaucoup = I really like.",
-      explanationFr: "J'aime beaucoup = j'aime beaucoup."
+      explanation: "Beaucoup intensifies j'aime. J'adore is even stronger.",
+      explanationFr: "Beaucoup intensifie j'aime. J'adore est encore plus fort."
     },
     {
-      id: "5-l7",
+      id: "05-l7",
       type: "libre",
       question: "Translate: 'It's a bit sweet for me.'",
       questionFr: "Traduisez : 'C'est un peu sucré pour moi.'",
       correct: "C'est un peu sucré pour moi.",
       correctEn: "It's a bit sweet for me.",
       alternatives: [],
-      explanation: "Un peu = a little.",
-      explanationFr: "Un peu = un peu."
+      explanation: "Un peu = a little. Sucré = sweet. Pour moi = for me.",
+      explanationFr: "Un peu = un peu. Sucré = sucré. Pour moi = pour moi."
     },
     {
-      id: "5-l8",
+      id: "05-l8",
       type: "libre",
       question: "Complete: 'Je ___ les huîtres.'",
-      questionFr: "Complétez : 'Je ___ les huîtres.' (négation)",
+      questionFr: "Complétez : 'Je ___ les huîtres.'",
       correct: "n'aime pas",
       correctEn: "don't like",
       alternatives: [],
-      explanation: "Je n'aime pas = I don't like.",
-      explanationFr: "Je n'aime pas = je n'aime pas."
+      explanation: "Je n'aime pas = I don't like. The most useful negative for food!",
+      explanationFr: "Je n'aime pas = je n'aime pas. La négation la plus utile pour la nourriture !"
     },
     {
-      id: "5-l9",
+      id: "05-l9",
       type: "libre",
       question: "How do you say 'What do you like to eat?'",
       questionFr: "Comment dit-on 'Qu'est-ce que vous aimez manger ?'",
       correct: "Qu'est-ce que vous aimez manger ?",
       correctEn: "What do you like to eat?",
       alternatives: ["Vous aimez quoi manger ?"],
-      explanation: "Aimer + infinitive = to like to do.",
-      explanationFr: "Aimer + infinitif = aimer faire."
+      explanation: "Aimer + infinitive = to like doing something.",
+      explanationFr: "Aimer + infinitif = aimer faire quelque chose."
     },
     {
-      id: "5-l10",
+      id: "05-l10",
       type: "libre",
       question: "Translate: 'I prefer the local market.'",
       questionFr: "Traduisez : 'Je préfère le marché local.'",
       correct: "Je préfère le marché local.",
       correctEn: "I prefer the local market.",
       alternatives: [],
-      explanation: "Local = local.",
-      explanationFr: "Local = local."
+      explanation: "Local = local (same word!). Marché = market.",
+      explanationFr: "Local = local (même mot !). Marché = marché."
     }
   ]
 };
-if (typeof module !== 'undefined' && module.exports) module.exports = LESSON_05; else window.LESSON_05 = LESSON_05;
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = LESSON_05;
+} else {
+  window.LESSON_05 = LESSON_05;
+}
