@@ -1,4 +1,4 @@
-// in-the-garden.js
+// lesson-03.js
 const LESSON_03 = {
   id: 3, title: "In the Garden", titleFr: "Dans le jardin",
   objectiveEn: "Talk about garden tasks and plants", objectiveFr: "Parler des tâches du jardin et des plantes",
