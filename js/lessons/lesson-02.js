@@ -1,4 +1,4 @@
-// at-the-market.js
+// lesson-02.js
 const LESSON_02 = {
   id: 2,
   title: "At the Market",
