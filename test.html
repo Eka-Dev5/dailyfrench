@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Test</title></head>
+<body>
+<h1>Test lesson-01.js seul</h1>
+<div id="result"></div>
+<script>
+window.onerror = function(msg, url, line) {
+  document.getElementById('result').innerHTML += '<p style="color:red">ERREUR: ' + msg + ' dans ' + url + ' ligne ' + line + '</p>';
+};
+</script>
+<script src="js/lessons/lesson-01.js"></script>
+<script>
+document.getElementById('result').innerHTML += '<p style="color:green"> lesson-01.js charge</p>';
+document.getElementById('result').innerHTML += '<p>LESSON_01: ' + (typeof LESSON_01 !== 'undefined' ? 'OK' : 'MANQUANT') + '</p>';
+</script>
+</body>
+</html>
