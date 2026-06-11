@@ -1,4 +1,4 @@
-// my-family.js
+// lesson-16.js
 const LESSON_16 = {
   id: 16, title: "My Family", titleFr: "Ma famille",
   objectiveEn: "Talk about family members and use possessives correctly", objectiveFr: "Parler des membres de la famille et utiliser correctement les possessifs",
