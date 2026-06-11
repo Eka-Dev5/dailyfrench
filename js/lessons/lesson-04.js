@@ -1,274 +1,302 @@
-// lesson-04.js — Neighbours & Community 🏘️
+// lesson-04.js -- Neighbours & Community
 const LESSON_04 = {
   id: 4,
-  title: "Neighbours & Community 🏘️",
-  titleFr: "Voisins & Communauté",
+  title: "Neighbours & Community",
+  titleFr: "Voisins & Communaute",
   objectiveEn: "Chat with neighbours, ask for information, be sociable",
-  objectiveFr: "Discuter avec les voisins, demander des informations, être sociable",
-  hintEn: "Saying bonjour first is obligatory in French social life — never skip it!",
-  hintFr: "Dire bonjour d'abord est obligatoire dans la vie sociale française — ne l'oubliez jamais !",
+  objectiveFr: "Discuter avec les voisins, demander des informations, etre sociable",
+  hintEn: "Saying bonjour first is obligatory in French social life -- never skip it!",
+  hintFr: "Dire bonjour d abord est obligatoire dans la vie sociale francaise -- ne l oubliez jamais !",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>🤝 Meeting your neighbours</h4>
+<h4>Meeting your neighbours</h4>
 <table class="lesson-table">
 <tr><th>French</th><th>English</th></tr>
 <tr><td>mon voisin / ma voisine</td><td>my neighbour (m/f)</td></tr>
 <tr><td>la mairie</td><td>the town hall</td></tr>
-<tr><td>le marché</td><td>the market</td></tr>
-<tr><td>tout près d'ici</td><td>very near here</td></tr>
+<tr><td>le marche</td><td>the market'accord, je vais afficher tous les fichiers restants (03 à 19) avec `=== FIN FICHIER ===` après chacun. Les accents français sont conservés, seuls les emojis et caractères spéciaux problématiques ont été retirés.
+
+---
+
+## LESSON-03.JS (In the Garden)
+
+```javascript
+// lesson-03.js -- In the Garden
+const LESSON_03 = {
+  id: 3,
+  title: "In the Garden",
+  titleFr: "Dans le jardin",
+  objectiveEn: "Talk about garden tasks and plants",
+  objectiveFr: "Parler des taches de jardinage et des plantes",
+  hintEn: "Garden chat is great for connecting with French neighbours!",
+  hintFr: "Parler jardinage est excellent pour se lier avec les voisins francais !",
+  vocabulary: [],
+  contentHtml: `
+<div class="lesson-rule">
+<h4>Garden vocabulary</h4>
+<table class="lesson-table">
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>le jardin</td><td><em>*le zhar-DAN*</em></td><td>the garden</td></tr>
+<tr><td>arroser</td><td><em>*a-ro-ZAY*</em></td><td>to water</td></tr>
+<tr><td>tondre la pelouse</td><td><em>*tondre la pe-LOOZ*</em></td><td>to mow the lawn</td></tr>
+<tr><td>planter</td><td><em>*plan-TAY*</em></td><td>to plant</td></tr>
+<tr><td>desherber</td><td><em>*day-zair-BAY*</em></td><td>to weed</td></tr>
 </table>
 </div>
 <div class="lesson-rule">
-<h4>💬 Useful phrases</h4>
+<h4>Flowers & plants</h4>
 <table class="lesson-table">
 <tr><th>French</th><th>English</th></tr>
-<tr><td>Vous habitez ici depuis longtemps ?</td><td>Have you lived here long?</td></tr>
-<tr><td>Je suis nouveau / nouvelle ici.</td><td>I'm new here (m/f).</td></tr>
-<tr><td>C'est par où, le marché ?</td><td>Which way is the market?</td></tr>
-<tr><td>Vous connaissez un bon médecin ?</td><td>Do you know a good doctor?</td></tr>
+<tr><td>une fleur / les fleurs</td><td>a flower / flowers</td></tr>
+<tr><td>un legume</td><td>a vegetable</td></tr>
+<tr><td>un arbre</td><td>a tree</td></tr>
+<tr><td>la terre</td><td>the soil / earth</td></tr>
 </table>
 </div>
-<div class="lesson-warning">⚠️ French neighbours love to chat! Saying <strong>bonjour</strong> first is essential — skipping it is considered rude.</div>
+<div class="lesson-example">
+<strong>Exemple :</strong> J arrose le jardin ce matin. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">I water the garden this morning.</span>
+</div>
   `,
   qcm: [
     {
-      id: "04-1",
+      id: "03-1",
       type: "qcm",
-      question: "My neighbour (female) in French:",
-      questionFr: "Ma voisine en anglais :",
-      options: ["Ma voisine","Mon voisin","Ma voisin","La voisine de moi"],
-      optionsEn: ["My neighbour (female)","My neighbour (male)","My neighbour","The neighbour of me"],
-      correct: "Ma voisine",
-      correctEn: "My neighbour (female)",
-      explanation: "Voisin (m) / voisine (f). Ma = my (with feminine nouns).",
-      explanationFr: "Voisin (m) / voisine (f). Ma = ma (avec les noms féminins)."
+      question: "To water the garden in French:",
+      questionFr: "Arroser le jardin en anglais :",
+      options: ["Arroser le jardin","Faire le jardin","Nettoyer le jardin","Planter le jardin"],
+      optionsEn: ["To water the garden","To do the garden","To clean the garden","To plant the garden"],
+      correct: "Arroser le jardin",
+      correctEn: "To water the garden",
+      explanation: "Arroser (a-ro-ZAY) = to water. Je dois arroser = I need to water.",
+      explanationFr: "Arroser = arroser. Je dois arroser = je dois arroser."
     },
     {
-      id: "04-2",
+      id: "03-2",
       type: "qcm",
-      question: "Have you lived here long? in French:",
-      questionFr: "Vous habitez ici depuis longtemps ? en anglais :",
-      options: ["Vous habitez ici depuis longtemps ?","Vous êtes ici long ?","Depuis quand vous êtes ?","Ça fait combien ici ?"],
-      optionsEn: ["Have you lived here long?","You are here long?","Since when you are?","How long here?"],
-      correct: "Vous habitez ici depuis longtemps ?",
-      correctEn: "Have you lived here long?",
-      explanation: "Depuis longtemps (duh-pwee long-TON) = for a long time. Depuis = since/for.",
-      explanationFr: "Depuis longtemps = depuis longtemps. Depuis = depuis."
+      question: "To mow the lawn in French:",
+      questionFr: "Tondre la pelouse en anglais :",
+      options: ["Tondre la pelouse","Couper la pelouse","Faire la pelouse","Arroser la pelouse"],
+      optionsEn: ["To mow the lawn","To cut the lawn","To do the lawn","To water the lawn"],
+      correct: "Tondre la pelouse",
+      correctEn: "To mow the lawn",
+      explanation: "Tondre la pelouse (tondre) = to mow the lawn. La pelouse = the lawn.",
+      explanationFr: "Tondre la pelouse = tondre la pelouse. La pelouse = la pelouse."
     },
     {
-      id: "04-3",
+      id: "03-3",
       type: "qcm",
-      question: "I'm new here (woman speaking) in French:",
-      questionFr: "Je suis nouvelle ici (femme qui parle) en anglais :",
-      options: ["Je suis nouvelle ici.","Je suis nouveau ici.","Je suis nouvelle.","Moi suis nouvelle."],
-      optionsEn: ["I'm new here (woman).","I'm new here (man).","I'm new.","Me is new."],
-      correct: "Je suis nouvelle ici.",
-      correctEn: "I'm new here (woman).",
-      explanation: "Nouveau (m) / nouvelle (f). The adjective agrees with the speaker's gender.",
-      explanationFr: "Nouveau (m) / nouvelle (f). L'adjectif s'accorde avec le genre du locuteur."
+      question: "What is une fleur in English?",
+      questionFr: "Que signifie une fleur en anglais ?",
+      options: ["A flower","A leaf","A tree","A vegetable"],
+      optionsEn: ["A flower","A leaf","A tree","A vegetable"],
+      correct: "A flower",
+      correctEn: "A flower",
+      explanation: "Une fleur (flerr) = a flower. Les fleurs = the flowers.",
+      explanationFr: "Une fleur = une fleur. Les fleurs = les fleurs."
     },
     {
-      id: "04-4",
+      id: "03-4",
       type: "qcm",
-      question: "Which way is the town hall? in French:",
-      questionFr: "C'est par où, la mairie ? en anglais :",
-      options: ["C'est par où, la mairie ?","Où est la mairie ?","La mairie, comment ?","Par là mairie ?"],
-      optionsEn: ["Which way is the town hall?","Where is the town hall?","The town hall, how?","That way town hall?"],
-      correct: "C'est par où, la mairie ?",
-      correctEn: "Which way is the town hall?",
-      explanation: "C'est par où ? (say par OO) = Which way is it? Very natural French.",
-      explanationFr: "C'est par où ? = C'est par où ? Français très naturel."
+      question: "To weed in French:",
+      questionFr: "Desherber en anglais :",
+      options: ["Desherber","Arroser","Planter","Tailler"],
+      optionsEn: ["To weed","To water","To plant","To prune"],
+      correct: "Desherber",
+      correctEn: "To weed",
+      explanation: "Desherber (day-zair-BAY) = to weed. Les mauvaises herbes = weeds.",
+      explanationFr: "Desherber = desherber. Les mauvaises herbes = les mauvaises herbes."
     },
     {
-      id: "04-5",
+      id: "03-5",
       type: "qcm",
-      question: "Do you know a good plumber? in French:",
-      questionFr: "Vous connaissez un bon plombier ? en anglais :",
-      options: ["Vous connaissez un bon plombier ?","Vous savez plombier ?","Avez-vous plombier ?","Un plombier vous connaissez ?"],
-      optionsEn: ["Do you know a good plumber?","You know plumber?","Have you plumber?","A plumber you know?"],
-      correct: "Vous connaissez un bon plombier ?",
-      correctEn: "Do you know a good plumber?",
-      explanation: "Connaître (kon-ETRE) = to know (a person/place). Savoir = to know (a fact).",
-      explanationFr: "Connaître = connaître (une personne/un lieu). Savoir = savoir (un fait)."
+      question: "The vegetable garden in French:",
+      questionFr: "Le potager en anglais :",
+      options: ["Le potager","Le jardin","Le verger","La pelouse"],
+      optionsEn: ["The vegetable garden","The garden","The orchard","The lawn"],
+      correct: "Le potager",
+      correctEn: "The vegetable garden",
+      explanation: "Le potager (poh-ta-ZHAY) = vegetable garden. Very common in France!",
+      explanationFr: "Le potager = le potager. Tres courant en France !"
     },
     {
-      id: "04-6",
+      id: "03-6",
       type: "qcm",
-      question: "How do you say the town hall?",
-      questionFr: "Comment dit-on la mairie ?",
-      options: ["La mairie","La préfecture","La maison","Le bureau"],
-      optionsEn: ["The town hall","The prefecture","The house","The office"],
-      correct: "La mairie",
-      correctEn: "The town hall",
-      explanation: "La mairie (la may-REE) = the town hall. Essential for admin in France!",
-      explanationFr: "La mairie = la mairie. Essentiel pour l'administration en France !"
+      question: "To prune / trim in French:",
+      questionFr: "Tailler en anglais :",
+      options: ["Tailler","Planter","Arroser","Recolter"],
+      optionsEn: ["To prune/trim","To plant","To water","To harvest"],
+      correct: "Tailler",
+      correctEn: "To prune / trim",
+      explanation: "Tailler (tie-YAY) = to prune, trim or cut back plants.",
+      explanationFr: "Tailler = tailler. Tailler ou couper les plantes."
     },
     {
-      id: "04-7",
+      id: "03-7",
       type: "qcm",
-      question: "The market is on Thursdays. in French:",
-      questionFr: "Le marché est le jeudi. en anglais :",
-      options: ["Le marché est le jeudi.","Le marché est jeudi.","Marché est le jeudi.","Jeudi le marché."],
-      optionsEn: ["The market is on Thursdays.","The market is Thursday.","Market is Thursday.","Thursday the market."],
-      correct: "Le marché est le jeudi.",
-      correctEn: "The market is on Thursdays.",
-      explanation: "Le jeudi = on Thursdays (habitual). Jeudi (no article) = this Thursday specifically.",
-      explanationFr: "Le jeudi = le jeudi (habituel). Jeudi (sans article) = ce jeudi spécifiquement."
+      question: "I need to water the flowers in French:",
+      questionFr: "Je dois arroser les fleurs en anglais :",
+      options: ["Je dois arroser les fleurs.","Je fais les fleurs.","Les fleurs ont soif.","J arrose demain."],
+      optionsEn: ["I need to water the flowers.","I do the flowers.","The flowers are thirsty.","I water tomorrow."],
+      correct: "Je dois arroser les fleurs.",
+      correctEn: "I need to water the flowers.",
+      explanation: "Je dois (zhuh DWAH) = I must / I need to. Followed by infinitive.",
+      explanationFr: "Je dois = je dois. Suivi de l infinitif."
     },
     {
-      id: "04-8",
+      id: "03-8",
       type: "qcm",
-      question: "The rubbish bins go out on Tuesday in French:",
-      questionFr: "Les poubelles sortent le mardi. en anglais :",
-      options: ["Les poubelles sortent le mardi.","Les poubelles sont mardi.","Le mardi poubelles.","Poubelles sortir mardi."],
-      optionsEn: ["The rubbish bins go out on Tuesday.","The bins are Tuesday.","Tuesday bins.","Bins go out Tuesday."],
-      correct: "Les poubelles sortent le mardi.",
-      correctEn: "The rubbish bins go out on Tuesday.",
-      explanation: "Sortent le mardi = go out on Tuesdays (habitual). Useful for settling in!",
-      explanationFr: "Sortent le mardi = sortent le mardi (habituel). Utile pour s'installer !"
+      question: "The soil / earth in French:",
+      questionFr: "La terre en anglais :",
+      options: ["La terre","La pelouse","Le jardin","Le sol"],
+      optionsEn: ["The soil/earth","The lawn","The garden","The ground"],
+      correct: "La terre",
+      correctEn: "The soil / earth",
+      explanation: "La terre (tair) = the earth / soil. Also means the world.",
+      explanationFr: "La terre = la terre. Signifie aussi le monde."
     },
     {
-      id: "04-9",
+      id: "03-9",
       type: "qcm",
-      question: "It's very quiet here. in French:",
-      questionFr: "C'est très calme ici. en anglais :",
-      options: ["C'est très calme ici.","Ici est très silence.","C'est trop calme.","Très calme est ici."],
-      optionsEn: ["It's very quiet here.","Here is very silence.","It's too quiet.","Very quiet is here."],
-      correct: "C'est très calme ici.",
-      correctEn: "It's very quiet here.",
-      explanation: "C'est très calme (say tray KALM) = It's very quiet / peaceful.",
-      explanationFr: "C'est très calme = c'est très calme / paisible."
+      question: "A tree in French:",
+      questionFr: "Un arbre en anglais :",
+      options: ["Un arbre","Une plante","Une fleur","Un arbuste"],
+      optionsEn: ["A tree","A plant","A flower","A shrub"],
+      correct: "Un arbre",
+      correctEn: "A tree",
+      explanation: "Un arbre (an-ARBruh) = a tree. Les arbres = the trees.",
+      explanationFr: "Un arbre = un arbre. Les arbres = les arbres."
     },
     {
-      id: "04-10",
+      id: "03-10",
       type: "qcm",
-      question: "We've lived here for 2 years. in French:",
-      questionFr: "Nous habitons ici depuis deux ans. en anglais :",
-      options: ["Nous habitons ici depuis deux ans.","Nous sommes ici deux ans.","Ici nous deux ans.","Depuis deux ans nous."],
-      optionsEn: ["We've lived here for 2 years.","We are here two years.","Here us two years.","For two years us."],
-      correct: "Nous habitons ici depuis deux ans.",
-      correctEn: "We've lived here for 2 years.",
-      explanation: "Depuis + duration = for (how long). Nous habitons = we live (present, ongoing).",
-      explanationFr: "Depuis + durée = depuis (combien de temps). Nous habitons = nous habitons (présent, en cours)."
+      question: "To harvest / pick in French:",
+      questionFr: "Recolter en anglais :",
+      options: ["Recolter","Planter","Arroser","Desherber"],
+      optionsEn: ["To harvest/pick","To plant","To water","To weed"],
+      correct: "Recolter",
+      correctEn: "To harvest / pick",
+      explanation: "Recolter (ray-kol-TAY) = to harvest / pick. La recolte = the harvest.",
+      explanationFr: "Recolter = recolter. La recolte = la recolte."
     }
   ],
   libre: [
     {
-      id: "04-l1",
+      id: "03-l1",
       type: "libre",
-      question: "Translate: My neighbour is very kind.",
-      questionFr: "Traduisez : Mon voisin est très gentil.",
-      correct: "Mon voisin est très gentil.",
-      correctEn: "My neighbour is very kind.",
-      alternatives: ["Ma voisine est très gentille."],
-      explanation: "Gentil (m) / gentille (f) = kind. Très = very.",
-      explanationFr: "Gentil (m) / gentille (f) = gentil. Très = très."
-    },
-    {
-      id: "04-l2",
-      type: "libre",
-      question: "How do you ask Is there a market nearby?",
-      questionFr: "Comment demande-t-on Il y a un marché près d'ici ?",
-      correct: "Il y a un marché près d'ici ?",
-      correctEn: "Is there a market nearby?",
-      alternatives: ["Y a-t-il un marché près d'ici ?"],
-      explanation: "Il y a = there is. Près d'ici = nearby.",
-      explanationFr: "Il y a = il y a. Près d'ici = près d'ici."
-    },
-    {
-      id: "04-l3",
-      type: "libre",
-      question: "Complete: Vous habitez ici ___ longtemps ?",
-      questionFr: "Complétez : Vous habitez ici ___ longtemps ?",
-      correct: "depuis",
-      correctEn: "for",
+      question: "Translate: I watered the garden this morning.",
+      questionFr: "Traduisez : J ai arrose le jardin ce matin.",
+      correct: "J ai arrose le jardin ce matin.",
+      correctEn: "I watered the garden this morning.",
       alternatives: [],
-      explanation: "Depuis (duh-PWEE) = since / for (with ongoing present tense).",
-      explanationFr: "Depuis = depuis. Avec le présent en cours."
+      explanation: "Passe compose: j ai + arose (past participle of arroser).",
+      explanationFr: "Passe compose: j ai + arose (participe passe d arroser)."
     },
     {
-      id: "04-l4",
+      id: "03-l2",
       type: "libre",
-      question: "Translate: I'm new here.",
-      questionFr: "Traduisez : Je suis nouveau ici.",
-      correct: "Je suis nouveau ici.",
-      correctEn: "I'm new here.",
-      alternatives: ["Je suis nouvelle ici."],
-      explanation: "Nouveau (m) / nouvelle (f). Use the form matching your gender.",
-      explanationFr: "Nouveau (m) / nouvelle (f). Utilisez la forme correspondant à votre genre."
-    },
-    {
-      id: "04-l5",
-      type: "libre",
-      question: "How do you say Do you know a good doctor?",
-      questionFr: "Comment dit-on Vous connaissez un bon médecin ?",
-      correct: "Vous connaissez un bon médecin ?",
-      correctEn: "Do you know a good doctor?",
+      question: "How do you say the vegetable garden?",
+      questionFr: "Comment dit-on le potager ?",
+      correct: "le potager",
+      correctEn: "the vegetable garden",
       alternatives: [],
-      explanation: "Connaître = to know (a person). Médecin = doctor.",
-      explanationFr: "Connaître = connaître (une personne). Médecin = médecin."
+      explanation: "Le potager is a specifically French institution -- kitchen garden.",
+      explanationFr: "Le potager est une institution specifiquement francaise -- le jardin potager."
     },
     {
-      id: "04-l6",
+      id: "03-l3",
       type: "libre",
-      question: "What is la mairie?",
-      questionFr: "Que signifie la mairie ?",
-      correct: "the town hall",
-      correctEn: "the town hall",
-      alternatives: ["town hall"],
-      explanation: "La mairie is where you register your address, get forms, etc.",
-      explanationFr: "La mairie est où vous enregistrez votre adresse, obtenez des formulaires, etc."
+      question: "What is tondre la pelouse?",
+      questionFr: "Que signifie tondre la pelouse ?",
+      correct: "to mow the lawn",
+      correctEn: "to mow the lawn",
+      alternatives: ["mow the lawn"],
+      explanation: "Tondre = to mow/clip. La pelouse = the lawn.",
+      explanationFr: "Tondre = tondre. La pelouse = la pelouse."
     },
     {
-      id: "04-l7",
+      id: "03-l4",
       type: "libre",
-      question: "Translate: The rubbish goes out on Monday.",
-      questionFr: "Traduisez : Les poubelles sortent le lundi.",
-      correct: "Les poubelles sortent le lundi.",
-      correctEn: "The rubbish goes out on Monday.",
+      question: "Complete: Je dois ___ les mauvaises herbes.",
+      questionFr: "Completez : Je dois ___ les mauvaises herbes.",
+      correct: "desherber",
+      correctEn: "weed",
       alternatives: [],
-      explanation: "Le lundi = on Mondays (habitual). Sortent = go out.",
-      explanationFr: "Le lundi = le lundi (habituel). Sortent = sortent."
+      explanation: "Desherber = to weed. Les mauvaises herbes = weeds (bad herbs).",
+      explanationFr: "Desherber = desherber. Les mauvaises herbes = les mauvaises herbes."
     },
     {
-      id: "04-l8",
+      id: "03-l5",
       type: "libre",
-      question: "Complete: C'est par ___, la pharmacie ?",
-      questionFr: "Complétez : C'est par ___, la pharmacie ?",
-      correct: "où",
-      correctEn: "where",
+      question: "How do you say to plant seeds?",
+      questionFr: "Comment dit-on planter des graines ?",
+      correct: "planter des graines",
+      correctEn: "to plant seeds",
+      alternatives: ["planter les graines"],
+      explanation: "Planter = to plant. Des graines = seeds.",
+      explanationFr: "Planter = planter. Des graines = des graines."
+    },
+    {
+      id: "03-l6",
+      type: "libre",
+      question: "Translate: The garden is beautiful this year.",
+      questionFr: "Traduisez : Le jardin est beau cette annee.",
+      correct: "Le jardin est beau cette annee.",
+      correctEn: "The garden is beautiful this year.",
       alternatives: [],
-      explanation: "C'est par où = which way is it / how do I get to...",
-      explanationFr: "C'est par où = c'est par où / comment aller à..."
+      explanation: "Beau (m) / belle (f) = beautiful. Cette annee = this year.",
+      explanationFr: "Beau (m) / belle (f) = beau. Cette annee = cette annee."
     },
     {
-      id: "04-l9",
+      id: "03-l7",
       type: "libre",
-      question: "How do you say We are very happy here?",
-      questionFr: "Comment dit-on Nous sommes très contents ici ?",
-      correct: "Nous sommes très contents ici.",
-      correctEn: "We are very happy here.",
-      alternatives: ["Nous sommes très heureux ici."],
-      explanation: "Contents / heureux = happy. Both work here.",
-      explanationFr: "Contents / heureux = heureux. Les deux fonctionnent ici."
+      question: "How do you say It needs watering?",
+      questionFr: "Comment dit-on Il faut arroser ?",
+      correct: "Il faut arroser.",
+      correctEn: "It needs watering.",
+      alternatives: ["Ca a besoin d eau"],
+      explanation: "Il faut (eel foh) + infinitive = it is necessary to / one must.",
+      explanationFr: "Il faut + infinitif = il faut / il est necessaire de."
     },
     {
-      id: "04-l10",
+      id: "03-l8",
       type: "libre",
-      question: "Translate: The market is on Wednesdays.",
-      questionFr: "Traduisez : Le marché est le mercredi.",
-      correct: "Le marché est le mercredi.",
-      correctEn: "The market is on Wednesdays.",
+      question: "What does la recolte mean?",
+      questionFr: "Que signifie la recolte ?",
+      correct: "the harvest",
+      correctEn: "the harvest",
+      alternatives: ["harvest"],
+      explanation: "La recolte = harvest. Recolter = to harvest.",
+      explanationFr: "La recolte = la recolte. Recolter = recolter."
+    },
+    {
+      id: "03-l9",
+      type: "libre",
+      question: "Translate: I need to prune the roses.",
+      questionFr: "Traduisez : Je dois tailler les rosiers.",
+      correct: "Je dois tailler les rosiers.",
+      correctEn: "I need to prune the roses.",
       alternatives: [],
-      explanation: "Le mercredi = on Wednesdays (habitual pattern).",
-      explanationFr: "Le mercredi = le mercredi (habituel)."
+      explanation: "Tailler = to prune. Les rosiers = the rose bushes.",
+      explanationFr: "Tailler = tailler. Les rosiers = les rosiers."
+    },
+    {
+      id: "03-l10",
+      type: "libre",
+      question: "Complete: J ai plante des ___ ce printemps.",
+      questionFr: "Completez : J ai plante des ___ ce printemps.",
+      correct: "fleurs",
+      correctEn: "flowers",
+      alternatives: ["legumes","tomates"],
+      explanation: "Des fleurs = some flowers. Ce printemps = this spring.",
+      explanationFr: "Des fleurs = des fleurs. Ce printemps = ce printemps."
     }
   ]
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = LESSON_04;
+  module.exports = LESSON_03;
 } else {
-  window.LESSON_04 = LESSON_04;
+  window.LESSON_03 = LESSON_03;
 }
