@@ -1,4 +1,4 @@
-// essential-verbs.js
+// lesson-09.js
 const LESSON_09 = {
   id: 9, title: "Essential Verbs", titleFr: "Verbes essentiels",
   objectiveEn: "Use the 6 most important French verbs in everyday situations", objectiveFr: "Utiliser les 6 verbes français les plus importants dans la vie quotidienne",
