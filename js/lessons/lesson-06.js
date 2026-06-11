@@ -12,28 +12,32 @@ const LESSON_06 = {
 <div class="lesson-rule">
 <h4>🏬 Shops vocabulary</h4>
 <table class="lesson-table">
-<thead><tr><th>French</th><th>English</th></tr></thead>
+<thead>
+<tr><th>French</th><th>English</th></tr>
+</thead>
 <tbody>
-<tr><td>la boulangerie<\/td><td>the bakery<\/td><\/tr>
-</tr><td>la pharmacie<\/td><td>the pharmacy<\/td><\/tr>
-<tr><td>la poste<\/td><td>the post office<\/td><\/tr>
-<tr><td>la banque<\/td><td>the bank<\/td><\/tr>
-</tr><td>le supermarché<\/td><td>the supermarket<\/td><\/tr>
-<\/tbody>
-<\/table>
-<\/div>
+<tr><td>la boulangerie</td><td>the bakery</td></tr>
+<tr><td>la pharmacie</td><td>the pharmacy</td></tr>
+<tr><td>la poste</td><td>the post office</td></tr>
+<tr><td>la banque</td><td>the bank</td></tr>
+<tr><td>le supermarché</td><td>the supermarket</td></tr>
+</tbody>
+</table>
+</div>
 <div class="lesson-rule">
-<h4>💳 Paying<\/h4>
+<h4>💳 Paying</h4>
 <table class="lesson-table">
-<thead><tr><th>French</th><th>English</th></tr></thead>
+<thead>
+<tr><th>French</th><th>English</th></tr>
+</thead>
 <tbody>
-<tr><td>Je paie par carte.<\/td><td>I'm paying by card.<\/td><\/tr>
-<tr><td>Vous acceptez les chèques ?<\/td><td>Do you accept cheques?<\/td><\/tr>
-<tr><td>Avez-vous la monnaie ?<\/td><td>Do you have change?<\/td><\/tr>
-<tr><td>Un ticket de caisse, s'il vous plaît.<\/td><td>A receipt, please.<\/td><\/tr>
-<\/tbody>
-<\/table>
-<\/div>
+<tr><td>Je paie par carte.</td><td>I'm paying by card.</td></tr>
+<tr><td>Vous acceptez les chèques ?</td><td>Do you accept cheques?</td></tr>
+<tr><td>Avez-vous la monnaie ?</td><td>Do you have change?</td></tr>
+<tr><td>Un ticket de caisse, s'il vous plaît.</td><td>A receipt, please.</td></tr>
+</tbody>
+</table>
+</div>
 <div class="lesson-warning">⚠️ Many small French shops close at lunch (12h-14h). Always check opening hours!</div>
   `,
   qcm: [
