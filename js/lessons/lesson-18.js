@@ -1,4 +1,4 @@
-// my-health.js
+// lesson-18.js
 const LESSON_18 = {
   id: 18, title: "My Health", titleFr: "Ma santé",
   objectiveEn: "Explain symptoms, make a doctor's appointment, go to the pharmacy", objectiveFr: "Expliquer les symptômes, prendre rendez-vous chez le médecin, aller à la pharmacie",
