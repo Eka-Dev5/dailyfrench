@@ -1,11 +1,11 @@
 // ═══════════════════════════════════════════════════════════════════
-// DATA-LOADER.JS — Daily French 🥖 v2.2 Karo validation
+// DATA-LOADER.JS — Daily French 🥖 v2.4
 // Charge les leçons depuis lessons/lesson-01.js → lesson-20.js
-// Boucle numérique évolutive : 01 → MAX_LESSON
+// `QUESTIONS_DB` est un objet clé = niveau
 // ═══════════════════════════════════════════════════════════════════
 
 var LESSONS_DATA = [];
-var QUESTIONS_DB = [];
+var QUESTIONS_DB = {};
 
 const MAX_LESSON = 20;
 
@@ -14,7 +14,7 @@ function pad2(n) {
 }
 
 function lessonFile(n) {
-  return 'lessons/lesson-' + pad2(n) + '.js';
+  return './lessons/lesson-' + pad2(n) + '.js';
 }
 
 function lessonVar(n) {
@@ -27,11 +27,11 @@ function loadScript(src) {
     script.src = src;
     script.async = false;
     script.onload = function() {
-      console.log('[DataLoader] ✅ Loaded:', src);
+      console.log('[DataLoader] Loaded:', src);
       resolve(true);
     };
     script.onerror = function() {
-      console.warn('[DataLoader] ❌ Failed:', src);
+      console.warn('[DataLoader] Failed:', src);
       resolve(false);
     };
     document.head.appendChild(script);
@@ -40,14 +40,14 @@ function loadScript(src) {
 
 function buildData() {
   LESSONS_DATA = [];
-  QUESTIONS_DB = [];
+  QUESTIONS_DB = {};
 
   for (let i = 1; i <= MAX_LESSON; i++) {
     const varName = lessonVar(i);
     const lesson = window[varName];
 
     if (!lesson) {
-      console.warn('[DataLoader] Missing:', varName);
+      console.warn('[DataLoader] Missing lesson variable:', varName);
       continue;
     }
 
@@ -65,7 +65,7 @@ function buildData() {
       level: lesson.id
     });
 
-    QUESTIONS_DB.push({
+    QUESTIONS_DB[lesson.id] = {
       level: lesson.id,
       id: lesson.id,
       title: lesson.title,
@@ -77,21 +77,17 @@ function buildData() {
       vocabulary: lesson.vocabulary || [],
       qcm: lesson.qcm || [],
       libre: lesson.libre || [],
-      questions: [...(lesson.qcm || []), ...(lesson.libre || [])]
-    });
+      questions: [].concat(lesson.qcm || [], lesson.libre || [])
+    };
 
-    console.log('[DataLoader] ✅', varName, '→', lesson.id, lesson.title);
+    console.log('[DataLoader] OK:', varName, '→', lesson.id, lesson.title);
   }
 
-  console.log('[DataLoader] 📚 Lessons:', LESSONS_DATA.length);
-  console.log('[DataLoader] ❓ Questions:', QUESTIONS_DB.reduce(function(sum, l) {
-    return sum + l.questions.length;
-  }, 0));
+  window.LESSONS_DATA = LESSONS_DATA;
+  window.QUESTIONS_DB = QUESTIONS_DB;
 
-  if (typeof window !== 'undefined') {
-    window.LESSONS_DATA = LESSONS_DATA;
-    window.QUESTIONS_DB = QUESTIONS_DB;
-  }
+  console.log('[DataLoader] Lessons loaded:', LESSONS_DATA.length);
+  console.log('[DataLoader] Question sets loaded:', Object.keys(QUESTIONS_DB).length);
 
   if (typeof EventBus !== 'undefined' && EventBus.emit) {
     EventBus.emit('dataLoaded', {
@@ -103,15 +99,20 @@ function buildData() {
   if (typeof initQuiz === 'function') {
     initQuiz();
   }
+
+  if (typeof initDashboard === 'function') {
+    initDashboard();
+  }
 }
 
 async function loadAllLessons() {
-  console.log('[DataLoader] 🚀 Loading lessons 01 →', pad2(MAX_LESSON));
+  console.log('[DataLoader] Starting load 01 →', pad2(MAX_LESSON));
 
   for (let i = 1; i <= MAX_LESSON; i++) {
-    const ok = await loadScript(lessonFile(i));
+    const file = lessonFile(i);
+    const ok = await loadScript(file);
     if (!ok) {
-      console.warn('[DataLoader] Continuing after missing file:', lessonFile(i));
+      console.warn('[DataLoader] Skipping missing file:', file);
     }
   }
 
@@ -127,8 +128,12 @@ if (typeof document !== 'undefined') {
 }
 
 if (typeof window !== 'undefined') {
-  window.getLessons = function() { return LESSONS_DATA; };
+  window.LESSONS_DATA = LESSONS_DATA;
+  window.QUESTIONS_DB = QUESTIONS_DB;
+  window.getLessons = function() {
+    return LESSONS_DATA;
+  };
   window.getQuestionsForLevel = function(level) {
-    return QUESTIONS_DB.filter(function(l) { return l.level === level; });
+    return QUESTIONS_DB[level] || null;
   };
 }
