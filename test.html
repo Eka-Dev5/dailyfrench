@@ -1,18 +1,71 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><title>Test</title></head>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Test toutes les leçons</title>
+<style>
+body { font-family: -apple-system, sans-serif; background: #0d1117; color: #c9d1d9; padding: 20px; }
+.ok { color: #3fb950; }
+.err { color: #f85149; }
+.warn { color: #d29922; }
+</style>
+</head>
 <body>
-<h1>Test lesson-01.js seul</h1>
+<h1>Test lesson-01.js à lesson-21.js</h1>
 <div id="result"></div>
+
 <script>
+const result = document.getElementById('result');
+
+function log(type, msg) {
+  const color = type === 'ok' ? '#3fb950' : type === 'err' ? '#f85149' : '#d29922';
+  result.innerHTML += '<p style="color:' + color + '">' + msg + '</p>';
+}
+
 window.onerror = function(msg, url, line) {
-  document.getElementById('result').innerHTML += '<p style="color:red">ERREUR: ' + msg + ' dans ' + url + ' ligne ' + line + '</p>';
+  log('err', 'ERREUR: ' + msg + ' | FICHIER: ' + (url || '?') + ' | LIGNE: ' + line);
 };
-</script>
-<script src="js/lessons/lesson-01.js"></script>
-<script>
-document.getElementById('result').innerHTML += '<p style="color:green"> lesson-01.js charge</p>';
-document.getElementById('result').innerHTML += '<p>LESSON_01: ' + (typeof LESSON_01 !== 'undefined' ? 'OK' : 'MANQUANT') + '</p>';
+
+async function testerTous() {
+  for (let i = 1; i <= 21; i++) {
+    const num = i.toString().padStart(2, '0');
+    const varName = 'LESSON_' + num;
+    
+    // Supprimer la variable si déjà chargée (pour re-test)
+    if (window[varName]) delete window[varName];
+    
+    const script = document.createElement('script');
+    script.src = 'js/lessons/lesson-' + num + '.js';
+    
+    await new Promise((resolve) => {
+      script.onload = function() {
+        if (typeof window[varName] !== 'undefined') {
+          log('ok', 'lesson-' + num + '.js ✅ | Variable ' + varName + ' presente');
+        } else {
+          log('warn', 'lesson-' + num + '.js ⚠️ | Charge mais variable ' + varName + ' ABSENTE');
+        }
+        resolve();
+      };
+      
+      script.onerror = function() {
+        log('err', 'lesson-' + num + '.js ❌ | Fichier non trouve (404)');
+        resolve();
+      };
+      
+      // Timeout de securite
+      setTimeout(() => {
+        log('warn', 'lesson-' + num + '.js ⏱️ | Timeout (5s)');
+        resolve();
+      }, 5000);
+      
+      document.head.appendChild(script);
+    });
+  }
+  
+  log('ok', '--- FIN DES TESTS ---');
+}
+
+testerTous();
 </script>
 </body>
 </html>
