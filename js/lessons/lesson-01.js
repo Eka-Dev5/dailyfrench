@@ -1,4 +1,4 @@
-// greetings-introductions.js
+// lesson-01.js
 const LESSON_01 = {
   id: 1,
   title: "Greetings & Introductions",
