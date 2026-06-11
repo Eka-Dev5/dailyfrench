@@ -1,11 +1,11 @@
 // ═══════════════════════════════════════════════════════════════════
-// CONFIG.JS -- Daily French
+// CONFIG.JS — Daily French 🥖
 // Configuration globale, constantes, gameState
 // ═══════════════════════════════════════════════════════════════════
 
 const SUBJECT_CONFIG = {
   name: "Daily French",
-  emoji: "",
+  emoji: "🥖",
   lang: "fr",
   interfaceLang: "en",
   storageKey: "dailyFrench_v1",
@@ -13,11 +13,6 @@ const SUBJECT_CONFIG = {
   dashboardFile: "dashboard.html",
   vocabularyFile: "vocabulary.html",
   maxLevel: 20
-};
-
-// CONFIG pour data-loader.js et autres modules
-const CONFIG = {
-  LESSONS_COUNT: 20
 };
 
 const FEATURES = {
@@ -38,32 +33,32 @@ const FEATURES = {
 };
 
 const LEVEL_NAMES = {
-  1: "Greetings",
-  2: "At the market",
-  3: "In the garden",
-  4: "Neighbours",
-  5: "Tastes & desires",
-  6: "At the shops",
-  7: "Friends & going out",
-  8: "Weather",
-  9: "Essential verbs",
-  10: "Politeness",
-  11: "Daily life in France",
-  12: "My Routine",
-  13: "My Emotions",
-  14: "My Needs",
-  15: "My House",
-  16: "My Family",
-  17: "My Plans",
-  18: "My Health",
-  19: "My Cooking",
-  20: "Living French"
+  1: "Greetings 🙋",
+  2: "At the market 🛒",
+  3: "In the garden 🌿",
+  4: "Neighbours 🏘️",
+  5: "Tastes & desires ❤️",
+  6: "At the shops 🏬",
+  7: "Friends & going out 👫",
+  8: "Weather 🌤️",
+  9: "Essential verbs ⚡",
+  10: "Politeness 🎩",
+  11: "Daily life in France 🇫🇷",
+  12: "My Routine 🌅",
+  13: "My Emotions ❤️",
+  14: "My Needs 🍽️",
+  15: "My House 🏡",
+  16: "My Family 👨‍👩‍👧",
+  17: "My Plans 📅",
+  18: "My Health 💊",
+  19: "My Cooking 🍳",
+  20: "Living French 🗣️"
 };
 
 const DIRECTION_MODES = {
-  "en-first": { label: "GB->FR English First", labelFr: "GB->FR Anglais d'abord" },
-  "fr-first": { label: "FR->GB French First", labelFr: "FR->GB Francais d'abord" },
-  "mixed": { label: "Mixed Direction", labelFr: "Direction mixte" }
+  "en-first": { label: "🇬🇧→🇫🇷 English First", labelFr: "🇬🇧→🇫🇷 Anglais d'abord" },
+  "fr-first": { label: "🇫🇷→🇬🇧 French First", labelFr: "🇫🇷→🇬🇧 Français d'abord" },
+  "mixed": { label: "🔄 Mixed Direction", labelFr: "🔄 Direction mixte" }
 };
 
 let gameState = {
@@ -80,7 +75,6 @@ let gameState = {
 
 if (typeof window !== "undefined") {
   window.SUBJECT_CONFIG = SUBJECT_CONFIG;
-  window.CONFIG = CONFIG;
   window.FEATURES = FEATURES;
   window.LEVEL_NAMES = LEVEL_NAMES;
   window.DIRECTION_MODES = DIRECTION_MODES;
