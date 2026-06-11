@@ -1,4 +1,3 @@
-// lesson-02.js
 const LESSON_02 = {
   id: 2,
   title: "At the Market",
@@ -12,12 +11,14 @@ const LESSON_02 = {
 <div class="lesson-rule">
 <h4>🥖 Useful phrases at the market</h4>
 <table class="lesson-table">
-<thead><tr><th>French</th><th>English</th></tr></thead>
+<thead>
+<tr><th>French</th><th>English</th></tr>
+</thead>
 <tbody>
 <tr><td>Je voudrais...</td><td>I would like...</td></tr>
 <tr><td>Avez-vous... ?</td><td>Do you have... ?</td></tr>
 <tr><td>C'est combien ?</td><td>How much is it?</td></tr>
-<tr><td>Un kilo de..., s'il vous plaît.</td><td>One kilo of..., please.</td></table>
+<tr><td>Un kilo de..., s'il vous plaît.</td><td>One kilo of..., please.</td></tr>
 <tr><td>C'est tout, merci.</td><td>That's all, thank you.</td></tr>
 </tbody>
 </table>
@@ -25,21 +26,25 @@ const LESSON_02 = {
 <div class="lesson-rule">
 <h4>🔢 Numbers for quantities</h4>
 <table class="lesson-table">
-<thead><tr><th>French</th><th>English</th></tr></thead>
+<thead>
+<tr><th>French</th><th>English</th></tr>
+</thead>
 <tbody>
 <tr><td>un / une</td><td>one</td></tr>
-</tr><td>deux / trois</td><td>two / three</td></tr>
-<tr><td>un demi-kilo</td><td>half a kilo</td><tr>
-<tr><td>une tranche de</td><td>a slice of</td><tr>
+<tr><td>deux / trois</td><td>two / three</td></tr>
+<tr><td>un demi-kilo</td><td>half a kilo</td></tr>
+<tr><td>une tranche de</td><td>a slice of</td></tr>
 </tbody>
 </table>
 </div>
 <div class="lesson-warning">⚠️ Always say <strong>s'il vous plaît</strong> — being polite is essential in French shops and markets!</div>
 <div class="lesson-example">
 <strong>Dialogue :</strong><br>
-— Bonjour ! Je voudrais un kilo de tomates, s'il vous plaît. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
+— Bonjour ! Je voudrais un kilo de tomates, s'il vous plaît.
+<button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
 <span class="lesson-ex-en">Hello! I would like a kilo of tomatoes, please.</span><br>
-— Voilà ! C'est tout ? <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
+— Voilà ! C'est tout ?
+<button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
 <span class="lesson-ex-en">Here you go! Is that everything?</span>
 </div>
   `,
