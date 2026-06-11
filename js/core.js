@@ -17,6 +17,7 @@ const KEYS = {
   analytics: 'dailyFrench_analytics_opt_out'
 };
 
+// ─── STORAGE ──────────────────────────────────────────────────────
 const Storage = {
   isAvailable() {
     try {
@@ -80,6 +81,7 @@ const Storage = {
   }
 };
 
+// ─── PLAYER MANAGER ───────────────────────────────────────────────
 const PlayerManager = {
   defaultPlayer(name) {
     return {
@@ -165,6 +167,7 @@ const PlayerManager = {
   }
 };
 
+// ─── I18N (TRANSLATIONS) ──────────────────────────────────────────
 const I18N = {
   en: {
     home: 'Home', lessons: 'Lessons', play: 'Play', vocab: 'Vocab',
@@ -262,6 +265,7 @@ const I18n = {
   }
 };
 
+// ─── DIRECTION MODES (AVANT DirectionMode) ────────────────────────
 const DIRECTION_MODES = {
   'en-first': { label: '🇬🇧→🇫🇷 English First', labelFr: '🇬🇧→🇫🇷 Anglais d\'abord', qLang: 'en', aLang: 'fr' },
   'fr-first': { label: '🇫🇷→🇬🇧 French First', labelFr: '🇫🇷→🇬🇧 Français d\'abord', qLang: 'fr', aLang: 'en' },
@@ -295,6 +299,7 @@ const DirectionMode = {
   }
 };
 
+// ─── FLIP QUESTION (fonction globale) ─────────────────────────────
 function flipQuestion(q, index) {
   if (!q) return q;
   const dir = DirectionMode.getDirectionForQuestion(index);
@@ -314,6 +319,7 @@ function flipQuestion(q, index) {
   return flipped;
 }
 
+// ─── THEMES ───────────────────────────────────────────────────────
 const THEMES = {
   ardoise: {
     name: 'Ardoise', primary: '#4A5568', primaryMid: '#64748B', primaryLight: '#F1F5F9',
@@ -362,6 +368,7 @@ const Theme = {
   }
 };
 
+// ─── MODAL ────────────────────────────────────────────────────────
 const Modal = {
   openCallback: null, closeCallback: null, lastFocus: null,
   open(options) {
@@ -405,6 +412,7 @@ const Modal = {
   }
 };
 
+// ─── TOAST ────────────────────────────────────────────────────────
 const Toast = {
   queue: [], active: false, defaultDuration: 3000,
   show(message, duration) {
@@ -433,6 +441,7 @@ const Toast = {
 
 function toast(msg, duration) { Toast.show(msg, duration); }
 
+// ─── ROUTER ───────────────────────────────────────────────────────
 const Router = {
   goTo(page, params) {
     params = params || {};
@@ -459,6 +468,7 @@ const Router = {
   }
 };
 
+// ─── EVENT BUS ────────────────────────────────────────────────────
 const EventBus = {
   events: {},
   on(event, callback) {
@@ -477,6 +487,7 @@ const EventBus = {
   }
 };
 
+// ─── ANALYTICS ────────────────────────────────────────────────────
 const Analytics = {
   enabled: true,
   setEnabled(val) { this.enabled = val; Storage.set(KEYS.analytics, !val); },
@@ -487,6 +498,7 @@ const Analytics = {
     console.log('[Analytics]', event, data);
   }
 };
+// ─── FONCTIONS UTILITAIRES ────────────────────────────────────────
 
 function fillSelect(active) {
   const s = document.getElementById('selPlayer');
@@ -507,6 +519,7 @@ function renderHero(p) {
   const done = p.completed || [];
   const score = p.score || 0;
   const lvl = p.currentLevel || 1;
+  
   const els = {
     av: document.getElementById('heroAv'),
     name: document.getElementById('heroName'),
@@ -518,9 +531,11 @@ function renderHero(p) {
     acc: document.getElementById('p_acc'),
     sess: document.getElementById('p_sess')
   };
+  
   if (els.av) els.av.innerHTML = p.name.charAt(0).toUpperCase() + '<span class="hero-lvl-badge">' + lvl + '</span>';
   if (els.name) els.name.textContent = p.name;
   if (els.tag) els.tag.textContent = 'Lvl.' + lvl + ' · ' + score + ' pts · ' + done.length + '/20';
+  
   const ms = score === 0 ? 100 : Math.ceil(score / 100) * 100;
   const xpTextEl = document.querySelector('.xp-text');
   if (xpTextEl) {
@@ -531,6 +546,7 @@ function renderHero(p) {
   }
   if (els.xpBar) els.xpBar.style.width = Math.round(score % 100) + '%';
   if (els.streak) els.streak.textContent = p.streak || 0;
+  
   const acc = p.totalQuestions > 0 ? Math.round(p.totalCorrect / p.totalQuestions * 100) + '%' : '—';
   if (els.acc) els.acc.textContent = acc;
   if (els.sess) els.sess.textContent = (p.sessionHistory || []).length;
@@ -550,11 +566,15 @@ function loadPlayer(name) {
   if (!name) return;
   const p = PlayerManager.load(name);
   if (!p) return;
+  
   PlayerManager.setCurrent(name);
+  
   if (typeof gameState !== 'undefined') {
     gameState.currentLevel = p.currentLevel;
     gameState.score = p.score;
+    gameState.currentPlayer = name;
   }
+  
   renderHero(p);
   renderBento(p);
   fillSelect(name);
@@ -563,25 +583,34 @@ function loadPlayer(name) {
 
 function doExport() {
   const data = Storage.exportAll();
-  if (Object.keys(data).length === 0) { toast(I18n.t('noData')); return; }
+  if (Object.keys(data).length === 0) {
+    toast(I18n.t('noData'));
+    return;
+  }
+  
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
   a.download = 'DailyFrench-backup-' + new Date().toISOString().slice(0, 10) + '.json';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
   URL.revokeObjectURL(url);
+  
   toast(I18n.t('exported'));
 }
 
 function doImport(ev) {
   const file = ev.target.files[0];
   if (!file) return;
+  
   const reader = new FileReader();
   reader.onload = function(e) {
     try {
       const data = JSON.parse(e.target.result);
       const count = Storage.importAll(data);
+      
       if (count > 0) {
         PlayerManager.migrate();
         const names = Object.keys(PlayerManager.getAll());
@@ -590,20 +619,27 @@ function doImport(ev) {
       } else {
         toast(I18n.t('invalidFile'));
       }
-    } catch { toast(I18n.t('readError')); }
+    } catch {
+      toast(I18n.t('readError'));
+    }
   };
   reader.readAsText(file);
   ev.target.value = '';
 }
 
+// ─── INIT CORE ────────────────────────────────────────────────────
+
 function initCore() {
   I18n.init();
   Theme.load();
   PlayerManager.migrate();
+  
+  // Modal bindings
   const btnCreate = document.getElementById('btnCreatePlayer');
   const btnCancel = document.getElementById('btnCancelModal');
   const inpModal = document.getElementById('mInput');
   const modalWrap = document.getElementById('modalWrap');
+  
   if (btnCreate) {
     btnCreate.addEventListener('click', function(e) {
       e.preventDefault();
@@ -618,26 +654,51 @@ function initCore() {
       }
     });
   }
+  
   if (btnCancel) {
-    btnCancel.addEventListener('click', function(e) { e.preventDefault(); Modal.close(); });
-  }
-  if (inpModal) {
-    inpModal.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') { e.preventDefault(); if (btnCreate) btnCreate.click(); }
+    btnCancel.addEventListener('click', function(e) {
+      e.preventDefault();
+      Modal.close();
     });
   }
-  if (modalWrap) {
-    modalWrap.addEventListener('click', function(e) { if (e.target === modalWrap) Modal.close(); });
-    document.addEventListener('keydown', function(e) { Modal.handleEscape(e); });
+  
+  if (inpModal) {
+    inpModal.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        if (btnCreate) btnCreate.click();
+      }
+    });
   }
+  
+  if (modalWrap) {
+    modalWrap.addEventListener('click', function(e) {
+      if (e.target === modalWrap) Modal.close();
+    });
+    document.addEventListener('keydown', function(e) {
+      Modal.handleEscape(e);
+    });
+  }
+  
+  // Vocab modal
   const vocabModal = document.getElementById('vocabulary-popup-modal');
   if (vocabModal) {
     vocabModal.addEventListener('click', function(e) {
-      if (e.target === vocabModal && typeof closeVocabPopup === 'function') closeVocabPopup();
+      if (e.target === vocabModal && typeof closeVocabPopup === 'function') {
+        closeVocabPopup();
+      }
     });
   }
+  
+  // Auto-detect player
   const current = PlayerManager.autoDetect();
-  if (current) { loadPlayer(current); } else { fillSelect(null); }
+  if (current) {
+    loadPlayer(current);
+  } else {
+    fillSelect(null);
+  }
+  
+  // Active nav
   (function setActiveNav() {
     const page = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('.nav-bottom .nav-item').forEach(function(a) {
@@ -649,14 +710,23 @@ function initCore() {
       a.classList.toggle('active', !!match);
     });
   })();
-  if (typeof DirectionMode !== 'undefined') DirectionMode.load();
+  
+  // Direction mode
+  if (typeof DirectionMode !== 'undefined') {
+    DirectionMode.load();
+  }
+  
   EventBus.emit('coreReady', { version: CORE_VERSION });
 }
+
+// ─── FONCTIONS UI ─────────────────────────────────────────────────
 
 function toggleSettings() {
   const panel = document.getElementById('settingsPanel');
   if (!panel) return;
+  
   panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  
   if (panel.style.display === 'block') {
     setTimeout(function() {
       document.addEventListener('click', function close(e) {
@@ -695,32 +765,45 @@ function applyDirectionPick(mode) {
   });
 }
 
+// ─── ALIAS FONCTIONS (compatibilité) ──────────────────────────────
+
 function gP() { return PlayerManager.getAll(); }
 function sP(d) { return PlayerManager.saveAll(d); }
 function getPlayers() { return PlayerManager.getAll(); }
 function savePlayers(data) { return PlayerManager.saveAll(data); }
 function getPlayerData(name) { return PlayerManager.load(name); }
+
 function switchPlayer(name) {
   PlayerManager.setCurrent(name);
   if (typeof loadPlayer === 'function') loadPlayer(name);
   return PlayerManager.load(name);
 }
+
 function updatePlayerDisplay() {
   const current = PlayerManager.getCurrent();
   if (current && typeof loadPlayer === 'function') loadPlayer(current);
 }
+
 function deleteCurrentPlayer() {
   const current = PlayerManager.getCurrent();
   if (!current) return;
+  
   PlayerManager.delete(current);
   const remaining = Object.keys(PlayerManager.getAll());
-  if (remaining.length > 0) { if (typeof loadPlayer === 'function') loadPlayer(remaining[0]); }
-  else { location.reload(); }
+  
+  if (remaining.length > 0) {
+    if (typeof loadPlayer === 'function') loadPlayer(remaining[0]);
+  } else {
+    location.reload();
+  }
 }
+
 function showNewPlayerModal() { Modal.open(); }
+
 function confirmNewPlayer() {
   const inp = document.getElementById('mInput');
   if (!inp) return;
+  
   const result = PlayerManager.create(inp.value);
   if (result.success) {
     Modal.close();
@@ -731,11 +814,24 @@ function confirmNewPlayer() {
     toast(result.error);
   }
 }
+
 function doCreate() { confirmNewPlayer(); }
 function openModal() { Modal.open(); }
 function closeModal() { Modal.close(); }
+
 function applyTheme(name) { Theme.apply(name); }
 function loadTheme() { Theme.load(); }
+
 function goToQuiz() { window.location.href = 'quiz.html'; }
 function goToDashboard() { window.location.href = 'dashboard.html'; }
 function goToVocabulary() { window.location.href = 'vocabulary.html'; }
+
+// ─── INITIALISATION AUTO ──────────────────────────────────────────
+
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCore);
+  } else {
+    initCore();
+  }
+}
