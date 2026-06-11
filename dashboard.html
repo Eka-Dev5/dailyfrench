@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Daily French 🥖 — My Space</title>
+  <title>Daily French -- My Space</title>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/dashboard.css">
 </head>
@@ -13,7 +13,7 @@
   <!-- Toast notification -->
   <div id="toast" class="toast"></div>
   
-  <!-- Modal pour créer un joueur -->
+  <!-- Modal pour creer un joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
@@ -28,7 +28,7 @@
   <!-- Modal popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
-      <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
+      <button class="vocab-popup-close" onclick="closeVocabPopup()">x</button>
       <div id="vocab-popup-body"></div>
     </div>
   </div>
@@ -47,7 +47,7 @@
     </div>
     <div class="hero-xp">
       <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
-      <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
+      <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts -- Next: <span id="xpGoal">100</span> pts</div>
     </div>
   </header>
   
@@ -62,78 +62,56 @@
   <main class="dashboard-main">
     <!-- Section 1: My Life in France (Life Skills) -->
     <section class="dash-section" id="dash-life">
-      <h2 class="dash-title">🇫🇷 My Life in France</h2>
+      <h2 class="dash-title">My Life in France</h2>
       <div id="lifeSkillsGrid" class="life-skills-grid"></div>
     </section>
     
     <!-- Section 2: Journey (levels map) -->
     <section class="dash-section" id="dash-levels">
-      <h2 class="dash-title">🗺️ Journey</h2>
+      <h2 class="dash-title">Journey</h2>
       <div id="journeyMap" class="journey-map"></div>
     </section>
     
     <!-- Section 3: Badges -->
     <section class="dash-section" id="dash-badges">
-      <h2 class="dash-title">🏅 Badges</h2>
+      <h2 class="dash-title">Badges</h2>
       <div id="badgesGrid" class="badges-grid"></div>
     </section>
     
     <!-- Section 4: Cameleon (adaptive help) -->
     <section class="dash-section" id="dash-cameleon">
-      <h2 class="dash-title">🦎 Cameleon</h2>
+      <h2 class="dash-title">Cameleon</h2>
       <div id="cameleonStage" class="cameleon-stage"></div>
     </section>
     
     <!-- Section 5: History (sessions) -->
     <section class="dash-section" id="dash-history">
-      <h2 class="dash-title">📜 History</h2>
+      <h2 class="dash-title">History</h2>
       <div id="historyList" class="history-list"></div>
     </section>
     
-    <!-- Section 6: Mon Génie (personal word collection) -->
+    <!-- Section 6: Mon Genie (personal word collection) -->
     <section class="dash-section" id="dash-genius">
-      <h2 class="dash-title">🪔 Mon Génie</h2>
+      <h2 class="dash-title">Mon Genie</h2>
       <div id="geniusPanel" class="genius-panel"></div>
     </section>
   </main>
 
-  <!-- ✅ ORDRE CORRECT DES SCRIPTS -->
-  <!-- 1. config.js — Configuration globale -->
+  <!-- ORDRE CORRECT DES SCRIPTS -->
   <script src="js/config.js"></script>
-  
-  <!-- 2. core.js — Moteur central (Storage, PlayerManager, I18n, Theme, DirectionMode, Modal, Toast, Router, EventBus) -->
   <script src="js/core.js"></script>
-  
-  <!-- 3. ui-utils.js — Utilitaires UI (toast, modal) -->
   <script src="js/ui-utils.js"></script>
-  
-  <!-- 4. life-skills-data.js — Données Life Skills (My Life in France) -->
-  <script src="js/life-skills-data.js"></script>
-  
-  <!-- 5. data-loader.js — Charge les 20 leçons depuis lessons/ et construit LESSONS_DATA + QUESTIONS_DB -->
   <script src="js/data-loader.js"></script>
-  
-  <!-- 6. vocabulary-data.js — Charge les 21 niveaux de vocabulaire (592/818 mots) -->
+  <script src="js/life-skills-data.js"></script>
   <script src="js/vocabulary-data.js"></script>
-  
-  <!-- 7. vocabulary-engine.js — Moteur du vocabulaire -->
   <script src="js/vocabulary-engine.js"></script>
-  
-  <!-- 8. emergency-data.js — Données SOS (emergency) -->
   <script src="js/emergency-data.js"></script>
-  
-  <!-- 9. conversation-data.js — Données dialogues (conversation) -->
   <script src="js/conversation-data.js"></script>
-  
-  <!-- 10. dashboard.js — Logique du dashboard (renderJourneyMap, renderLifeSkills, etc.) -->
   <script src="js/dashboard.js"></script>
-  
-  <!-- 11. nav.js — Navigation entre pages (lié à settings.html) -->
   <script src="js/nav.js"></script>
 
-  <!-- Scripts inline pour Settings -->
+  <!-- Scripts inline -->
   <script>
-    // applyThemePick — Choisir un thème (utilise Theme.apply() pour le gradient hero)
     function applyThemePick(t){
       if(typeof Theme !== 'undefined') Theme.apply(t);
       else {
@@ -143,7 +121,6 @@
       if(typeof toast==='function')toast('Theme: '+t);
     }
     
-    // applyLangPick — Choisir une langue
     function applyLangPick(l){
       if(typeof I18n !== 'undefined') {
         I18n.current = l;
@@ -153,21 +130,18 @@
       if(typeof toast==='function')toast('Language: '+l.toUpperCase());
     }
     
-    // Initialisation au chargement
     (function(){
-      // Appliquer le thème sauvegardé
       const t=localStorage.getItem('dailyFrench_theme');
       if(t && typeof Theme !== 'undefined') Theme.apply(t);
       else if(t) document.documentElement.setAttribute('data-theme',t);
     })();
     
-    // Initialiser le dashboard si la fonction existe
     document.addEventListener('DOMContentLoaded',function(){
       if(typeof initDashboard==='function')initDashboard();
     });
   </script>
   
-  <!-- Debug console (affiche les erreurs et vérifie les variables) -->
+  <!-- Debug console -->
   <div id="debug-console" style="position:fixed;bottom:0;left:0;right:0;background:#000;color:#0f0;font-family:monospace;font-size:12px;padding:10px;max-height:200px;overflow:auto;z-index:9999;">
     <div style="color:#fff;font-weight:bold;border-bottom:1px solid #333;margin-bottom:5px;">DEBUG CONSOLE</div>
   </div>
@@ -175,7 +149,6 @@
     (function(){
       var debug = document.getElementById('debug-console');
       
-      // Fonction pour ajouter un message au debug
       function log(msg, color) {
         var div = document.createElement('div');
         div.style.color = color || '#0f0';
@@ -184,22 +157,46 @@
         debug.scrollTop = debug.scrollHeight;
       }
       
-      // Capturer les erreurs JavaScript
       window.onerror = function(msg, url, line) {
         log('ERROR: ' + msg + ' (line ' + line + ')', '#f00');
         return false;
       };
       
-      // Test si les variables essentielles existent (après 1 seconde)
-      setTimeout(function(){
+      function runDebugTests() {
+        log('--- Core Ready Tests ---', '#fff');
         log('DIRECTION_MODES: ' + (typeof DIRECTION_MODES !== 'undefined' ? 'OK' : 'MANQUANT'), typeof DIRECTION_MODES !== 'undefined' ? '#0f0' : '#f00');
         log('EventBus: ' + (typeof EventBus !== 'undefined' ? 'OK' : 'MANQUANT'), typeof EventBus !== 'undefined' ? '#0f0' : '#f00');
         log('gameState: ' + (typeof gameState !== 'undefined' ? 'OK' : 'MANQUANT'), typeof gameState !== 'undefined' ? '#0f0' : '#f00');
-        log('LESSONS_DATA: ' + (typeof LESSONS_DATA !== 'undefined' ? 'OK' : 'MANQUANT'), typeof LESSONS_DATA !== 'undefined' ? '#0f0' : '#f00');
-        log('QUESTIONS_DB: ' + (typeof QUESTIONS_DB !== 'undefined' ? 'OK' : 'MANQUANT'), typeof QUESTIONS_DB !== 'undefined' ? '#0f0' : '#f00');
+        log('LESSONS_DATA: ' + (typeof LESSONS_DATA !== 'undefined' ? 'OK (' + LESSONS_DATA.length + ')' : 'MANQUANT'), typeof LESSONS_DATA !== 'undefined' ? '#0f0' : '#f00');
+        log('QUESTIONS_DB: ' + (typeof QUESTIONS_DB !== 'undefined' ? 'OK (' + Object.keys(QUESTIONS_DB).length + ')' : 'MANQUANT'), typeof QUESTIONS_DB !== 'undefined' ? '#0f0' : '#f00');
         log('DirectionMode: ' + (typeof DirectionMode !== 'undefined' ? 'OK' : 'MANQUANT'), typeof DirectionMode !== 'undefined' ? '#0f0' : '#f00');
         log('PlayerManager: ' + (typeof PlayerManager !== 'undefined' ? 'OK' : 'MANQUANT'), typeof PlayerManager !== 'undefined' ? '#0f0' : '#f00');
-      }, 1000);
+        log('Storage: ' + (typeof Storage !== 'undefined' ? 'OK' : 'MANQUANT'), typeof Storage !== 'undefined' ? '#0f0' : '#f00');
+        log('I18n: ' + (typeof I18n !== 'undefined' ? 'OK' : 'MANQUANT'), typeof I18n !== 'undefined' ? '#0f0' : '#f00');
+        log('Theme: ' + (typeof Theme !== 'undefined' ? 'OK' : 'MANQUANT'), typeof Theme !== 'undefined' ? '#0f0' : '#f00');
+        log('Modal: ' + (typeof Modal !== 'undefined' ? 'OK' : 'MANQUANT'), typeof Modal !== 'undefined' ? '#0f0' : '#f00');
+        log('Toast: ' + (typeof Toast !== 'undefined' ? 'OK' : 'MANQUANT'), typeof Toast !== 'undefined' ? '#0f0' : '#f00');
+        log('Router: ' + (typeof Router !== 'undefined' ? 'OK' : 'MANQUANT'), typeof Router !== 'undefined' ? '#0f0' : '#f00');
+        log('--- End Tests ---', '#fff');
+      }
+      
+      if (typeof EventBus !== 'undefined') {
+        EventBus.on('coreReady', function() {
+          log('EventBus coreReady received!', '#0ff');
+          setTimeout(runDebugTests, 500);
+        });
+        
+        EventBus.on('lessonsLoaded', function(data) {
+          log('Lessons loaded: ' + (data && data.count ? data.count : '?') + ' lessons', '#0ff');
+        });
+      } else {
+        log('EventBus not available, using fallback timer...', '#ff0');
+        setTimeout(runDebugTests, 3000);
+      }
+      
+      log('--- Immediate Tests (before coreReady) ---', '#888');
+      log('EventBus (immediate): ' + (typeof EventBus !== 'undefined' ? 'OK' : 'MANQUANT'), typeof EventBus !== 'undefined' ? '#0f0' : '#f00');
+      log('DirectionMode (immediate): ' + (typeof DirectionMode !== 'undefined' ? 'OK' : 'MANQUANT'), typeof DirectionMode !== 'undefined' ? '#0f0' : '#f00');
     })();
   </script>
 
