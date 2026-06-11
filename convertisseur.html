@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Convertisseur Backticks</title>
+  <style>
+    body { font-family:-apple-system,sans-serif; background:#0d1117; color:#c9d1d9; padding:30px; }
+    h1 { color:#58a6ff; font-size:20px; }
+    #dropzone { border:3px dashed #58a6ff; border-radius:12px; padding:60px 20px; text-align:center; margin:20px 0; background:#161b22; }
+    #dropzone.dragover { background:#1c2128; border-color:#3fb950; }
+    #resultat { margin-top:20px; }
+    textarea { width:100%; height:400px; background:#0d1117; color:#c9d1d9; border:1px solid #30363d; border-radius:8px; padding:12px; font-family:monospace; font-size:11px; }
+    button { background:#238636; color:#fff; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-size:14px; margin-top:10px; }
+    .info { color:#8b949e; margin:10px 0; }
+  </style>
+</head>
+<body>
+  <h1>🔄 Convertisseur Backticks</h1>
+  <p class="info">Glisse-dépose un fichier lesson-XX.js ici. Il sera converti avec des backticks (`) partout pour éviter les problèmes d'apostrophes.</p>
+  
+  <div id="dropzone">
+    <div style="font-size:48px;">📁</div>
+    <p>Dépose ton fichier .js ici</p>
+  </div>
+  
+  <div id="resultat" style="display:none;">
+    <p class="ok" style="color:#3fb950;">✅ Fichier converti ! Copie le résultat ci-dessous :</p>
+    <textarea id="output"></textarea>
+    <button onclick="copier()">📋 Copier dans le presse-papiers</button>
+  </div>
+
+<script>
+const dropzone = document.getElementById('dropzone');
+
+dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+dropzone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if(!file || !file.name.endsWith('.js')){ alert('Fichier .js uniquement'); return; }
+  
+  const reader = new FileReader();
+  reader.onload = function(evt){
+    const original = evt.target.result;
+    const converti = convertirBackticks(original);
+    document.getElementById('output').value = converti;
+    document.getElementById('resultat').style.display = 'block';
+  };
+  reader.readAsText(file);
+});
+
+function convertirBackticks(code){
+  let result = '';
+  let i = 0;
+  
+  while(i < code.length){
+    // Template literal existant — on le laisse tel quel
+    if(code[i] === '`'){
+      result += '`';
+      i++;
+      while(i < code.length){
+        result += code[i];
+        if(code[i] === '`' && code[i-1] !== '\\'){ i++; break; }
+        i++;
+      }
+      continue;
+    }
+    
+    // Chaîne double "..."
+    if(code[i] === '"'){
+      let j = i + 1;
+      let inner = '';
+      while(j < code.length){
+        if(code[j] === '"' && code[j-1] !== '\\') break;
+        inner += code[j];
+        j++;
+      }
+      // Convertir en backtick (sauf s'il contient déjà un backtick)
+      if(inner.indexOf('`') === -1){
+        // Échapper les ${ et les backslashes finaux
+        inner = inner.replace(/\$\{/g, '\\${');
+        if(inner.endsWith('\\')) inner += '\\';
+        result += '`' + inner + '`';
+        i = j + 1;
+      } else {
+        result += '"' + inner + '"';
+        i = j + 1;
+      }
+      continue;
+    }
+    
+    // Chaîne simple '...' — on la convertit aussi
+    if(code[i] === "'" && (i===0 || code[i-1] !== '\\')){
+      let j = i + 1;
+      let inner = '';
+      while(j < code.length){
+        if(code[j] === "'" && code[j-1] !== '\\') break;
+        inner += code[j];
+        j++;
+      }
+      if(inner.indexOf('`') === -1 && inner.indexOf('\n') === -1){
+        inner = inner.replace(/\$\{/g, '\\${');
+        if(inner.endsWith('\\')) inner += '\\';
+        result += '`' + inner + '`';
+        i = j + 1;
+      } else {
+        result += "'" + inner + "'";
+        i = j + 1;
+      }
+      continue;
+    }
+    
+    result += code[i];
+    i++;
+  }
+  
+  return result;
+}
+
+function copier(){
+  const t = document.getElementById('output');
+  t.select();
+  document.execCommand('copy');
+  alert('Copié !');
+}
+</script>
+</body>
+</html>
