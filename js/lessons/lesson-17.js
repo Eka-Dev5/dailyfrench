@@ -1,4 +1,4 @@
-// my-plans.js
+// lesson-17.js
 const LESSON_17 = {
   id: 17, title: "My Plans", titleFr: "Mes projets",
   objectiveEn: "Talk about future plans using futur proche (aller + infinitive)", objectiveFr: "Parler des projets futurs en utilisant le futur proche (aller + infinitif)",
