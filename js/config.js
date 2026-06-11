@@ -15,6 +15,11 @@ const SUBJECT_CONFIG = {
   maxLevel: 20
 };
 
+const CONFIG = {
+  LESSONS_COUNT: 20
+};
+
+
 const FEATURES = {
   voice: {
     enabled: true,
@@ -75,6 +80,7 @@ let gameState = {
 
 if (typeof window !== "undefined") {
   window.SUBJECT_CONFIG = SUBJECT_CONFIG;
+  window.CONFIG = CONFIG;
   window.FEATURES = FEATURES;
   window.LEVEL_NAMES = LEVEL_NAMES;
   window.DIRECTION_MODES = DIRECTION_MODES;
