@@ -1,4 +1,4 @@
-// living-french.js
+// lesson-20.js
 const LESSON_20 = {
   id: 20, title: "Living French", titleFr: "Le français vivant",
   objectiveEn: "Understand and use everyday French expressions naturally", objectiveFr: "Comprendre et utiliser naturellement les expressions françaises du quotidien",
