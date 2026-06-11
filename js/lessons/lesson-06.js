@@ -1,4 +1,4 @@
-// at-the-shops.js
+// lesson-06.js
 const LESSON_06 = {
   id: 6, title: "At the Shops", titleFr: "Dans les magasins",
   objectiveEn: "Navigate French shops, pay, ask for help", objectiveFr: "Naviguer dans les magasins français, payer, demander de l'aide",
