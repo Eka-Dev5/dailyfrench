@@ -1,4 +1,3 @@
-// my-cooking.js
 const LESSON_19 = {
   id: 19,
   title: "My Cooking",
@@ -16,16 +15,17 @@ const LESSON_19 = {
 <tr><th>French</th><th>Phonetics</th><th>English</th></tr>
 </thead>
 <tbody>
-<tr><td class=\"\">couper<\/td><td><em>*koo-PAY*<\/em><\/td><td>to cut / chop<\/td><\/tr>
-</table><td class=\"\">mélanger<\/td><td><em>*may-lan-ZHAY*<\/em><\/td><td>to mix<\/td><\/tr>
-<tr><td class=\"\">faire chauffer<\/td><td><em>*fair sho-FAY*<\/em><\/td><td>to heat up<\/td><\/tr>
-<tr><td class=\"\">ajouter<\/td><td><em>*a-zhoo-TAY*<\/em><\/td><td>to add<\/td><\/tr>
-<tr><td class=\"\">remuer<\/td><td><em>*ruh-moo-AY*<\/em><\/td><td>to stir<\/td><\/tr>
-</tr><td class=\"\">goûter<\/td><td><em>*goo-TAY*<\/em><\/td><td>to taste<\/td><\/tr>
-<tr><td class=\"\">servir<\/td><td><em>*sair-VEER*<\/em><\/td><td>to serve<\/td><\/tr>
+<tr><td>couper</td><td><em>*koo-PAY*</em></td><td>to cut / chop</td></tr>
+<tr><td>mélanger</td><td><em>*may-lan-ZHAY*</em></td><td>to mix</td></tr>
+<tr><td>faire chauffer</td><td><em>*fair sho-FAY*</em></td><td>to heat up</td></tr>
+<tr><td>ajouter</td><td><em>*a-zhoo-TAY*</em></td><td>to add</td></tr>
+<tr><td>remuer</td><td><em>*ruh-moo-AY*</em></td><td>to stir</td></tr>
+<tr><td>goûter</td><td><em>*goo-TAY*</em></td><td>to taste</td></tr>
+<tr><td>servir</td><td><em>*sair-VEER*</em></td><td>to serve</td></tr>
 </tbody>
-<\/table>
-<\/div>
+</table>
+</div>
+
 <div class="lesson-rule">
 <h4>📖 Recipe language</h4>
 <table class="lesson-table">
@@ -33,13 +33,14 @@ const LESSON_19 = {
 <tr><th>French</th><th>English</th></tr>
 </thead>
 <tbody>
-<tr><td class=\"\">une recette<\/td><td>a recipe<\/td><\/tr>
-<tr><td class=\"\">les ingrédients<\/td><td>the ingredients<\/td><\/tr>
-<tr><td class=\"\">faire revenir<\/td><td>to fry / sauté<\/td><\/tr>
-<tr><td class=\"\">laisser mijoter<\/td><td>to let simmer<\/td><\/tr>
+<tr><td>une recette</td><td>a recipe</td></tr>
+<tr><td>les ingrédients</td><td>the ingredients</td></tr>
+<tr><td>faire revenir</td><td>to fry / sauté</td></tr>
+<tr><td>laisser mijoter</td><td>to let simmer</td></tr>
 </tbody>
-<\/table>
-<\/div>
+</table>
+</div>
+
 <div class="lesson-example">
 Je coupe les légumes, j'ajoute de l'huile et je fais chauffer à feu doux.
 <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
@@ -254,8 +255,8 @@ Je coupe les légumes, j'ajoute de l'huile et je fais chauffer à feu doux.
       correct: "Laissez mijoter 30 minutes.",
       correctEn: "Let simmer for 30 minutes.",
       alternatives: [],
-      explanation: "Laisser mijoter = let simmer. Minutes = minutes (same word!).",
-      explanationFr: "Laisser mijoter = laisser mijoter. Minutes = minutes (identique !)."
+      explanation: "Laisser mijoter = let simmer. Minutes = minutes.",
+      explanationFr: "Laisser mijoter = laisser mijoter. Minutes = minutes."
     },
     {
       id: "19-l9",
@@ -276,8 +277,8 @@ Je coupe les légumes, j'ajoute de l'huile et je fais chauffer à feu doux.
       correct: "Servez chaud.",
       correctEn: "Serve hot.",
       alternatives: [],
-      explanation: "Servir = to serve. Chaud = hot. Classic recipe instruction!",
-      explanationFr: "Servir = servir. Chaud = chaud. Instruction de recette classique !"
+      explanation: "Servir = to serve. Chaud = hot.",
+      explanationFr: "Servir = servir. Chaud = chaud."
     }
   ]
 };
