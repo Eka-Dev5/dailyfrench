@@ -106,5 +106,37 @@
       if(typeof initDashboard==='function')initDashboard();
     });
   </script>
+  <div id="debug-console" style="position:fixed;bottom:0;left:0;right:0;background:#000;color:#0f0;font-family:monospace;font-size:12px;padding:10px;max-height:200px;overflow:auto;z-index:9999;">
+  <div style="color:#fff;font-weight:bold;border-bottom:1px solid #333;margin-bottom:5px;">DEBUG CONSOLE</div>
+</div>
+<script>
+(function(){
+  var debug = document.getElementById('debug-console');
+  function log(msg, color) {
+    var div = document.createElement('div');
+    div.style.color = color || '#0f0';
+    div.textContent = '> ' + msg;
+    debug.appendChild(div);
+    debug.scrollTop = debug.scrollHeight;
+  }
+  
+  window.onerror = function(msg, url, line) {
+    log('ERROR: ' + msg + ' (line ' + line + ')', '#f00');
+    return false;
+  };
+  
+  // Test si les variables existent
+  setTimeout(function(){
+    log('DIRECTION_MODES: ' + (typeof DIRECTION_MODES !== 'undefined' ? 'OK' : 'MANQUANT'), typeof DIRECTION_MODES !== 'undefined' ? '#0f0' : '#f00');
+    log('EventBus: ' + (typeof EventBus !== 'undefined' ? 'OK' : 'MANQUANT'), typeof EventBus !== 'undefined' ? '#0f0' : '#f00');
+    log('gameState: ' + (typeof gameState !== 'undefined' ? 'OK' : 'MANQUANT'), typeof gameState !== 'undefined' ? '#0f0' : '#f00');
+    log('LESSONS_DATA: ' + (typeof LESSONS_DATA !== 'undefined' ? 'OK' : 'MANQUANT'), typeof LESSONS_DATA !== 'undefined' ? '#0f0' : '#f00');
+    log('QUESTIONS_DB: ' + (typeof QUESTIONS_DB !== 'undefined' ? 'OK' : 'MANQUANT'), typeof QUESTIONS_DB !== 'undefined' ? '#0f0' : '#f00');
+    log('DirectionMode: ' + (typeof DirectionMode !== 'undefined' ? 'OK' : 'MANQUANT'), typeof DirectionMode !== 'undefined' ? '#0f0' : '#f00');
+    log('PlayerManager: ' + (typeof PlayerManager !== 'undefined' ? 'OK' : 'MANQUANT'), typeof PlayerManager !== 'undefined' ? '#0f0' : '#f00');
+  }, 1000);
+})();
+</script>
+
 </body>
 </html>
