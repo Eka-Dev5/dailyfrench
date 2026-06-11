@@ -21,8 +21,8 @@ function loadLessons() {
   for (let i = 1; i <= count; i++) {
     const numStr = i.toString().padStart(2, '0');
     const script = document.createElement('script');
-    script.src = 'lessons/lesson-' + numStr + '.js';
-    
+    script.src = 'js/lessons/lesson-' + numStr + '.js';
+
     script.onload = function() {
       const lessonVar = 'LESSON_' + numStr;
       
