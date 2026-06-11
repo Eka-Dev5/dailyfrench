@@ -1,40 +1,40 @@
-// lesson-18.js — My Health 💊 — At the doctor
+// lesson-18.js -- My Health -- At the doctor
 const LESSON_18 = {
   id: 18,
-  title: "My Health 💊 — At the doctor",
-  titleFr: "Ma santé — Chez le médecin",
+  title: "My Health -- At the doctor",
+  titleFr: "Ma sante -- Chez le medecin",
   objectiveEn: "Explain symptoms, make a doctor's appointment, go to the pharmacy",
-  objectiveFr: "Expliquer les symptômes, prendre rendez-vous chez le médecin, aller à la pharmacie",
-  hintEn: "J'ai mal à la/au/aux + body part = I have pain in / it hurts",
-  hintFr: "J'ai mal à la/au/aux + partie du corps = j'ai mal à / ça fait mal",
+  objectiveFr: "Expliquer les symptomes, prendre rendez-vous chez le medecin, aller a la pharmacie",
+  hintEn: "J'ai mal a la/au/aux + body part = I have pain in / it hurts",
+  hintFr: "J'ai mal a la/au/aux + partie du corps = j'ai mal a / ca fait mal",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>💊 Pain & symptoms: J'ai mal à...</h4>
+<h4>Pain & symptoms: J'ai mal a...</h4>
 <table class="lesson-table">
 <tr><th>French</th><th>English</th></tr>
-<tr><td>J'ai mal à la tête.</td><td>I have a headache.</td></tr>
+<tr><td>J'ai mal a la tete.</td><td>I have a headache.</td></tr>
 <tr><td>J'ai mal au dos.</td><td>I have back pain.</td></tr>
-<tr><td>J'ai mal à la gorge.</td><td>I have a sore throat.</td></tr>
+<tr><td>J'ai mal a la gorge.</td><td>I have a sore throat.</td></tr>
 <tr><td>J'ai mal aux dents.</td><td>I have toothache.</td></tr>
 <tr><td>J'ai mal au ventre.</td><td>I have stomach ache.</td></tr>
 </table>
 </div>
 <div class="lesson-rule">
-<h4>🏥 At the doctor / pharmacy</h4>
+<h4>At the doctor / pharmacy</h4>
 <table class="lesson-table">
 <tr><th>French</th><th>English</th></tr>
 <tr><td>Je voudrais prendre rendez-vous.</td><td>I would like to make an appointment.</td></tr>
 <tr><td>J'ai mal depuis trois jours.</td><td>I have been in pain for three days.</td></tr>
 <tr><td>Je suis malade.</td><td>I am ill / sick.</td></tr>
-<tr><td>Je prends un médicament.</td><td>I take a medication.</td></tr>
+<tr><td>Je prends un medicament.</td><td>I take a medication.</td></tr>
 <tr><td>les urgences</td><td>the emergency room / A&E</td></tr>
 </table>
 </div>
-<div class="lesson-warning">⚠️ Grammar: à + le = <strong>au</strong> (au dos, au ventre) | à + les = <strong>aux</strong> (aux dents) | à + la = <strong>à la</strong> (à la tête)</div>
+<div class="lesson-warning">Grammar: a + le = <strong>au</strong> (au dos, au ventre) | a + les = <strong>aux</strong> (aux dents) | a + la = <strong>a la</strong> (a la tete)</div>
 <div class="lesson-example">
-Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depuis hier. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
-<span class="lesson-ex-en">I'd like to make an appointment with my doctor — I've had a sore throat since yesterday.</span>
+Je voudrais prendre rendez-vous avec mon medecin -- j'ai mal a la gorge depuis hier. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">I'd like to make an appointment with my doctor -- I've had a sore throat since yesterday.</span>
 </div>
   `,
   qcm: [
@@ -42,13 +42,13 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
       id: "18-1",
       type: "qcm",
       question: "I have a headache in French:",
-      questionFr: "J'ai mal à la tête. en anglais :",
-      options: ["J'ai mal à la tête.","J'ai mal la tête.","Je suis mal à la tête.","Ma tête fait mal."],
+      questionFr: "J'ai mal a la tete. en anglais :",
+      options: ["J'ai mal a la tete.","J'ai mal la tete.","Je suis mal a la tete.","Ma tete fait mal."],
       optionsEn: ["I have a headache.","I have pain the head.","I am pain in the head.","My head does pain."],
-      correct: "J'ai mal à la tête.",
+      correct: "J'ai mal a la tete.",
       correctEn: "I have a headache.",
-      explanation: "J'ai mal à + body part = I have pain in... À + la tête (feminine).",
-      explanationFr: "J'ai mal à + partie du corps. À + la tête (féminin)."
+      explanation: "J'ai mal a + body part = I have pain in... A + la tete (feminine).",
+      explanationFr: "J'ai mal a + partie du corps. A + la tete (feminin)."
     },
     {
       id: "18-2",
@@ -59,20 +59,20 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
       optionsEn: ["I have back pain.","I have pain the back.","I have back pain.","My back has pain."],
       correct: "J'ai mal au dos.",
       correctEn: "I have back pain.",
-      explanation: "Au = à + le (masculine). Le dos = the back. J'ai mal au dos.",
-      explanationFr: "Au = à + le (masculin). Le dos = le dos. J'ai mal au dos."
+      explanation: "Au = a + le (masculine). Le dos = the back. J'ai mal au dos.",
+      explanationFr: "Au = a + le (masculin). Le dos = le dos. J'ai mal au dos."
     },
     {
       id: "18-3",
       type: "qcm",
       question: "I have a sore throat in French:",
-      questionFr: "J'ai mal à la gorge. en anglais :",
-      options: ["J'ai mal à la gorge.","J'ai mal la gorge.","Ma gorge est mal.","J'ai la gorge."],
+      questionFr: "J'ai mal a la gorge. en anglais :",
+      options: ["J'ai mal a la gorge.","J'ai mal la gorge.","Ma gorge est mal.","J'ai la gorge."],
       optionsEn: ["I have a sore throat.","I have pain the throat.","My throat is pain.","I have the throat."],
-      correct: "J'ai mal à la gorge.",
+      correct: "J'ai mal a la gorge.",
       correctEn: "I have a sore throat.",
-      explanation: "À la gorge — la gorge is feminine, so 'à la'. The throat.",
-      explanationFr: "À la gorge — la gorge est féminin, donc 'à la'. La gorge."
+      explanation: "A la gorge -- la gorge is feminine, so 'a la'. The throat.",
+      explanationFr: "A la gorge -- la gorge est feminin, donc 'a la'. La gorge."
     },
     {
       id: "18-4",
@@ -83,8 +83,8 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
       optionsEn: ["I have toothache.","I have pain the teeth.","My teeth have pain.","I have the teeth pain."],
       correct: "J'ai mal aux dents.",
       correctEn: "I have toothache.",
-      explanation: "Aux = à + les (plural). Les dents = teeth. J'ai mal aux dents.",
-      explanationFr: "Aux = à + les (pluriel). Les dents = les dents. J'ai mal aux dents."
+      explanation: "Aux = a + les (plural). Les dents = teeth. J'ai mal aux dents.",
+      explanationFr: "Aux = a + les (pluriel). Les dents = les dents. J'ai mal aux dents."
     },
     {
       id: "18-5",
@@ -108,7 +108,7 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
       correct: "Les urgences",
       correctEn: "The emergency room",
       explanation: "Les urgences = A&E / emergency room. Always plural in French.",
-      explanationFr: "Les urgences = les urgences. Toujours au pluriel en français."
+      explanationFr: "Les urgences = les urgences. Toujours au pluriel en francais."
     },
     {
       id: "18-7",
@@ -126,10 +126,10 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
       id: "18-8",
       type: "qcm",
       question: "I take a medication in French:",
-      questionFr: "Je prends un médicament. en anglais :",
-      options: ["Je prends un médicament.","J'ai un médicament.","Je suis médicament.","Je fais médicament."],
+      questionFr: "Je prends un medicament. en anglais :",
+      options: ["Je prends un medicament.","J'ai un medicament.","Je suis medicament.","Je fais medicament."],
       optionsEn: ["I take a medication.","I have a medication.","I am medication.","I do medication."],
-      correct: "Je prends un médicament.",
+      correct: "Je prends un medicament.",
       correctEn: "I take a medication.",
       explanation: "Prendre = to take. Je prends = I take.",
       explanationFr: "Prendre = prendre. Je prends = je prends."
@@ -143,8 +143,8 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
       optionsEn: ["I am ill/sick.","I have ill.","I do ill.","I myself am ill."],
       correct: "Je suis malade.",
       correctEn: "I am ill/sick.",
-      explanation: "Je suis malade = I am ill/sick. Être for states.",
-      explanationFr: "Je suis malade = je suis malade. Être pour les états."
+      explanation: "Je suis malade = I am ill/sick. Etre for states.",
+      explanationFr: "Je suis malade = je suis malade. Etre pour les etats."
     },
     {
       id: "18-10",
@@ -155,8 +155,8 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
       optionsEn: ["I have pain in the back.","I have pain the back.","My back has pain.","I am pain in the back."],
       correct: "J'ai mal au dos.",
       correctEn: "I have pain in the back.",
-      explanation: "J'ai mal au dos — the only correct form. Au = à + le.",
-      explanationFr: "J'ai mal au dos — la seule forme correcte. Au = à + le."
+      explanation: "J'ai mal au dos -- the only correct form. Au = a + le.",
+      explanationFr: "J'ai mal au dos -- la seule forme correcte. Au = a + le."
     }
   ],
   libre: [
@@ -164,12 +164,12 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
       id: "18-l1",
       type: "libre",
       question: "Translate: I have a headache.",
-      questionFr: "Traduisez : J'ai mal à la tête.",
-      correct: "J'ai mal à la tête.",
+      questionFr: "Traduisez : J'ai mal a la tete.",
+      correct: "J'ai mal a la tete.",
       correctEn: "I have a headache.",
       alternatives: [],
-      explanation: "À la tête — la tête is feminine.",
-      explanationFr: "À la tête — la tête est féminin."
+      explanation: "A la tete -- la tete is feminine.",
+      explanationFr: "A la tete -- la tete est feminin."
     },
     {
       id: "18-l2",
@@ -179,8 +179,8 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
       correct: "J'ai mal au dos.",
       correctEn: "I have back pain.",
       alternatives: [],
-      explanation: "Au dos — au = à + le (masculine).",
-      explanationFr: "Au dos — au = à + le (masculin)."
+      explanation: "Au dos -- au = a + le (masculine).",
+      explanationFr: "Au dos -- au = a + le (masculin)."
     },
     {
       id: "18-l3",
@@ -190,19 +190,19 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
       correct: "J'ai mal aux dents.",
       correctEn: "I have toothache.",
       alternatives: [],
-      explanation: "Aux dents — aux = à + les (plural).",
-      explanationFr: "Aux dents — aux = à + les (pluriel)."
+      explanation: "Aux dents -- aux = a + les (plural).",
+      explanationFr: "Aux dents -- aux = a + les (pluriel)."
     },
     {
       id: "18-l4",
       type: "libre",
       question: "Complete: J'ai mal ___ gorge.",
-      questionFr: "Complétez : J'ai mal ___ gorge.",
-      correct: "à la",
+      questionFr: "Completez : J'ai mal ___ gorge.",
+      correct: "a la",
       correctEn: "in the",
       alternatives: [],
-      explanation: "La gorge (feminine) -> à la gorge.",
-      explanationFr: "La gorge (féminin) -> à la gorge."
+      explanation: "La gorge (feminine) -> a la gorge.",
+      explanationFr: "La gorge (feminin) -> a la gorge."
     },
     {
       id: "18-l5",
@@ -223,15 +223,15 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
       correct: "Je suis malade.",
       correctEn: "I am ill/sick.",
       alternatives: [],
-      explanation: "Être + malade. Je suis malade.",
-      explanationFr: "Être + malade. Je suis malade."
+      explanation: "Etre + malade. Je suis malade.",
+      explanationFr: "Etre + malade. Je suis malade."
     },
     {
       id: "18-l7",
       type: "libre",
       question: "Translate: I've had a headache for two days.",
-      questionFr: "Traduisez : J'ai mal à la tête depuis deux jours.",
-      correct: "J'ai mal à la tête depuis deux jours.",
+      questionFr: "Traduisez : J'ai mal a la tete depuis deux jours.",
+      correct: "J'ai mal a la tete depuis deux jours.",
       correctEn: "I've had a headache for two days.",
       alternatives: [],
       explanation: "Depuis = for (ongoing). Deux jours = two days.",
@@ -251,8 +251,8 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
     {
       id: "18-l9",
       type: "libre",
-      question: "Complete: Je ___ un médicament contre la douleur.",
-      questionFr: "Complétez : Je ___ un médicament contre la douleur.",
+      question: "Complete: Je ___ un medicament contre la douleur.",
+      questionFr: "Completez : Je ___ un medicament contre la douleur.",
       correct: "prends",
       correctEn: "take",
       alternatives: [],
@@ -267,8 +267,8 @@ Je voudrais prendre rendez-vous avec mon médecin — j'ai mal à la gorge depui
       correct: "J'ai mal au ventre.",
       correctEn: "I have a stomach ache.",
       alternatives: [],
-      explanation: "Le ventre = stomach/belly. Au ventre — masculine.",
-      explanationFr: "Le ventre = le ventre. Au ventre — masculin."
+      explanation: "Le ventre = stomach/belly. Au ventre -- masculine.",
+      explanationFr: "Le ventre = le ventre. Au ventre -- masculin."
     }
   ]
 };
@@ -278,4 +278,3 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.LESSON_18 = LESSON_18;
 }
-
