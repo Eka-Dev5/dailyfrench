@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Scanner Bijou — Daily French</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:-apple-system,BlinkMacSystemFont,sans-serif; background:#0d1117; color:#c9d1d9; padding:20px; }
+    h1 { color:#58a6ff; margin-bottom:20px; font-size:18px; }
+    .section { margin:15px 0; padding:12px; border-radius:8px; background:#161b22; border:1px solid #30363d; }
+    .section h2 { color:#58a6ff; font-size:14px; margin-bottom:8px; }
+    .ok { color:#3fb950; }
+    .err { color:#f85149; }
+    .warn { color:#d29922; }
+    .info { color:#8b949e; font-size:11px; margin-top:4px; }
+    pre { background:#0d1117; padding:8px; border-radius:4px; font-size:10px; overflow-x:auto; margin-top:6px; }
+    button { background:#238636; color:#fff; border:none; padding:8px 16px; border-radius:6px; cursor:pointer; font-size:12px; margin-top:10px; }
+    button:hover { background:#2ea043; }
+    #rapport { position:fixed; top:10px; right:10px; width:320px; max-height:90vh; overflow:auto; background:#0d1117; border:2px solid #58a6ff; border-radius:12px; padding:12px; font-size:11px; z-index:999; }
+    .rapport-item { padding:3px 0; border-bottom:1px solid #21262d; }
+  </style>
+</head>
+<body>
+  <h1>🔍 SCANNER BIJOU — Diagnostic Daily French</h1>
+  
+  <div id="rapport">
+    <strong style="color:#58a6ff;">📋 Rapport</strong>
+    <div id="rapport-content" style="margin-top:8px;"></div>
+    <button onclick="copierRapport()">Copier le rapport</button>
+  </div>
+
+  <div id="resultats"></div>
+
+<script>
+const rapports = [];
+function r(type, msg, detail){
+  const color = type==='OK'?'#3fb950':type==='WARN'?'#d29922':'#f85149';
+  const icon = type==='OK'?'✓':type==='WARN'?'⚠':'✗';
+  rapports.push(`[${icon} ${type}] ${msg}${detail?' | '+detail:''}`);
+  document.getElementById('rapport-content').innerHTML += `<div class="rapport-item" style="color:${color};">${icon} ${msg}</div>`;
+  return `<div class="section"><span class="${type.toLowerCase()}">${icon} <strong>${msg}</strong></span>${detail?`<div class="info">${detail}</div>`:''}</div>`;
+}
+
+function section(titre){
+  rapports.push(`\n=== ${titre} ===`);
+  return `<h2>${titre}</h2>`;
+}
+
+function ajouter(html){
+  document.getElementById('resultats').innerHTML += html;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ÉTAPE 1 : SCANNER LES FICHIERS LESSON
+// ═══════════════════════════════════════════════════════════════════
+
+ajouter(section('1. SCAN DES FICHIERS LESSON (01-20)'));
+
+const lessonStatus = [];
+for(let i=1; i<=20; i++){
+  const num = i.toString().padStart(2,'0');
+  const varName = 'LESSON_' + num;
+  const exists = typeof window[varName] !== 'undefined';
+  lessonStatus.push({num, exists, var: varName});
+  
+  if(!exists){
+    ajouter(r('ERR', 'lesson-'+num+'.js', 'Variable '+varName+' NON TROUVEE'));
+  } else {
+    const l = window[varName];
+    const checks = [];
+    if(typeof l.id === 'undefined') checks.push('id manquant');
+    if(!l.title) checks.push('title manquant');
+    if(!Array.isArray(l.qcm)) checks.push('qcm[] invalide');
+    if(!Array.isArray(l.libre)) checks.push('libre[] invalide');
+    
+    if(checks.length > 0){
+      ajouter(r('WARN', 'lesson-'+num+'.js', checks.join(', ')));
+    } else {
+      ajouter(r('OK', 'lesson-'+num+'.js', `id=${l.id}, ${l.qcm.length} QCM, ${l.libre.length} libre`));
+    }
+  }
+}
+
+const lessonsChargees = lessonStatus.filter(l=>l.exists).length;
+ajouter(r(lessonsChargees===20?'OK':'ERR', 'Total leçons', `${lessonsChargees}/20 chargées`));
+
+// ═══════════════════════════════════════════════════════════════════
+// ÉTAPE 2 : VÉRIFIER CONFIG
+// ═══════════════════════════════════════════════════════════════════
+
+ajouter(section('2. CONFIG.JS'));
+
+const configChecks = [
+  ['SUBJECT_CONFIG', typeof SUBJECT_CONFIG],
+  ['CONFIG', typeof CONFIG],
+  ['FEATURES', typeof FEATURES],
+  ['LEVEL_NAMES', typeof LEVEL_NAMES],
+  ['DIRECTION_MODES', typeof DIRECTION_MODES],
+  ['gameState', typeof gameState]
+];
+configChecks.forEach(([name, type]) => {
+  ajouter(r(type!=='undefined'?'OK':'ERR', name, type!=='undefined'?`Type: ${type}`:'NON DEFINI'));
+});
+
+if(typeof CONFIG !== 'undefined' && CONFIG.LESSONS_COUNT){
+  ajouter(r('OK', 'CONFIG.LESSONS_COUNT', CONFIG.LESSONS_COUNT));
+} else {
+  ajouter(r('ERR', 'CONFIG.LESSONS_COUNT', 'Manquant ! data-loader.js va planter'));
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ÉTAPE 3 : VÉRIFIER CORE.JS
+// ═══════════════════════════════════════════════════════════════════
+
+ajouter(section('3. CORE.JS'));
+
+const coreChecks = ['EventBus','Storage','PlayerManager','I18n','Theme','DirectionMode','Modal','Toast','Router'];
+coreChecks.forEach(name => {
+  const ok = typeof window[name] !== 'undefined';
+  ajouter(r(ok?'OK':'ERR', name, ok?'Present':'MANQUANT'));
+});
+
+// Test EventBus
+if(typeof EventBus !== 'undefined'){
+  let testOk = false;
+  EventBus.on('scannerTest', d => { testOk = d.ok; });
+  EventBus.emit('scannerTest', {ok:true});
+  ajouter(r(testOk?'OK':'ERR', 'EventBus emit/on', testOk?'Fonctionne':'Les evenements ne passent pas'));
+} else {
+  ajouter(r('ERR', 'EventBus', 'Impossible de tester'));
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ÉTAPE 4 : VÉRIFIER DATA-LOADER
+// ═══════════════════════════════════════════════════════════════════
+
+ajouter(section('4. DATA-LOADER.JS'));
+
+const dlChecks = ['LESSONS_DATA','QUESTIONS_DB','loadLessons'];
+dlChecks.forEach(name => {
+  const ok = typeof window[name] !== 'undefined';
+  ajouter(r(ok?'OK':'ERR', name, ok?'Present':'MANQUANT'));
+});
+
+if(typeof LESSONS_DATA !== 'undefined'){
+  ajouter(r('OK', 'LESSONS_DATA.length', LESSONS_DATA.length + ' leçons'));
+}
+if(typeof QUESTIONS_DB !== 'undefined'){
+  const keys = Object.keys(QUESTIONS_DB);
+  ajouter(r('OK', 'QUESTIONS_DB keys', keys.length + ' niveaux: ' + keys.join(', ')));
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ÉTAPE 5 : VÉRIFIER LES ÉVÉNEMENTS
+// ═══════════════════════════════════════════════════════════════════
+
+ajouter(section('5. ÉVÉNEMENTS'));
+
+if(typeof EventBus !== 'undefined'){
+  // Vérifier si data-loader s'est enregistré sur coreReady
+  const events = EventBus.events || {};
+  const hasCoreReady = events['coreReady'] && events['coreReady'].length > 0;
+  const hasCoreInit = events['coreInitialized'] && events['coreInitialized'].length > 0;
+  
+  ajouter(r(hasCoreReady?'OK':'WARN', 'EventBus coreReady', hasCoreReady?events['coreReady'].length+' listener(s)':'Aucun listener'));
+  ajouter(r(!hasCoreInit?'OK':'WARN', 'EventBus coreInitialized', hasCoreInit?'Listener PRESENT (vieux code?)':'Aucun (correct)'));
+} else {
+  ajouter(r('ERR', 'EventBus events', 'EventBus non defini'));
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ÉTAPE 6 : RÉSUMÉ
+// ═══════════════════════════════════════════════════════════════════
+
+ajouter(section('6. RÉSUMÉ'));
+
+const totalErr = rapports.filter(r=>r.includes('[✗ ERR]')).length;
+const totalWarn = rapports.filter(r=>r.includes('[⚠ WARN]')).length;
+
+ajouter(r(totalErr===0?'OK':'ERR', 'Diagnostic', totalErr+' erreur(s), '+totalWarn+' avertissement(s)'));
+
+if(totalErr > 0){
+  ajouter(`<div class="section" style="background:#3d0d0d;"><strong class="err">🔴 PROBLÈMES CRITIQUES DÉTECTÉS</strong><br><br>
+  <div class="info">Les erreurs ci-dessus indiquent exactement ce qui bloque.<br>
+  Corrige-les et recharge cette page.</div></div>`);
+} else if(totalWarn > 0){
+  ajouter(`<div class="section" style="background:#3d2800;"><strong class="warn">🟡 FONCTIONNEL MAIS AVEC AVERTISSEMENTS</strong></div>`);
+} else {
+  ajouter(`<div class="section" style="background:#0d2818;"><strong class="ok">🟢 TOUT EST OK !</strong></div>`);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════════════════════════════════
+
+window.copierRapport = function(){
+  const text = rapports.join('\n');
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  alert('Rapport copié ! Colle-le dans ton message à Kimi.');
+};
+</script>
+
+<!-- CHARGER TON PROJET POUR TESTER -->
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/ui-utils.js"></script>
+<script src="js/data-loader.js"></script>
+<script>
+// Charger manuellement les leçons pour le test
+if(typeof loadLessons === 'function'){
+  loadLessons();
+}
+// Attendre un peu puis re-scanner
+setTimeout(function(){
+  location.reload();
+}, 2000);
+</script>
+
+</body>
+</html>
