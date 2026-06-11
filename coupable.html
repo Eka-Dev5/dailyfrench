@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Trouve le coupable — Diagnostic</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0d1117; color: #c9d1d9; padding: 20px; line-height: 1.5; }
+h1 { color: #58a6ff; font-size: 20px; margin-bottom: 10px; }
+p { color: #8b949e; font-size: 13px; margin-bottom: 20px; }
+button { background: #238636; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+button:disabled { background: #30363d; cursor: not-allowed; }
+#tests { margin-top: 20px; }
+.test { padding: 10px 14px; margin: 6px 0; border-radius: 8px; font-size: 13px; border-left: 4px solid; }
+.ok { background: #0d2818; border-left-color: #3fb950; color: #3fb950; }
+.err { background: #3d0d0d; border-left-color: #f85149; color: #f85149; }
+.warn { background: #3d2800; border-left-color: #d29922; color: #d29922; }
+.info { background: #161b22; border-left-color: #58a6ff; color: #58a6ff; }
+.detail { color: #8b949e; font-size: 11px; margin-top: 4px; }
+#rapport { display: none; margin-top: 30px; padding: 16px; background: #161b22; border-radius: 12px; border: 1px solid #30363d; }
+textarea { width: 100%; height: 250px; background: #0d1117; color: #c9d1d9; border: 1px solid #30363d; border-radius: 8px; padding: 10px; font-family: monospace; font-size: 11px; margin-top: 10px; }
+</style>
+</head>
+<body>
+<h1>🔍 Trouve le coupable</h1>
+<p>Cet outil teste lesson-01.js à lesson-20.js <strong>un par un</strong>.<br>Il t'indique exactement lequel plante et à quelle ligne.</p>
+<button onclick="lancer()" id="btn">Lancer le diagnostic</button>
+
+<div id="tests"></div>
+
+<div id="rapport">
+  <strong style="color: #58a6ff;">📋 Copie ce rapport et colle-le à Kimi :</strong>
+  <textarea id="rapportText" readonly></textarea>
+  <button onclick="copier()" style="margin-top: 10px;">📋 Copier le rapport</button>
+</div>
+
+<script>
+const testsDiv = document.getElementById('tests');
+const rapports = [];
+
+function log(type, titre, detail) {
+  const div = document.createElement('div');
+  div.className = 'test ' + type;
+  div.innerHTML = '<strong>' + titre + '</strong>' + (detail ? '<div class="detail">' + detail + '</div>' : '');
+  testsDiv.appendChild(div);
+  rapports.push('[' + type.toUpperCase() + '] ' + titre + (detail ? ' | ' + detail : ''));
+}
+
+async function lancer() {
+  document.getElementById('btn').disabled = true;
+  document.getElementById('btn').textContent = 'Test en cours...';
+  testsDiv.innerHTML = '';
+  rapports.length = 0;
+  document.getElementById('rapport').style.display = 'none';
+
+  for (let i = 1; i <= 20; i++) {
+    const num = i.toString().padStart(2, '0');
+    log('info', 'Test de lesson-' + num + '.js...', 'Chargement en cours');
+
+    const resultat = await testerLesson(num);
+
+    // Remplace le "info" par le vrai résultat
+    testsDiv.lastChild.remove();
+
+    if (resultat.status === 'ok') {
+      log('ok', 'lesson-' + num + '.js', 'Variable ' + resultat.var + ' presente et correcte');
+    } else if (resultat.status === 'err') {
+      log('err', 'lesson-' + num + '.js PLANTE', resultat.msg);
+    } else if (resultat.status === 'warn') {
+      log('warn', 'lesson-' + num + '.js', resultat.msg);
+    }
+  }
+
+  const errs = rapports.filter(r => r.includes('[ERR]')).length;
+  if (errs === 0) {
+    log('ok', 'FIN — Aucun probleme trouve', 'Tous les fichiers lesson sont OK');
+  } else {
+    log('err', 'FIN — ' + errs + ' fichier(s) plante(nt)', 'Corrige les fichiers rouges ci-dessus');
+  }
+
+  document.getElementById('rapport').style.display = 'block';
+  document.getElementById('rapportText').value = rapports.join('\n');
+  document.getElementById('btn').disabled = false;
+  document.getElementById('btn').textContent = 'Relancer le diagnostic';
+}
+
+function testerLesson(num) {
+  return new Promise(resolve => {
+    const script = document.createElement('script');
+    script.src = 'lessons/lesson-' + num + '.js';
+
+    let timeout = setTimeout(() => {
+      resolve({ num, status: 'warn', msg: 'Timeout — fichier trop lent ou bloque par une erreur precedente' });
+    }, 4000);
+
+    script.onload = () => {
+      clearTimeout(timeout);
+      const varName = 'LESSON_' + num;
+      if (typeof window[varName] === 'undefined') {
+        resolve({ num, status: 'warn', msg: 'Fichier charge mais variable ' + varName + ' absente' });
+      } else {
+        resolve({ num, status: 'ok', var: varName });
+      }
+    };
+
+    script.onerror = () => {
+      clearTimeout(timeout);
+      resolve({ num, status: 'err', msg: 'Fichier non trouve (404) — verifie que lessons/lesson-' + num + '.js existe' });
+    };
+
+    // Capture les erreurs de syntaxe
+    const oldOnError = window.onerror;
+    window.onerror = function(msg, url, line) {
+      clearTimeout(timeout);
+      window.onerror = oldOnError;
+      if (url && url.indexOf('lesson-' + num) > -1) {
+        resolve({ num, status: 'err', msg: 'SYNTAX ERROR ligne ' + line + ' : ' + msg });
+      } else {
+        if (oldOnError) oldOnError(msg, url, line);
+      }
+      return true;
+    };
+
+    document.head.appendChild(script);
+  });
+}
+
+function copier() {
+  const t = document.getElementById('rapportText');
+  t.select();
+  document.execCommand('copy');
+  alert('Rapport copie ! Colle-le dans ton message a Kimi.');
+}
+</script>
+</body>
+</html>
