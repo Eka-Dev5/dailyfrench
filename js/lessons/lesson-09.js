@@ -1,21 +1,21 @@
-// lesson-09.js — Essential Verbs ⚡
+// lesson-09.js -- Essential Verbs
 const LESSON_09 = {
   id: 9,
-  title: "Essential Verbs ⚡",
+  title: "Essential Verbs",
   titleFr: "Verbes essentiels",
   objectiveEn: "Master the 10 most important French verbs",
-  objectiveFr: "Maîtriser les 10 verbes français les plus importants",
-  hintEn: "être and avoir are the two 'auxiliary' verbs — learn them first!",
-  hintFr: "Être et avoir sont les deux verbes 'auxiliaires' — apprenez-les d'abord !",
+  objectiveFr: "Maitriser les 10 verbes francais les plus importants",
+  hintEn: "etre and avoir are the two auxiliary verbs -- learn them first!",
+  hintFr: "Etre et avoir sont les deux verbes auxiliaires -- apprenez-les d abord !",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>⚡ The 10 Essential Verbs</h4>
+<h4>The 10 Essential Verbs</h4>
 <p>These 10 verbs cover 80% of everyday French. Master them first!</p>
 <table class="lesson-table">
 <tr><th>Infinitive</th><th>Meaning</th><th>Je form</th><th>Phonetics</th></tr>
-<tr><td><strong>être</strong></td><td>to be</td><td>je suis</td><td><em>*zhuh swee*</em></td></tr>
-<tr><td><strong>avoir</strong></td><td>to have</td><td>j'ai</td><td><em>*zhay*</em></td></tr>
+<tr><td><strong>etre</strong></td><td>to be</td><td>je suis</td><td><em>*zhuh swee*</em></td></tr>
+<tr><td><strong>avoir</strong></td><td>to have</td><td>j ai</td><td><em>*zhay*</em></td></tr>
 <tr><td><strong>aller</strong></td><td>to go</td><td>je vais</td><td><em>*zhuh vay*</em></td></tr>
 <tr><td><strong>faire</strong></td><td>to do / to make</td><td>je fais</td><td><em>*zhuh fay*</em></td></tr>
 <tr><td><strong>pouvoir</strong></td><td>can / to be able to</td><td>je peux</td><td><em>*zhuh puh*</em></td></tr>
@@ -27,7 +27,7 @@ const LESSON_09 = {
 </table>
 </div>
 <div class="lesson-rule">
-<h4>🎯 Present tense conjugation pattern</h4>
+<h4>Present tense conjugation pattern</h4>
 <p>Most verbs follow the <strong>-er</strong> pattern (parler, manger, travailler):</p>
 <table class="lesson-table">
 <tr><th>Subject</th><th>Ending</th><th>Example: parler</th></tr>
@@ -39,12 +39,12 @@ const LESSON_09 = {
 <tr><td>ils/elles</td><td>-ent</td><td>ils parlent</td></tr>
 </table>
 </div>
-<div class="lesson-warning">⚠️ <strong>être</strong> and <strong>avoir</strong> are IRREGULAR — they do NOT follow the -er pattern! Learn their conjugations by heart.</div>
+<div class="lesson-warning">etre and avoir are IRREGULAR -- they do NOT follow the -er pattern! Learn their conjugations by heart.</div>
 <div class="lesson-example">
 <strong>Quick dialogue:</strong><br>
-— Je vais au marché. Tu veux venir ? <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
-<span class="lesson-ex-en">I'm going to the market. Do you want to come?</span><br>
-— Oui, je peux ! Je dois juste prendre mon sac. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
+-- Je vais au marche. Tu veux venir ? <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">I m going to the market. Do you want to come?</span><br>
+-- Oui, je peux ! Je dois juste prendre mon sac. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
 <span class="lesson-ex-en">Yes, I can! I just have to take my bag.</span>
 </div>
   `,
@@ -53,37 +53,37 @@ const LESSON_09 = {
       id: "09-1",
       type: "qcm",
       question: "To be in French is:",
-      questionFr: "Être en anglais :",
-      options: ["être","avoir","aller","faire"],
+      questionFr: "Etre en anglais :",
+      options: ["etre","avoir","aller","faire"],
       optionsEn: ["to be","to have","to go","to do"],
-      correct: "être",
+      correct: "etre",
       correctEn: "to be",
-      explanation: "Être (eh-truh) = to be. The most fundamental verb in French.",
-      explanationFr: "Être = être. Le verbe le plus fondamental en français."
+      explanation: "Etre (eh-truh) = to be. The most fundamental verb in French.",
+      explanationFr: "Etre = etre. Le verbe le plus fondamental en francais."
     },
     {
       id: "09-2",
       type: "qcm",
       question: "I have in French:",
-      questionFr: "J'ai en anglais :",
-      options: ["J'ai","Je suis","Je vais","Je fais"],
+      questionFr: "J ai en anglais :",
+      options: ["J ai","Je suis","Je vais","Je fais"],
       optionsEn: ["I have","I am","I go","I do"],
-      correct: "J'ai",
+      correct: "J ai",
       correctEn: "I have",
-      explanation: "Avoir: j'ai (zhay) = I have. The second most important verb.",
-      explanationFr: "Avoir : j'ai = j'ai. Le deuxième verbe le plus important."
+      explanation: "Avoir: j ai (zhay) = I have. The second most important verb.",
+      explanationFr: "Avoir : j ai = j ai. Le deuxieme verbe le plus important."
     },
     {
       id: "09-3",
       type: "qcm",
       question: "I go in French:",
       questionFr: "Je vais en anglais :",
-      options: ["Je vais","Je viens","Je suis","J'ai"],
+      options: ["Je vais","Je viens","Je suis","J ai"],
       optionsEn: ["I go","I come","I am","I have"],
       correct: "Je vais",
       correctEn: "I go",
       explanation: "Aller: je vais (zhuh vay) = I go. Used for the near future: je vais + infinitive.",
-      explanationFr: "Aller : je vais = je vais. Utilisé pour le futur proche : je vais + infinitif."
+      explanationFr: "Aller : je vais = je vais. Utilise pour le futur proche : je vais + infinitif."
     },
     {
       id: "09-4",
@@ -95,19 +95,19 @@ const LESSON_09 = {
       correct: "Je fais",
       correctEn: "I do / I make",
       explanation: "Faire (fair) = to do or to make. Je fais = I do/make. One of the most versatile French verbs.",
-      explanationFr: "Faire = faire. Je fais = je fais. Un des verbes français les plus polyvalents."
+      explanationFr: "Faire = faire. Je fais = je fais. Un des verbes francais les plus polyvalents."
     },
     {
       id: "09-5",
       type: "qcm",
       question: "Can you help me? in French:",
-      questionFr: "Pouvez-vous m'aider ? en anglais :",
-      options: ["Pouvez-vous m'aider ?","Voulez-vous m'aider ?","Savez-vous m'aider ?","Devez-vous m'aider ?"],
+      questionFr: "Pouvez-vous m aider ? en anglais :",
+      options: ["Pouvez-vous m aider ?","Voulez-vous m aider ?","Savez-vous m aider ?","Devez-vous m aider ?"],
       optionsEn: ["Can you help me?","Do you want to help me?","Do you know how to help me?","Must you help me?"],
-      correct: "Pouvez-vous m'aider ?",
+      correct: "Pouvez-vous m aider ?",
       correctEn: "Can you help me?",
       explanation: "Pouvoir: pouvez-vous = can you (formal). Essential for asking permission or ability.",
-      explanationFr: "Pouvoir : pouvez-vous = pouvez-vous (formel). Essentiel pour demander la permission ou la capacité."
+      explanationFr: "Pouvoir : pouvez-vous = pouvez-vous (formel). Essentiel pour demander la permission ou la capacite."
     },
     {
       id: "09-6",
@@ -131,19 +131,19 @@ const LESSON_09 = {
       correct: "Je dois",
       correctEn: "I must / I have to",
       explanation: "Devoir: je dois (zhuh dwah) = I must / I have to. Expresses obligation.",
-      explanationFr: "Devoir : je dois = je dois / il faut que je. Exprime l'obligation."
+      explanationFr: "Devoir : je dois = je dois / il faut que je. Exprime l obligation."
     },
     {
       id: "09-8",
       type: "qcm",
       question: "I know (a fact) in French:",
       questionFr: "Je sais en anglais :",
-      options: ["Je sais","Je connais","Je sait","Je connaît"],
+      options: ["Je sais","Je connais","Je sait","Je connait"],
       optionsEn: ["I know (fact)","I know (person/place)","I know (wrong)","I know (wrong)"],
       correct: "Je sais",
       correctEn: "I know (a fact)",
-      explanation: "Savoir = to know facts/skills. Connaître = to know people/places. Both mean to know but used differently!",
-      explanationFr: "Savoir = savoir (faits/compétences). Connaître = connaître (personnes/endroits). Les deux signifient to know mais s'utilisent différemment !"
+      explanation: "Savoir = to know facts/skills. Connaitre = to know people/places. Both mean to know but used differently!",
+      explanationFr: "Savoir = savoir (faits/competences). Connaitre = connaitre (personnes/endroits). Les deux signifient to know mais s utilisent differemment !"
     },
     {
       id: "09-9",
@@ -155,7 +155,7 @@ const LESSON_09 = {
       correct: "Je viens",
       correctEn: "I come",
       explanation: "Venir: je viens (zhuh vyAN) = I come. Also used in je viens de = I just (did something).",
-      explanationFr: "Venir : je viens = je viens. Aussi utilisé dans je viens de = je viens de (faire quelque chose)."
+      explanationFr: "Venir : je viens = je viens. Aussi utilise dans je viens de = je viens de (faire quelque chose)."
     },
     {
       id: "09-10",
@@ -167,20 +167,20 @@ const LESSON_09 = {
       correct: "Je prends",
       correctEn: "I take",
       explanation: "Prendre: je prends (zhuh prahn) = I take. Used for taking transport, food, medicine, etc.",
-      explanationFr: "Prendre : je prends = je prends. Utilisé pour prendre les transports, la nourriture, les médicaments, etc."
+      explanationFr: "Prendre : je prends = je prends. Utilise pour prendre les transports, la nourriture, les medicaments, etc."
     }
   ],
   libre: [
     {
       id: "09-l1",
       type: "libre",
-      question: "Conjugate ÊTRE: She is... (elle)",
-      questionFr: "Conjuguez ÊTRE : Elle est... (elle)",
+      question: "Conjugate ETRE: She is... (elle)",
+      questionFr: "Conjuguez ETRE : Elle est... (elle)",
       correct: "Elle est",
       correctEn: "She is",
       alternatives: [],
-      explanation: "Être: je suis, tu es, il/elle est, nous sommes, vous êtes, ils/elles sont.",
-      explanationFr: "Être : je suis, tu es, il/elle est, nous sommes, vous êtes, ils/elles sont."
+      explanation: "Etre: je suis, tu es, il/elle est, nous sommes, vous etes, ils/elles sont.",
+      explanationFr: "Etre : je suis, tu es, il/elle est, nous sommes, vous etes, ils/elles sont."
     },
     {
       id: "09-l2",
@@ -190,8 +190,8 @@ const LESSON_09 = {
       correct: "Nous avons",
       correctEn: "We have",
       alternatives: [],
-      explanation: "Avoir: j'ai, tu as, il/elle a, nous avons, vous avez, ils/elles ont.",
-      explanationFr: "Avoir : j'ai, tu as, il/elle a, nous avons, vous avez, ils/elles ont."
+      explanation: "Avoir: j ai, tu as, il/elle a, nous avons, vous avez, ils/elles ont.",
+      explanationFr: "Avoir : j ai, tu as, il/elle a, nous avons, vous avez, ils/elles ont."
     },
     {
       id: "09-l3",
@@ -208,19 +208,19 @@ const LESSON_09 = {
       id: "09-l4",
       type: "libre",
       question: "Translate: I want a coffee.",
-      questionFr: "Traduisez : Je veux un café.",
-      correct: "Je veux un café.",
+      questionFr: "Traduisez : Je veux un cafe.",
+      correct: "Je veux un cafe.",
       correctEn: "I want a coffee.",
       alternatives: [],
-      explanation: "Vouloir: je veux. But je voudrais is more polite in a café!",
-      explanationFr: "Vouloir : je veux. Mais je voudrais est plus poli dans un café !"
+      explanation: "Vouloir: je veux. But je voudrais is more polite in a cafe!",
+      explanationFr: "Vouloir : je veux. Mais je voudrais est plus poli dans un cafe !"
     },
     {
       id: "09-l5",
       type: "libre",
       question: "Translate: Can you repeat, please?",
-      questionFr: "Traduisez : Pouvez-vous répéter, s'il vous plaît ?",
-      correct: "Pouvez-vous répéter, s'il vous plaît ?",
+      questionFr: "Traduisez : Pouvez-vous repeter, s il vous plait ?",
+      correct: "Pouvez-vous repeter, s il vous plait ?",
       correctEn: "Can you repeat, please?",
       alternatives: [],
       explanation: "Pouvoir: Pouvez-vous = can you (formal). Essential phrase for language learners!",
@@ -240,41 +240,41 @@ const LESSON_09 = {
     {
       id: "09-l7",
       type: "libre",
-      question: "Translate: I'm going to do the shopping.",
+      question: "Translate: I m going to do the shopping.",
       questionFr: "Traduisez : Je vais faire les courses.",
       correct: "Je vais faire les courses.",
-      correctEn: "I'm going to do the shopping.",
+      correctEn: "I m going to do the shopping.",
       alternatives: [],
-      explanation: "Aller + infinitive = near future. Je vais + faire = I'm going to do.",
+      explanation: "Aller + infinitive = near future. Je vais + faire = I m going to do.",
       explanationFr: "Aller + infinitif = futur proche. Je vais + faire = je vais faire."
     },
     {
       id: "09-l8",
       type: "libre",
-      question: "Complete: Je ___ besoin d'aide.",
-      questionFr: "Complétez : Je ___ besoin d'aide.",
+      question: "Complete: Je ___ besoin d aide.",
+      questionFr: "Completez : Je ___ besoin d aide.",
       correct: "ai",
       correctEn: "have",
       alternatives: [],
-      explanation: "Avoir besoin de = to need. J'ai besoin d'aide = I need help.",
-      explanationFr: "Avoir besoin de = avoir besoin de. J'ai besoin d'aide = j'ai besoin d'aide."
+      explanation: "Avoir besoin de = to need. J ai besoin d aide = I need help.",
+      explanationFr: "Avoir besoin de = avoir besoin de. J ai besoin d aide = j ai besoin d aide."
     },
     {
       id: "09-l9",
       type: "libre",
       question: "Translate: They are very kind.",
-      questionFr: "Traduisez : Ils sont très gentils.",
-      correct: "Ils sont très gentils.",
+      questionFr: "Traduisez : Ils sont tres gentils.",
+      correct: "Ils sont tres gentils.",
       correctEn: "They are very kind.",
-      alternatives: ["Elles sont très gentilles."],
-      explanation: "ÊTRE: Ils/elles sont = they are. Gentils (m.pl.) / gentilles (f.pl.).",
-      explanationFr: "ÊTRE : Ils/elles sont = ils/elles sont. Gentils (m.pl.) / gentilles (f.pl.)."
+      alternatives: ["Elles sont tres gentilles."],
+      explanation: "ETRE: Ils/elles sont = they are. Gentils (m.pl.) / gentilles (f.pl.).",
+      explanationFr: "ETRE : Ils/elles sont = ils/elles sont. Gentils (m.pl.) / gentilles (f.pl.)."
     },
     {
       id: "09-l10",
       type: "libre",
-      question: "Complete: Je ___ aller à la pharmacie.",
-      questionFr: "Complétez : Je ___ aller à la pharmacie.",
+      question: "Complete: Je ___ aller a la pharmacie.",
+      questionFr: "Completez : Je ___ aller a la pharmacie.",
       correct: "dois",
       correctEn: "must",
       alternatives: [],
