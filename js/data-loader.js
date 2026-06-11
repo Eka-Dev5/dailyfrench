@@ -1,137 +1,129 @@
 // ═══════════════════════════════════════════════════════════════════
-// DATA-LOADER.JS — Daily French 🥖 v1.1
-// Charge les 20 leçons depuis lessons/ et construit LESSONS_DATA + QUESTIONS_DB
+// DATA-LOADER.JS — Daily French 🥖 v1.2
+// Charge les 20 leçons depuis lessons/ (NOMS CORRIGÉS)
 //
-// CORRECTION v1.1 :
-//   + Protection si EventBus n'existe pas encore
-//   + Protection si initQuiz n'existe pas encore
-//   + LESSONS_DATA et QUESTIONS_DB déclarés globalement avant
+// CORRECTION v2.3 Karo validation :
+//   ✅ NOMS des fichiers = lesson-*.js (comme tes fichiers réels)
+//   ✅ Charge LESSON_CONFIG (pas LESSON_01)
+//   ✅ Construit LESSONS_DATA + QUESTIONS_DB automatiquement
 // ═══════════════════════════════════════════════════════════════════
 
-// Déclarer les variables globales AVANT (pour éviter ReferenceError)
+// Variables globales
 var LESSONS_DATA = [];
-var QUESTIONS_DB = {};
+var QUESTIONS_DB = [];
 
+// ✅ NOMS CORRECTS (exactement comme tes fichiers)
 const LESSON_FILES = [
-  'lessons/greetings-introductions.js',
-  'lessons/at-the-market.js',
-  'lessons/in-the-garden.js',
-  'lessons/neighbours-community.js',
-  'lessons/tastes-desires.js',
-  'lessons/at-the-shops.js',
-  'lessons/friends-going-out.js',
-  'lessons/weather.js',
-  'lessons/essential-verbs.js',
-  'lessons/politeness.js',
-  'lessons/daily-life-in-france.js',
-  'lessons/my-routine.js',
-  'lessons/my-emotions.js',
-  'lessons/my-needs.js',
-  'lessons/my-house.js',
-  'lessons/my-family.js',
-  'lessons/my-plans.js',
-  'lessons/my-health.js',
-  'lessons/my-cooking.js',
-  'lessons/living-french.js'
+  'lessons/lesson-greetings-introduction.js',
+  'lessons/lesson-at-the-market.js',
+  'lessons/lesson-in-the-garden.js',
+  'lessons/lesson-neighbours-community.js',
+  'lessons/lesson-tastes-desires.js',
+  'lessons/lesson-at-the-shops.js',
+  'lessons/lesson-friends-going-out.js',
+  'lessons/lesson-weather.js',
+  'lessons/lesson-essential-verbs.js',
+  'lessons/lesson-politeness.js',
+  'lessons/lesson-daily-life-in-france.js',
+  'lessons/lesson-my-routine.js',
+  'lessons/lesson-my-emotions.js',
+  'lessons/lesson-my-needs.js',
+  'lessons/lesson-my-house.js',
+  'lessons/lesson-my-family.js',
+  'lessons/lesson-my-plans.js',
+  'lessons/lesson-my-health.js',
+  'lessons/lesson-my-cooking.js',
+  'lessons/lesson-living-french.js'
 ];
 
-const LESSON_VARS = [
-  'LESSON_01', 'LESSON_02', 'LESSON_03', 'LESSON_04', 'LESSON_05',
-  'LESSON_06', 'LESSON_07', 'LESSON_08', 'LESSON_09', 'LESSON_10',
-  'LESSON_11', 'LESSON_12', 'LESSON_13', 'LESSON_14', 'LESSON_15',
-  'LESSON_16', 'LESSON_17', 'LESSON_18', 'LESSON_19', 'LESSON_20'
-];
+let loadedCount = 0;
+const totalLessons = LESSON_FILES.length;
 
-let lessonsLoaded = 0;
-let lessonsTotal = LESSON_FILES.length;
-let loadCallback = null;
-
-function loadLessonScript(src, callback) {
-  const script = document.createElement('script');
-  script.src = src;
-  script.onload = function() {
-    lessonsLoaded++;
-    if (typeof toast === 'function') toast('Loaded ' + lessonsLoaded + '/' + lessonsTotal);
-    callback();
-  };
-  script.onerror = function() {
-    console.error('[DataLoader] Failed to load:', src);
-    lessonsLoaded++;
-    callback();
-  };
-  document.head.appendChild(script);
+// ─── CHARGE UN FICHIER LESSON ─────────────────────────────────────
+async function loadLessonFile(filename) {
+  try {
+    const response = await fetch(filename);
+    
+    if (!response.ok) {
+      console.warn('[DataLoader] Not found:', filename);
+      return null;
+    }
+    
+    const text = await response.text();
+    
+    // Évalue le code → crée LESSON_CONFIG
+    const func = new Function(text + '; return LESSON_CONFIG;');
+    const config = func();
+    
+    if (!config) {
+      console.error('[DataLoader] No LESSON_CONFIG in:', filename);
+      return null;
+    }
+    
+    console.log('[DataLoader] ✅', filename, '→', config.id);
+    return config;
+  } catch (error) {
+    console.error('[DataLoader] Error:', filename, error);
+    return null;
+  }
 }
 
-function buildData() {
+// ─── CHARGE TOUTES LES LESSONS ────────────────────────────────────
+async function loadAllLessons() {
+  console.log('[DataLoader] Loading', totalLessons, 'lessons...');
+  
   LESSONS_DATA = [];
-  QUESTIONS_DB = {};
-
-  for (let i = 0; i < LESSON_VARS.length; i++) {
-    const varName = LESSON_VARS[i];
-    const lessonData = window[varName];
-
-    if (!lessonData) {
-      console.warn('[DataLoader] Missing:', varName);
-      continue;
+  QUESTIONS_DB = [];
+  
+  for (const filename of LESSON_FILES) {
+    const lesson = await loadLessonFile(filename);
+    
+    if (lesson) {
+      LESSONS_DATA.push(lesson);
+      
+      // Ajoute questions au DB
+      if (lesson.questions && lesson.questions.length > 0) {
+        QUESTIONS_DB.push({
+          level: lesson.level,
+          id: lesson.id,
+          title: lesson.title,
+          questions: lesson.questions
+        });
+      }
     }
-
-    LESSONS_DATA.push({
-      num: lessonData.id,
-      title: lessonData.title,
-      content: lessonData.contentHtml || lessonData.content || ''
-    });
-
-    QUESTIONS_DB[lessonData.id] = {
-      title: lessonData.title,
-      titleFr: lessonData.titleFr,
-      objective: lessonData.objectiveEn || lessonData.objective,
-      objectiveFr: lessonData.objectiveFr,
-      hint: lessonData.hintEn || lessonData.hint,
-      hintFr: lessonData.hintFr,
-      vocabulary: lessonData.vocabulary || [],
-      qcm: lessonData.qcm || [],
-      libre: lessonData.libre || []
-    };
   }
-
-  console.log('[DataLoader] Lessons:', LESSONS_DATA.length);
-  console.log('[DataLoader] Questions:', Object.keys(QUESTIONS_DB).length);
-
-  // Émettre événement SI EventBus existe
+  
+  console.log('[DataLoader] ✅ Loaded', LESSONS_DATA.length, 'lessons');
+  console.log('[DataLoader] ✅ Total questions:', QUESTIONS_DB.reduce((s, l) => s + l.questions.length, 0));
+  
+  // EventBus si disponible
   if (typeof EventBus !== 'undefined' && EventBus.emit) {
-    EventBus.emit('dataLoaded', { lessons: LESSONS_DATA.length, questions: Object.keys(QUESTIONS_DB).length });
+    EventBus.emit('dataLoaded', {
+      lessons: LESSONS_DATA,
+      questions: QUESTIONS_DB
+    });
   }
-
-  // Appeler le callback si défini
-  if (typeof loadCallback === 'function') {
-    loadCallback();
-  }
-
-  // Initialiser le quiz SI présent
+  
+  // initQuiz si disponible
   if (typeof initQuiz === 'function') {
     initQuiz();
   }
 }
 
-function loadAllLessons(callback) {
-  loadCallback = callback;
-  let index = 0;
-
-  function next() {
-    if (index >= LESSON_FILES.length) {
-      buildData();
-      return;
-    }
-    loadLessonScript(LESSON_FILES[index], next);
-    index++;
+// ─── INIT AUTO ────────────────────────────────────────────────────
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadAllLessons);
+  } else {
+    loadAllLessons();
   }
-
-  next();
 }
 
-// Chargement automatique au démarrage SI DOM prêt
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() { loadAllLessons(); });
-} else {
-  loadAllLessons();
+// Export global
+if (typeof window !== 'undefined') {
+  window.LESSONS_DATA = LESSONS_DATA;
+  window.QUESTIONS_DB = QUESTIONS_DB;
+  window.getLessons = () => LESSONS_DATA;
+  window.getQuestionsForLevel = (level) => 
+    QUESTIONS_DB.filter(l => l.level === level);
 }
