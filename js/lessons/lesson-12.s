@@ -1,4 +1,4 @@
-// my-routine.js
+// lesson-12.s
 const LESSON_12 = {
   id: 12, title: "My Routine", titleFr: "Ma routine",
   objectiveEn: "Talk about what you did today using passé composé", objectiveFr: "Parler de ce que vous avez fait aujourd'hui en utilisant le passé composé",
