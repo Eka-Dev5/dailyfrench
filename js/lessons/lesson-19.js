@@ -1,4 +1,4 @@
-// my-cooking.js
+// lesson-19.js
 const LESSON_19 = {
   id: 19, title: "My Cooking", titleFr: "Ma cuisine",
   objectiveEn: "Follow a French recipe, talk about cooking techniques", objectiveFr: "Suivre une recette française, parler des techniques de cuisine",
