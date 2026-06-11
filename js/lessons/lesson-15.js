@@ -1,4 +1,4 @@
-// my-house.js
+// lesson-15.js
 const LESSON_15 = {
   id: 15, title: "My House", titleFr: "Ma maison",
   objectiveEn: "Talk about household chores and tasks around the home", objectiveFr: "Parler des tâches ménagères et des travaux dans la maison",
