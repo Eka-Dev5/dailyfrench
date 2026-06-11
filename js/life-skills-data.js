@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════
-// LIFE-SKILLS-DATA.JS — Daily French 🥖 v1.0
+// LIFE-SKILLS-DATA.JS — Daily French 🥖 v1.1
 // Compétences de vie + Badges + Caméléon + Simulateur
 // ═══════════════════════════════════════════════════════════════════
 
@@ -117,128 +117,7 @@ const LIFE_SKILLS = [
   }
 ];
 
-// ─── BADGES (26 badges) ───────────────────────────────────────
-const BADGES_DEF = [
-  { id: 'first_step', icon: '🙋', name: 'First Step', desc: 'Complete level 1' },
-  { id: 'greengrocer', icon: '🛒', name: 'Greengrocer', desc: 'Complete level 2' },
-  { id: 'gardener', icon: '🌿', name: 'Gardener', desc: 'Complete level 3' },
-  { id: 'neighbour', icon: '🏘️', name: 'Neighbour', desc: 'Complete level 4' },
-  { id: 'tasteful', icon: '💗', name: 'Tasteful', desc: 'Complete level 5' },
-  { id: 'mall_rat', icon: '🏬', name: 'Mall Rat', desc: 'Complete level 6' },
-  { id: 'socialite', icon: '👫', name: 'Socialite', desc: 'Complete level 7' },
-  { id: 'meteo', icon: '🌤️', name: 'Meteo', desc: 'Complete level 8' },
-  { id: 'verb_master', icon: '⚡', name: 'Verb Master', desc: 'Complete level 9' },
-  { id: 'polite', icon: '🎩', name: 'Polite', desc: 'Complete level 10' },
-  { id: 'local', icon: '🇫🇷', name: 'Local', desc: 'Complete level 11' },
-  { id: 'early_bird', icon: '🌅', name: 'Early Bird', desc: 'Play before 8am' },
-  { id: 'emotional', icon: '💭', name: 'Emotional', desc: 'Complete level 13' },
-  { id: 'fed', icon: '🍽️', name: 'Fed', desc: 'Complete level 14' },
-  { id: 'home_owner', icon: '🏡', name: 'Home Owner', desc: 'Complete level 15' },
-  { id: 'family', icon: '👨‍👩‍👧‍👦', name: 'Family', desc: 'Complete level 16' },
-  { id: 'planner', icon: '📅', name: 'Planner', desc: 'Complete level 17' },
-  { id: 'healthy', icon: '💊', name: 'Healthy', desc: 'Complete level 18' },
-  { id: 'chef', icon: '👨‍🍳', name: 'Chef', desc: 'Complete level 19' },
-  { id: 'fluent', icon: '🗣️', name: 'Fluent', desc: 'Complete level 20' },
-  { id: 'streak_3', icon: '🔥', name: 'Streak 3', desc: '3 levels in a row' },
-  { id: 'streak_7', icon: '🔥🔥', name: 'Streak 7', desc: '7 levels in a row' },
-  { id: 'perfectionist', icon: '💯', name: 'Perfectionist', desc: '100% on a level' },
-  { id: 'bookworm', icon: '📚', name: 'Bookworm', desc: 'Read all lessons' },
-  { id: 'sharpshooter', icon: '🎯', name: 'Sharpshooter', desc: '10 correct in a row' },
-  { id: 'halfway', icon: '🏆', name: 'Halfway', desc: 'Complete 10 levels' },
-  { id: 'champion', icon: '👑', name: 'Champion', desc: 'Complete all levels' },
-  { id: 'cameleon', icon: '🦎', name: 'Cameleon', desc: 'Use all features' },
-  { id: 'gen  },
-  {
-    id: 'pharmacie',
-    icon: '💊',
-    title: 'Pharmacy',
-    titleFr: 'La pharmacie',
-    desc: 'Medication, pain, allergies, first aid',
-    levels: [],
-    sosCategories: ['pharmacie'],
-    convScenarios: [],
-    color: '#059669'
-  },
-  {
-    id: 'admin',
-    icon: '📋',
-    title: 'Administration',
-    titleFr: 'Les démarches admin',
-    desc: 'Town hall, paperwork, registration',
-    levels: [],
-    sosCategories: ['admin'],
-    convScenarios: ['mairie'],
-    color: '#4A5568'
-  },
-  {
-    id: 'voisinage',
-    icon: '🏘️',
-    title: 'Neighbours',
-    titleFr: 'Parler avec les voisins',
-    desc: 'Introductions, small talk, being polite',
-    levels: [4, 11],
-    sosCategories: [],
-    convScenarios: ['voisin'],
-    color: '#7C3AED'
-  },
-  {
-    id: 'restaurant',
-    icon: '🍽️',
-    title: 'Restaurant',
-    titleFr: 'Au restaurant',
-    desc: 'Ordering, allergies, paying the bill',
-    levels: [],
-    sosCategories: ['restaurant'],
-    convScenarios: ['cafe'],
-    color: '#EA580C'
-  },
-  {
-    id: 'transports',
-    icon: '🚆',
-    title: 'Transport',
-    titleFr: 'Prendre les transports',
-    desc: 'Train, bus, tickets, directions',
-    levels: [],
-    sosCategories: ['transports'],
-    convScenarios: ['gare'],
-    color: '#2563EB'
-  },
-  {
-    id: 'logement',
-    icon: '🏠',
-    title: 'Housing',
-    titleFr: 'Gérer son logement',
-    desc: 'Repairs, landlord, utilities',
-    levels: [15],
-    sosCategories: ['logement'],
-    convScenarios: [],
-    color: '#0891B2'
-  },
-  {
-    id: 'telephone',
-    icon: '📞',
-    title: 'Phone Calls',
-    titleFr: 'Au téléphone',
-    desc: 'Appointments, understanding, messages',
-    levels: [],
-    sosCategories: ['telephone'],
-    convScenarios: [],
-    color: '#6366F1'
-  },
-  {
-    id: 'ecole',
-    icon: '🎒',
-    title: "Child's School",
-    titleFr: "L'école de l'enfant",
-    desc: 'Enrollment, absences, speaking to teachers',
-    levels: [],
-    sosCategories: ['ecole'],
-    convScenarios: [],
-    color: '#EC4899'
-  }
-];
-
-// ─── BADGES (26 badges) ───────────────────────────────────────
+// ─── BADGES (29 badges) ───────────────────────────────────────
 const BADGES_DEF = [
   { id: 'first_step', icon: '🙋', name: 'First Step', desc: 'Complete level 1' },
   { id: 'greengrocer', icon: '🛒', name: 'Greengrocer', desc: 'Complete level 2' },
