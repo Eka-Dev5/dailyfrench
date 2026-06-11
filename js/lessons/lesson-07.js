@@ -255,4 +255,24 @@ const LESSON_07 = {
       correctEn: "With pleasure!",
       alternatives: [],
       explanation: "Avec plaisir — a warm, enthusiastic acceptance of an invitation.",
-      explanationFr: "Avec plaisir — une acceptation chaleureuse et enthousiaste d'une invitati
+      explanationFr: "Avec plaisir — une acceptation chaleureuse et enthousiaste d'une invitation."
+    },
+    {
+      id: "07-l10",
+      type: "libre",
+      question: "Translate: What time shall we meet?",
+      questionFr: "Traduisez : On se retrouve à quelle heure ?",
+      correct: "On se retrouve à quelle heure ?",
+      correctEn: "What time shall we meet?",
+      alternatives: [],
+      explanation: "On se retrouve = we meet up. À quelle heure = at what time.",
+      explanationFr: "On se retrouve = on se retrouve. À quelle heure = à quelle heure."
+    }
+  ]
+};
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = LESSON_07;
+} else {
+  window.LESSON_07 = LESSON_07;
+}
