@@ -448,3 +448,61 @@ function getSkillLevelLabel(score) {
   if (score >= 1) return 'Beginner';
   return 'Novice';
 }
+
+// ─── GÉNIE MANAGER ────────────────────────────────────────────
+
+const GeniusManager = {
+  getWords(playerName) {
+    const key = STORAGE_PREFIX + 'genius_' + playerName;
+    return Storage.get(key, []);
+  },
+  addWord(playerName, word) {
+    const words = this.getWords(playerName);
+    if (words.find(function(w) { return w.fr === word.fr && w.en === word.en; })) return false;
+    words.push(word);
+    Storage.set(STORAGE_PREFIX + 'genius_' + playerName, words);
+    return true;
+  },
+  removeWord(playerName, fr) {
+    const words = this.getWords(playerName);
+    const filtered = words.filter(function(w) { return w.fr !== fr; });
+    Storage.set(STORAGE_PREFIX + 'genius_' + playerName, filtered);
+  }
+};
+
+// ─── CAMÉLÉON MANAGER ────────────────────────────────────────
+
+const CamameleonManager = {
+  getStage(minutes) {
+    for (let i = CAM_STAGES.length - 1; i >= 0; i--) {
+      if (minutes >= CAM_STAGES[i].min) return CAM_STAGES[i];
+    }
+    return CAM_STAGES[0];
+  }
+};
+
+// ─── LIFE SIMULATOR ──────────────────────────────────────────
+
+const LifeSimulator = {
+  getScenarios() { return LIFE_SIMULATOR_SCENARIOS; },
+  getScenario(id) {
+    return LIFE_SIMULATOR_SCENARIOS.find(function(s) { return s.id === id; });
+  }
+};
+
+// ─── INIT ────────────────────────────────────────────────────
+
+function initLifeSkills() {
+  console.log('[LifeSkills] Initialized', LIFE_SKILLS.length, 'skills');
+  console.log('[Badges]', BADGES_DEF.length, 'badges');
+  console.log('[Cameleon]', CAM_STAGES.length, 'stages');
+  console.log('[Scenarios]', LIFE_SIMULATOR_SCENARIOS.length, 'scenarios');
+}
+
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLifeSkills);
+  } else {
+    initLifeSkills();
+  }
+}
