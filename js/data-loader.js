@@ -1,7 +1,16 @@
 // ═══════════════════════════════════════════════════════════════════
-// DATA-LOADER.JS — Daily French 🥖
+// DATA-LOADER.JS — Daily French 🥖 v1.1
 // Charge les 20 leçons depuis lessons/ et construit LESSONS_DATA + QUESTIONS_DB
+//
+// CORRECTION v1.1 :
+//   + Protection si EventBus n'existe pas encore
+//   + Protection si initQuiz n'existe pas encore
+//   + LESSONS_DATA et QUESTIONS_DB déclarés globalement avant
 // ═══════════════════════════════════════════════════════════════════
+
+// Déclarer les variables globales AVANT (pour éviter ReferenceError)
+var LESSONS_DATA = [];
+var QUESTIONS_DB = {};
 
 const LESSON_FILES = [
   'lessons/greetings-introductions.js',
@@ -35,6 +44,7 @@ const LESSON_VARS = [
 
 let lessonsLoaded = 0;
 let lessonsTotal = LESSON_FILES.length;
+let loadCallback = null;
 
 function loadLessonScript(src, callback) {
   const script = document.createElement('script');
@@ -65,14 +75,12 @@ function buildData() {
       continue;
     }
 
-    // Construire LESSONS_DATA (format attendu par game-engine.js)
     LESSONS_DATA.push({
       num: lessonData.id,
       title: lessonData.title,
       content: lessonData.contentHtml || lessonData.content || ''
     });
 
-    // Construire QUESTIONS_DB (format attendu par game-engine.js)
     QUESTIONS_DB[lessonData.id] = {
       title: lessonData.title,
       titleFr: lessonData.titleFr,
@@ -89,16 +97,24 @@ function buildData() {
   console.log('[DataLoader] Lessons:', LESSONS_DATA.length);
   console.log('[DataLoader] Questions:', Object.keys(QUESTIONS_DB).length);
 
-  // Émettre événement de chargement terminé
-  if (typeof EventBus !== 'undefined') {
+  // Émettre événement SI EventBus existe
+  if (typeof EventBus !== 'undefined' && EventBus.emit) {
     EventBus.emit('dataLoaded', { lessons: LESSONS_DATA.length, questions: Object.keys(QUESTIONS_DB).length });
   }
 
-  // Initialiser le quiz si présent
-  if (typeof initQuiz === 'function') initQuiz();
+  // Appeler le callback si défini
+  if (typeof loadCallback === 'function') {
+    loadCallback();
+  }
+
+  // Initialiser le quiz SI présent
+  if (typeof initQuiz === 'function') {
+    initQuiz();
+  }
 }
 
-function loadAllLessons() {
+function loadAllLessons(callback) {
+  loadCallback = callback;
   let index = 0;
 
   function next() {
@@ -113,9 +129,9 @@ function loadAllLessons() {
   next();
 }
 
-// Chargement automatique au démarrage
+// Chargement automatique au démarrage SI DOM prêt
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', loadAllLessons);
+  document.addEventListener('DOMContentLoaded', function() { loadAllLessons(); });
 } else {
   loadAllLessons();
 }
