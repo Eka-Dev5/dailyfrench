@@ -1,4 +1,4 @@
-// tastes-desires.js
+// lesson-05.js
 const LESSON_05 = {
   id: 5, title: "Tastes & Desires", titleFr: "Goûts et désirs",
   objectiveEn: "Express likes, dislikes and preferences in French", objectiveFr: "Exprimer ses goûts, ses dégoûts et ses préférences en français",
