@@ -7,7 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Daily French 🥖 — Settings</title>
   <link rel="stylesheet" href="css/base.css">
-  <script src="js/nav.js"></script>
+  <!-- ❌ SUPPRIMÉ : <script src="js/nav.js"></script> -->
   <style>
     .settings-page{max-width:600px;margin:0 auto;padding:var(--space-md)}
     .settings-section{background:var(--white);border-radius:var(--r);padding:var(--space-lg);margin-bottom:var(--space-md);box-shadow:var(--shadow-sm);border:1px solid var(--border)}
@@ -32,6 +32,12 @@
         <button id="btnCancelModal" class="btn-ghost" onclick="closeModal()">Cancel</button>
         <button id="btnCreatePlayer" class="btn-primary" onclick="confirmNewPlayer()">Create</button>
       </div>
+    </div>
+  </div>
+  <div id="vocabulary-popup-modal" class="vocab-popup-modal">
+    <div class="vocab-popup-content">
+      <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
+      <div id="vocab-popup-body"></div>
     </div>
   </div>
   <header class="hero">
@@ -60,16 +66,11 @@
     </div>
     <div class="settings-section">
       <h2>🌐 Question Direction</h2>
-      <div class="settings-row"><span>🇬🇧 English → 🇫🇷 French</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('en-first')">Select</button></div>
-      <div class="settings-row"><span>🇫🇷 French → 🇬🇧 English</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('fr-first')">Select</button></div>
+      <div class="settings-row"><span>🇬🇧 English → 🇫🇷 French (Default)</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('en-first')">Select</button></div>
+      <div class="settings-row"><span>🇫🇷 French → 🇬🇧 English (Inversed)</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('fr-first')">Select</button></div>
       <div class="settings-row"><span>🔄 Mixed</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('mixed')">Select</button></div>
     </div>
-    <div class="settings-section">
-      <h2>🔧 Advanced — Per Module</h2>
-      <div class="settings-row"><span>Quiz Direction</span><select id="quizDirection" onchange="saveModuleDirection('quiz',this.value)"><option value="global">Use global</option><option value="en-first">EN→FR</option><option value="fr-first">FR→EN</option><option value="mixed">Mixed</option></select></div>
-      <div class="settings-row"><span>Lessons Direction</span><select id="lessonsDirection" onchange="saveModuleDirection('lessons',this.value)"><option value="global">Use global</option><option value="en-first">EN→FR</option><option value="fr-first">FR→EN</option></select></div>
-      <div class="settings-row"><span>SOS Direction</span><select id="sosDirection" onchange="saveModuleDirection('sos',this.value)"><option value="global">Use global</option><option value="en-first">EN→FR</option><option value="fr-first">FR→EN</option></select></div>
-    </div>
+    <!-- ❌ SUPPRIMÉ : Section "Advanced — Per Module" -->
     <div class="settings-section">
       <h2>💾 Profile</h2>
       <div class="settings-row"><span>Export backup</span><button class="btn-ghost btn-small" onclick="doExport()">Export</button></div>
@@ -81,16 +82,71 @@
       <div class="settings-row"><span>Storage used</span><span id="storageUsed" style="color:var(--muted);font-size:var(--font-sm)">—</span></div>
     </div>
   </div>
+
+  <!-- ✅ JS (ordre CORRIGÉ) -->
   <script src="js/config.js"></script>
-  <script src="js/data.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/nav.js"></script>
+
   <script>
-    function applyDirectionPick(d){if(typeof gameState!=='undefined')gameState.questionDirection=d;localStorage.setItem('dailyFrench_direction',d);if(typeof toast==='function')toast('Direction: '+d.replace('-','→').toUpperCase())}
-    function applyThemePick(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('dailyFrench_theme',t);if(typeof toast==='function')toast('Theme: '+t)}
-    function applyLangPick(l){localStorage.setItem('dailyFrench_lang',l);if(typeof toast==='function')toast('Language: '+l.toUpperCase())}
-    function saveModuleDirection(m,v){localStorage.setItem('dailyFrench_direction_'+m,v);if(typeof toast==='function')toast(m+' direction saved')}
-    (function(){const d=localStorage.getItem('dailyFrench_direction')||'en-first';if(typeof gameState!=='undefined')gameState.questionDirection=d;const t=localStorage.getItem('dailyFrench_theme');if(t)document.documentElement.setAttribute('data-theme',t);['quiz','lessons','sos'].forEach(function(m){var el=document.getElementById(m+'Direction');if(el)el.value=localStorage.getItem('dailyFrench_direction_'+m)||'global'});var used=document.getElementById('storageUsed');if(used&&typeof Storage!=='undefined'&&Storage.getUsage)used.textContent=Storage.getUsage()})();
+    // ✅ CORRECTION 1 : applyThemePick() utilise Theme.apply()
+    function applyThemePick(t) {
+      if (typeof Theme !== 'undefined') {
+        Theme.apply(t); // ← Utilise Theme.apply() pour le gradient hero
+      } else {
+        document.documentElement.setAttribute('data-theme', t);
+        localStorage.setItem('dailyFrench_theme', t);
+      }
+      if (typeof toast === 'function') toast('Theme: ' + t);
+      
+      const panel = document.getElementById('settingsPanel');
+      if (panel) panel.style.display = 'none';
+    }
+    
+    function applyLangPick(l) {
+      if (typeof I18n !== 'undefined') {
+        I18n.current = l;
+        Storage.set('dailyFrench_lang', l);
+      }
+      const panel = document.getElementById('settingsPanel');
+      if (panel) panel.style.display = 'none';
+      location.reload();
+    }
+    
+    // ✅ CORRECTION 2 : applyDirectionPick() utilise DirectionMode.set()
+    function applyDirectionPick(d) {
+      if (typeof DirectionMode !== 'undefined') {
+        DirectionMode.set(d);
+        toast('Direction: ' + DirectionMode.getLabel(d) + ' 🔄');
+      }
+      document.querySelectorAll('.direction-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.direction === d);
+      });
+    }
+    
+    // ✅ CORRECTION 3 : initCore() appelé au chargement
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof initCore === 'function') initCore();
+    });
+    
+    (function() {
+      const d = localStorage.getItem('dailyFrench_direction') || 'en-first';
+      if (typeof gameState !== 'undefined') {
+        gameState.currentDirection = d;
+      }
+      
+      const t = localStorage.getItem('dailyFrench_theme');
+      if (t && typeof Theme !== 'undefined') {
+        Theme.apply(t);
+      }
+      
+      var used = document.getElementById('storageUsed');
+      if (used && typeof Storage !== 'undefined' && Storage.getUsage) {
+        used.textContent = Storage.getUsage();
+      }
+    })();
   </script>
 </body>
 </html>
