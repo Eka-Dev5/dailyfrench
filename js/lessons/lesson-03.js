@@ -1,37 +1,37 @@
-// lesson-03.js — In the Garden 🌿
+// lesson-03.js -- In the Garden
 const LESSON_03 = {
   id: 3,
-  title: "In the Garden 🌿",
+  title: "In the Garden",
   titleFr: "Dans le jardin",
   objectiveEn: "Talk about garden tasks and plants",
-  objectiveFr: "Parler des tâches de jardinage et des plantes",
+  objectiveFr: "Parler des taches de jardinage et des plantes",
   hintEn: "Garden chat is great for connecting with French neighbours!",
-  hintFr: "Parler jardinage est excellent pour se lier avec les voisins français !",
+  hintFr: "Parler jardinage est excellent pour se lier avec les voisins francais !",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>🌱 Garden vocabulary</h4>
+<h4>Garden vocabulary</h4>
 <table class="lesson-table">
 <tr><th>French</th><th>Phonetics</th><th>English</th></tr>
 <tr><td>le jardin</td><td><em>*le zhar-DAN*</em></td><td>the garden</td></tr>
 <tr><td>arroser</td><td><em>*a-ro-ZAY*</em></td><td>to water</td></tr>
 <tr><td>tondre la pelouse</td><td><em>*tondre la pe-LOOZ*</em></td><td>to mow the lawn</td></tr>
 <tr><td>planter</td><td><em>*plan-TAY*</em></td><td>to plant</td></tr>
-<tr><td>désherber</td><td><em>*day-zair-BAY*</em></td><td>to weed</td></tr>
+<tr><td>desherber</td><td><em>*day-zair-BAY*</em></td><td>to weed</td></tr>
 </table>
 </div>
 <div class="lesson-rule">
-<h4>🌸 Flowers & plants</h4>
+<h4>Flowers & plants</h4>
 <table class="lesson-table">
 <tr><th>French</th><th>English</th></tr>
 <tr><td>une fleur / les fleurs</td><td>a flower / flowers</td></tr>
-<tr><td>un légume</td><td>a vegetable</td></tr>
+<tr><td>un legume</td><td>a vegetable</td></tr>
 <tr><td>un arbre</td><td>a tree</td></tr>
 <tr><td>la terre</td><td>the soil / earth</td></tr>
 </table>
 </div>
 <div class="lesson-example">
-<strong>Exemple :</strong> J'arrose le jardin ce matin. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
+<strong>Exemple :</strong> J arrose le jardin ce matin. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
 <span class="lesson-ex-en">I water the garden this morning.</span>
 </div>
   `,
@@ -76,13 +76,13 @@ const LESSON_03 = {
       id: "03-4",
       type: "qcm",
       question: "To weed in French:",
-      questionFr: "Désherber en anglais :",
-      options: ["Désherber","Arroser","Planter","Tailler"],
+      questionFr: "Desherber en anglais :",
+      options: ["Desherber","Arroser","Planter","Tailler"],
       optionsEn: ["To weed","To water","To plant","To prune"],
-      correct: "Désherber",
+      correct: "Desherber",
       correctEn: "To weed",
-      explanation: "Désherber (day-zair-BAY) = to weed. Les mauvaises herbes = weeds.",
-      explanationFr: "Désherber = désherber. Les mauvaises herbes = les mauvaises herbes."
+      explanation: "Desherber (day-zair-BAY) = to weed. Les mauvaises herbes = weeds.",
+      explanationFr: "Desherber = desherber. Les mauvaises herbes = les mauvaises herbes."
     },
     {
       id: "03-5",
@@ -94,14 +94,14 @@ const LESSON_03 = {
       correct: "Le potager",
       correctEn: "The vegetable garden",
       explanation: "Le potager (poh-ta-ZHAY) = vegetable garden. Very common in France!",
-      explanationFr: "Le potager = le potager. Très courant en France !"
+      explanationFr: "Le potager = le potager. Tres courant en France !"
     },
     {
       id: "03-6",
       type: "qcm",
       question: "To prune / trim in French:",
       questionFr: "Tailler en anglais :",
-      options: ["Tailler","Planter","Arroser","Récolter"],
+      options: ["Tailler","Planter","Arroser","Recolter"],
       optionsEn: ["To prune/trim","To plant","To water","To harvest"],
       correct: "Tailler",
       correctEn: "To prune / trim",
@@ -113,12 +113,12 @@ const LESSON_03 = {
       type: "qcm",
       question: "I need to water the flowers in French:",
       questionFr: "Je dois arroser les fleurs en anglais :",
-      options: ["Je dois arroser les fleurs.","Je fais les fleurs.","Les fleurs ont soif.","J'arrose demain."],
+      options: ["Je dois arroser les fleurs.","Je fais les fleurs.","Les fleurs ont soif.","J arrose demain."],
       optionsEn: ["I need to water the flowers.","I do the flowers.","The flowers are thirsty.","I water tomorrow."],
       correct: "Je dois arroser les fleurs.",
       correctEn: "I need to water the flowers.",
       explanation: "Je dois (zhuh DWAH) = I must / I need to. Followed by infinitive.",
-      explanationFr: "Je dois = je dois. Suivi de l'infinitif."
+      explanationFr: "Je dois = je dois. Suivi de l infinitif."
     },
     {
       id: "03-8",
@@ -148,13 +148,13 @@ const LESSON_03 = {
       id: "03-10",
       type: "qcm",
       question: "To harvest / pick in French:",
-      questionFr: "Récolter en anglais :",
-      options: ["Récolter","Planter","Arroser","Désherber"],
+      questionFr: "Recolter en anglais :",
+      options: ["Recolter","Planter","Arroser","Desherber"],
       optionsEn: ["To harvest/pick","To plant","To water","To weed"],
-      correct: "Récolter",
+      correct: "Recolter",
       correctEn: "To harvest / pick",
-      explanation: "Récolter (ray-kol-TAY) = to harvest / pick. La récolte = the harvest.",
-      explanationFr: "Récolter = récolter. La récolte = la récolte."
+      explanation: "Recolter (ray-kol-TAY) = to harvest / pick. La recolte = the harvest.",
+      explanationFr: "Recolter = recolter. La recolte = la recolte."
     }
   ],
   libre: [
@@ -162,12 +162,12 @@ const LESSON_03 = {
       id: "03-l1",
       type: "libre",
       question: "Translate: I watered the garden this morning.",
-      questionFr: "Traduisez : J'ai arrosé le jardin ce matin.",
-      correct: "J'ai arrosé le jardin ce matin.",
+      questionFr: "Traduisez : J ai arrose le jardin ce matin.",
+      correct: "J ai arrose le jardin ce matin.",
       correctEn: "I watered the garden this morning.",
       alternatives: [],
-      explanation: "Passé composé: j'ai + arrosé (past participle of arroser).",
-      explanationFr: "Passé composé: j'ai + arrosé (participe passé d'arroser)."
+      explanation: "Passe compose: j ai + arose (past participle of arroser).",
+      explanationFr: "Passe compose: j ai + arose (participe passe d arroser)."
     },
     {
       id: "03-l2",
@@ -177,8 +177,8 @@ const LESSON_03 = {
       correct: "le potager",
       correctEn: "the vegetable garden",
       alternatives: [],
-      explanation: "Le potager is a specifically French institution — kitchen garden.",
-      explanationFr: "Le potager est une institution spécifiquement française — le jardin potager."
+      explanation: "Le potager is a specifically French institution -- kitchen garden.",
+      explanationFr: "Le potager est une institution specifiquement francaise -- le jardin potager."
     },
     {
       id: "03-l3",
@@ -195,12 +195,12 @@ const LESSON_03 = {
       id: "03-l4",
       type: "libre",
       question: "Complete: Je dois ___ les mauvaises herbes.",
-      questionFr: "Complétez : Je dois ___ les mauvaises herbes.",
-      correct: "désherber",
+      questionFr: "Completez : Je dois ___ les mauvaises herbes.",
+      correct: "desherber",
       correctEn: "weed",
       alternatives: [],
-      explanation: "Désherber = to weed. Les mauvaises herbes = weeds (bad herbs).",
-      explanationFr: "Désherber = désherber. Les mauvaises herbes = les mauvaises herbes."
+      explanation: "Desherber = to weed. Les mauvaises herbes = weeds (bad herbs).",
+      explanationFr: "Desherber = desherber. Les mauvaises herbes = les mauvaises herbes."
     },
     {
       id: "03-l5",
@@ -217,12 +217,12 @@ const LESSON_03 = {
       id: "03-l6",
       type: "libre",
       question: "Translate: The garden is beautiful this year.",
-      questionFr: "Traduisez : Le jardin est beau cette année.",
-      correct: "Le jardin est beau cette année.",
+      questionFr: "Traduisez : Le jardin est beau cette annee.",
+      correct: "Le jardin est beau cette annee.",
       correctEn: "The garden is beautiful this year.",
       alternatives: [],
-      explanation: "Beau (m) / belle (f) = beautiful. Cette année = this year.",
-      explanationFr: "Beau (m) / belle (f) = beau. Cette année = cette année."
+      explanation: "Beau (m) / belle (f) = beautiful. Cette annee = this year.",
+      explanationFr: "Beau (m) / belle (f) = beau. Cette annee = cette annee."
     },
     {
       id: "03-l7",
@@ -231,20 +231,20 @@ const LESSON_03 = {
       questionFr: "Comment dit-on Il faut arroser ?",
       correct: "Il faut arroser.",
       correctEn: "It needs watering.",
-      alternatives: ["Ça a besoin d'eau"],
+      alternatives: ["Ca a besoin d eau"],
       explanation: "Il faut (eel foh) + infinitive = it is necessary to / one must.",
-      explanationFr: "Il faut + infinitif = il faut / il est nécessaire de."
+      explanationFr: "Il faut + infinitif = il faut / il est necessaire de."
     },
     {
       id: "03-l8",
       type: "libre",
-      question: "What does la récolte mean?",
-      questionFr: "Que signifie la récolte ?",
+      question: "What does la recolte mean?",
+      questionFr: "Que signifie la recolte ?",
       correct: "the harvest",
       correctEn: "the harvest",
       alternatives: ["harvest"],
-      explanation: "La récolte = harvest. Récolter = to harvest.",
-      explanationFr: "La récolte = la récolte. Récolter = récolter."
+      explanation: "La recolte = harvest. Recolter = to harvest.",
+      explanationFr: "La recolte = la recolte. Recolter = recolter."
     },
     {
       id: "03-l9",
@@ -260,11 +260,11 @@ const LESSON_03 = {
     {
       id: "03-l10",
       type: "libre",
-      question: "Complete: J'ai planté des ___ ce printemps.",
-      questionFr: "Complétez : J'ai planté des ___ ce printemps.",
+      question: "Complete: J ai plante des ___ ce printemps.",
+      questionFr: "Completez : J ai plante des ___ ce printemps.",
       correct: "fleurs",
       correctEn: "flowers",
-      alternatives: ["légumes","tomates"],
+      alternatives: ["legumes","tomates"],
       explanation: "Des fleurs = some flowers. Ce printemps = this spring.",
       explanationFr: "Des fleurs = des fleurs. Ce printemps = ce printemps."
     }
