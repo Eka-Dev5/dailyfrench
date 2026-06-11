@@ -1,4 +1,4 @@
-// weather.js
+// lesson-08.js
 const LESSON_08 = {
   id: 8, title: "Weather", titleFr: "Météo",
   objectiveEn: "Talk about the weather, understand forecasts", objectiveFr: "Parler de la météo, comprendre les prévisions",
