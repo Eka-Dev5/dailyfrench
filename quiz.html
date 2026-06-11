@@ -8,10 +8,13 @@
   <title>Daily French 🥖 — Quiz</title>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/quiz.css">
-  <script src="js/nav.js"></script>
+  <!-- ❌ SUPPRIMÉ : nav.js dans HEAD (avant core.js) -->
 </head>
 <body>
+  <!-- Toast notification -->
   <div id="toast" class="toast"></div>
+  
+  <!-- Modal pour créer un joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
@@ -22,17 +25,23 @@
       </div>
     </div>
   </div>
+  
+  <!-- Modal popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
       <div id="vocab-popup-body"></div>
     </div>
   </div>
+  
+  <!-- Hero header (joueur + XP) -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">?<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
     <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
+      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
+        <option value="">Choose a player</option>
+      </select>
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
     </div>
     <div class="hero-xp">
@@ -40,11 +49,15 @@
       <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
     </div>
   </header>
+  
+  <!-- Bento grid (stats rapides) -->
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
     <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
     <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
+  
+  <!-- Section 1: Home (accueil) -->
   <section id="home" class="section active">
     <div style="text-align:center;padding:var(--space-lg) 0;">
       <div style="font-size:3.5rem;margin-bottom:var(--space-sm)">🥖</div>
@@ -69,10 +82,14 @@
       <p style="margin-top:var(--space-md);font-size:var(--font-sm);color:var(--muted)">Or explore <a href="quiz.html?section=lecons" style="color:var(--primary)">Lessons</a> first</p>
     </div>
   </section>
+  
+  <!-- Section 2: Lessons (leçons) -->
   <section id="lecons" class="section" style="display:none">
     <h2 class="section-title">📚 Lessons</h2>
     <div id="lessonsContainer" class="lessons-container"></div>
   </section>
+  
+  <!-- Section 3: Levels (niveaux) -->
   <section id="levels" class="section" style="display:none">
     <h2 class="section-title">🎮 Choose a Level</h2>
     <div class="mode-selector">
@@ -82,6 +99,8 @@
     </div>
     <div id="levelsContainer" class="levels-container"></div>
   </section>
+  
+  <!-- Section 4: Jeu (game area) -->
   <section id="jeu" class="section" style="display:none">
     <div id="lessonIntro" class="lesson-intro" style="display:none">
       <h3 id="lessonIntroTitle" class="intro-title"></h3>
@@ -93,7 +112,10 @@
     <div id="gameArea" class="game-area">
       <div class="game-header">
         <div id="gameTitle" class="game-title">Level 1</div>
-        <div class="game-meta"><span id="questionCounter" class="counter">1 / 10</span><span id="scoreDisplay" class="score">0 pts</span></div>
+        <div class="game-meta">
+          <span id="questionCounter" class="counter">1 / 10</span>
+          <span id="scoreDisplay" class="score">0 pts</span>
+        </div>
         <div class="bar-track"><div id="progressFill" class="bar-fill"></div></div>
       </div>
       <div id="questionText" class="question-text"></div>
@@ -113,9 +135,13 @@
       </div>
     </div>
   </section>
+  
+  <!-- Section 5: Results (résultats) -->
   <section id="resultats" class="section" style="display:none">
     <h2 class="section-title">🎯 Results</h2>
-    <div class="score-circle" style="--pct:0"><div id="resultPct" class="score-pct">0%</div></div>
+    <div class="score-circle" style="--pct:0">
+      <div id="resultPct" class="score-pct">0%</div>
+    </div>
     <div id="resultMsg" class="result-message"></div>
     <div class="result-actions">
       <button id="retryBtn" class="btn btn-secondary btn-large">Retry</button>
@@ -123,19 +149,88 @@
       <button id="quitBtn" class="btn btn-ghost btn-large">Quit</button>
     </div>
   </section>
+
+  <!-- ✅ ORDRE CORRECT DES SCRIPTS (CORRIGÉ) -->
+  <!-- 1. config.js — Configuration globale -->
   <script src="js/config.js"></script>
-  <script src="js/data-loader.js"></script>
-  <script src="js/vocabulary-data.js"></script>
-  <script src="js/vocabulary-engine.js"></script>
+  
+  <!-- 2. core.js — Moteur central (EventBus défini ici) -->
   <script src="js/core.js"></script>
+  
+  <!-- 3. ui-utils.js — Utilitaires UI -->
   <script src="js/ui-utils.js"></script>
+  
+  <!-- 4. data-loader.js — Charge les leçons (utilise EventBus ✅) -->
+  <script src="js/data-loader.js"></script>
+  
+  <!-- 5. vocabulary-data.js — Vocabulaire -->
+  <script src="js/vocabulary-data.js"></script>
+  
+  <!-- 6. vocabulary-engine.js — Moteur vocabulaire -->
+  <script src="js/vocabulary-engine.js"></script>
+  
+  <!-- 7. game-engine.js — Moteur de jeu -->
   <script src="js/game-engine.js"></script>
+  
+  <!-- 8. quiz.js — Logique du quiz -->
   <script src="js/quiz.js"></script>
+  
+  <!-- 9. nav.js — Navigation (après core.js ✅) -->
+  <script src="js/nav.js"></script>
+
+  <!-- Scripts inline pour Settings -->
   <script>
-    function applyDirectionPick(d){if(typeof gameState!=='undefined')gameState.questionDirection=d;localStorage.setItem('dailyFrench_direction',d);document.querySelectorAll('.direction-btn').forEach(b=>b.classList.toggle('active',b.dataset.direction===d));if(typeof toast==='function')toast('Direction: '+d.replace('-','→').toUpperCase())}
-    function applyThemePick(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('dailyFrench_theme',t);if(typeof toast==='function')toast('Theme: '+t)}
-    function applyLangPick(l){localStorage.setItem('dailyFrench_lang',l);if(typeof toast==='function')toast('Language: '+l.toUpperCase())}
-    (function(){const s=localStorage.getItem('dailyFrench_direction')||'en-first';if(typeof gameState!=='undefined')gameState.questionDirection=s;document.querySelectorAll('.direction-btn').forEach(b=>b.classList.toggle('active',b.dataset.direction===s));const t=localStorage.getItem('dailyFrench_theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
+    // applyDirectionPick — Choisir la direction (utilise DirectionMode.set())
+    function applyDirectionPick(d) {
+      if (typeof DirectionMode !== 'undefined') {
+        DirectionMode.set(d);
+        toast('Direction: ' + DirectionMode.getLabel(d) + ' 🔄');
+      }
+      document.querySelectorAll('.direction-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.direction === d);
+      });
+    }
+    
+    // applyThemePick — Choisir un thème
+    function applyThemePick(t) {
+      if (typeof Theme !== 'undefined') {
+        Theme.apply(t);
+      } else {
+        document.documentElement.setAttribute('data-theme', t);
+        localStorage.setItem('dailyFrench_theme', t);
+      }
+      if (typeof toast === 'function') toast('Theme: ' + t);
+    }
+    
+    // applyLangPick — Choisir une langue
+    function applyLangPick(l) {
+      if (typeof I18n !== 'undefined') {
+        I18n.current = l;
+        Storage.set('dailyFrench_lang', l);
+      }
+      localStorage.setItem('dailyFrench_lang', l);
+      if (typeof toast === 'function') toast('Language: ' + l.toUpperCase());
+    }
+    
+    // Initialisation
+    (function() {
+      // Appliquer la direction sauvegardée
+      const s = localStorage.getItem('dailyFrench_direction') || 'en-first';
+      if (typeof DirectionMode !== 'undefined') {
+        DirectionMode.set(s);
+      }
+      document.querySelectorAll('.direction-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.direction === s);
+      });
+      
+      // Appliquer le thème sauvegardé
+      const t = localStorage.getItem('dailyFrench_theme');
+      if (t && typeof Theme !== 'undefined') {
+        Theme.apply(t);
+      } else if (t) {
+        document.documentElement.setAttribute('data-theme', t);
+      }
+    })();
   </script>
 </body>
 </html>
