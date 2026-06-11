@@ -1,198 +1,278 @@
+// lesson-05.js — My Town 🏙️ — Places in town
+const LESSON_05 = {
+  id: 5,
+  title: "My Town 🏙️ — Places in town",
+  titleFr: "Ma ville — Les lieux en ville",
+  objectiveEn: "Talk about places in town and ask where things are",
+  objectiveFr: "Parler des lieux en ville et demander où se trouvent les choses",
+  hintEn: "Use IL Y A to say 'there is/are' and OÙ to ask 'where?'",
+  hintFr: "Utilisez IL Y A pour dire 'il y a' et OÙ pour demander 'où ?'",
+  vocabulary: [],
+  contentHtml: `
+<div class="lesson-rule">
+<h4>🏙️ Places in town</h4>
+<table class="lesson-table">
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>une banque</td><td><em>*uhn bonk*</em></td><td>a bank</td></tr>
+<tr><td>une boulangerie</td><td><em>*uhn boo-lon-ZHREE*</em></td><td>a bakery</td></tr>
+<tr><td>une bibliothèque</td><td><em>*uhn bee-blee-oh-TEK*</em></td><td>a library</td></tr>
+<tr><td>un café</td><td><em>*uhn kah-FAY*</em></td><td>a café</td></tr>
+<tr><td>un cinéma</td><td><em>*uhn see-nay-MAH*</em></td><td>a cinema</td></tr>
+<tr><td>un parc</td><td><em>*uhn park*</em></td><td>a park</td></tr>
+<tr><td>une pharmacie</td><td><em>*uhn far-mah-SEE*</em></td><td>a pharmacy</td></tr>
+<tr><td>un supermarché</td><td><em>*uhn soo-pair-mar-SHAY*</em></td><td>a supermarket</td></tr>
+<tr><td>une poste</td><td><em>*uhn post*</em></td><td>a post office</td></tr>
+<tr><td>une gare</td><td><em>*uhn gahr*</em></td><td>a train station</td></tr>
+</table>
+</div>
+<div class="lesson-rule">
+<h4>🧭 Asking where things are</h4>
+<table class="lesson-table">
+<tr><th>French</th><th>English</th></tr>
+<tr><td>Où est la banque ?</td><td>Where is the bank?</td></tr>
+<tr><td>Où sont les toilettes ?</td><td>Where are the toilets?</td></tr>
+<tr><td>Il y a un café ici.</td><td>There is a café here.</td></tr>
+<tr><td>Il n'y a pas de pharmacie.</td><td>There isn't a pharmacy.</td></tr>
+</table>
+</div>
+<div class="lesson-warning">⚠️ Use <strong>il y a</strong> for "there is/are" — not "est" alone. Also, <strong>où</strong> means "where".</div>
+<div class="lesson-example">
+Il y a un parc et une boulangerie près de chez moi. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
+<span class="lesson-ex-en">There is a park and a bakery near my house.</span>
+</div>
+  `,
+  qcm: [
     {
-      id: "05-4",
+      id: "5-1",
       type: "qcm",
-      question: "It's delicious! in French:",
-      questionFr: "C'est délicieux ! en anglais :",
-      options: ["C'est délicieux !","C'est bon !","C'est bien !","C'est top !"],
-      optionsEn: ["It's delicious!","It's good!","It's well!","It's top!"],
-      correct: "C'est délicieux !",
-      correctEn: "It's delicious!",
-      explanation: "C'est délicieux (say day-lee-SYUH) = It's delicious! C'est bon = It's good (less enthusiastic).",
-      explanationFr: "C'est délicieux = c'est délicieux ! C'est bon = c'est bon (moins enthousiaste)."
+      question: "'a café' in French:",
+      questionFr: "'un café' en anglais :",
+      options: ["Un café","Une café","Le café","Des cafés"],
+      optionsEn: ["A café","A café","The café","Cafés"],
+      correct: "Un café",
+      correctEn: "A café",
+      explanation: "Un café = a café. Café is masculine: un café.",
+      explanationFr: "Un café = un café. Café est masculin : un café."
     },
     {
-      id: "05-5",
+      id: "5-2",
       type: "qcm",
-      question: "I'm vegetarian. in French:",
-      questionFr: "Je suis végétarien. en anglais :",
-      options: ["Je suis végétarien.","Je veux pas viande.","Je n'ai pas viande.","Je mange pas bête."],
-      optionsEn: ["I'm vegetarian.","I don't want meat.","I don't have meat.","I don't eat beast."],
-      correct: "Je suis végétarien.",
-      correctEn: "I'm vegetarian.",
-      explanation: "Végétarien (m) / végétarienne (f). Je suis + adjective for describing yourself.",
-      explanationFr: "Végétarien (m) / végétarienne (f). Je suis + adjectif pour se décrire."
+      question: "'a bakery' in French:",
+      questionFr: "'une boulangerie' en anglais :",
+      options: ["Une boulangerie","Un boulangerie","Le boulangerie","Des boulangeries"],
+      optionsEn: ["A bakery","A bakery","The bakery","Bakeries"],
+      correct: "Une boulangerie",
+      correctEn: "A bakery",
+      explanation: "Boulangerie is feminine: une boulangerie.",
+      explanationFr: "Boulangerie est féminin : une boulangerie."
     },
     {
-      id: "05-6",
+      id: "5-3",
       type: "qcm",
-      question: "I'm allergic to nuts. in French:",
-      questionFr: "Je suis allergique aux noix. en anglais :",
-      options: ["Je suis allergique aux noix.","J'ai allergie noix.","Je suis malade noix.","Les noix je suis mal."],
-      optionsEn: ["I'm allergic to nuts.","I have allergy nuts.","I'm sick nuts.","The nuts I am bad."],
-      correct: "Je suis allergique aux noix.",
-      correctEn: "I'm allergic to nuts.",
-      explanation: "Allergique à (a-lair-ZHEEK a). À + les = aux. À + le = au.",
-      explanationFr: "Allergique à = allergique à. À + les = aux. À + le = au."
+      question: "'Where is the bank?' in French:",
+      questionFr: "'Où est la banque ?' en anglais :",
+      options: ["Où est la banque ?","Qu'est-ce que la banque ?","Comment est la banque ?","Quand est la banque ?"],
+      optionsEn: ["Where is the bank?","What is the bank?","How is the bank?","When is the bank?"],
+      correct: "Où est la banque ?",
+      correctEn: "Where is the bank?",
+      explanation: "Où = where. Use où est... to ask location.",
+      explanationFr: "Où = où. Utilisez où est... pour demander un lieu."
     },
     {
-      id: "05-7",
+      id: "5-4",
       type: "qcm",
-      question: "It pleases me. (I like it) in French:",
-      questionFr: "Ça me plaît. (I like it) en anglais :",
-      options: ["Ça me plaît.","J'aime ça bien.","Ça est bien.","Je veux ça."],
-      optionsEn: ["It pleases me.","I like that well.","That is good.","I want that."],
-      correct: "Ça me plaît.",
-      correctEn: "It pleases me.",
-      explanation: "Ça me plaît (sa muh PLAY) = I like it (literally it pleases me). Very French!",
-      explanationFr: "Ça me plaît = ça me plaît (littéralement ça me plaît). Très français !"
+      question: "'There is a park here' in French:",
+      questionFr: "'Il y a un parc ici.' en anglais :",
+      options: ["Il y a un parc ici.","Il est un parc ici.","C'est un parc ici.","Il a un parc ici."],
+      optionsEn: ["There is a park here.","It is a park here.","It is a park here.","He has a park here."],
+      correct: "Il y a un parc ici.",
+      correctEn: "There is a park here.",
+      explanation: "Il y a = there is / there are. Very common and very useful.",
+      explanationFr: "Il y a = il y a. Très courant et très utile."
     },
     {
-      id: "05-8",
+      id: "5-5",
       type: "qcm",
-      question: "It's too salty. in French:",
-      questionFr: "C'est trop salé. en anglais :",
-      options: ["C'est trop salé.","C'est trop salt.","Trop de sel.","C'est très salé."],
-      optionsEn: ["It's too salty.","It's too salt.","Too much salt.","It's very salty."],
-      correct: "C'est trop salé.",
-      correctEn: "It's too salty.",
-      explanation: "Trop (troh) = too much. Salé = salty. Sucré = sweet. Acide = sour.",
-      explanationFr: "Trop = trop. Salé = salé. Sucré = sucré. Acide = acide."
+      question: "'There isn't a pharmacy' in French:",
+      questionFr: "'Il n'y a pas de pharmacie.' en anglais :",
+      options: ["Il n'y a pas de pharmacie.","Il ne y a pas une pharmacie.","Il n'a pas de pharmacie.","Il y a pas pharmacie."],
+      optionsEn: ["There isn't a pharmacy.","There is not a pharmacy.","He doesn't have a pharmacy.","There is not pharmacy."],
+      correct: "Il n'y a pas de pharmacie.",
+      correctEn: "There isn't a pharmacy.",
+      explanation: "Negative form: il n'y a pas de + noun.",
+      explanationFr: "Forme négative : il n'y a pas de + nom."
     },
     {
-      id: "05-9",
+      id: "5-6",
       type: "qcm",
-      question: "I really like this market. in French:",
-      questionFr: "J'aime beaucoup ce marché. en anglais :",
-      options: ["J'aime beaucoup ce marché.","J'aime très ce marché.","Ce marché est bien.","J'adore bien ce marché."],
-      optionsEn: ["I really like this market.","I like very this market.","This market is good.","I love well this market."],
-      correct: "J'aime beaucoup ce marché.",
-      correctEn: "I really like this market.",
-      explanation: "J'aime beaucoup = I really like. Beaucoup (boh-KOO) intensifies the feeling.",
-      explanationFr: "J'aime beaucoup = j'aime beaucoup. Beaucoup intensifie le sentiment."
+      question: "'a train station' in French:",
+      questionFr: "'une gare' en anglais :",
+      options: ["Une gare","Un gare","La gare","Des gares"],
+      optionsEn: ["A train station","A train station","The train station","Train stations"],
+      correct: "Une gare",
+      correctEn: "A train station",
+      explanation: "Gare is feminine: une gare.",
+      explanationFr: "Gare est féminin : une gare."
     },
     {
-      id: "05-10",
+      id: "5-7",
       type: "qcm",
-      question: "What do you like? in French:",
-      questionFr: "Qu'est-ce que vous aimez ? en anglais :",
-      options: ["Qu'est-ce que vous aimez ?","Vous aimez quoi ?","Quoi vous voulez ?","Qu'aimez-vous faire ?"],
-      optionsEn: ["What do you like?","You like what?","What do you want?","What do you like to do?"],
-      correct: "Qu'est-ce que vous aimez ?",
-      correctEn: "What do you like?",
-      explanation: "Qu'est-ce que vous aimez ? (kess-kuh voo-zay-MAY) = What do you like?",
-      explanationFr: "Qu'est-ce que vous aimez ? = qu'est-ce que vous aimez ?"
+      question: "'a pharmacy' in French:",
+      questionFr: "'une pharmacie' en anglais :",
+      options: ["Une pharmacie","Un pharmacie","Le pharmacie","Des pharmacies"],
+      optionsEn: ["A pharmacy","A pharmacy","The pharmacy","Pharmacies"],
+      correct: "Une pharmacie",
+      correctEn: "A pharmacy",
+      explanation: "Pharmacie is feminine: une pharmacie.",
+      explanationFr: "Pharmacie est féminin : une pharmacie."
+    },
+    {
+      id: "5-8",
+      type: "qcm",
+      question: "'a supermarket' in French:",
+      questionFr: "'un supermarché' en anglais :",
+      options: ["Un supermarché","Une supermarché","Le supermarché","Des supermarchés"],
+      optionsEn: ["A supermarket","A supermarket","The supermarket","Supermarkets"],
+      correct: "Un supermarché",
+      correctEn: "A supermarket",
+      explanation: "Supermarché is masculine: un supermarché.",
+      explanationFr: "Supermarché est masculin : un supermarché."
+    },
+    {
+      id: "5-9",
+      type: "qcm",
+      question: "'Where are the toilets?' in French:",
+      questionFr: "'Où sont les toilettes ?' en anglais :",
+      options: ["Où sont les toilettes ?","Où est les toilettes ?","Où a les toilettes ?","Où les toilettes sont ?"],
+      optionsEn: ["Where are the toilets?","Where is the toilets?","Where has the toilets?","Where the toilets are?"],
+      correct: "Où sont les toilettes ?",
+      correctEn: "Where are the toilets?",
+      explanation: "Toilettes is plural in French: les toilettes.",
+      explanationFr: "Toilettes est toujours au pluriel en français : les toilettes."
+    },
+    {
+      id: "5-10",
+      type: "qcm",
+      question: "'a library' in French:",
+      questionFr: "'une bibliothèque' en anglais :",
+      options: ["Une bibliothèque","Un bibliothèque","La bibliothèque","Des bibliothèques"],
+      optionsEn: ["A library","A library","The library","Libraries"],
+      correct: "Une bibliothèque",
+      correctEn: "A library",
+      explanation: "Bibliothèque is feminine: une bibliothèque.",
+      explanationFr: "Bibliothèque est féminin : une bibliothèque."
     }
   ],
   libre: [
     {
-      id: "05-l1",
+      id: "5-l1",
       type: "libre",
-      question: "Say I love the French countryside.",
-      questionFr: "Dites J'adore la campagne française.",
-      correct: "J'adore la campagne française.",
-      correctEn: "I love the French countryside.",
+      question: "Translate: 'Where is the café?'",
+      questionFr: "Traduisez : 'Où est le café ?'",
+      correct: "Où est le café ?",
+      correctEn: "Where is the café?",
       alternatives: [],
-      explanation: "Campagne = countryside. J'adore = I love (strong).",
-      explanationFr: "Campagne = campagne. J'adore = j'adore (fort)."
+      explanation: "Où est... = where is... Use it to ask for a location.",
+      explanationFr: "Où est... = où est... Utilisez-le pour demander un lieu."
     },
     {
-      id: "05-l2",
+      id: "5-l2",
       type: "libre",
-      question: "Translate: I don't like cold weather.",
-      questionFr: "Traduisez : Je n'aime pas le froid.",
-      correct: "Je n'aime pas le froid.",
-      correctEn: "I don't like cold weather.",
-      alternatives: ["Je n'aime pas le temps froid."],
-      explanation: "Le froid = the cold. Je n'aime pas = I don't like.",
-      explanationFr: "Le froid = le froid. Je n'aime pas = je n'aime pas."
-    },
-    {
-      id: "05-l3",
-      type: "libre",
-      question: "How do you say It's delicious!?",
-      questionFr: "Comment dit-on C'est délicieux ! ?",
-      correct: "C'est délicieux !",
-      correctEn: "It's delicious!",
+      question: "How do you say 'There is a park here'?",
+      questionFr: "Comment dit-on 'Il y a un parc ici' ?",
+      correct: "Il y a un parc ici.",
+      correctEn: "There is a park here.",
       alternatives: [],
-      explanation: "A classic compliment for French hosts!",
-      explanationFr: "Un compliment classique pour les hôtes français !"
+      explanation: "Il y a = there is / there are.",
+      explanationFr: "Il y a = il y a / il y a."
     },
     {
-      id: "05-l4",
+      id: "5-l3",
       type: "libre",
-      question: "Complete: Je préfère le café ___ le thé.",
-      questionFr: "Complétez : Je préfère le café ___ le thé.",
-      correct: "à",
-      correctEn: "to",
+      question: "Translate: 'There isn't a supermarket.'",
+      questionFr: "Traduisez : 'Il n'y a pas de supermarché.'",
+      correct: "Il n'y a pas de supermarché.",
+      correctEn: "There isn't a supermarket.",
       alternatives: [],
-      explanation: "Préférer A à B = to prefer A to B. Je préfère le café au thé.",
-      explanationFr: "Préférer A à B = préférer A à B. Je préfère le café au thé."
+      explanation: "Negative with il y a: il n'y a pas de + noun.",
+      explanationFr: "Négation avec il y a : il n'y a pas de + nom."
     },
     {
-      id: "05-l5",
+      id: "5-l4",
       type: "libre",
-      question: "Translate: I am allergic to gluten.",
-      questionFr: "Traduisez : Je suis allergique au gluten.",
-      correct: "Je suis allergique au gluten.",
-      correctEn: "I am allergic to gluten.",
+      question: "Complete: 'Où est la ___ ?' (bank)",
+      questionFr: "Complétez : 'Où est la ___ ?' (banque)",
+      correct: "banque",
+      correctEn: "bank",
       alternatives: [],
-      explanation: "Au = à + le. Gluten is the same in French!",
-      explanationFr: "Au = à + le. Gluten est le même mot en français !"
+      explanation: "La banque = the bank. Où est la banque ?",
+      explanationFr: "La banque = la banque. Où est la banque ?"
     },
     {
-      id: "05-l6",
+      id: "5-l5",
       type: "libre",
-      question: "How do you say I really like this village?",
-      questionFr: "Comment dit-on J'aime beaucoup ce village ?",
-      correct: "J'aime beaucoup ce village.",
-      correctEn: "I really like this village.",
-      alternatives: ["J'adore ce village."],
-      explanation: "Beaucoup intensifies j'aime. J'adore is even stronger.",
-      explanationFr: "Beaucoup intensifie j'aime. J'adore est encore plus fort."
-    },
-    {
-      id: "05-l7",
-      type: "libre",
-      question: "Translate: It's a bit sweet for me.",
-      questionFr: "Traduisez : C'est un peu sucré pour moi.",
-      correct: "C'est un peu sucré pour moi.",
-      correctEn: "It's a bit sweet for me.",
+      question: "How do you say 'a post office'?",
+      questionFr: "Comment dit-on 'une poste' ?",
+      correct: "une poste",
+      correctEn: "a post office",
       alternatives: [],
-      explanation: "Un peu = a little. Sucré = sweet. Pour moi = for me.",
-      explanationFr: "Un peu = un peu. Sucré = sucré. Pour moi = pour moi."
+      explanation: "La poste / une poste = post office.",
+      explanationFr: "La poste / une poste = une poste."
     },
     {
-      id: "05-l8",
+      id: "5-l6",
       type: "libre",
-      question: "Complete: Je ___ les huîtres.",
-      questionFr: "Complétez : Je ___ les huîtres.",
-      correct: "n'aime pas",
-      correctEn: "don't like",
+      question: "Translate: 'There is a pharmacy here.'",
+      questionFr: "Traduisez : 'Il y a une pharmacie ici.'",
+      correct: "Il y a une pharmacie ici.",
+      correctEn: "There is a pharmacy here.",
       alternatives: [],
-      explanation: "Je n'aime pas = I don't like. The most useful negative for food!",
-      explanationFr: "Je n'aime pas = je n'aime pas. La négation la plus utile pour la nourriture !"
+      explanation: "Une pharmacie = a pharmacy.",
+      explanationFr: "Une pharmacie = une pharmacie."
     },
     {
-      id: "05-l9",
+      id: "5-l7",
       type: "libre",
-      question: "How do you say What do you like to eat?",
-      questionFr: "Comment dit-on Qu'est-ce que vous aimez manger ?",
-      correct: "Qu'est-ce que vous aimez manger ?",
-      correctEn: "What do you like to eat?",
-      alternatives: ["Vous aimez quoi manger ?"],
-      explanation: "Aimer + infinitive = to like doing something.",
-      explanationFr: "Aimer + infinitif = aimer faire quelque chose."
-    },
-    {
-      id: "05-l10",
-      type: "libre",
-      question: "Translate: I prefer the local market.",
-      questionFr: "Traduisez : Je préfère le marché local.",
-      correct: "Je préfère le marché local.",
-      correctEn: "I prefer the local market.",
+      question: "Complete: 'Il y a un ___ près de chez moi.' (park)",
+      questionFr: "Complétez : 'Il y a un ___ près de chez moi.' (parc)",
+      correct: "parc",
+      correctEn: "park",
       alternatives: [],
-      explanation: "Local = local (same word!). Marché = market.",
-      explanationFr: "Local = local (même mot !). Marché = marché."
+      explanation: "Un parc = a park. Près de chez moi = near my house.",
+      explanationFr: "Un parc = un parc. Près de chez moi = près de chez moi."
+    },
+    {
+      id: "5-l8",
+      type: "libre",
+      question: "What does 'où' mean?",
+      questionFr: "Que signifie 'où' ?",
+      correct: "where",
+      correctEn: "where",
+      alternatives: ["where is"],
+      explanation: "Où = where. Very important question word.",
+      explanationFr: "Où = où. Mot interrogatif très important."
+    },
+    {
+      id: "5-l9",
+      type: "libre",
+      question: "Translate: 'Where are the toilets?'",
+      questionFr: "Traduisez : 'Où sont les toilettes ?'",
+      correct: "Où sont les toilettes ?",
+      correctEn: "Where are the toilets?",
+      alternatives: [],
+      explanation: "Les toilettes = the toilets.",
+      explanationFr: "Les toilettes = les toilettes."
+    },
+    {
+      id: "5-l10",
+      type: "libre",
+      question: "Translate: 'There is a café near the station.'",
+      questionFr: "Traduisez : 'Il y a un café près de la gare.'",
+      correct: "Il y a un café près de la gare.",
+      correctEn: "There is a café near the station.",
+      alternatives: [],
+      explanation: "Près de = near. La gare = the station.",
+      explanationFr: "Près de = près de. La gare = la gare."
     }
   ]
 };
