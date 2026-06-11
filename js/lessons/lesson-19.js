@@ -1,39 +1,39 @@
-// lesson-19.js — My Cooking 🍳 — Kitchen verbs
+// lesson-19.js -- My Cooking -- Kitchen verbs
 const LESSON_19 = {
   id: 19,
-  title: "My Cooking 🍳 — Kitchen verbs",
-  titleFr: "Ma cuisine — Verbes de cuisine",
+  title: "My Cooking -- Kitchen verbs",
+  titleFr: "Ma cuisine -- Verbes de cuisine",
   objectiveEn: "Follow a French recipe, talk about cooking techniques",
-  objectiveFr: "Suivre une recette française, parler des techniques de cuisine",
-  hintEn: "French cooking uses lots of specific verbs — learn them for recipe conversations!",
-  hintFr: "La cuisine française utilise beaucoup de verbes spécifiques — apprenez-les pour les conversations sur les recettes !",
+  objectiveFr: "Suivre une recette francaise, parler des techniques de cuisine",
+  hintEn: "French cooking uses lots of specific verbs -- learn them for recipe conversations!",
+  hintFr: "La cuisine francaise utilise beaucoup de verbes specifiques -- apprenez-les pour les conversations sur les recettes !",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>🍳 Essential cooking verbs</h4>
+<h4>Essential cooking verbs</h4>
 <table class="lesson-table">
 <tr><th>French</th><th>Phonetics</th><th>English</th></tr>
 <tr><td>couper</td><td><em>*koo-PAY*</em></td><td>to cut / chop</td></tr>
-<tr><td>mélanger</td><td><em>*may-lan-ZHAY*</em></td><td>to mix</td></tr>
+<tr><td>melanger</td><td><em>*may-lan-ZHAY*</em></td><td>to mix</td></tr>
 <tr><td>faire chauffer</td><td><em>*fair sho-FAY*</em></td><td>to heat up</td></tr>
 <tr><td>ajouter</td><td><em>*a-zhoo-TAY*</em></td><td>to add</td></tr>
 <tr><td>remuer</td><td><em>*ruh-moo-AY*</em></td><td>to stir</td></tr>
-<tr><td>goûter</td><td><em>*goo-TAY*</em></td><td>to taste</td></tr>
+<tr><td>gouter</td><td><em>*goo-TAY*</em></td><td>to taste</td></tr>
 <tr><td>servir</td><td><em>*sair-VEER*</em></td><td>to serve</td></tr>
 </table>
 </div>
 <div class="lesson-rule">
-<h4>📖 Recipe language</h4>
+<h4>Recipe language</h4>
 <table class="lesson-table">
 <tr><th>French</th><th>English</th></tr>
 <tr><td>une recette</td><td>a recipe</td></tr>
-<tr><td>les ingrédients</td><td>the ingredients</td></tr>
-<tr><td>faire revenir</td><td>to fry / sauté</td></tr>
+<tr><td>les ingredients</td><td>the ingredients</td></tr>
+<tr><td>faire revenir</td><td>to fry / saute</td></tr>
 <tr><td>laisser mijoter</td><td>to let simmer</td></tr>
 </table>
 </div>
 <div class="lesson-example">
-Je coupe les légumes, j'ajoute de l'huile et je fais chauffer à feu doux. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
+Je coupe les legumes, j'ajoute de l'huile et je fais chauffer a feu doux. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
 <span class="lesson-ex-en">I chop the vegetables, add some oil and heat on a low heat.</span>
 </div>
   `,
@@ -43,31 +43,31 @@ Je coupe les légumes, j'ajoute de l'huile et je fais chauffer à feu doux. <but
       type: "qcm",
       question: "To cut / chop in French:",
       questionFr: "Couper en anglais :",
-      options: ["Couper","Mélanger","Ajouter","Remuer"],
+      options: ["Couper","Melanger","Ajouter","Remuer"],
       optionsEn: ["to cut / chop","to mix","to add","to stir"],
       correct: "Couper",
       correctEn: "to cut / chop",
-      explanation: "Couper = to cut, chop. Je coupe les légumes = I chop the vegetables.",
-      explanationFr: "Couper = couper. Je coupe les légumes = je coupe les légumes."
+      explanation: "Couper = to cut, chop. Je coupe les legumes = I chop the vegetables.",
+      explanationFr: "Couper = couper. Je coupe les legumes = je coupe les legumes."
     },
     {
       id: "19-2",
       type: "qcm",
       question: "To mix in French:",
-      questionFr: "Mélanger en anglais :",
-      options: ["Mélanger","Couper","Ajouter","Faire chauffer"],
+      questionFr: "Melanger en anglais :",
+      options: ["Melanger","Couper","Ajouter","Faire chauffer"],
       optionsEn: ["to mix","to cut","to add","to heat up"],
-      correct: "Mélanger",
+      correct: "Melanger",
       correctEn: "to mix",
-      explanation: "Mélanger = to mix. Mélangez bien = mix well.",
-      explanationFr: "Mélanger = mélanger. Mélangez bien = mélangez bien."
+      explanation: "Melanger = to mix. Melangez bien = mix well.",
+      explanationFr: "Melanger = melanger. Melangez bien = melangez bien."
     },
     {
       id: "19-3",
       type: "qcm",
       question: "To heat up in French:",
       questionFr: "Faire chauffer en anglais :",
-      options: ["Faire chauffer","Mélanger","Ajouter","Remuer"],
+      options: ["Faire chauffer","Melanger","Ajouter","Remuer"],
       optionsEn: ["to heat up","to mix","to add","to stir"],
       correct: "Faire chauffer",
       correctEn: "to heat up",
@@ -79,7 +79,7 @@ Je coupe les légumes, j'ajoute de l'huile et je fais chauffer à feu doux. <but
       type: "qcm",
       question: "To add in French:",
       questionFr: "Ajouter en anglais :",
-      options: ["Ajouter","Couper","Servir","Goûter"],
+      options: ["Ajouter","Couper","Servir","Gouter"],
       optionsEn: ["to add","to cut","to serve","to taste"],
       correct: "Ajouter",
       correctEn: "to add",
@@ -90,20 +90,20 @@ Je coupe les légumes, j'ajoute de l'huile et je fais chauffer à feu doux. <but
       id: "19-5",
       type: "qcm",
       question: "To taste in French:",
-      questionFr: "Goûter en anglais :",
-      options: ["Goûter","Ajouter","Remuer","Servir"],
+      questionFr: "Gouter en anglais :",
+      options: ["Gouter","Ajouter","Remuer","Servir"],
       optionsEn: ["to taste","to add","to stir","to serve"],
-      correct: "Goûter",
+      correct: "Gouter",
       correctEn: "to taste",
-      explanation: "Goûter = to taste. Goûtez et ajustez l'assaisonnement = taste and adjust the seasoning.",
-      explanationFr: "Goûter = goûter. Goûtez et ajustez = goûtez et ajustez."
+      explanation: "Gouter = to taste. Goutez et ajustez l'assaisonnement = taste and adjust the seasoning.",
+      explanationFr: "Gouter = gouter. Goutez et ajustez = goutez et ajustez."
     },
     {
       id: "19-6",
       type: "qcm",
       question: "To serve in French:",
       questionFr: "Servir en anglais :",
-      options: ["Servir","Couper","Remuer","Préparer"],
+      options: ["Servir","Couper","Remuer","Preparer"],
       optionsEn: ["to serve","to cut","to stir","to prepare"],
       correct: "Servir",
       correctEn: "to serve",
@@ -138,13 +138,13 @@ Je coupe les légumes, j'ajoute de l'huile et je fais chauffer à feu doux. <but
       id: "19-9",
       type: "qcm",
       question: "I chop the vegetables in French:",
-      questionFr: "Je coupe les légumes. en anglais :",
-      options: ["Je coupe les légumes.","Je mélange les légumes.","Je prépare légumes.","Je coupes légumes."],
+      questionFr: "Je coupe les legumes. en anglais :",
+      options: ["Je coupe les legumes.","Je melange les legumes.","Je prepare legumes.","Je coupes legumes."],
       optionsEn: ["I chop the vegetables.","I mix the vegetables.","I prepare vegetables.","I chop vegetables."],
-      correct: "Je coupe les légumes.",
+      correct: "Je coupe les legumes.",
       correctEn: "I chop the vegetables.",
-      explanation: "Je coupe = I chop/cut. Les légumes = the vegetables.",
-      explanationFr: "Je coupe = je coupe. Les légumes = les légumes."
+      explanation: "Je coupe = I chop/cut. Les legumes = the vegetables.",
+      explanationFr: "Je coupe = je coupe. Les legumes = les legumes."
     },
     {
       id: "19-10",
@@ -175,12 +175,12 @@ Je coupe les légumes, j'ajoute de l'huile et je fais chauffer à feu doux. <but
       id: "19-l2",
       type: "libre",
       question: "How do you say I mix well?",
-      questionFr: "Comment dit-on Je mélange bien ?",
-      correct: "Je mélange bien.",
+      questionFr: "Comment dit-on Je melange bien ?",
+      correct: "Je melange bien.",
       correctEn: "I mix well.",
       alternatives: [],
-      explanation: "Mélanger = to mix. Bien = well.",
-      explanationFr: "Mélanger = mélanger. Bien = bien."
+      explanation: "Melanger = to mix. Bien = well.",
+      explanationFr: "Melanger = melanger. Bien = bien."
     },
     {
       id: "19-l3",
@@ -197,7 +197,7 @@ Je coupe les légumes, j'ajoute de l'huile et je fais chauffer à feu doux. <but
       id: "19-l4",
       type: "libre",
       question: "Complete: J'___ du sel et du poivre.",
-      questionFr: "Complétez : J'___ du sel et du poivre.",
+      questionFr: "Completez : J'___ du sel et du poivre.",
       correct: "ajoute",
       correctEn: "add",
       alternatives: [],
@@ -229,8 +229,8 @@ Je coupe les légumes, j'ajoute de l'huile et je fais chauffer à feu doux. <but
     {
       id: "19-l7",
       type: "libre",
-      question: "Complete: Je ___ les légumes avant de les cuire.",
-      questionFr: "Complétez : Je ___ les légumes avant de les cuire.",
+      question: "Complete: Je ___ les legumes avant de les cuire.",
+      questionFr: "Completez : Je ___ les legumes avant de les cuire.",
       correct: "coupe",
       correctEn: "chop",
       alternatives: [],
@@ -252,12 +252,12 @@ Je coupe les légumes, j'ajoute de l'huile et je fais chauffer à feu doux. <but
       id: "19-l9",
       type: "libre",
       question: "Translate: I taste and I add some salt.",
-      questionFr: "Traduisez : Je goûte et j'ajoute du sel.",
-      correct: "Je goûte et j'ajoute du sel.",
+      questionFr: "Traduisez : Je goute et j'ajoute du sel.",
+      correct: "Je goute et j'ajoute du sel.",
       correctEn: "I taste and I add some salt.",
       alternatives: [],
-      explanation: "Goûter = to taste. Ajouter = to add. Du sel = some salt.",
-      explanationFr: "Goûter = goûter. Ajouter = ajouter. Du sel = du sel."
+      explanation: "Gouter = to taste. Ajouter = to add. Du sel = some salt.",
+      explanationFr: "Gouter = gouter. Ajouter = ajouter. Du sel = du sel."
     },
     {
       id: "19-l10",
@@ -278,4 +278,3 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.LESSON_19 = LESSON_19;
 }
-
