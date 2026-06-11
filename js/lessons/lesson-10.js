@@ -1,4 +1,4 @@
-// politeness.js
+// lesson-10.js
 const LESSON_10 = {
   id: 10, title: "Politeness", titleFr: "Politesse",
   objectiveEn: "Use polite French in any situation, ask for help graciously", objectiveFr: "Utiliser le français poli en toute situation, demander de l'aide avec grâce",
