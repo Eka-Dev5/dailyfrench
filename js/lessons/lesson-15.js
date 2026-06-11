@@ -1,19 +1,19 @@
-// lesson-15.js — My House 🏡 — Household tasks
+// lesson-15.js -- My House -- Household tasks
 const LESSON_15 = {
   id: 15,
-  title: "My House 🏡 — Household tasks",
-  titleFr: "Ma maison — Tâches ménagères",
+  title: "My House -- Household tasks",
+  titleFr: "Ma maison -- Taches menageres",
   objectiveEn: "Talk about household chores and tasks around the home",
-  objectiveFr: "Parler des tâches ménagères et des corvées à la maison",
-  hintEn: "Faire + household task is the key pattern: faire le ménage, faire la vaisselle...",
-  hintFr: "Faire + tâche ménagère est le modèle clé : faire le ménage, faire la vaisselle...",
+  objectiveFr: "Parler des taches menageres et des corvees a la maison",
+  hintEn: "Faire + household task is the key pattern: faire le menage, faire la vaisselle...",
+  hintFr: "Faire + tache menagere est le modele cle : faire le menage, faire la vaisselle...",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>🏡 Household chores</h4>
+<h4>Household chores</h4>
 <table class="lesson-table">
 <tr><th>French</th><th>Phonetics</th><th>English</th></tr>
-<tr><td>faire le ménage</td><td><em>*fair le may-NAZH*</em></td><td>do the housework</td></tr>
+<tr><td>faire le menage</td><td><em>*fair le may-NAZH*</em></td><td>do the housework</td></tr>
 <tr><td>faire la vaisselle</td><td><em>*fair la vay-SELL*</em></td><td>do the dishes</td></tr>
 <tr><td>faire le lit</td><td><em>*fair le LEE*</em></td><td>make the bed</td></tr>
 <tr><td>passer l'aspirateur</td><td><em>*pass-ay las-pee-ra-TEUR*</em></td><td>vacuum</td></tr>
@@ -22,9 +22,9 @@ const LESSON_15 = {
 <tr><td>sortir les poubelles</td><td><em>*sor-TEER lay poo-BELL*</em></td><td>take out the bins</td></tr>
 </table>
 </div>
-<div class="lesson-warning">⚠️ Note: make the key pattern: faire le ménage, faire la vaisselle, faire le lit. It's not do or make literally!</div>
+<div class="lesson-warning">Note: make the key pattern: faire le menage, faire la vaisselle, faire le lit. It's not do or make literally!</div>
 <div class="lesson-example">
-Le lundi, je fais le ménage et je passe l'aspirateur dans toute la maison. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
+Le lundi, je fais le menage et je passe l'aspirateur dans toute la maison. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
 <span class="lesson-ex-en">On Mondays, I do the housework and vacuum the whole house.</span>
 </div>
   `,
@@ -33,13 +33,13 @@ Le lundi, je fais le ménage et je passe l'aspirateur dans toute la maison. <but
       id: "15-1",
       type: "qcm",
       question: "I do the housework in French:",
-      questionFr: "Je fais le ménage. en anglais :",
-      options: ["Je fais le ménage.","Je suis le ménage.","Je nettoie le ménage.","Je fais la maison."],
+      questionFr: "Je fais le menage. en anglais :",
+      options: ["Je fais le menage.","Je suis le menage.","Je nettoie le menage.","Je fais la maison."],
       optionsEn: ["I do the housework.","I am the housework.","I clean the housework.","I do the house."],
-      correct: "Je fais le ménage.",
+      correct: "Je fais le menage.",
       correctEn: "I do the housework.",
-      explanation: "Faire le ménage (fair le may-NAZH) = do the housework. Very common expression!",
-      explanationFr: "Faire le ménage = faire le ménage. Expression très courante !"
+      explanation: "Faire le menage (fair le may-NAZH) = do the housework. Very common expression!",
+      explanationFr: "Faire le menage = faire le menage. Expression tres courante !"
     },
     {
       id: "15-2",
@@ -62,15 +62,15 @@ Le lundi, je fais le ménage et je passe l'aspirateur dans toute la maison. <but
       optionsEn: ["I vacuum.","I do the vacuum.","I aspire.","I clean with the vacuum."],
       correct: "Je passe l'aspirateur.",
       correctEn: "I vacuum.",
-      explanation: "Passer l'aspirateur (pass-ay las-pee-ra-TEUR) = to vacuum. Not faire — it's passer!",
-      explanationFr: "Passer l'aspirateur = passer l'aspirateur. Pas faire — c'est passer !"
+      explanation: "Passer l'aspirateur (pass-ay las-pee-ra-TEUR) = to vacuum. Not faire -- it's passer!",
+      explanationFr: "Passer l'aspirateur = passer l'aspirateur. Pas faire -- c'est passer !"
     },
     {
       id: "15-4",
       type: "qcm",
       question: "I make the bed in French:",
       questionFr: "Je fais le lit. en anglais :",
-      options: ["Je fais le lit.","Je prépare le lit.","J'arrange le lit.","Je mets le lit."],
+      options: ["Je fais le lit.","Je prepare le lit.","J'arrange le lit.","Je mets le lit."],
       optionsEn: ["I make the bed.","I prepare the bed.","I arrange the bed.","I put the bed."],
       correct: "Je fais le lit.",
       correctEn: "I make the bed.",
@@ -110,163 +110,266 @@ Le lundi, je fais le ménage et je passe l'aspirateur dans toute la maison. <but
       optionsEn: ["I clean the kitchen.","I do the cooking.","I wash the kitchen.","I tidy the kitchen."],
       correct: "Je nettoie la cuisine.",
       correctEn: "I clean the kitchen.",
-      explanation: "Nettoyer (net-wa-YAY) = to clean. La cuisine = the kitchen.",
-      explanationFr: "Nettoyer = nettoyer. La cuisine = la cuisine."
+      explanation: "Nettoyer (net-wa-YAY) = to clean. La cuisine></tr>
+<tr><td>stresse / stressee</td><td><em>*stress-AY*</em></td><td>stressed</td></tr>
+<tr><td>inquiet / inquiete</td><td><em>*an-kee-AY*</em></td><td>worried</td></tr>
+<tr><td>motive / motivee</td><td><em>*mo-tee-VAY*</em></td><td>motivated</td></tr>
+<tr><td>triste</td><td><em>*TREEST*</em></td><td>sad</td></tr>
+</table>
+</div>
+<div class="lesson-rule">
+<h4>Useful emotion phrases</h4>
+<table class="lesson-table">
+<tr><th>French</th><th>English</th></tr>
+<tr><td>Je me sens bien / mal.</td><td>I feel good / bad.</td></tr>
+<tr><td>Je suis un peu fatigue(e).</td><td>I'm a little tired.</td></tr>
+<tr><td>Ca va mieux.</td><td>It's getting better.</td></tr>
+</table>
+</div>
+<div class="lesson-warning">Always use <strong>etre</strong> for emotions: Je SUIS fatigue. Never "J'AI fatigue"!</div>
+<div class="lesson-example">
+Je suis fatigue mais content -- j'ai fait beaucoup aujourd'hui ! <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">I'm tired but happy -- I did a lot today!</span>
+</div>
+  `,
+  qcm: [
+    {
+      id: "13-1",
+      type: "qcm",
+      question: "I am tired (man speaking) in French:",
+      questionFr: "Je suis fatigue. (homme qui parle) en anglais :",
+      options: ["Je suis fatigue.","J'ai fatigue.","Je fais fatigue.","Je me fatigue."],
+      optionsEn: ["I am tired.","I have tired.","I do tired.","I tire myself."],
+      correct: "Je suis fatigue.",
+      correctEn: "I am tired.",
+      explanation: "ETRE for emotions! Je suis fatigue. Woman: je suis fatiguee (add -e).",
+      explanationFr: "ETRE pour les emotions ! Je suis fatigue. Femme: je suis fatiguee (ajouter -e)."
     },
     {
-      id: "15-8",
+      id: "13-2",
       type: "qcm",
-      question: "I do the cooking in French:",
-      questionFr: "Je fais la cuisine. en anglais :",
-      options: ["Je fais la cuisine.","Je cuisine.","Je prépare à manger.","Je fais à manger."],
-      optionsEn: ["I do the cooking.","I cook.","I prepare to eat.","I make to eat."],
-      correct: "Je fais la cuisine.",
-      correctEn: "I do the cooking.",
-      explanation: "Faire la cuisine = do the cooking. Also: je cuisine (I cook).",
-      explanationFr: "Faire la cuisine = faire la cuisine. Aussi : je cuisine."
+      question: "I am happy (woman speaking) in French:",
+      questionFr: "Je suis contente. (femme qui parle) en anglais :",
+      options: ["Je suis contente.","Je suis content.","J'ai contente.","Je content."],
+      optionsEn: ["I am happy.","I am happy (m).","I have happy.","I happy."],
+      correct: "Je suis contente.",
+      correctEn: "I am happy (woman)",
+      explanation: "Content / contente. Man: je suis content. Woman: je suis contente (add -e).",
+      explanationFr: "Content / contente. Homme: je suis content. Femme: je suis contente (ajouter -e)."
     },
     {
-      id: "15-9",
+      id: "13-3",
       type: "qcm",
-      question: "Which is WRONG: Je ___ le lit?",
-      questionFr: "Lequel est FAUX : Je ___ le lit. ?",
-      options: ["Je suis le lit","Je fais le lit","J'ai fait le lit","Je vais faire le lit"],
-      optionsEn: ["I am the bed","I make the bed","I made the bed","I'm going to make the bed"],
-      correct: "Je suis le lit",
-      correctEn: "I am the bed",
-      explanation: "Je suis le lit makes no sense! Je fais le lit = I make the bed.",
-      explanationFr: "Je suis le lit n'a aucun sens ! Je fais le lit = je fais le lit."
+      question: "I am stressed in French:",
+      questionFr: "Je suis stresse. en anglais :",
+      options: ["Je suis stresse.","J'ai stresse.","Je stress.","Je suis de stress."],
+      optionsEn: ["I am stressed.","I have stressed.","I stress.","I am of stress."],
+      correct: "Je suis stresse.",
+      correctEn: "I am stressed",
+      explanation: "Je suis stresse (woman: stressee). Always etre for emotions!",
+      explanationFr: "Je suis stresse (femme: stressee). Toujours etre pour les emotions !"
     },
     {
-      id: "15-10",
+      id: "13-4",
       type: "qcm",
-      question: "I'll clean the house tomorrow. in French:",
-      questionFr: "Je vais nettoyer la maison demain. en anglais :",
-      options: ["Je vais nettoyer la maison demain.","Je nettoierai demain.","Demain nettoie.","Je dois nettoyer demain."],
-      optionsEn: ["I'll clean the house tomorrow.","I will clean tomorrow.","Tomorrow cleans.","I must clean tomorrow."],
-      correct: "Je vais nettoyer la maison demain.",
-      correctEn: "I'll clean the house tomorrow.",
-      explanation: "Je vais + infinitive = I'm going to (near future). Demain = tomorrow.",
-      explanationFr: "Je vais + infinitif = futur proche. Demain = demain."
+      question: "I am worried in French:",
+      questionFr: "Je suis inquiet. en anglais :",
+      options: ["Je suis inquiet.","J'ai inquiet.","Je suis d'inquiet.","Inquiet je suis."],
+      optionsEn: ["I am worried.","I have worried.","I am of worried.","Worried I am."],
+      correct: "Je suis inquiet.",
+      correctEn: "I am worried",
+      explanation: "Inquiet / inquiete. Man: inquiet. Woman: inquiete.",
+      explanationFr: "Inquiet / inquiete. Homme: inquiet. Femme: inquiete."
+    },
+    {
+      id: "13-5",
+      type: "qcm",
+      question: "I am sad in French:",
+      questionFr: "Je suis triste. en anglais :",
+      options: ["Je suis triste.","J'ai triste.","Je triste.","Je suis de triste."],
+      optionsEn: ["I am sad.","I have sad.","I sad.","I am of sad."],
+      correct: "Je suis triste.",
+      correctEn: "I am sad",
+      explanation: "Triste doesn't change (m/f). Je suis triste = I am sad.",
+      explanationFr: "Triste ne change pas (m/f). Je suis triste = je suis triste."
+    },
+    {
+      id: "13-6",
+      type: "qcm",
+      question: "I feel good in French:",
+      questionFr: "Je me sens bien. en anglais :",
+      options: ["Je me sens bien.","Je suis bien.","J'ai bien.","Je bien."],
+      optionsEn: ["I feel good.","I am good.","I have good.","I good."],
+      correct: "Je me sens bien.",
+      correctEn: "I feel good",
+      explanation: "Je me sens bien/mal = I feel good/bad. Sens = feel (from sentir).",
+      explanationFr: "Je me sens bien/mal = je me sens bien/mal. Sens = sentir."
+    },
+    {
+      id: "13-7",
+      type: "qcm",
+      question: "I'm a little tired in French:",
+      questionFr: "Je suis un peu fatigue(e). en anglais :",
+      options: ["Je suis un peu fatigue(e).","J'ai un peu fatigue.","Je peu fatigue.","Un peu je suis fatigue."],
+      optionsEn: ["I'm a little tired.","I have a little tired.","I little tired.","A little I am tired."],
+      correct: "Je suis un peu fatigue(e).",
+      correctEn: "I'm a little tired",
+      explanation: "Un peu = a little. Je suis = I am. Very natural French!",
+      explanationFr: "Un peu = un peu. Je suis = je suis. Tres naturel en francais !"
+    },
+    {
+      id: "13-8",
+      type: "qcm",
+      question: "It's getting better in French:",
+      questionFr: "Ca va mieux. en anglais :",
+      options: ["Ca va mieux.","Ca est mieux.","Je vais mieux.","Mieux ca va."],
+      optionsEn: ["It's getting better.","It is better.","I go better.","Better it goes."],
+      correct: "Ca va mieux.",
+      correctEn: "It's getting better",
+      explanation: "Ca va mieux = It's getting better / I'm feeling better. Very common!",
+      explanationFr: "Ca va mieux = ca va mieux / je me sens mieux. Tres courant !"
+    },
+    {
+      id: "13-9",
+      type: "qcm",
+      question: "I am motivated (woman) in French:",
+      questionFr: "Je suis motivee. (femme) en anglais :",
+      options: ["Je suis motivee.","Je suis motive.","J'ai motivee.","Je motivee."],
+      optionsEn: ["I am motivated.","I am motivated (m).","I have motivated.","I motivated."],
+      correct: "Je suis motivee.",
+      correctEn: "I am motivated (woman)",
+      explanation: "Motive / motivee. Add -e for woman: motivee.",
+      explanationFr: "Motive / motivee. Ajouter -e pour femme: motivee."
+    },
+    {
+      id: "13-10",
+      type: "qcm",
+      question: "Which is WRONG for emotions?",
+      questionFr: "Lequel est FAUX pour les emotions ?",
+      options: ["J'ai fatigue.","Je suis fatigue.","Je me sens mal.","Je suis content."],
+      optionsEn: ["I have tired.","I am tired.","I feel bad.","I am happy."],
+      correct: "J'ai fatigue.",
+      correctEn: "I have tired (WRONG)",
+      explanation: "J'ai fatigue is WRONG! Always use etre: Je suis fatigue!",
+      explanationFr: "J'ai fatigue est FAUX ! Toujours utiliser etre: Je suis fatigue !"
     }
   ],
   libre: [
     {
-      id: "15-l1",
+      id: "13-l1",
       type: "libre",
-      question: "Translate: I do the housework on Mondays.",
-      questionFr: "Traduisez : Je fais le ménage le lundi.",
-      correct: "Je fais le ménage le lundi.",
-      correctEn: "I do the housework on Mondays.",
+      question: "Translate: I am tired.",
+      questionFr: "Traduisez : Je suis fatigue.",
+      correct: "Je suis fatigue.",
+      correctEn: "I am tired.",
       alternatives: [],
-      explanation: "Le lundi = on Mondays (habitual). Faire le ménage = do the housework.",
-      explanationFr: "Le lundi = le lundi (habituel). Faire le ménage = faire le ménage."
+      explanation: "Je suis fatigue -- use etre, not avoir!",
+      explanationFr: "Je suis fatigue -- utilisez etre, pas avoir !"
     },
     {
-      id: "15-l2",
+      id: "13-l2",
       type: "libre",
-      question: "How do you say I vacuum the whole house?",
-      questionFr: "Comment dit-on Je passe l'aspirateur dans toute la maison ?",
-      correct: "Je passe l'aspirateur dans toute la maison.",
-      correctEn: "I vacuum the whole house.",
+      question: "How do you say I am happy (woman)?",
+      questionFr: "Comment dit-on Je suis contente (femme) ?",
+      correct: "Je suis contente.",
+      correctEn: "I am happy (woman)",
       alternatives: [],
-      explanation: "Toute la maison = the whole house. Passer l'aspirateur = to vacuum.",
-      explanationFr: "Toute la maison = toute la maison. Passer l'aspirateur = passer l'aspirateur."
+      explanation: "Je suis contente -- add -e for feminine.",
+      explanationFr: "Je suis contente -- ajouter -e pour le feminin."
     },
     {
-      id: "15-l3",
+      id: "13-l3",
       type: "libre",
-      question: "Translate: I made the bed this morning.",
-      questionFr: "Traduisez : J'ai fait le lit ce matin.",
-      correct: "J'ai fait le lit ce matin.",
-      correctEn: "I made the bed this morning.",
+      question: "Translate: I am stressed.",
+      questionFr: "Traduisez : Je suis stresse.",
+      correct: "Je suis stresse.",
+      correctEn: "I am stressed.",
       alternatives: [],
-      explanation: "Passé composé: j'ai fait. Ce matin = this morning.",
-      explanationFr: "Passé composé : j'ai fait. Ce matin = ce matin."
+      explanation: "Je suis stresse -- always etre for emotions.",
+      explanationFr: "Je suis stresse -- toujours etre pour les emotions."
     },
     {
-      id: "15-l4",
+      id: "13-l4",
       type: "libre",
-      question: "Complete: Je sors les ___ le mardi.",
-      questionFr: "Complétez : Je sors les ___ le mardi.",
-      correct: "poubelles",
-      correctEn: "bins",
+      question: "Complete: Je suis ___ (worried, man).",
+      questionFr: "Completez : Je suis ___ (inquiet, homme).",
+      correct: "inquiet",
+      correctEn: "worried",
       alternatives: [],
-      explanation: "Les poubelles = the bins. Je sors les poubelles = I take out the bins.",
-      explanationFr: "Les poubelles = les poubelles. Je sors les poubelles = je sors les poubelles."
+      explanation: "Inquiet for man, inquiete for woman.",
+      explanationFr: "Inquiet pour homme, inquiete pour femme."
     },
     {
-      id: "15-l5",
+      id: "13-l5",
       type: "libre",
-      question: "How do you say I need to clean the bathroom?",
-      questionFr: "Comment dit-on Je dois nettoyer la salle de bain ?",
-      correct: "Je dois nettoyer la salle de bain.",
-      correctEn: "I need to clean the bathroom.",
+      question: "Translate: I feel bad.",
+      questionFr: "Traduisez : Je me sens mal.",
+      correct: "Je me sens mal.",
+      correctEn: "I feel bad.",
       alternatives: [],
-      explanation: "La salle de bain = the bathroom. Nettoyer = to clean.",
-      explanationFr: "La salle de bain = la salle de bain. Nettoyer = nettoyer."
+      explanation: "Je me sens bien/mal = I feel good/bad.",
+      explanationFr: "Je me sens bien/mal = je me sens bien/mal."
     },
     {
-      id: "15-l6",
+      id: "13-l6",
       type: "libre",
-      question: "Translate: I tidied up the living room.",
-      questionFr: "Traduisez : J'ai rangé le salon.",
-      correct: "J'ai rangé le salon.",
-      correctEn: "I tidied up the living room.",
+      question: "How do you say I am sad (woman)?",
+      questionFr: "Comment dit-on Je suis triste (femme) ?",
+      correct: "Je suis triste.",
+      correctEn: "I am sad",
       alternatives: [],
-      explanation: "Ranger → rangé. Le salon = living room.",
-      explanationFr: "Ranger → rangé. Le salon = le salon."
+      explanation: "Triste doesn't change for gender.",
+      explanationFr: "Triste ne change pas pour le genre."
     },
     {
-      id: "15-l7",
+      id: "13-l7",
       type: "libre",
-      question: "Complete: Ce matin j'ai fait la ___.",
-      questionFr: "Complétez : Ce matin j'ai fait la ___.",
-      correct: "vaisselle",
-      correctEn: "dishes",
+      question: "Translate: It's getting better.",
+      questionFr: "Traduisez : Ca va mieux.",
+      correct: "Ca va mieux.",
+      correctEn: "It's getting better.",
       alternatives: [],
-      explanation: "Faire la vaisselle = do the dishes.",
-      explanationFr: "Faire la vaisselle = faire la vaisselle."
+      explanation: "Ca va mieux = I'm feeling better.",
+      explanationFr: "Ca va mieux = je me sens mieux."
     },
     {
-      id: "15-l8",
+      id: "13-l8",
       type: "libre",
-      question: "How do you say I do the cooking every evening?",
-      questionFr: "Comment dit-on Je fais la cuisine tous les soirs ?",
-      correct: "Je fais la cuisine tous les soirs.",
-      correctEn: "I do the cooking every evening.",
+      question: "Complete: Je suis un peu ___ (tired).",
+      questionFr: "Completez : Je suis un peu ___ (fatigue).",
+      correct: "fatigue",
+      correctEn: "tired",
       alternatives: [],
-      explanation: "Tous les soirs = every evening.",
-      explanationFr: "Tous les soirs = tous les soirs."
+      explanation: "Un peu = a little. Je suis un peu fatigue.",
+      explanationFr: "Un peu = un peu. Je suis un peu fatigue."
     },
     {
-      id: "15-l9",
+      id: "13-l9",
       type: "libre",
-      question: "Translate: I need to take out the bins.",
-      questionFr: "Traduisez : Je dois sortir les poubelles.",
-      correct: "Je dois sortir les poubelles.",
-      correctEn: "I need to take out the bins.",
+      question: "Translate: I am motivated (man).",
+      questionFr: "Traduisez : Je suis motive.",
+      correct: "Je suis motive.",
+      correctEn: "I am motivated (man)",
       alternatives: [],
-      explanation: "Je dois + infinitive = I need to / I must.",
-      explanationFr: "Je dois + infinitif = je dois / il faut."
+      explanation: "Motive for man, motivee for woman.",
+      explanationFr: "Motive pour homme, motivee pour femme."
     },
     {
-      id: "15-l10",
+      id: "13-l10",
       type: "libre",
-      question: "What does faire le ménage mean?",
-      questionFr: "Que signifie faire le ménage ?",
-      correct: "do the housework",
-      correctEn: "do the housework",
-      alternatives: ["housework","do housework"],
-      explanation: "Le ménage = housework. Faire le ménage = do the housework.",
-      explanationFr: "Le ménage = le ménage. Faire le ménage = faire le ménage."
+      question: "What verb do you use for emotions?",
+      questionFr: "Quel verbe utilisez-vous pour les emotions ?",
+      correct: "etre",
+      correctEn: "to be",
+      alternatives: ["Je suis","Etre"],
+      explanation: "Always use etre (Je suis) for emotions, NEVER avoir!",
+      explanationFr: "Toujours utiliser etre (Je suis) pour les emotions, JAMAIS avoir !"
     }
   ]
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = LESSON_15;
+  module.exports = LESSON_13;
 } else {
-  window.LESSON_15 = LESSON_15;
+  window.LESSON_13 = LESSON_13;
 }
-
