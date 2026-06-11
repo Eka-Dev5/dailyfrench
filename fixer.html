@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixer Express — Daily French</title>
+  <style>
+    body { font-family:-apple-system,sans-serif; background:#0d1117; color:#c9d1d9; padding:30px; max-width:900px; margin:0 auto; }
+    h1 { color:#58a6ff; }
+    .fix { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px; margin:20px 0; }
+    .fix h2 { color:#d29922; font-size:16px; margin-bottom:10px; }
+    textarea { width:100%; height:200px; background:#0d1117; color:#c9d1d9; border:1px solid #30363d; border-radius:8px; padding:12px; font-family:monospace; font-size:11px; }
+    button { background:#238636; color:#fff; border:none; padding:8px 16px; border-radius:6px; cursor:pointer; margin-top:10px; }
+    .ok { color:#3fb950; }
+    .err { color:#f85149; }
+    pre { background:#0d1117; padding:10px; border-radius:6px; overflow-x:auto; font-size:11px; }
+  </style>
+</head>
+<body>
+  <h1>🔧 FIXER EXPRESS — 3 corrections critiques</h1>
+  
+  <div class="fix">
+    <h2>❌ PROBLÈME 1 : config.js manque CONFIG + window.CONFIG</h2>
+    <p>Ajoute ceci dans ton <code>config.js</code>, juste après <code>SUBJECT_CONFIG</code> :</p>
+    <pre>const CONFIG = {
+  LESSONS_COUNT: 20
+};</pre>
+    <p>Et dans le <code>if (typeof window !== "undefined")</code> à la fin, ajoute :</p>
+    <pre>window.CONFIG = CONFIG;</pre>
+  </div>
+  
+  <div class="fix">
+    <h2>❌ PROBLÈME 2 : data-loader.js écoute 'coreInitialized' au lieu de 'coreReady'</h2>
+    <p>Dans <code>data-loader.js</code>, remplace cette ligne :</p>
+    <pre class="err">EventBus.on('coreInitialized', loadLessons);</pre>
+    <p>Par :</p>
+    <pre class="ok">EventBus.on('coreReady', loadLessons);</pre>
+    <p>(Il y en a 2 endroits à corriger — recherche "coreInitialized" et remplace par "coreReady")</p>
+  </div>
+  
+  <div class="fix">
+    <h2>❌ PROBLÈME 3 : data-loader.js utilise CONFIG.LESSONS_COUNT sans vérification</h2>
+    <p>Dans <code>data-loader.js</code>, remplace :</p>
+    <pre class="err">for (let i = 1; i <= CONFIG.LESSONS_COUNT; i++) {</pre>
+    <p>Par :</p>
+    <pre class="ok">const count = (typeof CONFIG !== 'undefined' && CONFIG.LESSONS_COUNT) 
+  ? CONFIG.LESSONS_COUNT 
+  : 20;
+for (let i = 1; i <= count; i++) {</pre>
+  </div>
+
+  <div class="fix" style="background:#0d2818;">
+    <h2 class="ok">✅ RÉCAPITULATIF — Copie ces 3 fichiers corrigés</h2>
+    <p><strong>config.js corrigé (extrait) :</strong></p>
+    <textarea id="config-fix" readonly>
+// AJOUTER APRÈS SUBJECT_CONFIG :
+const CONFIG = {
+  LESSONS_COUNT: 20
+};
+
+// AJOUTER DANS LE if (typeof window !== "undefined") :
+window.CONFIG = CONFIG;
+    </textarea>
+    <button onclick="copier('config-fix')">Copier config.js</button>
+    
+    <p style="margin-top:20px;"><strong>data-loader.js corrigé (complet) :</strong></p>
+    <textarea id="loader-fix" readonly>// js/data-loader.js — Charge les 20 leçons depuis lessons/
+
+let LESSONS_DATA = [];
+let QUESTIONS_DB = {};
+
+function loadLessons() {
+  LESSONS_DATA = [];
+  QUESTIONS_DB = {};
+  
+  // CORRECTION : Fallback si CONFIG absent
+  const count = (typeof CONFIG !== 'undefined' && CONFIG.LESSONS_COUNT) 
+    ? CONFIG.LESSONS_COUNT 
+    : 20;
+  
+  console.log('[DataLoader] Loading ' + count + ' lessons...');
+  
+  let loaded = 0;
+  let errors = 0;
+  
+  for (let i = 1; i <= count; i++) {
+    const numStr = i.toString().padStart(2, '0');
+    const script = document.createElement('script');
+    script.src = 'lessons/lesson-' + numStr + '.js';
+    
+    script.onload = function() {
+      const lessonVar = 'LESSON_' + numStr;
+      
+      if (typeof window[lessonVar] !== 'undefined') {
+        const lesson = window[lessonVar];
+        
+        if (typeof lesson.id === 'number') {
+          lesson.id = 'lesson' + lesson.id;
+        }
+        
+        LESSONS_DATA.push(lesson);
+        
+        if (lesson.qcm && lesson.qcm.length > 0) {
+          QUESTIONS_DB[lesson.id] = lesson.qcm;
+        }
+        if (lesson.libre && lesson.libre.length > 0) {
+          QUESTIONS_DB[lesson.id] = QUESTIONS_DB[lesson.id] || [];
+          QUESTIONS_DB[lesson.id] = QUESTIONS_DB[lesson.id].concat(lesson.libre);
+        }
+        
+        loaded++;
+        console.log('[DataLoader] Loaded lesson-' + numStr + '.js (' + loaded + '/' + count + ')');
+        
+        if (typeof EventBus !== 'undefined') {
+          EventBus.emit('lessonLoaded', { id: lesson.id, lesson: lesson });
+        }
+      } else {
+        errors++;
+        console.error('[DataLoader] Variable ' + lessonVar + ' not found');
+        if (typeof EventBus !== 'undefined') {
+          EventBus.emit('lessonError', { id: i, error: 'Variable not found' });
+        }
+      }
+      
+      if (loaded + errors === count) {
+        console.log('[DataLoader] All done. Loaded: ' + loaded + ', Errors: ' + errors);
+        if (typeof EventBus !== 'undefined') {
+          EventBus.emit('lessonsLoaded', { lessons: LESSONS_DATA, count: loaded });
+        }
+      }
+    };
+    
+    script.onerror = function() {
+      errors++;
+      console.error('[DataLoader] Failed to load lesson-' + numStr + '.js');
+      if (typeof EventBus !== 'undefined') {
+        EventBus.emit('lessonError', { id: i, error: 'File not found' });
+      }
+      
+      if (loaded + errors === count) {
+        console.log('[DataLoader] All done. Loaded: ' + loaded + ', Errors: ' + errors);
+        if (typeof EventBus !== 'undefined') {
+          EventBus.emit('lessonsLoaded', { lessons: LESSONS_DATA, count: loaded });
+        }
+      }
+    };
+    
+    document.head.appendChild(script);
+  }
+}
+
+// CORRECTION : 'coreReady' (pas 'coreInitialized')
+if (typeof EventBus !== 'undefined') {
+  EventBus.on('coreReady', function(data) {
+    console.log('[DataLoader] coreReady received, starting load...');
+    loadLessons();
+  });
+} else {
+  setTimeout(function() {
+    if (typeof EventBus !== 'undefined') {
+      EventBus.on('coreReady', loadLessons);
+    }
+  }, 100);
+}
+    </textarea>
+    <button onclick="copier('loader-fix')">Copier data-loader.js</button>
+  </div>
+
+<script>
+function copier(id){
+  const t = document.getElementById(id);
+  t.select();
+  document.execCommand('copy');
+  alert('Copié dans le presse-papiers !');
+}
+</script>
+</body>
+</html>
