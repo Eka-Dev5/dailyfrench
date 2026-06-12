@@ -1,11 +1,10 @@
 // js/data-loader.js — Charge les 20 lecons depuis lessons/
-// CORRECTION : flag _lessonsLoaded pour éviter double chargement
+// VERSION PROPRE : lessonsLoaded event + flag _lessonsReady
 
 let LESSONS_DATA = [];
 let QUESTIONS_DB = {};
 
 function loadLessons() {
-  // FLAG ANTI-DOUBLE APPEL
   if (window._lessonsLoading) return;
   window._lessonsLoading = true;
   
@@ -16,10 +15,20 @@ function loadLessons() {
     ? CONFIG.LESSONS_COUNT 
     : 20;
   
-  console.log('[DataLoader] Loading ' + count + ' lessons...');
-  
   let loaded = 0;
   let errors = 0;
+  let pending = count;
+  
+  function checkComplete() {
+    pending--;
+    if (pending === 0) {
+      window._lessonsReady = true;
+      console.log('[DataLoader] All done. Loaded: ' + loaded + ', Errors: ' + errors);
+      if (typeof EventBus !== 'undefined') {
+        EventBus.emit('lessonsLoaded', { lessons: LESSONS_DATA, count: loaded });
+      }
+    }
+  }
   
   for (let i = 1; i <= count; i++) {
     const numStr = i.toString().padStart(2, '0');
@@ -61,12 +70,7 @@ function loadLessons() {
         }
       }
       
-      if (loaded + errors === count) {
-        console.log('[DataLoader] All done. Loaded: ' + loaded + ', Errors: ' + errors);
-        if (typeof EventBus !== 'undefined') {
-          EventBus.emit('lessonsLoaded', { lessons: LESSONS_DATA, count: loaded });
-        }
-      }
+      checkComplete();
     };
     
     script.onerror = function() {
@@ -75,13 +79,7 @@ function loadLessons() {
       if (typeof EventBus !== 'undefined') {
         EventBus.emit('lessonError', { id: i, error: 'File not found' });
       }
-      
-      if (loaded + errors === count) {
-        console.log('[DataLoader] All done. Loaded: ' + loaded + ', Errors: ' + errors);
-        if (typeof EventBus !== 'undefined') {
-          EventBus.emit('lessonsLoaded', { lessons: LESSONS_DATA, count: loaded });
-        }
-      }
+      checkComplete();
     };
     
     document.head.appendChild(script);
