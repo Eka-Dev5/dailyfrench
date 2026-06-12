@@ -140,7 +140,7 @@ function _esc(s) {
 function toggleLessonEx(btn, ev) {
   if (ev) { ev.stopPropagation(); ev.preventDefault(); }
   
-  // Trouver le SPAN qui suit IMMÉDIATEMENT le bouton (pas le premier du parent)
+  // Correction : nextElementSibling au lieu de querySelector
   var span = btn.nextElementSibling;
   while (span && !span.classList.contains('lesson-ex-en')) {
     span = span.nextElementSibling;
@@ -148,10 +148,12 @@ function toggleLessonEx(btn, ev) {
   
   if (!span) return;
   
-  var isHidden = span.style.display === 'none' || span.style.display === '';
-  span.style.display = isHidden ? 'inline' : 'none';
-  btn.textContent = isHidden ? '🇫🇷 Hide' : '🇬🇧 English';
+  // Ton ancienne logique qui marchait
+  const show = span.style.display !== "block";
+  span.style.display = show ? "block" : "none";
+  btn.textContent = show ? "🇫🇷 Hide" : "🇬🇧 English";
 }
+
 
 // ═══════════════════════════════════════════════════════════════════
 // FIN UI-UTILS.JS — v2.2
