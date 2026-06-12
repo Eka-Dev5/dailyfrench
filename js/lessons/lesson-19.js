@@ -1,274 +1,255 @@
-// lesson-19.js -- My Cooking -- Kitchen verbs
+// lesson-19.js -- Cooking & Recipes
 const LESSON_19 = {
   id: 19,
-  title: "My Cooking -- Kitchen verbs",
-  titleFr: "Ma cuisine -- Verbes de cuisine",
-  objectiveEn: "Follow a French recipe, talk about cooking techniques",
-  objectiveFr: "Suivre une recette francaise, parler des techniques de cuisine",
-  hintEn: "French cooking uses lots of specific verbs -- learn them for recipe conversations!",
-  hintFr: "La cuisine francaise utilise beaucoup de verbes specifiques -- apprenez-les pour les conversations sur les recettes !",
+  title: "Cooking & Recipes",
+  titleFr: "Cuisine & Recettes",
+  objectiveEn: "Understand cooking instructions, ingredients and kitchen vocabulary",
+  objectiveFr: "Comprendre les instructions de cuisine, les ingredients et le vocabulaire de la cuisine",
+  hintEn: "French cooking uses precise verbs: faire revenir (brown), laisser mijoter (simmer)...",
+  hintFr: "La cuisine francaise utilise des verbes precis : faire revenir, laisser mijoter...",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>Essential cooking verbs</h4>
+<h4>Cooking verbs</h4>
 <table class="lesson-table">
 <tr><th>French</th><th>Phonetics</th><th>English</th></tr>
-<tr><td>couper</td><td><em>*koo-PAY*</em></td><td>to cut / chop</td></tr>
-<tr><td>melanger</td><td><em>*may-lan-ZHAY*</em></td><td>to mix</td></tr>
-<tr><td>faire chauffer</td><td><em>*fair sho-FAY*</em></td><td>to heat up</td></tr>
-<tr><td>ajouter</td><td><em>*a-zhoo-TAY*</em></td><td>to add</td></tr>
-<tr><td>remuer</td><td><em>*ruh-moo-AY*</em></td><td>to stir</td></tr>
-<tr><td>gouter</td><td><em>*goo-TAY*</em></td><td>to taste</td></tr>
-<tr><td>servir</td><td><em>*sair-VEER*</em></td><td>to serve</td></tr>
+<tr><td>couper</td><td><em>*koo-PAY*</em></td><td>to cut <!-- *too kut* --></td></tr>
+<tr><td>melanger</td><td><em>*may-lan-ZHAY*</em></td><td>to mix <!-- *too miks* --></td></tr>
+<tr><td>faire chauffer</td><td><em>*fair sho-FAY*</em></td><td>to heat up <!-- *too heet up* --></td></tr>
+<tr><td>ajouter</td><td><em>*a-zhoo-TAY*</em></td><td>to add <!-- *too ad* --></td></tr>
+<tr><td>remuer</td><td><em>*ruh-moo-AY*</em></td><td>to stir <!-- *too stur* --></td></tr>
+<tr><td>gouter</td><td><em>*goo-TAY*</em></td><td>to taste <!-- *too tayst* --></td></tr>
+<tr><td>servir</td><td><em>*sair-VEER*</em></td><td>to serve <!-- *too surv* --></td></tr>
 </table>
 </div>
 <div class="lesson-rule">
-<h4>Recipe language</h4>
+<h4>Recipe terms</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>une recette</td><td>a recipe</td></tr>
-<tr><td>les ingredients</td><td>the ingredients</td></tr>
-<tr><td>faire revenir</td><td>to fry / saute</td></tr>
-<tr><td>laisser mijoter</td><td>to let simmer</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>une recette</td><td><em>*oon ruh-SET*</em></td><td>a recipe <!-- *uh RES-i-pee* --></td></tr>
+<tr><td>les ingredients</td><td><em>*lay zan-gree-DYON*</em></td><td>the ingredients <!-- *thuh in-GREE-dee-unts* --></td></tr>
+<tr><td>faire revenir</td><td><em>*fair ruh-vuh-NEER*</em></td><td>to brown / saute <!-- *too brown / soh-TAY* --></td></tr>
+<tr><td>laisser mijoter</td><td><em>*lay-say mee-zhoh-TAY*</em></td><td>to simmer <!-- *too SIM-ur* --></td></tr>
 </table>
 </div>
+<div class="lesson-warning">In French recipes, <strong>faire revenir</strong> means to brown onions/meat in fat. <strong>Laisser mijoter</strong> means to cook gently on low heat.</div>
 <div class="lesson-example">
-Je coupe les legumes, j'ajoute de l'huile et je fais chauffer a feu doux. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
-<span class="lesson-ex-en">I chop the vegetables, add some oil and heat on a low heat.</span>
+-- Qu'est-ce que tu cuisines ce soir ? <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">What are you cooking this evening?</span><br>
+-- Je fais une quiche. J'ai coupe les legumes et je melange les œufs. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">I am making a quiche. I have cut the vegetables and I am mixing the eggs.</span>
 </div>
   `,
   qcm: [
     {
       id: "19-1",
       type: "qcm",
-      question: "To cut / chop in French:",
+      question: "To cut in French:",
       questionFr: "Couper en anglais :",
-      options: ["Couper","Melanger","Ajouter","Remuer"],
-      optionsEn: ["to cut / chop","to mix","to add","to stir"],
-      correct: "Couper",
-      correctEn: "to cut / chop",
-      explanation: "Couper = to cut, chop. Je coupe les legumes = I chop the vegetables.",
-      explanationFr: "Couper = couper. Je coupe les legumes = je coupe les legumes."
+      options: ["couper","coupe","coupant","decouper"],
+      optionsEn: ["to cut","cut","cutting","to cut up"],
+      correct: "couper",
+      correctEn: "to cut",
+      explanation: "Couper (koo-PAY) = to cut. Je coupe = I cut.",
+      explanationFr: "Couper = couper. Je coupe = je coupe."
     },
     {
       id: "19-2",
       type: "qcm",
       question: "To mix in French:",
       questionFr: "Melanger en anglais :",
-      options: ["Melanger","Couper","Ajouter","Faire chauffer"],
-      optionsEn: ["to mix","to cut","to add","to heat up"],
-      correct: "Melanger",
+      options: ["melanger","mixer","remuer","combiner"],
+      optionsEn: ["to mix","to mix (with blender)","to stir","to combine"],
+      correct: "melanger",
       correctEn: "to mix",
-      explanation: "Melanger = to mix. Melangez bien = mix well.",
-      explanationFr: "Melanger = melanger. Melangez bien = melangez bien."
+      explanation: "Melanger (may-lan-ZHAY) = to mix. Je melange = I mix.",
+      explanationFr: "Melanger = melanger. Je melange = je melange."
     },
     {
       id: "19-3",
       type: "qcm",
       question: "To heat up in French:",
       questionFr: "Faire chauffer en anglais :",
-      options: ["Faire chauffer","Melanger","Ajouter","Remuer"],
-      optionsEn: ["to heat up","to mix","to add","to stir"],
-      correct: "Faire chauffer",
+      options: ["faire chauffer","chauffer","rechauffer","echauffer"],
+      optionsEn: ["to heat up","to warm","to reheat","to overheat"],
+      correct: "faire chauffer",
       correctEn: "to heat up",
-      explanation: "Faire chauffer = to heat up. Faites chauffer l'huile = heat up the oil.",
-      explanationFr: "Faire chauffer = faire chauffer. Faites chauffer l'huile = faites chauffer l'huile."
+      explanation: "Faire chauffer (fair sho-FAY) = to heat up. Chauffer = to warm.",
+      explanationFr: "Faire chauffer = faire chauffer. Chauffer = chauffer."
     },
     {
       id: "19-4",
       type: "qcm",
       question: "To add in French:",
       questionFr: "Ajouter en anglais :",
-      options: ["Ajouter","Couper","Servir","Gouter"],
-      optionsEn: ["to add","to cut","to serve","to taste"],
-      correct: "Ajouter",
+      options: ["ajouter","additionner","joindre","mettre"],
+      optionsEn: ["to add","to add up","to join","to put"],
+      correct: "ajouter",
       correctEn: "to add",
-      explanation: "Ajouter = to add. Ajoutez le sel = add the salt.",
-      explanationFr: "Ajouter = ajouter. Ajoutez le sel = ajoutez le sel."
+      explanation: "Ajouter (a-zhoo-TAY) = to add. J'ajoute = I add.",
+      explanationFr: "Ajouter = ajouter. J'ajoute = j'ajoute."
     },
     {
       id: "19-5",
       type: "qcm",
-      question: "To taste in French:",
-      questionFr: "Gouter en anglais :",
-      options: ["Gouter","Ajouter","Remuer","Servir"],
-      optionsEn: ["to taste","to add","to stir","to serve"],
-      correct: "Gouter",
-      correctEn: "to taste",
-      explanation: "Gouter = to taste. Goutez et ajustez l'assaisonnement = taste and adjust the seasoning.",
-      explanationFr: "Gouter = gouter. Goutez et ajustez = goutez et ajustez."
+      question: "To stir in French:",
+      questionFr: "Remuer en anglais :",
+      options: ["remuer","melanger","tourner","bouger"],
+      optionsEn: ["to stir","to mix","to turn","to move"],
+      correct: "remuer",
+      correctEn: "to stir",
+      explanation: "Remuer (ruh-moo-AY) = to stir. Je remue = I stir.",
+      explanationFr: "Remuer = remuer. Je remue = je remue."
     },
     {
       id: "19-6",
       type: "qcm",
-      question: "To serve in French:",
-      questionFr: "Servir en anglais :",
-      options: ["Servir","Couper","Remuer","Preparer"],
-      optionsEn: ["to serve","to cut","to stir","to prepare"],
-      correct: "Servir",
-      correctEn: "to serve",
-      explanation: "Servir = to serve. Servez chaud = serve hot.",
-      explanationFr: "Servir = servir. Servez chaud = servez chaud."
+      question: "To taste in French:",
+      questionFr: "Gouter en anglais :",
+      options: ["gouter","manger","savourer","deguster"],
+      optionsEn: ["to taste","to eat","to savour","to taste (gourmet)"],
+      correct: "gouter",
+      correctEn: "to taste",
+      explanation: "Gouter (goo-TAY) = to taste. Je goute = I taste.",
+      explanationFr: "Gouter = gouter. Je goute = je goute."
     },
     {
       id: "19-7",
       type: "qcm",
-      question: "A recipe in French:",
-      questionFr: "Une recette en anglais :",
-      options: ["Une recette","Un recette","Une recipe","Un recit"],
-      optionsEn: ["a recipe","a recipe","a recipe","a story"],
-      correct: "Une recette",
-      correctEn: "a recipe",
-      explanation: "Une recette = a recipe. Les recettes = the recipes.",
-      explanationFr: "Une recette = une recette. Les recettes = les recettes."
+      question: "To serve in French:",
+      questionFr: "Servir en anglais :",
+      options: ["servir","donner","presenter","apporter"],
+      optionsEn: ["to serve","to give","to present","to bring"],
+      correct: "servir",
+      correctEn: "to serve",
+      explanation: "Servir (sair-VEER) = to serve. Je sers = I serve.",
+      explanationFr: "Servir = servir. Je sers = je sers."
     },
     {
       id: "19-8",
       type: "qcm",
-      question: "To stir in French:",
-      questionFr: "Remuer en anglais :",
-      options: ["Remuer","Couper","Ajouter","Faire cuire"],
-      optionsEn: ["to stir","to cut","to add","to cook"],
-      correct: "Remuer",
-      correctEn: "to stir",
-      explanation: "Remuer = to stir. Remuez doucement = stir gently.",
-      explanationFr: "Remuer = remuer. Remuez doucement = remuez doucement."
+      question: "A recipe in French:",
+      questionFr: "Une recette en anglais :",
+      options: ["une recette","une recitation","une reception","une recreation"],
+      optionsEn: ["a recipe","a recitation","a reception","a recreation"],
+      correct: "une recette",
+      correctEn: "a recipe",
+      explanation: "Une recette (oon ruh-SET) = a recipe. Also means a prescription (medical)!",
+      explanationFr: "Une recette = une recette. Signifie aussi une ordonnance medicale !"
     },
     {
       id: "19-9",
       type: "qcm",
-      question: "I chop the vegetables in French:",
-      questionFr: "Je coupe les legumes. en anglais :",
-      options: ["Je coupe les legumes.","Je melange les legumes.","Je prepare legumes.","Je coupes legumes."],
-      optionsEn: ["I chop the vegetables.","I mix the vegetables.","I prepare vegetables.","I chop vegetables."],
-      correct: "Je coupe les legumes.",
-      correctEn: "I chop the vegetables.",
-      explanation: "Je coupe = I chop/cut. Les legumes = the vegetables.",
-      explanationFr: "Je coupe = je coupe. Les legumes = les legumes."
+      question: "To brown / saute in French:",
+      questionFr: "Faire revenir en anglais :",
+      options: ["faire revenir","brunir","sauter","griller"],
+      optionsEn: ["to brown / saute","to brown","to jump","to grill"],
+      correct: "faire revenir",
+      correctEn: "to brown / saute",
+      explanation: "Faire revenir (fair ruh-vuh-NEER) = to brown/saute. Very common in French cooking!",
+      explanationFr: "Faire revenir = faire revenir. Tres courant en cuisine francaise !"
     },
     {
       id: "19-10",
       type: "qcm",
-      question: "To let simmer in French:",
+      question: "To simmer in French:",
       questionFr: "Laisser mijoter en anglais :",
-      options: ["Laisser mijoter","Faire chauffer","Faire bouillir","Faire cuire"],
-      optionsEn: ["to let simmer","to heat up","to boil","to cook"],
-      correct: "Laisser mijoter",
-      correctEn: "to let simmer",
-      explanation: "Laisser mijoter = to let simmer. Laissez mijoter 20 minutes = let simmer 20 minutes.",
-      explanationFr: "Laisser mijoter = laisser mijoter. Laissez mijoter 20 minutes = laissez mijoter 20 minutes."
+      options: ["laisser mijoter","bouillir","cuire","chauffer"],
+      optionsEn: ["to simmer","to boil","to cook","to heat"],
+      correct: "laisser mijoter",
+      correctEn: "to simmer",
+      explanation: "Laisser mijoter (lay-say mee-zhoh-TAY) = to simmer. Mijoter = to simmer gently.",
+      explanationFr: "Laisser mijoter = laisser mijoter. Mijoter = mijoter doucement."
     }
   ],
   libre: [
     {
       id: "19-l1",
       type: "libre",
-      question: "Translate: I chop the onions.",
-      questionFr: "Traduisez : Je coupe les oignons.",
-      correct: "Je coupe les oignons.",
-      correctEn: "I chop the onions.",
+      question: "Translate: I cut the vegetables.",
+      questionFr: "Traduisez : J'ai coupe les legumes.",
+      correct: "J'ai coupe les legumes.",
+      correctEn: "I cut the vegetables.",
       alternatives: [],
-      explanation: "Couper = to chop/cut. Les oignons = onions.",
-      explanationFr: "Couper = couper. Les oignons = les oignons."
+      explanation: "J'ai coupe = I cut. Les legumes = the vegetables.",
+      explanationFr: "J'ai coupe = j'ai coupe. Les legumes = les legumes."
     },
     {
       id: "19-l2",
       type: "libre",
-      question: "How do you say I mix well?",
-      questionFr: "Comment dit-on Je melange bien ?",
-      correct: "Je melange bien.",
-      correctEn: "I mix well.",
+      question: "How do you say to mix?",
+      questionFr: "Comment dit-on melanger ?",
+      correct: "melanger",
+      correctEn: "to mix",
       alternatives: [],
-      explanation: "Melanger = to mix. Bien = well.",
-      explanationFr: "Melanger = melanger. Bien = bien."
+      explanation: "Melanger = to mix. Je melange = I mix.",
+      explanationFr: "Melanger = melanger. Je melange = je melange."
     },
     {
       id: "19-l3",
       type: "libre",
-      question: "Translate: Heat up the olive oil.",
-      questionFr: "Traduisez : Faites chauffer l'huile d'olive.",
-      correct: "Faites chauffer l'huile d'olive.",
-      correctEn: "Heat up the olive oil.",
+      question: "Translate: I add the salt.",
+      questionFr: "Traduisez : J'ajoute le sel.",
+      correct: "J'ajoute le sel.",
+      correctEn: "I add the salt.",
       alternatives: [],
-      explanation: "Faire chauffer = to heat up. L'huile d'olive = olive oil.",
-      explanationFr: "Faire chauffer = faire chauffer. L'huile d'olive = l'huile d'olive."
+      explanation: "J'ajoute = I add. Le sel = the salt.",
+      explanationFr: "J'ajoute = j'ajoute. Le sel = le sel."
     },
     {
       id: "19-l4",
       type: "libre",
-      question: "Complete: J'___ du sel et du poivre.",
-      questionFr: "Completez : J'___ du sel et du poivre.",
-      correct: "ajoute",
-      correctEn: "add",
-      alternatives: [],
-      explanation: "Ajouter = to add. J'ajoute = I add.",
-      explanationFr: "Ajouter = ajouter. J'ajoute = j'ajoute."
+      question: "Complete: Je ___ les œufs.",
+      questionFr: "Completez : Je ___ les œufs.",
+      correct: "remue",
+      correctEn: "stir",
+      alternatives: ["melange"],
+      explanation: "Je remue = I stir. Je melange = I mix.",
+      explanationFr: "Je remue = je remue. Je melange = je melange."
     },
     {
       id: "19-l5",
       type: "libre",
-      question: "How do you say a recipe?",
-      questionFr: "Comment dit-on une recette ?",
-      correct: "une recette",
-      correctEn: "a recipe",
+      question: "How do you say to taste?",
+      questionFr: "Comment dit-on gouter ?",
+      correct: "gouter",
+      correctEn: "to taste",
       alternatives: [],
-      explanation: "La recette = the recipe. Une recette = a recipe.",
-      explanationFr: "La recette = la recette. Une recette = une recette."
+      explanation: "Gouter = to taste. Je goute = I taste.",
+      explanationFr: "Gouter = gouter. Je goute = je goute."
     },
     {
       id: "19-l6",
       type: "libre",
-      question: "Translate: I stir gently.",
-      questionFr: "Traduisez : Je remue doucement.",
-      correct: "Je remue doucement.",
-      correctEn: "I stir gently.",
+      question: "Translate: I serve the dinner.",
+      questionFr: "Traduisez : Je sers le diner.",
+      correct: "Je sers le diner.",
+      correctEn: "I serve the dinner.",
       alternatives: [],
-      explanation: "Remuer = to stir. Doucement = gently.",
-      explanationFr: "Remuer = remuer. Doucement = doucement."
+      explanation: "Je sers = I serve. Le diner = the dinner.",
+      explanationFr: "Je sers = je sers. Le diner = le diner."
     },
     {
       id: "19-l7",
       type: "libre",
-      question: "Complete: Je ___ les legumes avant de les cuire.",
-      questionFr: "Completez : Je ___ les legumes avant de les cuire.",
-      correct: "coupe",
-      correctEn: "chop",
+      question: "Complete: J'ai besoin d'une ___.",
+      questionFr: "Completez : J'ai besoin d'une ___.",
+      correct: "recette",
+      correctEn: "recipe",
       alternatives: [],
-      explanation: "Couper = to cut/chop. Je coupe = I chop.",
-      explanationFr: "Couper = couper. Je coupe = je coupe."
+      explanation: "Une recette = a recipe. J'ai besoin de = I need.",
+      explanationFr: "Une recette = une recette. J'ai besoin de = j'ai besoin de."
     },
     {
       id: "19-l8",
       type: "libre",
-      question: "How do you say let simmer for 30 minutes?",
-      questionFr: "Comment dit-on Laissez mijoter 30 minutes ?",
-      correct: "Laissez mijoter 30 minutes.",
-      correctEn: "Let simmer for 30 minutes.",
+      question: "How do you say to simmer?",
+      questionFr: "Comment dit-on laisser mijoter ?",
+      correct: "laisser mijoter",
+      correctEn: "to simmer",
       alternatives: [],
-      explanation: "Laisser mijoter = let simmer. Minutes = minutes.",
-      explanationFr: "Laisser mijoter = laisser mijoter. Minutes = minutes."
-    },
-    {
-      id: "19-l9",
-      type: "libre",
-      question: "Translate: I taste and I add some salt.",
-      questionFr: "Traduisez : Je goute et j'ajoute du sel.",
-      correct: "Je goute et j'ajoute du sel.",
-      correctEn: "I taste and I add some salt.",
-      alternatives: [],
-      explanation: "Gouter = to taste. Ajouter = to add. Du sel = some salt.",
-      explanationFr: "Gouter = gouter. Ajouter = ajouter. Du sel = du sel."
-    },
-    {
-      id: "19-l10",
-      type: "libre",
-      question: "How do you say serve hot?",
-      questionFr: "Comment dit-on Servez chaud ?",
-      correct: "Servez chaud.",
-      correctEn: "Serve hot.",
-      alternatives: [],
-      explanation: "Servir = to serve. Chaud = hot.",
-      explanationFr: "Servir = servir. Chaud = chaud."
+      explanation: "Laisser mijoter = to simmer. Mijoter = to simmer gently.",
+      explanationFr: "Laisser mijoter = laisser mijoter. Mijoter = mijoter doucement."
     }
   ]
 };
