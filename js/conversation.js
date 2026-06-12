@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════
-// CONVERSATION.JS — Daily French 🥖 v1.1
-// CORRECTION : attendre que CONVERSATION_SCENARIOS soit chargé
+// CONVERSATION.JS — Daily French 🥖 v1.2
+// CORRECTION : pas de setInterval, chargement direct + fallback unique
 // ═══════════════════════════════════════════════════════════════════
 
 var currentScenario = null;
@@ -11,26 +11,22 @@ var isWaitingForNext = false;
 function initConversation() {
   if (typeof initCore === 'function') initCore();
   
-  // Attendre que les données soient chargées
+  // Chargement direct — conversation-data.js est déjà chargé avant
   if (typeof CONVERSATION_SCENARIOS !== 'undefined' && CONVERSATION_SCENARIOS.length > 0) {
     renderScenarioList();
   } else {
-    // Les données arrivent peut-être plus tard
-    var checkInterval = setInterval(function() {
-      if (typeof CONVERSATION_SCENARIOS !== 'undefined' && CONVERSATION_SCENARIOS.length > 0) {
-        clearInterval(checkInterval);
-        renderScenarioList();
-      }
-    }, 100);
-    
-    // Timeout après 5 secondes
+    // Fallback unique après 500ms si les données sont lentes
     setTimeout(function() {
-      clearInterval(checkInterval);
-      var container = document.getElementById('convScenarios');
-      if (container && container.innerHTML === '') {
-        container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">Loading scenarios...</div>';
+      if (typeof CONVERSATION_SCENARIOS !== 'undefined' && CONVERSATION_SCENARIOS.length > 0) {
+        renderScenarioList();
+      } else {
+        var container = document.getElementById('convScenarios');
+        if (container) {
+          container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">Unable to load scenarios. Check console.</div>';
+        }
+        console.error('[Talk] CONVERSATION_SCENARIOS not found after 500ms');
       }
-    }, 5000);
+    }, 500);
   }
   
   setupTTS();
@@ -372,4 +368,9 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-document.addEventListener('DOMContentLoaded', initConversation);
+// Lancement immédiat — PAS de DOMContentLoaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initConversation);
+} else {
+  initConversation();
+}
