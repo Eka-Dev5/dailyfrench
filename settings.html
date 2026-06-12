@@ -6,8 +6,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Daily French 🥖 — Settings</title>
+  <script src="js/theme-loader.js"></script>
   <link rel="stylesheet" href="css/base.css">
-  <!-- ❌ SUPPRIMÉ : <script src="js/nav.js"></script> -->
   <style>
     .settings-page{max-width:600px;margin:0 auto;padding:var(--space-md)}
     .settings-section{background:var(--white);border-radius:var(--r);padding:var(--space-lg);margin-bottom:var(--space-md);box-shadow:var(--shadow-sm);border:1px solid var(--border)}
@@ -70,7 +70,6 @@
       <div class="settings-row"><span>🇫🇷 French → 🇬🇧 English (Inversed)</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('fr-first')">Select</button></div>
       <div class="settings-row"><span>🔄 Mixed</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('mixed')">Select</button></div>
     </div>
-    <!-- ❌ SUPPRIMÉ : Section "Advanced — Per Module" -->
     <div class="settings-section">
       <h2>💾 Profile</h2>
       <div class="settings-row"><span>Export backup</span><button class="btn-ghost btn-small" onclick="doExport()">Export</button></div>
@@ -82,14 +81,10 @@
       <div class="settings-row"><span>Storage used</span><span id="storageUsed" style="color:var(--muted);font-size:var(--font-sm)">—</span></div>
     </div>
   </div>
-
-  <!-- ✅ JS (ordre CORRIGÉ) -->
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
   <script src="js/data.js"></script>
   <script src="js/nav.js"></script>
-
-  
 </body>
 </html>
