@@ -1,10 +1,10 @@
 // ═══════════════════════════════════════════════════════════════════
-// CORE.JS — Daily French 🥖 v2.2
+// CORE.JS — Daily French 🥖 v2.3.0
 // Moteur central : Storage, PlayerManager, I18n, Theme, DirectionMode,
-// Modal, Toast, Router, EventBus, Analytics
+// Modal, Toast, Router, EventBus, Analytics, SETTINGS GLOBALES
 // ═══════════════════════════════════════════════════════════════════
 
-const CORE_VERSION = '2.2.0';
+const CORE_VERSION = '2.3.0';
 const STORAGE_PREFIX = 'dailyFrench_';
 
 const KEYS = {
@@ -265,7 +265,7 @@ const I18n = {
   }
 };
 
-// ─── DIRECTION MODES (AVANT DirectionMode) ────────────────────────
+// ─── DIRECTION MODES ──────────────────────────────────────────────
 const DIRECTION_MODES = {
   'en-first': { label: '🇬🇧→🇫🇷 English First', labelFr: '🇬🇧→🇫🇷 Anglais d\'abord', qLang: 'en', aLang: 'fr' },
   'fr-first': { label: '🇫🇷→🇬🇧 French First', labelFr: '🇫🇷→🇬🇧 Français d\'abord', qLang: 'fr', aLang: 'en' },
@@ -299,7 +299,7 @@ const DirectionMode = {
   }
 };
 
-// ─── FLIP QUESTION (fonction globale) ─────────────────────────────
+// ─── FLIP QUESTION ────────────────────────────────────────────────
 function flipQuestion(q, index) {
   if (!q) return q;
   const dir = DirectionMode.getDirectionForQuestion(index);
@@ -498,6 +498,7 @@ const Analytics = {
     console.log('[Analytics]', event, data);
   }
 };
+
 // ─── FONCTIONS UTILITAIRES ────────────────────────────────────────
 
 function fillSelect(active) {
@@ -627,6 +628,36 @@ function doImport(ev) {
   ev.target.value = '';
 }
 
+// ─── SETTINGS GLOBALES (CENTRALISÉ DANS CORE.JS) ──────────────────
+
+function applyThemePick(name) {
+  if (typeof Theme !== 'undefined') Theme.apply(name);
+  const panel = document.getElementById('settingsPanel');
+  if (panel) panel.style.display = 'none';
+  toast('Theme: ' + name + ' 🎨');
+}
+
+function applyLangPick(lang) {
+  if (typeof I18n !== 'undefined') {
+    I18n.set(lang);
+  }
+  const panel = document.getElementById('settingsPanel');
+  if (panel) panel.style.display = 'none';
+  location.reload();
+}
+
+function applyDirectionPick(mode) {
+  if (typeof DirectionMode !== 'undefined') {
+    DirectionMode.set(mode);
+    toast('Direction: ' + DirectionMode.getLabel(mode) + ' 🔄');
+  }
+  document.querySelectorAll('.direction-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.direction === mode);
+  });
+  const panel = document.getElementById('settingsPanel');
+  if (panel) panel.style.display = 'none';
+}
+
 // ─── INIT CORE ────────────────────────────────────────────────────
 
 function initCore() {
@@ -635,6 +666,7 @@ function initCore() {
 
   I18n.init();
   Theme.load();
+  DirectionMode.load();
   PlayerManager.migrate();
   
   // Modal bindings
@@ -714,58 +746,7 @@ function initCore() {
     });
   })();
   
-  // Direction mode
-  if (typeof DirectionMode !== 'undefined') {
-    DirectionMode.load();
-  }
-  
   EventBus.emit('coreReady', { version: CORE_VERSION });
-}
-
-// ─── FONCTIONS UI ─────────────────────────────────────────────────
-
-function toggleSettings() {
-  const panel = document.getElementById('settingsPanel');
-  if (!panel) return;
-  
-  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-  
-  if (panel.style.display === 'block') {
-    setTimeout(function() {
-      document.addEventListener('click', function close(e) {
-        if (!panel.contains(e.target) && !e.target.classList.contains('btn-settings')) {
-          panel.style.display = 'none';
-        }
-        document.removeEventListener('click', close);
-      });
-    }, 0);
-  }
-}
-
-function applyThemePick(name) {
-  if (typeof Theme !== 'undefined') Theme.apply(name);
-  const panel = document.getElementById('settingsPanel');
-  if (panel) panel.style.display = 'none';
-}
-
-function applyLangPick(lang) {
-  if (typeof I18n !== 'undefined') {
-    I18n.current = lang;
-    Storage.set('dailyFrench_lang', lang);
-  }
-  const panel = document.getElementById('settingsPanel');
-  if (panel) panel.style.display = 'none';
-  location.reload();
-}
-
-function applyDirectionPick(mode) {
-  if (typeof DirectionMode !== 'undefined') {
-    DirectionMode.set(mode);
-    toast('Direction: ' + DirectionMode.getLabel(mode) + ' 🔄');
-  }
-  document.querySelectorAll('.direction-btn').forEach(function(btn) {
-    btn.classList.toggle('active', btn.dataset.direction === mode);
-  });
 }
 
 // ─── ALIAS FONCTIONS (compatibilité) ──────────────────────────────
