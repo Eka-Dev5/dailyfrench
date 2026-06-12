@@ -1,9 +1,14 @@
 // js/data-loader.js — Charge les 20 lecons depuis lessons/
+// CORRECTION : flag _lessonsLoaded pour éviter double chargement
 
 let LESSONS_DATA = [];
 let QUESTIONS_DB = {};
 
 function loadLessons() {
+  // FLAG ANTI-DOUBLE APPEL — empêche le chargement 2 fois
+  if (window._lessonsLoading) return;
+  window._lessonsLoading = true;
+  
   LESSONS_DATA = [];
   QUESTIONS_DB = {};
   
@@ -20,6 +25,7 @@ function loadLessons() {
     const numStr = i.toString().padStart(2, '0');
     const script = document.createElement('script');
     script.src = 'js/lessons/lesson-' + numStr + '.js';
+    script.async = false; // ← SÉQUENTIEL
 
     script.onload = function() {
       const lessonVar = 'LESSON_' + numStr;
@@ -83,21 +89,16 @@ function loadLessons() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// CORRECTION CRITIQUE : Filet de sécurité contre la race condition
-// Si core.js a déjà fini (PlayerManager existe), coreReady est déjà
-// passé → on lance directement loadLessons()
+// LANCEMENT : écoute coreReady OU lance direct si déjà prêt
+// Le flag _lessonsLoading dans loadLessons() empêche le double appel
 // ═══════════════════════════════════════════════════════════════════
 function tryStart() {
-  // Cas 1 : core.js n'a pas encore fini → on écoute l'event
   if (typeof EventBus !== 'undefined') {
     EventBus.on('coreReady', loadLessons);
   }
   
-  // Cas 2 : core.js a DÉJÀ fini (race condition) → on lance direct
-  // PlayerManager est défini en dernier dans core.js, donc s'il
-  // existe, coreReady est déjà passé
   if (typeof PlayerManager !== 'undefined' && typeof EventBus !== 'undefined') {
-    console.log('[DataLoader] core.js already ready (race condition detected) — launching directly');
+    console.log('[DataLoader] core.js already ready — launching directly');
     loadLessons();
   }
 }
