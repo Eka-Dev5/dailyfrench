@@ -90,63 +90,6 @@
   <script src="js/data.js"></script>
   <script src="js/nav.js"></script>
 
-  <script>
-    // ✅ CORRECTION 1 : applyThemePick() utilise Theme.apply()
-    function applyThemePick(t) {
-      if (typeof Theme !== 'undefined') {
-        Theme.apply(t); // ← Utilise Theme.apply() pour le gradient hero
-      } else {
-        document.documentElement.setAttribute('data-theme', t);
-        localStorage.setItem('dailyFrench_theme', t);
-      }
-      if (typeof toast === 'function') toast('Theme: ' + t);
-      
-      const panel = document.getElementById('settingsPanel');
-      if (panel) panel.style.display = 'none';
-    }
-    
-    function applyLangPick(l) {
-      if (typeof I18n !== 'undefined') {
-        I18n.current = l;
-        Storage.set('dailyFrench_lang', l);
-      }
-      const panel = document.getElementById('settingsPanel');
-      if (panel) panel.style.display = 'none';
-      location.reload();
-    }
-    
-    // ✅ CORRECTION 2 : applyDirectionPick() utilise DirectionMode.set()
-    function applyDirectionPick(d) {
-      if (typeof DirectionMode !== 'undefined') {
-        DirectionMode.set(d);
-        toast('Direction: ' + DirectionMode.getLabel(d) + ' 🔄');
-      }
-      document.querySelectorAll('.direction-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.direction === d);
-      });
-    }
-    
-    // ✅ CORRECTION 3 : initCore() appelé au chargement
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof initCore === 'function') initCore();
-    });
-    
-    (function() {
-      const d = localStorage.getItem('dailyFrench_direction') || 'en-first';
-      if (typeof gameState !== 'undefined') {
-        gameState.currentDirection = d;
-      }
-      
-      const t = localStorage.getItem('dailyFrench_theme');
-      if (t && typeof Theme !== 'undefined') {
-        Theme.apply(t);
-      }
-      
-      var used = document.getElementById('storageUsed');
-      if (used && typeof Storage !== 'undefined' && Storage.getUsage) {
-        used.textContent = Storage.getUsage();
-      }
-    })();
-  </script>
+  
 </body>
 </html>
