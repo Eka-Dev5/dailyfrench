@@ -263,3 +263,6 @@ const VOCAB_LEVEL_21 = [
     {"fr": "un attentat", "en": "an attack / terrorist attack", "phon": "*uh a-ton-TA*", "def": "Attentat violent.", "ex": "Un attentat à Paris.", "level": 21, "cat": "international"}
 
 ];
+if (typeof window !== 'undefined') {
+  window.VOCAB_LEVEL_21 = VOCAB_LEVEL_21;
+}
