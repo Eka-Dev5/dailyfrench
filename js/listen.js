@@ -1,6 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════
 // LISTEN.JS — Daily French 🎧 v1.0
 // Listen & Repeat — Shadowing practice
+// CORRECTION : lancement immédiat (pas de DOMContentLoaded)
 // ═══════════════════════════════════════════════════════════════════
 
 var ListenApp = {
@@ -18,7 +19,6 @@ var ListenApp = {
   },
   
   loadPhrases: function() {
-    // Extraire phrases depuis QUESTIONS_DB ou utiliser phrases par défaut
     this.phrases = [];
     
     if (typeof QUESTIONS_DB !== 'undefined') {
@@ -39,7 +39,6 @@ var ListenApp = {
       }
     }
     
-    // Phrases par défaut si vide
     if (this.phrases.length === 0) {
       this.phrases = [
         { fr: "Bonjour, comment allez-vous ?", en: "Hello, how are you?", phon: "*bon-ZHOOR, ko-MON tal-lay VOO*", level: 1 },
@@ -80,7 +79,6 @@ var ListenApp = {
   },
   
   filterByLevel: function(level) {
-    // Filtrer les phrases par niveau
     this.currentIndex = 0;
     this.nextPhrase();
   },
@@ -108,7 +106,6 @@ var ListenApp = {
     if (phoneticEl) phoneticEl.textContent = phrase.phon || '';
     if (translationEl) translationEl.textContent = phrase.en || '';
     
-    // Reset pills
     document.querySelectorAll('.word-pill').forEach(function(p) {
       p.classList.remove('correct', 'incorrect');
     });
@@ -136,7 +133,6 @@ var ListenApp = {
   
   record: function() {
     showToast('Recording... (Speech recognition coming soon)');
-    // STT nécessite SpeechRecognition API — limité sur mobile
   },
   
   bindEvents: function() {
@@ -163,7 +159,5 @@ var ListenApp = {
   }
 };
 
-// Démarrage
-document.addEventListener('DOMContentLoaded', function() {
-  ListenApp.init();
-});
+// Lancement immédiat — le DOM est déjà prêt (script à la fin du body)
+ListenApp.init();
