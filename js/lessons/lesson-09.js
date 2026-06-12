@@ -1,262 +1,266 @@
-// lesson-10.js -- Politeness & Social Skills
-const LESSON_10 = {
-  id: 10,
-  title: "Politeness & Social Skills",
-  titleFr: "Politesse & Savoir-vivre",
-  objectiveEn: "Use polite expressions, apologise, ask for help and handle misunderstandings",
-  objectiveFr: "Utiliser des expressions polies, s'excuser, demander de l'aide et gerer les malentendus",
-  hintEn: "Politeness opens doors in France -- always err on the side of formality!",
-  hintFr: "La politesse ouvre les portes en France -- soyez toujours trop formel plutot que pas assez !",
+// lesson-09.js -- Essential Verbs
+const LESSON_09 = {
+  id: 9,
+  title: "Essential Verbs",
+  titleFr: "Verbes Essentiels",
+  objectiveEn: "Master the 10 most important French verbs and their present tense forms",
+  objectiveFr: "Maitriser les 10 verbes francais les plus importants et leurs formes au present",
+  hintEn: "These 10 verbs cover 80% of daily French conversation -- learn them by heart!",
+  hintFr: "Ces 10 verbes couvrent 80% des conversations quotidiennes en francais -- apprenez-les par coeur !",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>Essential polite expressions</h4>
+<h4>The 10 essential verbs</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
-<tr><td>S'il vous plait</td><td><em>*seel voo PLAY*</em></td><td>Please (formal) <!-- *PLEEZ (for-MAL)* --></td></tr>
-<tr><td>Merci (beaucoup)</td><td><em>*mair-SEE (boh-KOO)*</em></td><td>Thank you (very much) <!-- *THAN-k yoo (VEH-ree much)* --></td></tr>
-<tr><td>De rien</td><td><em>*duh RYAN*</em></td><td>You re welcome <!-- *yoor WEL-kum* --></td></tr>
-<tr><td>Excusez-moi</td><td><em>*ex-kue-ZAY mwah*</em></td><td>Excuse me <!-- *ex-KYOOZ mee* --></td></tr>
-<tr><td>Pardon</td><td><em>*par-DON*</em></td><td>Sorry / Pardon <!-- *SOR-ree / PAR-dun* --></td></tr>
-<tr><td>Je suis desole(e)</td><td><em>*zhuh swee day-zoh-LAY*</em></td><td>I am sorry <!-- *eye am SOR-ree* --></td></tr>
-<tr><td>Pourriez-vous m'aider ?</td><td><em>*poo-ryay-VOO may-DAY*</em></td><td>Could you help me? <!-- *kood yoo HELP mee* --></td></tr>
-<tr><td>Je ne comprends pas.</td><td><em>*zhuh nuh kom-PRON PAH*</em></td><td>I don t understand. <!-- *eye DOHNT un-der-STAND* --></td></tr>
-<tr><td>Pouvez-vous repeter, s'il vous plait ?</td><td><em>*poo-vay-VOO ruh-pay-TAY, seel voo PLAY*</em></td><td>Could you repeat, please? <!-- *kood yoo ree-PEET, PLEEZ* --></td></tr>
-<tr><td>Parlez-vous anglais ?</td><td><em>*par-lay-VOO an-GLAY*</em></td><td>Do you speak English? <!-- *doo yoo SPEEK ING-lish* --></td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th><th>Example</th></tr>
+<tr><td><strong>etre</strong></td><td><em>*eh-truh*</em></td><td>to be <!-- *too bee* --></td><td>Je suis heureux. <!-- *eye am happy* --></td></tr>
+<tr><td><strong>avoir</strong></td><td><em>*a-VWAHR*</em></td><td>to have <!-- *too hav* --></td><td>J'ai un chat. <!-- *eye hav uh cat* --></td></tr>
+<tr><td><strong>aller</strong></td><td><em>*a-LAY*</em></td><td>to go <!-- *too goh* --></td><td>Je vais a Paris. <!-- *eye goh too pa-REE* --></td></tr>
+<tr><td><strong>faire</strong></td><td><em>*fair*</em></td><td>to do / make <!-- *too doo / mayk* --></td><td>Je fais la cuisine. <!-- *eye doo thuh cooking* --></td></tr>
+<tr><td><strong>pouvoir</strong></td><td><em>*poo-VWAHR*</em></td><td>to be able to / can <!-- *too bee AY-bul too / kan* --></td><td>Je peux venir. <!-- *eye kan come* --></td></tr>
+<tr><td><strong>vouloir</strong></td><td><em>*voo-LWAHR*</em></td><td>to want <!-- *too wont* --></td><td>Je veux dormir. <!-- *eye wont sleep* --></td></tr>
+<tr><td><strong>devoir</strong></td><td><em>*duh-VWAHR*</em></td><td>to have to / must <!-- *too hav too / must* --></td><td>Je dois partir. <!-- *eye must leave* --></td></tr>
+<tr><td><strong>savoir</strong></td><td><em>*sa-VWAHR*</em></td><td>to know (facts) <!-- *too noh (fakts)* --></td><td>Je sais compter. <!-- *eye noh how too kownt* --></td></tr>
+<tr><td><strong>venir</strong></td><td><em>*vuh-NEER*</em></td><td>to come <!-- *too kum* --></td><td>Je viens demain. <!-- *eye come tomorrow* --></td></tr>
+<tr><td><strong>prendre</strong></td><td><em>*pron-druh*</em></td><td>to take <!-- *too tayk* --></td><td>Je prends le bus. <!-- *eye tayk thuh bus* --></td></tr>
 </table>
 </div>
 <div class="lesson-rule">
-<h4>When to use tu vs vous</h4>
+<h4>Present tense of etre (to be)</h4>
 <table class="lesson-table">
-<tr><th>Person</th><th>Use</th></tr>
-<tr><td>Strangers, officials, shopkeepers, elderly</td><td><strong>vous</strong> (formal)</td></tr>
-<tr><td>Friends, family, children, colleagues</td><td><strong>tu</strong> (informal)</td></tr>
+<tr><th>Subject</th><th>Form</th><th>Phonetics</th></tr>
+<tr><td>je</td><td>suis</td><td><em>*swee*</em></td></tr>
+<tr><td>tu</td><td>es</td><td><em>*ay*</em></td></tr>
+<tr><td>il/elle</td><td>est</td><td><em>*eh*</em></td></tr>
+<tr><td>nous</td><td>sommes</td><td><em>*som*</em></td></tr>
+<tr><td>vous</td><td>etes</td><td><em>*ayt*</em></td></tr>
+<tr><td>ils/elles</td><td>sont</td><td><em>*son*</em></td></tr>
 </table>
 </div>
-<div class="lesson-warning">When in doubt, always use <strong>vous</strong>. French people will tell you if you can use <strong>tu</strong> -- they may say <em>On peut se tutoyer</em> (We can use tu).</div>
+<div class="lesson-warning"><strong>Etre</strong> and <strong>avoir</strong> are the two most important verbs in French. They are used as auxiliaries in compound tenses and in countless expressions.</div>
 <div class="lesson-example">
--- Excusez-moi, pourriez-vous m'aider ? <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
-<span class="lesson-ex-en">Excuse me, could you help me?</span><br>
--- Avec plaisir ! Qu'est-ce que vous cherchez ? <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
-<span class="lesson-ex-en">With pleasure! What are you looking for?</span>
+-- Je suis fatigue aujourd hui. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">I am tired today.</span><br>
+-- Moi aussi. Je veux dormir. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">Me too. I want to sleep.</span>
 </div>
   `,
   qcm: [
     {
-      id: "10-1",
+      id: "09-1",
       type: "qcm",
-      question: "Please (formal) in French:",
-      questionFr: "S'il vous plait en anglais :",
-      options: ["S'il vous plait","S'il te plait","Merci","De rien"],
-      optionsEn: ["Please (formal)","Please (informal)","Thank you","You're welcome"],
-      correct: "S'il vous plait",
-      correctEn: "Please (formal)",
-      explanation: "S'il vous plait (seel voo PLAY) = please (formal). S'il te plait = informal.",
-      explanationFr: "S'il vous plait = s'il vous plait (formel). S'il te plait = informel."
+      question: "To be in French:",
+      questionFr: "Etre en anglais :",
+      options: ["etre","avoir","aller","faire"],
+      optionsEn: ["to be","to have","to go","to do"],
+      correct: "etre",
+      correctEn: "to be",
+      explanation: "Etre (eh-truh) = to be. The most essential verb in French.",
+      explanationFr: "Etre = etre. Le verbe le plus essentiel en francais."
     },
     {
-      id: "10-2",
+      id: "09-2",
       type: "qcm",
-      question: "Thank you very much in French:",
-      questionFr: "Merci beaucoup en anglais :",
-      options: ["Merci beaucoup","Merci bien","Merci","De rien"],
-      optionsEn: ["Thank you very much","Thank you well","Thank you","You're welcome"],
-      correct: "Merci beaucoup",
-      correctEn: "Thank you very much",
-      explanation: "Merci beaucoup (mair-SEE boh-KOO) = Thank you very much. Beaucoup = very much.",
-      explanationFr: "Merci beaucoup = merci beaucoup. Beaucoup = beaucoup."
+      question: "To have in French:",
+      questionFr: "Avoir en anglais :",
+      options: ["avoir","etre","prendre","faire"],
+      optionsEn: ["to have","to be","to take","to do"],
+      correct: "avoir",
+      correctEn: "to have",
+      explanation: "Avoir (a-VWAHR) = to have. Used in many expressions: j'ai faim (I'm hungry).",
+      explanationFr: "Avoir = avoir. Utilise dans de nombreuses expressions : j'ai faim."
     },
     {
-      id: "10-3",
+      id: "09-3",
       type: "qcm",
-      question: "You re welcome in French:",
-      questionFr: "De rien en anglais :",
-      options: ["De rien","Merci","Pardon","Excusez-moi"],
-      optionsEn: ["You're welcome","Thank you","Sorry","Excuse me"],
-      correct: "De rien",
-      correctEn: "You're welcome",
-      explanation: "De rien (duh RYAN) = You're welcome. Literally 'of nothing'.",
-      explanationFr: "De rien = de rien. Litteralement 'de rien'."
+      question: "I am (verb etre) in French:",
+      questionFr: "Je suis (verbe etre) en anglais :",
+      options: ["Je suis","J'ai","Je vais","Je fais"],
+      optionsEn: ["I am","I have","I go","I do"],
+      correct: "Je suis",
+      correctEn: "I am",
+      explanation: "Je suis (zhuh swee) = I am. First person of etre.",
+      explanationFr: "Je suis = je suis. Premiere personne de etre."
     },
     {
-      id: "10-4",
+      id: "09-4",
       type: "qcm",
-      question: "Excuse me (formal) in French:",
-      questionFr: "Excusez-moi en anglais :",
-      options: ["Excusez-moi","Excuse-moi","Pardon","Desole"],
-      optionsEn: ["Excuse me (formal)","Excuse me (informal)","Sorry","Sorry"],
-      correct: "Excusez-moi",
-      correctEn: "Excuse me (formal)",
-      explanation: "Excusez-moi (ex-kue-ZAY mwah) = Excuse me (formal). Excuse-moi = informal.",
-      explanationFr: "Excusez-moi = excusez-moi (formel). Excuse-moi = informel."
+      question: "To go in French:",
+      questionFr: "Aller en anglais :",
+      options: ["aller","venir","partir","faire"],
+      optionsEn: ["to go","to come","to leave","to do"],
+      correct: "aller",
+      correctEn: "to go",
+      explanation: "Aller (a-LAY) = to go. Je vais = I go / I am going.",
+      explanationFr: "Aller = aller. Je vais = je vais."
     },
     {
-      id: "10-5",
+      id: "09-5",
       type: "qcm",
-      question: "I am sorry in French:",
-      questionFr: "Je suis desole en anglais :",
-      options: ["Je suis desole.","Pardon.","Excusez-moi.","De rien."],
-      optionsEn: ["I am sorry.","Sorry.","Excuse me.","You're welcome."],
-      correct: "Je suis desole.",
-      correctEn: "I am sorry.",
-      explanation: "Je suis desole (zhuh swee day-zoh-LAY) = I am sorry. Add -e if female: desolee.",
-      explanationFr: "Je suis desole = je suis desole. Ajoutez -e si femme : desolee."
+      question: "To do / make in French:",
+      questionFr: "Faire en anglais :",
+      options: ["faire","etre","avoir","prendre"],
+      optionsEn: ["to do / make","to be","to have","to take"],
+      correct: "faire",
+      correctEn: "to do / make",
+      explanation: "Faire (fair) = to do / make. Very versatile verb.",
+      explanationFr: "Faire = faire. Verbe tres polyvalent."
     },
     {
-      id: "10-6",
+      id: "09-6",
       type: "qcm",
-      question: "Could you help me? in French:",
-      questionFr: "Pourriez-vous m'aider ? en anglais :",
-      options: ["Pourriez-vous m'aider ?","Pouvez-vous m'aider ?","Aidez-moi ?","M'aidez ?"],
-      optionsEn: ["Could you help me?","Can you help me?","Help me?","Help me?"],
-      correct: "Pourriez-vous m'aider ?",
-      correctEn: "Could you help me?",
-      explanation: "Pourriez-vous (poo-ryay-VOO) = Could you (conditional, very polite).",
-      explanationFr: "Pourriez-vous = pourriez-vous (conditionnel, tres poli)."
+      question: "Can / to be able to in French:",
+      questionFr: "Pouvoir en anglais :",
+      options: ["pouvoir","devoir","vouloir","savoir"],
+      optionsEn: ["can / to be able to","must / to have to","to want","to know"],
+      correct: "pouvoir",
+      correctEn: "can / to be able to",
+      explanation: "Pouvoir (poo-VWAHR) = can / to be able to. Je peux = I can.",
+      explanationFr: "Pouvoir = pouvoir. Je peux = je peux."
     },
     {
-      id: "10-7",
+      id: "09-7",
       type: "qcm",
-      question: "I don t understand. in French:",
-      questionFr: "Je ne comprends pas. en anglais :",
-      options: ["Je ne comprends pas.","Je comprends pas.","Je ne sais pas.","Je ne parle pas."],
-      optionsEn: ["I don't understand.","I understand not.","I don't know.","I don't speak."],
-      correct: "Je ne comprends pas.",
-      correctEn: "I don't understand.",
-      explanation: "Je ne comprends pas (zhuh nuh kom-PRON PAH) = I don't understand. Essential phrase!",
-      explanationFr: "Je ne comprends pas = je ne comprends pas. Phrase essentielle !"
+      question: "To want in French:",
+      questionFr: "Vouloir en anglais :",
+      options: ["vouloir","pouvoir","devoir","savoir"],
+      optionsEn: ["to want","can / to be able to","must / to have to","to know"],
+      correct: "vouloir",
+      correctEn: "to want",
+      explanation: "Vouloir (voo-LWAHR) = to want. Je veux = I want.",
+      explanationFr: "Vouloir = vouloir. Je veux = je veux."
     },
     {
-      id: "10-8",
+      id: "09-8",
       type: "qcm",
-      question: "Could you repeat, please? in French:",
-      questionFr: "Pouvez-vous repeter, s'il vous plait ? en anglais :",
-      options: ["Pouvez-vous repeter, s'il vous plait ?","Repeter, s'il vous plait.","Encore, s'il vous plait.","Dites encore."],
-      optionsEn: ["Could you repeat, please?","Repeat, please.","Again, please.","Say again."],
-      correct: "Pouvez-vous repeter, s'il vous plait ?",
-      correctEn: "Could you repeat, please?",
-      explanation: "Repeter (ruh-pay-TAY) = to repeat. Very useful when learning French!",
-      explanationFr: "Repeter = repeter. Tres utile quand on apprend le francais !"
+      question: "Must / to have to in French:",
+      questionFr: "Devoir en anglais :",
+      options: ["devoir","pouvoir","vouloir","savoir"],
+      optionsEn: ["must / to have to","can / to be able to","to want","to know"],
+      correct: "devoir",
+      correctEn: "must / to have to",
+      explanation: "Devoir (duh-VWAHR) = must / to have to. Je dois = I must.",
+      explanationFr: "Devoir = devoir. Je dois = je dois."
     },
     {
-      id: "10-9",
+      id: "09-9",
       type: "qcm",
-      question: "Do you speak English? in French:",
-      questionFr: "Parlez-vous anglais ? en anglais :",
-      options: ["Parlez-vous anglais ?","Vous parlez anglais ?","Parle anglais ?","Parles-tu anglais ?"],
-      optionsEn: ["Do you speak English?","Do you speak English?","Speak English?","Do you speak English? (informal)"],
-      correct: "Parlez-vous anglais ?",
-      correctEn: "Do you speak English?",
-      explanation: "Parlez-vous anglais ? (par-lay-VOO an-GLAY) = Do you speak English? Use when stuck!",
-      explanationFr: "Parlez-vous anglais ? = parlez-vous anglais ? A utiliser en cas de blocage !"
+      question: "To know (facts) in French:",
+      questionFr: "Savoir en anglais :",
+      options: ["savoir","connaitre","pouvoir","devoir"],
+      optionsEn: ["to know (facts)","to know (people/places)","can / to be able to","must / to have to"],
+      correct: "savoir",
+      correctEn: "to know (facts)",
+      explanation: "Savoir (sa-VWAHR) = to know facts. Connaitre = to know people/places.",
+      explanationFr: "Savoir = savoir (faits). Connaitre = connaitre (personnes/lieux)."
     },
     {
-      id: "10-10",
+      id: "09-10",
       type: "qcm",
-      question: "Sorry (bumping into someone) in French:",
-      questionFr: "Pardon (en bousculant quelqu'un) en anglais :",
-      options: ["Pardon","Excusez-moi","Desole","De rien"],
-      optionsEn: ["Sorry","Excuse me","Sorry","You're welcome"],
-      correct: "Pardon",
-      correctEn: "Sorry",
-      explanation: "Pardon (par-DON) = Sorry for small accidents. Very common in crowded places!",
-      explanationFr: "Pardon = pardon pour les petits accidents. Tres courant dans les endroits bondes !"
+      question: "To come in French:",
+      questionFr: "Venir en anglais :",
+      options: ["venir","aller","partir","revenir"],
+      optionsEn: ["to come","to go","to leave","to come back"],
+      correct: "venir",
+      correctEn: "to come",
+      explanation: "Venir (vuh-NEER) = to come. Je viens = I come / I am coming.",
+      explanationFr: "Venir = venir. Je viens = je viens."
     }
   ],
   libre: [
     {
-      id: "10-l1",
+      id: "09-l1",
       type: "libre",
-      question: "Translate: Thank you very much.",
-      questionFr: "Traduisez : Merci beaucoup.",
-      correct: "Merci beaucoup.",
-      correctEn: "Thank you very much.",
+      question: "Translate: I have a dog.",
+      questionFr: "Traduisez : J'ai un chien.",
+      correct: "J'ai un chien.",
+      correctEn: "I have a dog.",
       alternatives: [],
-      explanation: "Merci beaucoup = Thank you very much. Beaucoup = very much.",
-      explanationFr: "Merci beaucoup = merci beaucoup. Beaucoup = beaucoup."
+      explanation: "J'ai = I have. Un chien = a dog.",
+      explanationFr: "J'ai = j'ai. Un chien = un chien."
     },
     {
-      id: "10-l2",
+      id: "09-l2",
       type: "libre",
-      question: "How do you say Excuse me (formal)?",
-      questionFr: "Comment dit-on Excusez-moi ?",
-      correct: "Excusez-moi",
-      correctEn: "Excuse me (formal)",
+      question: "How do you say I can?",
+      questionFr: "Comment dit-on Je peux ?",
+      correct: "Je peux",
+      correctEn: "I can",
       alternatives: [],
-      explanation: "Excusez-moi = Excuse me (formal). Excuse-moi = informal.",
-      explanationFr: "Excusez-moi = excusez-moi (formel). Excuse-moi = informel."
+      explanation: "Je peux = I can. Pouvoir = can / to be able to.",
+      explanationFr: "Je peux = je peux. Pouvoir = pouvoir."
     },
     {
-      id: "10-l3",
+      id: "09-l3",
       type: "libre",
-      question: "Translate: I don't understand.",
-      questionFr: "Traduisez : Je ne comprends pas.",
-      correct: "Je ne comprends pas.",
-      correctEn: "I don't understand.",
+      question: "Translate: I must leave.",
+      questionFr: "Traduisez : Je dois partir.",
+      correct: "Je dois partir.",
+      correctEn: "I must leave.",
       alternatives: [],
-      explanation: "Je ne comprends pas = I don't understand. Essential survival phrase!",
-      explanationFr: "Je ne comprends pas = je ne comprends pas. Phrase de survie essentielle !"
+      explanation: "Je dois = I must. Partir = to leave.",
+      explanationFr: "Je dois = je dois. Partir = partir."
     },
     {
-      id: "10-l4",
+      id: "09-l4",
       type: "libre",
-      question: "Complete: ___ vous plait.",
-      questionFr: "Completez : ___ vous plait.",
-      correct: "S'il",
-      correctEn: "If it",
+      question: "Complete: Je ___ heureux.",
+      questionFr: "Completez : Je ___ heureux.",
+      correct: "suis",
+      correctEn: "am",
       alternatives: [],
-      explanation: "S'il vous plait = Please. S'il = if it.",
-      explanationFr: "S'il vous plait = s'il vous plait. S'il = s'il."
+      explanation: "Je suis = I am. Etre = to be.",
+      explanationFr: "Je suis = je suis. Etre = etre."
     },
     {
-      id: "10-l5",
+      id: "09-l5",
       type: "libre",
-      question: "How do you say Could you help me?",
-      questionFr: "Comment dit-on Pourriez-vous m'aider ?",
-      correct: "Pourriez-vous m'aider ?",
-      correctEn: "Could you help me?",
+      question: "How do you say I want to sleep?",
+      questionFr: "Comment dit-on Je veux dormir ?",
+      correct: "Je veux dormir.",
+      correctEn: "I want to sleep.",
       alternatives: [],
-      explanation: "Pourriez-vous = Could you (conditional). M'aider = help me.",
-      explanationFr: "Pourriez-vous = pourriez-vous (conditionnel). M'aider = m'aider."
+      explanation: "Je veux = I want. Dormir = to sleep.",
+      explanationFr: "Je veux = je veux. Dormir = dormir."
     },
     {
-      id: "10-l6",
+      id: "09-l6",
       type: "libre",
-      question: "Translate: Do you speak English?",
-      questionFr: "Traduisez : Parlez-vous anglais ?",
-      correct: "Parlez-vous anglais ?",
-      correctEn: "Do you speak English?",
+      question: "Translate: I take the bus.",
+      questionFr: "Traduisez : Je prends le bus.",
+      correct: "Je prends le bus.",
+      correctEn: "I take the bus.",
       alternatives: [],
-      explanation: "Parlez-vous = Do you speak. Anglais = English.",
-      explanationFr: "Parlez-vous = parlez-vous. Anglais = anglais."
+      explanation: "Je prends = I take. Le bus = the bus.",
+      explanationFr: "Je prends = je prends. Le bus = le bus."
     },
     {
-      id: "10-l7",
+      id: "09-l7",
       type: "libre",
-      question: "Complete: Je suis ___.",
-      questionFr: "Completez : Je suis ___.",
-      correct: "desole",
-      correctEn: "sorry",
-      alternatives: ["desolee"],
-      explanation: "Je suis desole = I am sorry. Add -e if female.",
-      explanationFr: "Je suis desole = je suis desole. Ajoutez -e si femme."
+      question: "Complete: Je ___ compter.",
+      questionFr: "Completez : Je ___ compter.",
+      correct: "sais",
+      correctEn: "know how to",
+      alternatives: [],
+      explanation: "Je sais = I know (how to). Savoir = to know (facts/skills).",
+      explanationFr: "Je sais = je sais. Savoir = savoir (faits/competences)."
     },
     {
-      id: "10-l8",
+      id: "09-l8",
       type: "libre",
-      question: "How do you say You're welcome?",
-      questionFr: "Comment dit-on De rien ?",
-      correct: "De rien",
-      correctEn: "You're welcome",
+      question: "How do you say I am coming tomorrow?",
+      questionFr: "Comment dit-on Je viens demain ?",
+      correct: "Je viens demain.",
+      correctEn: "I am coming tomorrow.",
       alternatives: [],
-      explanation: "De rien = You're welcome. Literally 'of nothing'.",
-      explanationFr: "De rien = de rien. Litteralement 'de rien'."
+      explanation: "Je viens = I come / I am coming. Demain = tomorrow.",
+      explanationFr: "Je viens = je viens. Demain = demain."
     }
   ]
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = LESSON_10;
+  module.exports = LESSON_09;
 } else {
-  window.LESSON_10 = LESSON_10;
+  window.LESSON_09 = LESSON_09;
 }
