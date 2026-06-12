@@ -2,284 +2,259 @@
 const LESSON_09 = {
   id: 9,
   title: "Essential Verbs",
-  titleFr: "Verbes essentiels",
-  objectiveEn: "Master the 10 most important French verbs",
-  objectiveFr: "Maitriser les 10 verbes francais les plus importants",
-  hintEn: "etre and avoir are the two auxiliary verbs -- learn them first!",
-  hintFr: "Etre et avoir sont les deux verbes auxiliaires -- apprenez-les d abord !",
+  titleFr: "Verbes Essentiels",
+  objectiveEn: "Master the 10 most important French verbs and their present tense forms",
+  objectiveFr: "Maitriser les 10 verbes francais les plus importants et leurs formes au present",
+  hintEn: "These 10 verbs cover 80% of daily French conversation -- learn them by heart!",
+  hintFr: "Ces 10 verbes couvrent 80% des conversations quotidiennes en francais -- apprenez-les par coeur !",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>The 10 Essential Verbs</h4>
-<p>These 10 verbs cover 80% of everyday French. Master them first!</p>
+<h4>The 10 essential verbs</h4>
 <table class="lesson-table">
-<tr><th>Infinitive</th><th>Meaning</th><th>Je form</th><th>Phonetics</th></tr>
-<tr><td><strong>etre</strong></td><td>to be</td><td>je suis</td><td><em>*zhuh swee*</em></td></tr>
-<tr><td><strong>avoir</strong></td><td>to have</td><td>j ai</td><td><em>*zhay*</em></td></tr>
-<tr><td><strong>aller</strong></td><td>to go</td><td>je vais</td><td><em>*zhuh vay*</em></td></tr>
-<tr><td><strong>faire</strong></td><td>to do / to make</td><td>je fais</td><td><em>*zhuh fay*</em></td></tr>
-<tr><td><strong>pouvoir</strong></td><td>can / to be able to</td><td>je peux</td><td><em>*zhuh puh*</em></td></tr>
-<tr><td><strong>vouloir</strong></td><td>to want</td><td>je veux</td><td><em>*zhuh vuh*</em></td></tr>
-<tr><td><strong>devoir</strong></td><td>must / to have to</td><td>je dois</td><td><em>*zhuh dwah*</em></td></tr>
-<tr><td><strong>savoir</strong></td><td>to know (facts)</td><td>je sais</td><td><em>*zhuh say*</em></td></tr>
-<tr><td><strong>venir</strong></td><td>to come</td><td>je viens</td><td><em>*zhuh vyAN*</em></td></tr>
-<tr><td><strong>prendre</strong></td><td>to take</td><td>je prends</td><td><em>*zhuh prahn*</em></td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th><th>Example</th></tr>
+<tr><td><strong>etre</strong></td><td><em>*eh-truh*</em></td><td>to be <!-- *too bee* --></td><td>Je suis heureux. <!-- *eye am happy* --></td></tr>
+<tr><td><strong>avoir</strong></td><td><em>*a-VWAHR*</em></td><td>to have <!-- *too hav* --></td><td>J'ai un chat. <!-- *eye hav uh cat* --></td></tr>
+<tr><td><strong>aller</strong></td><td><em>*a-LAY*</em></td><td>to go <!-- *too goh* --></td><td>Je vais a Paris. <!-- *eye goh too pa-REE* --></td></tr>
+<tr><td><strong>faire</strong></td><td><em>*fair*</em></td><td>to do / make <!-- *too doo / mayk* --></td><td>Je fais la cuisine. <!-- *eye doo thuh cooking* --></td></tr>
+<tr><td><strong>pouvoir</strong></td><td><em>*poo-VWAHR*</em></td><td>to be able to / can <!-- *too bee AY-bul too / kan* --></td><td>Je peux venir. <!-- *eye kan come* --></td></tr>
+<tr><td><strong>vouloir</strong></td><td><em>*voo-LWAHR*</em></td><td>to want <!-- *too wont* --></td><td>Je veux dormir. <!-- *eye wont sleep* --></td></tr>
+<tr><td><strong>devoir</strong></td><td><em>*duh-VWAHR*</em></td><td>to have to / must <!-- *too hav too / must* --></td><td>Je dois partir. <!-- *eye must leave* --></td></tr>
+<tr><td><strong>savoir</strong></td><td><em>*sa-VWAHR*</em></td><td>to know (facts) <!-- *too noh (fakts)* --></td><td>Je sais compter. <!-- *eye noh how too kownt* --></td></tr>
+<tr><td><strong>venir</strong></td><td><em>*vuh-NEER*</em></td><td>to come <!-- *too kum* --></td><td>Je viens demain. <!-- *eye come tomorrow* --></td></tr>
+<tr><td><strong>prendre</strong></td><td><em>*pron-druh*</em></td><td>to take <!-- *too tayk* --></td><td>Je prends le bus. <!-- *eye tayk thuh bus* --></td></tr>
 </table>
 </div>
 <div class="lesson-rule">
-<h4>Present tense conjugation pattern</h4>
-<p>Most verbs follow the <strong>-er</strong> pattern (parler, manger, travailler):</p>
+<h4>Present tense of etre (to be)</h4>
 <table class="lesson-table">
-<tr><th>Subject</th><th>Ending</th><th>Example: parler</th></tr>
-<tr><td>je</td><td>-e</td><td>je parle</td></tr>
-<tr><td>tu</td><td>-es</td><td>tu parles</td></tr>
-<tr><td>il/elle</td><td>-e</td><td>il parle</td></tr>
-<tr><td>nous</td><td>-ons</td><td>nous parlons</td></tr>
-<tr><td>vous</td><td>-ez</td><td>vous parlez</td></tr>
-<tr><td>ils/elles</td><td>-ent</td><td>ils parlent</td></tr>
+<tr><th>Subject</th><th>Form</th><th>Phonetics</th></tr>
+<tr><td>je</td><td>suis</td><td><em>*swee*</em></td></tr>
+<tr><td>tu</td><td>es</td><td><em>*ay*</em></td></tr>
+<tr><td>il/elle</td><td>est</td><td><em>*eh*</em></td></tr>
+<tr><td>nous</td><td>sommes</td><td><em>*som*</em></td></tr>
+<tr><td>vous</td><td>etes</td><td><em>*ayt*</em></td></tr>
+<tr><td>ils/elles</td><td>sont</td><td><em>*son*</em></td></tr>
 </table>
 </div>
-<div class="lesson-warning">etre and avoir are IRREGULAR -- they do NOT follow the -er pattern! Learn their conjugations by heart.</div>
+<div class="lesson-warning"><strong>Etre</strong> and <strong>avoir</strong> are the two most important verbs in French. They are used as auxiliaries in compound tenses and in countless expressions.</div>
 <div class="lesson-example">
-<strong>Quick dialogue:</strong><br>
--- Je vais au marche. Tu veux venir ? <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
-<span class="lesson-ex-en">I m going to the market. Do you want to come?</span><br>
--- Oui, je peux ! Je dois juste prendre mon sac. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
-<span class="lesson-ex-en">Yes, I can! I just have to take my bag.</span>
+-- Je suis fatigue aujourd hui. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">I am tired today.</span><br>
+-- Moi aussi. Je veux dormir. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">Me too. I want to sleep.</span>
 </div>
   `,
   qcm: [
     {
       id: "09-1",
       type: "qcm",
-      question: "To be in French is:",
+      question: "To be in French:",
       questionFr: "Etre en anglais :",
       options: ["etre","avoir","aller","faire"],
       optionsEn: ["to be","to have","to go","to do"],
       correct: "etre",
       correctEn: "to be",
-      explanation: "Etre (eh-truh) = to be. The most fundamental verb in French.",
-      explanationFr: "Etre = etre. Le verbe le plus fondamental en francais."
+      explanation: "Etre (eh-truh) = to be. The most essential verb in French.",
+      explanationFr: "Etre = etre. Le verbe le plus essentiel en francais."
     },
     {
       id: "09-2",
       type: "qcm",
-      question: "I have in French:",
-      questionFr: "J ai en anglais :",
-      options: ["J ai","Je suis","Je vais","Je fais"],
-      optionsEn: ["I have","I am","I go","I do"],
-      correct: "J ai",
-      correctEn: "I have",
-      explanation: "Avoir: j ai (zhay) = I have. The second most important verb.",
-      explanationFr: "Avoir : j ai = j ai. Le deuxieme verbe le plus important."
+      question: "To have in French:",
+      questionFr: "Avoir en anglais :",
+      options: ["avoir","etre","prendre","faire"],
+      optionsEn: ["to have","to be","to take","to do"],
+      correct: "avoir",
+      correctEn: "to have",
+      explanation: "Avoir (a-VWAHR) = to have. Used in many expressions: j'ai faim (I'm hungry).",
+      explanationFr: "Avoir = avoir. Utilise dans de nombreuses expressions : j'ai faim."
     },
     {
       id: "09-3",
       type: "qcm",
-      question: "I go in French:",
-      questionFr: "Je vais en anglais :",
-      options: ["Je vais","Je viens","Je suis","J ai"],
-      optionsEn: ["I go","I come","I am","I have"],
-      correct: "Je vais",
-      correctEn: "I go",
-      explanation: "Aller: je vais (zhuh vay) = I go. Used for the near future: je vais + infinitive.",
-      explanationFr: "Aller : je vais = je vais. Utilise pour le futur proche : je vais + infinitif."
+      question: "I am (verb etre) in French:",
+      questionFr: "Je suis (verbe etre) en anglais :",
+      options: ["Je suis","J'ai","Je vais","Je fais"],
+      optionsEn: ["I am","I have","I go","I do"],
+      correct: "Je suis",
+      correctEn: "I am",
+      explanation: "Je suis (zhuh swee) = I am. First person of etre.",
+      explanationFr: "Je suis = je suis. Premiere personne de etre."
     },
     {
       id: "09-4",
       type: "qcm",
-      question: "I do or I make in French:",
-      questionFr: "Je fais en anglais :",
-      options: ["Je fais","Je faisais","Je faite","Je fait"],
-      optionsEn: ["I do / I make","I was doing","I made (wrong)","I did (wrong)"],
-      correct: "Je fais",
-      correctEn: "I do / I make",
-      explanation: "Faire (fair) = to do or to make. Je fais = I do/make. One of the most versatile French verbs.",
-      explanationFr: "Faire = faire. Je fais = je fais. Un des verbes francais les plus polyvalents."
+      question: "To go in French:",
+      questionFr: "Aller en anglais :",
+      options: ["aller","venir","partir","faire"],
+      optionsEn: ["to go","to come","to leave","to do"],
+      correct: "aller",
+      correctEn: "to go",
+      explanation: "Aller (a-LAY) = to go. Je vais = I go / I am going.",
+      explanationFr: "Aller = aller. Je vais = je vais."
     },
     {
       id: "09-5",
       type: "qcm",
-      question: "Can you help me? in French:",
-      questionFr: "Pouvez-vous m aider ? en anglais :",
-      options: ["Pouvez-vous m aider ?","Voulez-vous m aider ?","Savez-vous m aider ?","Devez-vous m aider ?"],
-      optionsEn: ["Can you help me?","Do you want to help me?","Do you know how to help me?","Must you help me?"],
-      correct: "Pouvez-vous m aider ?",
-      correctEn: "Can you help me?",
-      explanation: "Pouvoir: pouvez-vous = can you (formal). Essential for asking permission or ability.",
-      explanationFr: "Pouvoir : pouvez-vous = pouvez-vous (formel). Essentiel pour demander la permission ou la capacite."
+      question: "To do / make in French:",
+      questionFr: "Faire en anglais :",
+      options: ["faire","etre","avoir","prendre"],
+      optionsEn: ["to do / make","to be","to have","to take"],
+      correct: "faire",
+      correctEn: "to do / make",
+      explanation: "Faire (fair) = to do / make. Very versatile verb.",
+      explanationFr: "Faire = faire. Verbe tres polyvalent."
     },
     {
       id: "09-6",
       type: "qcm",
-      question: "I want in French:",
-      questionFr: "Je veux en anglais :",
-      options: ["Je veux","Je voudrais","Je vais","Je dois"],
-      optionsEn: ["I want","I would like","I go","I must"],
-      correct: "Je veux",
-      correctEn: "I want",
-      explanation: "Vouloir: je veux (zhuh vuh) = I want. Je voudrais = I would like (more polite).",
-      explanationFr: "Vouloir : je veux = je veux. Je voudrais = je voudrais (plus poli)."
+      question: "Can / to be able to in French:",
+      questionFr: "Pouvoir en anglais :",
+      options: ["pouvoir","devoir","vouloir","savoir"],
+      optionsEn: ["can / to be able to","must / to have to","to want","to know"],
+      correct: "pouvoir",
+      correctEn: "can / to be able to",
+      explanation: "Pouvoir (poo-VWAHR) = can / to be able to. Je peux = I can.",
+      explanationFr: "Pouvoir = pouvoir. Je peux = je peux."
     },
     {
       id: "09-7",
       type: "qcm",
-      question: "I must or I have to in French:",
-      questionFr: "Je dois en anglais :",
-      options: ["Je dois","Je devais","Je devoir","Je dois faire"],
-      optionsEn: ["I must / I have to","I had to","I must (wrong form)","I must do"],
-      correct: "Je dois",
-      correctEn: "I must / I have to",
-      explanation: "Devoir: je dois (zhuh dwah) = I must / I have to. Expresses obligation.",
-      explanationFr: "Devoir : je dois = je dois / il faut que je. Exprime l obligation."
+      question: "To want in French:",
+      questionFr: "Vouloir en anglais :",
+      options: ["vouloir","pouvoir","devoir","savoir"],
+      optionsEn: ["to want","can / to be able to","must / to have to","to know"],
+      correct: "vouloir",
+      correctEn: "to want",
+      explanation: "Vouloir (voo-LWAHR) = to want. Je veux = I want.",
+      explanationFr: "Vouloir = vouloir. Je veux = je veux."
     },
     {
       id: "09-8",
       type: "qcm",
-      question: "I know (a fact) in French:",
-      questionFr: "Je sais en anglais :",
-      options: ["Je sais","Je connais","Je sait","Je connait"],
-      optionsEn: ["I know (fact)","I know (person/place)","I know (wrong)","I know (wrong)"],
-      correct: "Je sais",
-      correctEn: "I know (a fact)",
-      explanation: "Savoir = to know facts/skills. Connaitre = to know people/places. Both mean to know but used differently!",
-      explanationFr: "Savoir = savoir (faits/competences). Connaitre = connaitre (personnes/endroits). Les deux signifient to know mais s utilisent differemment !"
+      question: "Must / to have to in French:",
+      questionFr: "Devoir en anglais :",
+      options: ["devoir","pouvoir","vouloir","savoir"],
+      optionsEn: ["must / to have to","can / to be able to","to want","to know"],
+      correct: "devoir",
+      correctEn: "must / to have to",
+      explanation: "Devoir (duh-VWAHR) = must / to have to. Je dois = I must.",
+      explanationFr: "Devoir = devoir. Je dois = je dois."
     },
     {
       id: "09-9",
       type: "qcm",
-      question: "I come in French:",
-      questionFr: "Je viens en anglais :",
-      options: ["Je viens","Je vais","Je venez","Je venir"],
-      optionsEn: ["I come","I go","You come (wrong)","To come (wrong)"],
-      correct: "Je viens",
-      correctEn: "I come",
-      explanation: "Venir: je viens (zhuh vyAN) = I come. Also used in je viens de = I just (did something).",
-      explanationFr: "Venir : je viens = je viens. Aussi utilise dans je viens de = je viens de (faire quelque chose)."
+      question: "To know (facts) in French:",
+      questionFr: "Savoir en anglais :",
+      options: ["savoir","connaitre","pouvoir","devoir"],
+      optionsEn: ["to know (facts)","to know (people/places)","can / to be able to","must / to have to"],
+      correct: "savoir",
+      correctEn: "to know (facts)",
+      explanation: "Savoir (sa-VWAHR) = to know facts. Connaitre = to know people/places.",
+      explanationFr: "Savoir = savoir (faits). Connaitre = connaitre (personnes/lieux)."
     },
     {
       id: "09-10",
       type: "qcm",
-      question: "I take in French:",
-      questionFr: "Je prends en anglais :",
-      options: ["Je prends","Je prend","Je prenons","Je prendre"],
-      optionsEn: ["I take","I take (wrong)","We take (wrong)","To take (wrong)"],
-      correct: "Je prends",
-      correctEn: "I take",
-      explanation: "Prendre: je prends (zhuh prahn) = I take. Used for taking transport, food, medicine, etc.",
-      explanationFr: "Prendre : je prends = je prends. Utilise pour prendre les transports, la nourriture, les medicaments, etc."
+      question: "To come in French:",
+      questionFr: "Venir en anglais :",
+      options: ["venir","aller","partir","revenir"],
+      optionsEn: ["to come","to go","to leave","to come back"],
+      correct: "venir",
+      correctEn: "to come",
+      explanation: "Venir (vuh-NEER) = to come. Je viens = I come / I am coming.",
+      explanationFr: "Venir = venir. Je viens = je viens."
     }
   ],
   libre: [
     {
       id: "09-l1",
       type: "libre",
-      question: "Conjugate ETRE: She is... (elle)",
-      questionFr: "Conjuguez ETRE : Elle est... (elle)",
-      correct: "Elle est",
-      correctEn: "She is",
+      question: "Translate: I have a dog.",
+      questionFr: "Traduisez : J'ai un chien.",
+      correct: "J'ai un chien.",
+      correctEn: "I have a dog.",
       alternatives: [],
-      explanation: "Etre: je suis, tu es, il/elle est, nous sommes, vous etes, ils/elles sont.",
-      explanationFr: "Etre : je suis, tu es, il/elle est, nous sommes, vous etes, ils/elles sont."
+      explanation: "J'ai = I have. Un chien = a dog.",
+      explanationFr: "J'ai = j'ai. Un chien = un chien."
     },
     {
       id: "09-l2",
       type: "libre",
-      question: "Conjugate AVOIR: We have... (nous)",
-      questionFr: "Conjuguez AVOIR : Nous avons... (nous)",
-      correct: "Nous avons",
-      correctEn: "We have",
+      question: "How do you say I can?",
+      questionFr: "Comment dit-on Je peux ?",
+      correct: "Je peux",
+      correctEn: "I can",
       alternatives: [],
-      explanation: "Avoir: j ai, tu as, il/elle a, nous avons, vous avez, ils/elles ont.",
-      explanationFr: "Avoir : j ai, tu as, il/elle a, nous avons, vous avez, ils/elles ont."
+      explanation: "Je peux = I can. Pouvoir = can / to be able to.",
+      explanationFr: "Je peux = je peux. Pouvoir = pouvoir."
     },
     {
       id: "09-l3",
       type: "libre",
-      question: "Conjugate ALLER: You go... (formal, vous)",
-      questionFr: "Conjuguez ALLER : Vous allez... (formel, vous)",
-      correct: "Vous allez",
-      correctEn: "You go",
+      question: "Translate: I must leave.",
+      questionFr: "Traduisez : Je dois partir.",
+      correct: "Je dois partir.",
+      correctEn: "I must leave.",
       alternatives: [],
-      explanation: "Aller: je vais, tu vas, il/elle va, nous allons, vous allez, ils/elles vont.",
-      explanationFr: "Aller : je vais, tu vas, il/elle va, nous allons, vous allez, ils/elles vont."
+      explanation: "Je dois = I must. Partir = to leave.",
+      explanationFr: "Je dois = je dois. Partir = partir."
     },
     {
       id: "09-l4",
       type: "libre",
-      question: "Translate: I want a coffee.",
-      questionFr: "Traduisez : Je veux un cafe.",
-      correct: "Je veux un cafe.",
-      correctEn: "I want a coffee.",
+      question: "Complete: Je ___ heureux.",
+      questionFr: "Completez : Je ___ heureux.",
+      correct: "suis",
+      correctEn: "am",
       alternatives: [],
-      explanation: "Vouloir: je veux. But je voudrais is more polite in a cafe!",
-      explanationFr: "Vouloir : je veux. Mais je voudrais est plus poli dans un cafe !"
+      explanation: "Je suis = I am. Etre = to be.",
+      explanationFr: "Je suis = je suis. Etre = etre."
     },
     {
       id: "09-l5",
       type: "libre",
-      question: "Translate: Can you repeat, please?",
-      questionFr: "Traduisez : Pouvez-vous repeter, s il vous plait ?",
-      correct: "Pouvez-vous repeter, s il vous plait ?",
-      correctEn: "Can you repeat, please?",
+      question: "How do you say I want to sleep?",
+      questionFr: "Comment dit-on Je veux dormir ?",
+      correct: "Je veux dormir.",
+      correctEn: "I want to sleep.",
       alternatives: [],
-      explanation: "Pouvoir: Pouvez-vous = can you (formal). Essential phrase for language learners!",
-      explanationFr: "Pouvoir : Pouvez-vous = pouvez-vous (formel). Phrase essentielle pour les apprenants !"
+      explanation: "Je veux = I want. Dormir = to sleep.",
+      explanationFr: "Je veux = je veux. Dormir = dormir."
     },
     {
       id: "09-l6",
       type: "libre",
-      question: "Conjugate FAIRE: He does... (il)",
-      questionFr: "Conjuguez FAIRE : Il fait... (il)",
-      correct: "Il fait",
-      correctEn: "He does",
+      question: "Translate: I take the bus.",
+      questionFr: "Traduisez : Je prends le bus.",
+      correct: "Je prends le bus.",
+      correctEn: "I take the bus.",
       alternatives: [],
-      explanation: "Faire: je fais, tu fais, il/elle fait, nous faisons, vous faites, ils/elles font.",
-      explanationFr: "Faire : je fais, tu fais, il/elle fait, nous faisons, vous faites, ils/elles font."
+      explanation: "Je prends = I take. Le bus = the bus.",
+      explanationFr: "Je prends = je prends. Le bus = le bus."
     },
     {
       id: "09-l7",
       type: "libre",
-      question: "Translate: I m going to do the shopping.",
-      questionFr: "Traduisez : Je vais faire les courses.",
-      correct: "Je vais faire les courses.",
-      correctEn: "I m going to do the shopping.",
+      question: "Complete: Je ___ compter.",
+      questionFr: "Completez : Je ___ compter.",
+      correct: "sais",
+      correctEn: "know how to",
       alternatives: [],
-      explanation: "Aller + infinitive = near future. Je vais + faire = I m going to do.",
-      explanationFr: "Aller + infinitif = futur proche. Je vais + faire = je vais faire."
+      explanation: "Je sais = I know (how to). Savoir = to know (facts/skills).",
+      explanationFr: "Je sais = je sais. Savoir = savoir (faits/competences)."
     },
     {
       id: "09-l8",
       type: "libre",
-      question: "Complete: Je ___ besoin d aide.",
-      questionFr: "Completez : Je ___ besoin d aide.",
-      correct: "ai",
-      correctEn: "have",
+      question: "How do you say I am coming tomorrow?",
+      questionFr: "Comment dit-on Je viens demain ?",
+      correct: "Je viens demain.",
+      correctEn: "I am coming tomorrow.",
       alternatives: [],
-      explanation: "Avoir besoin de = to need. J ai besoin d aide = I need help.",
-      explanationFr: "Avoir besoin de = avoir besoin de. J ai besoin d aide = j ai besoin d aide."
-    },
-    {
-      id: "09-l9",
-      type: "libre",
-      question: "Translate: They are very kind.",
-      questionFr: "Traduisez : Ils sont tres gentils.",
-      correct: "Ils sont tres gentils.",
-      correctEn: "They are very kind.",
-      alternatives: ["Elles sont tres gentilles."],
-      explanation: "ETRE: Ils/elles sont = they are. Gentils (m.pl.) / gentilles (f.pl.).",
-      explanationFr: "ETRE : Ils/elles sont = ils/elles sont. Gentils (m.pl.) / gentilles (f.pl.)."
-    },
-    {
-      id: "09-l10",
-      type: "libre",
-      question: "Complete: Je ___ aller a la pharmacie.",
-      questionFr: "Completez : Je ___ aller a la pharmacie.",
-      correct: "dois",
-      correctEn: "must",
-      alternatives: [],
-      explanation: "Devoir: je dois = I must / I have to. Essential to know for daily life!",
-      explanationFr: "Devoir : je dois = je dois / il faut que je. Essentiel pour la vie quotidienne !"
+      explanation: "Je viens = I come / I am coming. Demain = tomorrow.",
+      explanationFr: "Je viens = je viens. Demain = demain."
     }
   ]
 };
