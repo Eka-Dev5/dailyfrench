@@ -12,22 +12,22 @@ const LESSON_02 = {
 <div class="lesson-rule">
 <h4>Useful phrases at the market</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>Je voudrais...</td><td>I would like...</td></tr>
-<tr><td>Avez-vous... ?</td><td>Do you have... ?</td></tr>
-<tr><td>C est combien ?</td><td>How much is it?</td></tr>
-<tr><td>Un kilo de..., s il vous plait.</td><td>One kilo of..., please.</td></tr>
-<tr><td>C est tout, merci.</td><td>That s all, thank you.</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>Je voudrais...</td><td><em>*zhuh voo-DRAY*</em></td><td>I would like... <!-- *eye wood LAYK* --></td></tr>
+<tr><td>Avez-vous... ?</td><td><em>*a-vay-VOO*</em></td><td>Do you have... ? <!-- *doo yoo HAV* --></td></tr>
+<tr><td>C est combien ?</td><td><em>*say kom-BYAN*</em></td><td>How much is it? <!-- *how MUCH iz it* --></td></tr>
+<tr><td>Un kilo de..., s il vous plait.</td><td><em>*uhn kee-LOH duh... seel voo PLAY*</em></td><td>One kilo of..., please. <!-- *wun KEE-loh of... PLEEZ* --></td></tr>
+<tr><td>C est tout, merci.</td><td><em>*say too, mair-SEE*</em></td><td>That s all, thank you. <!-- *that s all, THAN-k yoo* --></td></tr>
 </table>
 </div>
 <div class="lesson-rule">
 <h4>Numbers for quantities</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>un / une</td><td>one</td></tr>
-<tr><td>deux / trois</td><td>two / three</td></tr>
-<tr><td>un demi-kilo</td><td>half a kilo</td></tr>
-<tr><td>une tranche de</td><td>a slice of</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>un / une</td><td><em>*uhn / oon*</em></td><td>one <!-- *wun* --></td></tr>
+<tr><td>deux / trois</td><td><em>*duh / trwah*</em></td><td>two / three <!-- *too / three* --></td></tr>
+<tr><td>un demi-kilo</td><td><em>*uhn duh-MEE kee-LOH*</em></td><td>half a kilo <!-- *haf uh KEE-loh* --></td></tr>
+<tr><td>une tranche de</td><td><em>*oon tronsh duh*</em></td><td>a slice of <!-- *uh slahys of* --></td></tr>
 </table>
 </div>
 <div class="lesson-warning">Always say <strong>s il vous plait</strong> -- being polite is essential in French shops and markets!</div>
@@ -192,85 +192,30 @@ const LESSON_02 = {
       correct: "Deux kilos de pommes de terre, s il vous plait.",
       correctEn: "Two kilos of potatoes, please.",
       alternatives: [],
-      explanation: "Pommes de terre = potatoes (literally apples of the earth).",
-      explanationFr: "Pommes de terre = pommes de terre (litteralement pommes de la terre)."
+      explanation: "Deux kilos = two kilos. Pommes de terre = potatoes.",
+      explanationFr: "Deux kilos = deux kilos. Pommes de terre = pommes de terre."
     },
     {
       id: "02-l4",
       type: "libre",
-      question: "How do you say How much is the cheese?",
-      questionFr: "Comment dit-on C est combien le fromage ?",
-      correct: "C est combien le fromage ?",
-      correctEn: "How much is the cheese?",
-      alternatives: ["Le fromage, c est combien ?"],
-      explanation: "C est combien = how much is it. Le fromage = the cheese.",
-      explanationFr: "C est combien = c est combien. Le fromage = le fromage."
+      question: "How much is it? in French:",
+      questionFr: "How much is it? en francais :",
+      correct: "C est combien ?",
+      correctEn: "How much is it?",
+      alternatives: ["Combien ca coute ?"],
+      explanation: "C est combien ? = How much is it? Most natural at markets.",
+      explanationFr: "C est combien ? = C est combien ? Le plus naturel au marche."
     },
     {
       id: "02-l5",
       type: "libre",
-      question: "Say That s everything, thank you to end a transaction.",
-      questionFr: "Dites C est tout, merci pour terminer une transaction.",
-      correct: "C est tout, merci.",
-      correctEn: "That s everything, thank you.",
+      question: "Complete: ___ kilo de fromage, s il vous plait.",
+      questionFr: "Completez : ___ kilo de fromage, s il vous plait.",
+      correct: "Un",
+      correctEn: "One",
       alternatives: [],
-      explanation: "Always end politely -- vendors appreciate it!",
-      explanationFr: "Terminez toujours poliment -- les vendeurs apprecient !"
-    },
-    {
-      id: "02-l6",
-      type: "libre",
-      question: "Complete: Je voudrais une ___ de pain.",
-      questionFr: "Completez : Je voudrais une ___ de pain.",
-      correct: "tranche",
-      correctEn: "slice",
-      alternatives: [],
-      explanation: "Une tranche de pain = a slice of bread.",
-      explanationFr: "Une tranche de pain = une tranche de pain."
-    },
-    {
-      id: "02-l7",
-      type: "libre",
-      question: "Translate: It s too expensive.",
-      questionFr: "Traduisez : C est trop cher.",
-      correct: "C est trop cher.",
-      correctEn: "It s too expensive.",
-      alternatives: [],
-      explanation: "Trop = too / too much. Cher = expensive.",
-      explanationFr: "Trop = trop. Cher = cher."
-    },
-    {
-      id: "02-l8",
-      type: "libre",
-      question: "How do you say I ll take a kilo?",
-      questionFr: "Comment dit-on Je prends un kilo ?",
-      correct: "Je prends un kilo.",
-      correctEn: "I ll take a kilo.",
-      alternatives: ["Je le prends"],
-      explanation: "Je prends = I take / I ll take.",
-      explanationFr: "Je prends = je prends."
-    },
-    {
-      id: "02-l9",
-      type: "libre",
-      question: "What does Avez-vous... mean in English?",
-      questionFr: "Que signifie Avez-vous... en anglais ?",
-      correct: "Do you have",
-      correctEn: "Do you have",
-      alternatives: ["do you have...?"],
-      explanation: "Avez-vous (a-vay-VOO) = Do you have... (formal)",
-      explanationFr: "Avez-vous = Avez-vous... (formel)"
-    },
-    {
-      id: "02-l10",
-      type: "libre",
-      question: "Translate: A hundred grams of butter, please.",
-      questionFr: "Traduisez : Cent grammes de beurre, s il vous plait.",
-      correct: "Cent grammes de beurre, s il vous plait.",
-      correctEn: "A hundred grams of butter, please.",
-      alternatives: [],
-      explanation: "Cent grammes = 100g. Beurre (burr) = butter.",
-      explanationFr: "Cent grammes = 100g. Beurre = beurre."
+      explanation: "Un kilo = one kilo. Un = masculine.",
+      explanationFr: "Un kilo = un kilo. Un = masculin."
     }
   ]
 };
