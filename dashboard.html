@@ -132,96 +132,14 @@
   <script src="js/nav.js"></script>
 
   <!-- Scripts inline pour Settings -->
-  <script>
-    // applyThemePick — Choisir un thème (utilise Theme.apply() pour le gradient hero)
-    function applyThemePick(t){
-      if(typeof Theme !== 'undefined') Theme.apply(t);
-      else {
-        document.documentElement.setAttribute('data-theme',t);
-        localStorage.setItem('dailyFrench_theme',t);
-      }
-      if(typeof toast==='function')toast('Theme: '+t);
-    }
-    
-    // applyLangPick — Choisir une langue
-    function applyLangPick(l){
-      if(typeof I18n !== 'undefined') {
-        I18n.current = l;
-        Storage.set('dailyFrench_lang',l);
-      }
-      localStorage.setItem('dailyFrench_lang',l);
-      if(typeof toast==='function')toast('Language: '+l.toUpperCase());
-    }
-    
-    // Initialisation au chargement
-    (function(){
-      // Appliquer le thème sauvegardé
-      const t=localStorage.getItem('dailyFrench_theme');
-      if(t && typeof Theme !== 'undefined') Theme.apply(t);
-      else if(t) document.documentElement.setAttribute('data-theme',t);
-    })();
-    
-    // Initialiser le dashboard si la fonction existe
-    document.addEventListener('DOMContentLoaded',function(){
-      if(typeof initDashboard==='function')initDashboard();
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof initDashboard === 'function') initDashboard();
     });
   </script>
+
   
-  <!-- Debug console (attend coreReady avant de tester) -->
-  <div id="debug-console" style="position:fixed;bottom:0;left:0;right:0;background:#000;color:#0f0;font-family:monospace;font-size:12px;padding:10px;max-height:200px;overflow:auto;z-index:9999;">
-    <div style="color:#fff;font-weight:bold;border-bottom:1px solid #333;margin-bottom:5px;">DEBUG CONSOLE</div>
-  </div>
-  <script>
-    (function(){
-      var debug = document.getElementById('debug-console');
-      
-      function log(msg, color) {
-        var div = document.createElement('div');
-        div.style.color = color || '#0f0';
-        div.textContent = '> ' + msg;
-        debug.appendChild(div);
-        debug.scrollTop = debug.scrollHeight;
-      }
-      
-      window.onerror = function(msg, url, line) {
-        log('ERROR: ' + msg + ' (line ' + line + ')', '#f00');
-        return false;
-      };
-      
-      function runTests() {
-        log('--- Tests apres coreReady ---', '#fff');
-        log('DIRECTION_MODES: ' + (typeof DIRECTION_MODES !== 'undefined' ? 'OK' : 'MANQUANT'), typeof DIRECTION_MODES !== 'undefined' ? '#0f0' : '#f00');
-        log('EventBus: ' + (typeof EventBus !== 'undefined' ? 'OK' : 'MANQUANT'), typeof EventBus !== 'undefined' ? '#0f0' : '#f00');
-        log('gameState: ' + (typeof gameState !== 'undefined' ? 'OK' : 'MANQUANT'), typeof gameState !== 'undefined' ? '#0f0' : '#f00');
-        log('LESSONS_DATA: ' + (typeof LESSONS_DATA !== 'undefined' ? 'OK (' + LESSONS_DATA.length + ')' : 'MANQUANT'), typeof LESSONS_DATA !== 'undefined' ? '#0f0' : '#f00');
-        log('QUESTIONS_DB: ' + (typeof QUESTIONS_DB !== 'undefined' ? 'OK (' + Object.keys(QUESTIONS_DB).length + ')' : 'MANQUANT'), typeof QUESTIONS_DB !== 'undefined' ? '#0f0' : '#f00');
-        log('DirectionMode: ' + (typeof DirectionMode !== 'undefined' ? 'OK' : 'MANQUANT'), typeof DirectionMode !== 'undefined' ? '#0f0' : '#f00');
-        log('PlayerManager: ' + (typeof PlayerManager !== 'undefined' ? 'OK' : 'MANQUANT'), typeof PlayerManager !== 'undefined' ? '#0f0' : '#f00');
-        log('Storage: ' + (typeof Storage !== 'undefined' ? 'OK' : 'MANQUANT'), typeof Storage !== 'undefined' ? '#0f0' : '#f00');
-        log('I18n: ' + (typeof I18n !== 'undefined' ? 'OK' : 'MANQUANT'), typeof I18n !== 'undefined' ? '#0f0' : '#f00');
-        log('Theme: ' + (typeof Theme !== 'undefined' ? 'OK' : 'MANQUANT'), typeof Theme !== 'undefined' ? '#0f0' : '#f00');
-        log('--- End Tests ---', '#fff');
-      }
-      
-      // Attendre coreReady de core.js
-      if (typeof EventBus !== 'undefined') {
-        EventBus.on('coreReady', function() {
-          log('coreReady received!', '#0ff');
-          setTimeout(runTests, 500);
-        });
-        
-        EventBus.on('lessonsLoaded', function(data) {
-          log('Lessons loaded: ' + (data && data.count ? data.count : '?') + ' lessons', '#0ff');
-        });
-      } else {
-        log('EventBus not available, fallback...', '#ff0');
-        setTimeout(runTests, 3000);
-      }
-      
-      log('--- Immediate (before coreReady) ---', '#888');
-      log('EventBus: ' + (typeof EventBus !== 'undefined' ? 'OK' : 'MANQUANT'), typeof EventBus !== 'undefined' ? '#0f0' : '#f00');
-    })();
-  </script>
+  
 
 
 </body>
