@@ -21,7 +21,7 @@
     { icon: '🚨', label: 'SOS',    href: 'emergency.html' },
     { icon: '💬', label: 'Talk',   href: 'conversation.html' },
     { icon: '🎧', label: 'Listen', href: 'games/listen.html' },
-    { icon: '🧩', label: 'Phrase', href: 'games/phrase-builder.html' },
+    { icon: '🧩', label: 'Phrase', href: 'games/sentence-builder.html' },
     { icon: '⚙️', label: 'Config', href: 'settings.html' }
   ];
 
