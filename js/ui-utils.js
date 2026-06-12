@@ -1,10 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════
 // UI-UTILS.JS — Daily French v2.2
-// Toast, export/import, popup vocabulaire, navigation, helpers
-//
-// CORRECTIONS v2.2 :
-//   ~ toggleLessonEx : nextElementSibling au lieu de querySelector
-//   ~ toggleLessonEx : drapeau 🇬🇧/🇫🇷 sur le bouton
+// CORRECTION : toggleLessonEx avec nextElementSibling
 // ═══════════════════════════════════════════════════════════════════
 
 // ── TOAST ──
@@ -156,12 +152,6 @@ function toggleLessonEx(btn, ev) {
   span.style.display = isHidden ? 'inline' : 'none';
   btn.textContent = isHidden ? '🇫🇷 Hide' : '🇬🇧 English';
 }
-
-// ── STUBS pour mini-jeux (évitent les erreurs si fichiers manquants) ──
-function checkPhrase() { showToast('Phrase Builder: loading...'); }
-function clearPhrase() { showToast('Phrase Builder: cleared'); }
-function showHint() { showToast('Hint: coming soon!'); }
-function speakPhrase() { showToast('Listen: coming soon!'); }
 
 // ═══════════════════════════════════════════════════════════════════
 // FIN UI-UTILS.JS — v2.2
