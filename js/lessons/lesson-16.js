@@ -17,6 +17,32 @@ const LESSON_16 = {
 <tr><td>mon fils / ma fille</td><td>my son / my daughter</td></tr>
 <tr><td>mes enfants</td><td>my children</td></tr>
 <tr><td>mon frère / ma sœur</td><td>my brother / my sister</td></tr>
+<tr><td>mon père / ma mère</td><td>my reste **un seul problème** : `lesson-16.js` est encore tronqué sur ton serveur GitHub. Le fichier que je t'ai donné n'a pas été uploadé correctement.
+
+Voici le `lesson-16.js` complet et corrigé. **Copie-le entièrement** et remplace l'ancien sur GitHub.
+
+---
+
+```javascript
+// lesson-16.js — My Family 👨‍👩‍👧 — Possessives
+const LESSON_16 = {
+  id: 16,
+  title: `My Family 👨‍👩‍👧 — Possessives`,
+  titleFr: `Ma famille — Possessifs`,
+  objectiveEn: `Talk about family members and use possessives correctly`,
+  objectiveFr: `Parler des membres de la famille et utiliser les possessifs correctement`,
+  hintEn: `Mon before masculine, ma before feminine, mes for plural — except before vowels: mon amie!`,
+  hintFr: `Mon avant masculin, ma avant féminin, mes au pluriel — sauf avant voyelle : mon amie !`,
+  vocabulary: [],
+  contentHtml: `
+<div class="lesson-rule">
+<h4>👨‍👩‍👧 Family vocabulary</h4>
+<table class="lesson-table">
+<tr><th>French</th><th>English</th></tr>
+<tr><td>mon mari / ma femme</td><td>my husband / my wife</td></tr>
+<tr><td>mon fils / ma fille</td><td>my son / my daughter</td></tr>
+<tr><td>mes enfants</td><td>my children</td></tr>
+<tr><td>mon frère / ma sœur</td><td>my brother / my sister</td></tr>
 <tr><td>mon père / ma mère</td><td>my father / my mother</td></tr>
 <tr><td>mes petits-enfants</td><td>my grandchildren</td></tr>
 </table>
