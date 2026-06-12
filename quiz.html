@@ -195,6 +195,30 @@
     }
   });
 </script>
+<script>
+  // Appliquer la direction quand les leçons sont rendues
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof LESSONS_DATA !== 'undefined' && LESSONS_DATA.length > 0) {
+      if (typeof renderLessons === 'function') renderLessons();
+      if (typeof DirectionMode !== 'undefined') {
+        setTimeout(function() {
+          DirectionMode.applyToAllTables();
+        }, 100);
+      }
+    }
+    
+    if (typeof EventBus !== 'undefined') {
+      EventBus.on('lessonsLoaded', function(data) {
+        if (typeof renderLessons === 'function') renderLessons();
+        if (typeof DirectionMode !== 'undefined') {
+          setTimeout(function() {
+            DirectionMode.applyToAllTables();
+          }, 100);
+        }
+      });
+    }
+  });
+</script>
 
 
 </body>
