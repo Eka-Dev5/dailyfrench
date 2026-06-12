@@ -1,277 +1,263 @@
-// lesson-11.js — Daily Life in France 🇫🇷
+// lesson-11.js -- French Administration
 const LESSON_11 = {
   id: 11,
-  title: `Daily Life in France 🇫🇷`,
-  titleFr: `Vie quotidienne en France`,
-  objectiveEn: `Handle admin, services and practical French daily life`,
-  objectiveFr: `Gerer l'administration, les services et la vie quotidienne pratique en France`,
-  hintEn: `Bring your ID (CNI/passport) and carte Vitale to all admin appointments!`,
-  hintFr: `Apportez votre piece d'identite (CNI/passeport) et carte Vitale a tous les rendez-vous administratifs !`,
+  title: "French Administration",
+  titleFr: "L'Administration Francaise",
+  objectiveEn: "Navigate basic French admin tasks: taxes, health, utilities, housing",
+  objectiveFr: "Naviguer dans les taches administratives de base : impots, sante, services, logement",
+  hintEn: "Always keep copies of everything -- French administration loves paperwork!",
+  hintFr: "Gardez toujours des copies de tout -- l'administration francaise adore la paperasse !",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>🏛️ Administrative vocabulary</h4>
+<h4>Key administrative terms</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>la mairie</td><td>town hall</td></tr>
-<tr><td>la prefecture</td><td>prefecture (admin centre)</td></tr>
-<tr><td>la Securite Sociale</td><td>French health insurance</td></tr>
-<tr><td>la carte Vitale</td><td>health insurance card</td></tr>
-<tr><td>le medecin traitant</td><td>GP / family doctor</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>la prefecture</td><td><em>*la pray-fek-TOOR*</em></td><td>the prefecture <!-- *thuh pree-FEK-choor* --></td></tr>
+<tr><td>la Securite Sociale</td><td><em>*la say-kew-ree-TAY so-see-AL*</em></td><td>Social Security <!-- *SOH-shul see-KYOO-ruh-tee* --></td></tr>
+<tr><td>la carte Vitale</td><td><em>*la kart vee-TAL*</em></td><td>health card <!-- *helth card* --></td></tr>
+<tr><td>le medecin traitant</td><td><em>*luh mayd-SAN tre-TAN*</em></td><td>GP / family doctor <!-- *jee-pee / FAM-uh-lee dok-tur* --></td></tr>
+<tr><td>la box internet</td><td><em>*la boks in-tair-NET*</em></td><td>internet box / router <!-- *IN-tur-net boks / ROW-tur* --></td></tr>
+<tr><td>EDF (electricite)</td><td><em>*ay-day-EFF (ay-lek-tree-see-TAY)*</em></td><td>electricity provider <!-- *ee-lek-TRIS-i-tee proh-VY-dur* --></td></tr>
+<tr><td>la dechetterie</td><td><em>*la day-shet-REE*</em></td><td>recycling centre <!-- *ree-SY-kling sen-tur* --></td></tr>
+<tr><td>le controle technique</td><td><em>*luh kon-TROL tek-NEEK*</em></td><td>MOT / vehicle inspection <!-- *em-oh-tee / VEE-i-kul in-SPEK-shun* --></td></tr>
 </table>
 </div>
 <div class="lesson-rule">
-<h4>🌐 Useful services</h4>
+<h4>Useful admin phrases</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>la box internet</td><td>internet router/package</td></tr>
-<tr><td>EDF (electricite)</td><td>electricity provider</td></tr>
-<tr><td>la dechetterie</td><td>recycling/waste centre</td></tr>
-<tr><td>le controle technique</td><td>MOT / vehicle inspection</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>Je voudrais faire une demande de...</td><td><em>*zhuh voo-DRAY fair oon duh-MON duh...*</em></td><td>I would like to apply for... <!-- *eye wood lye too uh-PLY for...* --></td></tr>
+<tr><td>Ou puis-je trouver le formulaire ?</td><td><em>*oo pweezh troo-VAY luh for-moo-LAIR*</em></td><td>Where can I find the form? <!-- *WAIR kan eye fynd thuh form* --></td></tr>
+<tr><td>Quels sont les documents necessaires ?</td><td><em>*kel son lay dok-oo-MON nay-say-SAIR*</em></td><td>What documents are needed? <!-- *wot DOK-oo-munts ar NEE-ded* --></td></tr>
+<tr><td>Je n'ai pas encore recu...</td><td><em>*zhuh nay pah on-KOR ruh-SEW...*</em></td><td>I haven't received... yet <!-- *eye HAV-unt ree-SEEVD... yet* --></td></tr>
+<tr><td>Pouvez-vous me faire une attestation ?</td><td><em>*poo-vay-VOO muh fair oon ah-tay-sta-SYON*</em></td><td>Can you give me a certificate? <!-- *kan yoo giv mee uh sur-TIF-i-kit* --></td></tr>
+<tr><td>Je voudrais prendre un rendez-vous.</td><td><em>*zhuh voo-DRAY pron-druh uhn ron-day-VOO*</em></td><td>I would like to make an appointment. <!-- *eye wood lye too mayk an uh-POYNT-munt* --></td></tr>
 </table>
 </div>
+<div class="lesson-warning">In France, <strong>la carte Vitale</strong> is essential for healthcare. Always carry it! The <strong>medecin traitant</strong> is your registered GP -- you must choose one.</div>
 <div class="lesson-example">
-<strong>Exemple :</strong> Je dois aller a la mairie pour ma carte de sejour. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">🇬🇧 English</button>
-<span class="lesson-ex-en">I need to go to the town hall for my residency card.</span>
+-- Bonjour, je voudrais faire une demande de carte Vitale. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">Hello, I would like to apply for a Vitale card.</span><br>
+-- Tres bien. Voici le formulaire et la liste des documents necessaires. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">Very well. Here is the form and the list of required documents.</span>
 </div>
   `,
   qcm: [
     {
-      id: `11-1`,
-      type: `qcm`,
-      question: `Where do you go to change your address officially?`,
-      questionFr: `Ou allez-vous pour changer votre adresse officiellement ?`,
-      options: [`La mairie`,`La pharmacie`,`La poste`,`Le supermarche`],
-      optionsEn: [`The town hall`,`The pharmacy`,`The post office`,`The supermarket`],
-      correct: `La mairie`,
-      correctEn: `The town hall`,
-      explanation: `La mairie (town hall) handles address changes, civil records, local permits, and much more.`,
-      explanationFr: `La mairie gere les changements d'adresse, l'etat civil, les permis locaux, et bien plus.`
+      id: "11-1",
+      type: "qcm",
+      question: "The prefecture in French:",
+      questionFr: "La prefecture en anglais :",
+      options: ["La prefecture","La mairie","La poste","La banque"],
+      optionsEn: ["The prefecture","The town hall","The post office","The bank"],
+      correct: "La prefecture",
+      correctEn: "The prefecture",
+      explanation: "La prefecture (pray-fek-TOOR) = prefecture. Handles immigration, driving licences.",
+      explanationFr: "La prefecture = la prefecture. S'occupe de l'immigration, des permis de conduire."
     },
     {
-      id: `11-2`,
-      type: `qcm`,
-      question: `What is the carte Vitale?`,
-      questionFr: `Qu'est-ce que la carte Vitale ?`,
-      options: [`French health insurance card`,`A debit card`,`A driving licence`,`A library card`],
-      optionsEn: [`French health insurance card`,`A debit card`,`A driving licence`,`A library card`],
-      correct: `French health insurance card`,
-      correctEn: `French health insurance card`,
-      explanation: `La carte Vitale is your French health insurance card. Keep it with you at all times!`,
-      explanationFr: `La carte Vitale est votre carte d'assurance maladie francaise. Gardez-la toujours sur vous !`
+      id: "11-2",
+      type: "qcm",
+      question: "Social Security in French:",
+      questionFr: "La Securite Sociale en anglais :",
+      options: ["La Securite Sociale","La mutuelle","La CPAM","La CAF"],
+      optionsEn: ["Social Security","Supplementary insurance","Health insurance body","Family allowance"],
+      correct: "La Securite Sociale",
+      correctEn: "Social Security",
+      explanation: "La Securite Sociale (say-kew-ree-TAY so-see-AL) = French Social Security system.",
+      explanationFr: "La Securite Sociale = le systeme de securite sociale francais."
     },
     {
-      id: `11-3`,
-      type: `qcm`,
-      question: `I need to make an appointment with my doctor. in French:`,
-      questionFr: `Je dois prendre rendez-vous avec mon medecin. en anglais :`,
-      options: [`Je dois prendre rendez-vous avec mon medecin.`,`Je dois voir le docteur.`,`J'ai besoin docteur.`,`Je vais docteur.`],
-      optionsEn: [`I need to make an appointment with my doctor.`,`I need to see the doctor.`,`I need doctor.`,`I go doctor.`],
-      correct: `Je dois prendre rendez-vous avec mon medecin.`,
-      correctEn: `I need to make an appointment with my doctor.`,
-      explanation: `Prendre rendez-vous (*pron-druh ron-day-VOO*) = to make an appointment.`,
-      explanationFr: `Prendre rendez-vous = prendre rendez-vous.`
+      id: "11-3",
+      type: "qcm",
+      question: "Health card in French:",
+      questionFr: "La carte Vitale en anglais :",
+      options: ["La carte Vitale","La carte bleue","La carte d'identite","La carte bancaire"],
+      optionsEn: ["Health card","Credit card","ID card","Bank card"],
+      correct: "La carte Vitale",
+      correctEn: "Health card",
+      explanation: "La carte Vitale (vee-TAL) = health insurance card. Essential for medical care!",
+      explanationFr: "La carte Vitale = carte d'assurance maladie. Essentielle pour les soins medicaux !"
     },
     {
-      id: `11-4`,
-      type: `qcm`,
-      question: `What is la dechetterie?`,
-      questionFr: `Qu'est-ce que la dechetterie ?`,
-      options: [`The recycling/waste centre`,`The bakery`,`The police station`,`The supermarket`],
-      optionsEn: [`The recycling/waste centre`,`The bakery`,`The police station`,`The supermarket`],
-      correct: `The recycling/waste centre`,
-      correctEn: `The recycling/waste centre`,
-      explanation: `La dechetterie is where you take large waste, electronics, old paint. There's usually one per town.`,
-      explanationFr: `La dechetterie est ou vous emmenez les gros dechets, electronique, vieille peinture. Il y en a generalement une par ville.`
+      id: "11-4",
+      type: "qcm",
+      question: "GP / family doctor in French:",
+      questionFr: "Le medecin traitant en anglais :",
+      options: ["Le medecin traitant","Le specialiste","Le chirurgien","Le pharmacien"],
+      optionsEn: ["GP / family doctor","The specialist","The surgeon","The pharmacist"],
+      correct: "Le medecin traitant",
+      correctEn: "GP / family doctor",
+      explanation: "Le medecin traitant (mayd-SAN tre-TAN) = registered GP. You must declare one.",
+      explanationFr: "Le medecin traitant = medecin declare. Vous devez en declarer un."
     },
     {
-      id: `11-5`,
-      type: `qcm`,
-      question: `The internet is not working. in French:`,
-      questionFr: `Internet ne marche pas. en anglais :`,
-      options: [`Internet ne marche pas.`,`La box est cassee.`,`Je n'ai pas internet.`,`Internet est mort.`],
-      optionsEn: [`The internet is not working.`,`The box is broken.`,`I don't have internet.`,`Internet is dead.`],
-      correct: `Internet ne marche pas.`,
-      correctEn: `The internet is not working.`,
-      explanation: `Marcher (*mar-SHAY*) in French means to work (for machines). La box internet = your router.`,
-      explanationFr: `Marcher en francais signifie fonctionner (pour les machines). La box internet = votre routeur.`
+      id: "11-5",
+      type: "qcm",
+      question: "Internet box / router in French:",
+      questionFr: "La box internet en anglais :",
+      options: ["La box internet","Le modem","Le wifi","L'ordinateur"],
+      optionsEn: ["Internet box / router","The modem","The wifi","The computer"],
+      correct: "La box internet",
+      correctEn: "Internet box / router",
+      explanation: "La box internet (boks in-tair-NET) = internet router/box. Very common term in France!",
+      explanationFr: "La box internet = routeur/box internet. Terme tres courant en France !"
     },
     {
-      id: `11-6`,
-      type: `qcm`,
-      question: `The electricity bill in French:`,
-      questionFr: `La facture d'electricite en anglais :`,
-      options: [`La facture d'electricite`,`Le billet electrique`,`La note de courant`,`Le papier EDF`],
-      optionsEn: [`The electricity bill`,`The electric ticket`,`The current note`,`The EDF paper`],
-      correct: `La facture d'electricite`,
-      correctEn: `The electricity bill`,
-      explanation: `Une facture (*fak-TUER*) = a bill/invoice. EDF is the main French electricity provider.`,
-      explanationFr: `Une facture = une facture. EDF est le principal fournisseur d'electricite francais.`
+      id: "11-6",
+      type: "qcm",
+      question: "Electricity provider in French:",
+      questionFr: "EDF en anglais :",
+      options: ["EDF","EDF-GDF","Engie","Total"],
+      optionsEn: ["Electricity provider","Gas/electricity","Energy company","Oil company"],
+      correct: "EDF",
+      correctEn: "Electricity provider",
+      explanation: "EDF (ay-day-EFF) = Electricite de France. The main electricity provider.",
+      explanationFr: "EDF = Electricite de France. Le principal fournisseur d'electricite."
     },
     {
-      id: `11-7`,
-      type: `qcm`,
-      question: `I need to register at the town hall. in French:`,
-      questionFr: `Je dois m'inscrire a la mairie. en anglais :`,
-      options: [`Je dois m'inscrire a la mairie.`,`Je vais mairie.`,`Je dois mairie.`,`Je m'inscris mairie.`],
-      optionsEn: [`I need to register at the town hall.`,`I go town hall.`,`I need town hall.`,`I register town hall.`],
-      correct: `Je dois m'inscrire a la mairie.`,
-      correctEn: `I need to register at the town hall.`,
-      explanation: `S'inscrire (*san-SKREER*) = to register. M'inscrire = to register myself.`,
-      explanationFr: `S'inscrire = s'inscrire. M'inscrire = m'inscrire.`
+      id: "11-7",
+      type: "qcm",
+      question: "Recycling centre in French:",
+      questionFr: "La dechetterie en anglais :",
+      options: ["La dechetterie","La poubelle","Le recyclage","L'incinerateur"],
+      optionsEn: ["Recycling centre","The bin","Recycling","The incinerator"],
+      correct: "La dechetterie",
+      correctEn: "Recycling centre",
+      explanation: "La dechetterie (day-shet-REE) = recycling centre / dump for bulky waste.",
+      explanationFr: "La dechetterie = centre de recyclage / decharge pour encombrants."
     },
     {
-      id: `11-8`,
-      type: `qcm`,
-      question: `The rubbish collection is on Thursday. in French:`,
-      questionFr: `La collecte des ordures est le jeudi. en anglais :`,
-      options: [`La collecte des ordures est le jeudi.`,`Les poubelles jeudi.`,`Ramassage poubelle jeudi.`,`Collecte jeudi ordures.`],
-      optionsEn: [`The rubbish collection is on Thursday.`,`The bins Thursday.`,`Rubbish collection Thursday.`,`Collection Thursday rubbish.`],
-      correct: `La collecte des ordures est le jeudi.`,
-      correctEn: `The rubbish collection is on Thursday.`,
-      explanation: `La collecte (*kol-EKT*) = collection. Des ordures = of rubbish/waste.`,
-      explanationFr: `La collecte = la collecte. Des ordures = des ordures.`
+      id: "11-8",
+      type: "qcm",
+      question: "MOT / vehicle inspection in French:",
+      questionFr: "Le controle technique en anglais :",
+      options: ["Le controle technique","La revision","L'entretien","Le garage"],
+      optionsEn: ["MOT / vehicle inspection","The service","The maintenance","The garage"],
+      correct: "Le controle technique",
+      correctEn: "MOT / vehicle inspection",
+      explanation: "Le controle technique (kon-TROL tek-NEEK) = mandatory vehicle inspection every 2 years.",
+      explanationFr: "Le controle technique = controle obligatoire tous les 2 ans."
     },
     {
-      id: `11-9`,
-      type: `qcm`,
-      question: `How do you say My car needs a service?`,
-      questionFr: `Comment dit-on Ma voiture a besoin d'une revision ?`,
-      options: [`Ma voiture a besoin d'une revision.`,`Mon voiture reparation.`,`Ma voiture est cassee.`,`Je dois garage.`],
-      optionsEn: [`My car needs a service.`,`My car repair.`,`My car is broken.`,`I need garage.`],
-      correct: `Ma voiture a besoin d'une revision.`,
-      correctEn: `My car needs a service.`,
-      explanation: `Une revision (*ray-vee-ZYON*) = a car service. Besoin de = need.`,
-      explanationFr: `Une revision = une revision. Besoin de = besoin de.`
+      id: "11-9",
+      type: "qcm",
+      question: "I would like to apply for... in French:",
+      questionFr: "Je voudrais faire une demande de... en anglais :",
+      options: ["Je voudrais faire une demande de...","Je veux demander...","Je demande...","Je fais une demande..."],
+      optionsEn: ["I would like to apply for...","I want to ask...","I ask...","I make a request..."],
+      correct: "Je voudrais faire une demande de...",
+      correctEn: "I would like to apply for...",
+      explanation: "Faire une demande de = to apply for. Very common administrative phrase.",
+      explanationFr: "Faire une demande de = faire une demande de. Phrase administrative tres courante."
     },
     {
-      id: `11-10`,
-      type: `qcm`,
-      question: `I need to renew my residency card. in French:`,
-      questionFr: `Je dois renouveler ma carte de sejour. en anglais :`,
-      options: [`Je dois renouveler ma carte de sejour.`,`Je dois carte nouveau.`,`Ma carte est vieille.`,`Renouveler sejour.`],
-      optionsEn: [`I need to renew my residency card.`,`I need card new.`,`My card is old.`,`Renew stay.`],
-      correct: `Je dois renouveler ma carte de sejour.`,
-      correctEn: `I need to renew my residency card.`,
-      explanation: `Renouveler (*ruh-noo-vuh-LAY*) = to renew. La carte de sejour = residency permit.`,
-      explanationFr: `Renouveler = renouveler. La carte de sejour = la carte de sejour.`
+      id: "11-10",
+      type: "qcm",
+      question: "Where can I find the form? in French:",
+      questionFr: "Ou puis-je trouver le formulaire ? en anglais :",
+      options: ["Ou puis-je trouver le formulaire ?","Ou est le formulaire ?","Le formulaire ou ?","Comment trouver formulaire ?"],
+      optionsEn: ["Where can I find the form?","Where is the form?","The form where?","How to find form?"],
+      correct: "Ou puis-je trouver le formulaire ?",
+      correctEn: "Where can I find the form?",
+      explanation: "Puis-je (pweezh) = can I. Very polite form. Formulaire = form.",
+      explanationFr: "Puis-je = puis-je. Forme tres polie. Formulaire = formulaire."
     }
   ],
   libre: [
     {
-      id: `11-l1`,
-      type: `libre`,
-      question: `Translate: I need to go to the town hall.`,
-      questionFr: `Traduisez : Je dois aller a la mairie.`,
-      correct: `Je dois aller a la mairie.`,
-      correctEn: `I need to go to the town hall.`,
+      id: "11-l1",
+      type: "libre",
+      question: "Translate: I would like to make an appointment.",
+      questionFr: "Traduisez : Je voudrais prendre un rendez-vous.",
+      correct: "Je voudrais prendre un rendez-vous.",
+      correctEn: "I would like to make an appointment.",
       alternatives: [],
-      explanation: `Je dois + infinitive = I must/need to. La mairie = town hall.`,
-      explanationFr: `Je dois + infinitif = je dois. La mairie = la mairie.`
+      explanation: "Prendre un rendez-vous = to make an appointment.",
+      explanationFr: "Prendre un rendez-vous = prendre un rendez-vous."
     },
     {
-      id: `11-l2`,
-      type: `libre`,
-      question: `How do you say My internet isn't working?`,
-      questionFr: `Comment dit-on Mon internet ne marche pas ?`,
-      correct: `Mon internet ne marche pas.`,
-      correctEn: `My internet isn't working.`,
-      alternatives: [`Ma box ne marche pas.`],
-      explanation: `Ne marche pas = doesn't work (for machines/services).`,
-      explanationFr: `Ne marche pas = ne marche pas (pour les machines/services).`
-    },
-    {
-      id: `11-l3`,
-      type: `libre`,
-      question: `What is la carte Vitale used for?`,
-      questionFr: `A quoi sert la carte Vitale ?`,
-      correct: `French health insurance`,
-      correctEn: `French health insurance`,
-      alternatives: [`health insurance card`,`Securite Sociale`],
-      explanation: `Always carry it to doctor, pharmacy and hospital appointments.`,
-      explanationFr: `Gardez-la toujours sur vous pour les rendez-vous chez le medecin, la pharmacie et l'hopital.`
-    },
-    {
-      id: `11-l4`,
-      type: `libre`,
-      question: `Complete: Je dois prendre ___ avec mon medecin.`,
-      questionFr: `Completez : Je dois prendre ___ avec mon medecin.`,
-      correct: `rendez-vous`,
-      correctEn: `an appointment`,
+      id: "11-l2",
+      type: "libre",
+      question: "How do you say the health card?",
+      questionFr: "Comment dit-on la carte Vitale ?",
+      correct: "la carte Vitale",
+      correctEn: "the health card",
       alternatives: [],
-      explanation: `Prendre rendez-vous = to make an appointment. Essential phrase!`,
-      explanationFr: `Prendre rendez-vous = prendre rendez-vous. Phrase essentielle !`
+      explanation: "La carte Vitale = health insurance card. Carry it always!",
+      explanationFr: "La carte Vitale = carte d'assurance maladie. Portez-la toujours !"
     },
     {
-      id: `11-l5`,
-      type: `libre`,
-      question: `Translate: The electricity bill arrived today.`,
-      questionFr: `Traduisez : La facture d'electricite est arrivee aujourd'hui.`,
-      correct: `La facture d'electricite est arrivee aujourd'hui.`,
-      correctEn: `The electricity bill arrived today.`,
+      id: "11-l3",
+      type: "libre",
+      question: "Translate: What documents are needed?",
+      questionFr: "Traduisez : Quels sont les documents necessaires ?",
+      correct: "Quels sont les documents necessaires ?",
+      correctEn: "What documents are needed?",
       alternatives: [],
-      explanation: `La facture = the bill. Arrivee = arrived (feminine agreement with la facture).`,
-      explanationFr: `La facture = la facture. Arrivee = arrivee (accord feminin avec la facture).`
+      explanation: "Quels sont = What are. Documents necessaires = required documents.",
+      explanationFr: "Quels sont = quels sont. Documents necessaires = documents necessaires."
     },
     {
-      id: `11-l6`,
-      type: `libre`,
-      question: `How do you say I need to register my car?`,
-      questionFr: `Comment dit-on Je dois immatriculer ma voiture ?`,
-      correct: `Je dois immatriculer ma voiture.`,
-      correctEn: `I need to register my car.`,
-      alternatives: [`Je dois faire la carte grise.`],
-      explanation: `La carte grise = vehicle registration document. Immatriculer = to register (a vehicle).`,
-      explanationFr: `La carte grise = la carte grise. Immatriculer = immatriculer (un vehicule).`
-    },
-    {
-      id: `11-l7`,
-      type: `libre`,
-      question: `Translate: Is there a recycling centre nearby?`,
-      questionFr: `Traduisez : Il y a une dechetterie pres d'ici ?`,
-      correct: `Il y a une dechetterie pres d'ici ?`,
-      correctEn: `Is there a recycling centre nearby?`,
+      id: "11-l4",
+      type: "libre",
+      question: "Complete: Je voudrais faire une ___ de...",
+      questionFr: "Completez : Je voudrais faire une ___ de...",
+      correct: "demande",
+      correctEn: "request / application",
       alternatives: [],
-      explanation: `La dechetterie = recycling/waste centre. Pres d'ici = nearby.`,
-      explanationFr: `La dechetterie = la dechetterie. Pres d'ici = pres d'ici.`
+      explanation: "Faire une demande = to apply / make a request.",
+      explanationFr: "Faire une demande = faire une demande."
     },
     {
-      id: `11-l8`,
-      type: `libre`,
-      question: `What does ca ne marche pas mean?`,
-      questionFr: `Que signifie ca ne marche pas ?`,
-      correct: `it doesn't work`,
-      correctEn: `it doesn't work`,
-      alternatives: [`it's not working`],
-      explanation: `Marcher = to work (for machines, services). Ca ne marche pas = it's not working.`,
-      explanationFr: `Marcher = marcher (pour les machines, services). Ca ne marche pas = ca ne marche pas.`
-    },
-    {
-      id: `11-l9`,
-      type: `libre`,
-      question: `Complete: Je dois m'___ a la mairie.`,
-      questionFr: `Completez : Je dois m'___ a la mairie.`,
-      correct: `inscrire`,
-      correctEn: `register`,
+      id: "11-l5",
+      type: "libre",
+      question: "How do you say I haven't received... yet?",
+      questionFr: "Comment dit-on Je n'ai pas encore recu... ?",
+      correct: "Je n'ai pas encore recu...",
+      correctEn: "I haven't received... yet",
       alternatives: [],
-      explanation: `S'inscrire = to register. Je dois m'inscrire = I need to register myself.`,
-      explanationFr: `S'inscrire = s'inscrire. Je dois m'inscrire = je dois m'inscrire.`
+      explanation: "Je n'ai pas encore = I haven't yet. Encore = yet/still.",
+      explanationFr: "Je n'ai pas encore = je n'ai pas encore. Encore = encore."
     },
     {
-      id: `11-l10`,
-      type: `libre`,
-      question: `Translate: My residency card expires next month.`,
-      questionFr: `Traduisez : Ma carte de sejour expire le mois prochain.`,
-      correct: `Ma carte de sejour expire le mois prochain.`,
-      correctEn: `My residency card expires next month.`,
+      id: "11-l6",
+      type: "libre",
+      question: "Translate: Can you give me a certificate?",
+      questionFr: "Traduisez : Pouvez-vous me faire une attestation ?",
+      correct: "Pouvez-vous me faire une attestation ?",
+      correctEn: "Can you give me a certificate?",
       alternatives: [],
-      explanation: `Expirer = to expire. Le mois prochain = next month.`,
-      explanationFr: `Expirer = expirer. Le mois prochain = le mois prochain.`
+      explanation: "Attestation = certificate / official statement.",
+      explanationFr: "Attestation = attestation / declaration officielle."
+    },
+    {
+      id: "11-l7",
+      type: "libre",
+      question: "Complete: Ou ___-je trouver le formulaire ?",
+      questionFr: "Completez : Ou ___-je trouver le formulaire ?",
+      correct: "puis",
+      correctEn: "can",
+      alternatives: [],
+      explanation: "Ou puis-je = Where can I. Puis-je = can I (very polite).",
+      explanationFr: "Ou puis-je = ou puis-je. Puis-je = puis-je (tres poli)."
+    },
+    {
+      id: "11-l8",
+      type: "libre",
+      question: "How do you say the prefecture?",
+      questionFr: "Comment dit-on la prefecture ?",
+      correct: "la prefecture",
+      correctEn: "the prefecture",
+      alternatives: [],
+      explanation: "La prefecture = prefecture. Handles official documents.",
+      explanationFr: "La prefecture = la prefecture. S'occupe des documents officiels."
     }
   ]
 };
 
-if (typeof module !== `undefined` && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
   module.exports = LESSON_11;
 } else {
   window.LESSON_11 = LESSON_11;
