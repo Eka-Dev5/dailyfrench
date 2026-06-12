@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Test core.js</title></head>
+<body>
+<h1>Test core.js isolé</h1>
+<div id="result"></div>
+<script>
+window.onerror = function(msg, url, line) {
+  document.getElementById('result').innerHTML += '<p style="color:red">❌ ERREUR: ' + msg + ' (ligne ' + line + ')</p>';
+  return true;
+};
+</script>
+<script src="js/config.js"></script>
+<script>
+document.getElementById('result').innerHTML += '<p style="color:green">✅ config.js OK</p>';
+</script>
+<script src="js/core.js"></script>
+<script>
+document.getElementById('result').innerHTML += '<p>EventBus: ' + (typeof EventBus !== 'undefined' ? 'OK' : 'MANQUANT') + '</p>';
+document.getElementById('result').innerHTML += '<p>Storage: ' + (typeof Storage !== 'undefined' ? 'OK' : 'MANQUANT') + '</p>';
+document.getElementById('result').innerHTML += '<p>PlayerManager: ' + (typeof PlayerManager !== 'undefined' ? 'OK' : 'MANQUANT') + '</p>';
+</script>
+</body>
+</html>
