@@ -5,7 +5,7 @@ let LESSONS_DATA = [];
 let QUESTIONS_DB = {};
 
 function loadLessons() {
-  // FLAG ANTI-DOUBLE APPEL — empêche le chargement 2 fois
+  // FLAG ANTI-DOUBLE APPEL
   if (window._lessonsLoading) return;
   window._lessonsLoading = true;
   
@@ -25,7 +25,7 @@ function loadLessons() {
     const numStr = i.toString().padStart(2, '0');
     const script = document.createElement('script');
     script.src = 'js/lessons/lesson-' + numStr + '.js';
-    script.async = false; // ← SÉQUENTIEL
+    script.async = false;
 
     script.onload = function() {
       const lessonVar = 'LESSON_' + numStr;
@@ -88,10 +88,6 @@ function loadLessons() {
   }
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// LANCEMENT : écoute coreReady OU lance direct si déjà prêt
-// Le flag _lessonsLoading dans loadLessons() empêche le double appel
-// ═══════════════════════════════════════════════════════════════════
 function tryStart() {
   if (typeof EventBus !== 'undefined') {
     EventBus.on('coreReady', loadLessons);
