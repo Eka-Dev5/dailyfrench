@@ -12,25 +12,25 @@ const LESSON_04 = {
 <div class="lesson-rule">
 <h4>Meeting your neighbours</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>mon voisin / ma voisine</td><td>my neighbour (m/f)</td></tr>
-<tr><td>la mairie</td><td>the town hall</td></tr>
-<tr><td>le marche</td><td>the market</td></tr>
-<tr><td>la place</td><td>the village square</td></tr>
-<tr><td>le quartier</td><td>the neighbourhood</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>mon voisin / ma voisine</td><td><em>*mon vwa-ZAN / ma vwa-ZEEN*</em></td><td>my neighbour (m/f) <!-- *my NAY-bur* --></td></tr>
+<tr><td>la mairie</td><td><em>*la may-REE*</em></td><td>the town hall <!-- *thuh town hawl* --></td></tr>
+<tr><td>le marche</td><td><em>*luh mar-SHAY*</em></td><td>the market <!-- *thuh MAR-kit* --></td></tr>
+<tr><td>la place</td><td><em>*la plahs*</em></td><td>the village square <!-- *thuh VIL-ij skwair* --></td></tr>
+<tr><td>le quartier</td><td><em>*luh kar-tee-AY*</em></td><td>the neighbourhood <!-- *thuh NAY-bur-hood* --></td></tr>
 </table>
 </div>
 <div class="lesson-rule">
 <h4>Social phrases</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>Comment allez-vous ?</td><td>How are you? (formal)</td></tr>
-<tr><td>Ca va ?</td><td>How are you? (informal)</td></tr>
-<tr><td>Je vais bien, merci.</td><td>I'm well, thank you.</td></tr>
-<tr><td>A bientot !</td><td>See you soon!</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>Comment allez-vous ?</td><td><em>*ko-mahn ta-lay-VOO*</em></td><td>How are you? (formal) <!-- *how ar yoo* --></td></tr>
+<tr><td>Ca va ?</td><td><em>*sah VAH*</em></td><td>How are you? (informal) <!-- *how ar yoo* --></td></tr>
+<tr><td>Je vais bien, merci.</td><td><em>*zhuh vay bee-AN, mair-SEE*</em></td><td>I'm well, thank you. <!-- *eye m well, THAN-k yoo* --></td></tr>
+<tr><td>A bientot !</td><td><em>*ah bee-AN-toh*</em></td><td>See you soon! <!-- *see yoo soon* --></td></tr>
 </table>
 </div>
-<div class="lesson-warning">Always say bonjour when entering a shop or meeting someone. It is essential in France!</div>
+<div class="lesson-warning">Always say <strong>bonjour</strong> when entering a shop or meeting someone. It is essential in France!</div>
 <div class="lesson-example">
 Bonjour madame, comment allez-vous ? <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
 <span class="lesson-ex-en">Hello madam, how are you?</span>
@@ -222,52 +222,30 @@ Bonjour madame, comment allez-vous ? <button class="lesson-ex-btn" onclick="togg
       correct: "Vous connaissez le quartier ?",
       correctEn: "Do you know the neighbourhood?",
       alternatives: [],
-      explanation: "Le quartier = the neighbourhood. Connaitre = to know (a place).",
-      explanationFr: "Le quartier = le quartier. Connaitre = connaitre (un lieu)."
+      explanation: "Connaitre = to know. Le quartier = the neighbourhood.",
+      explanationFr: "Connaitre = connaitre. Le quartier = le quartier."
     },
     {
       id: "04-l7",
       type: "libre",
-      question: "How do you say the market?",
-      questionFr: "Comment dit-on le marche ?",
-      correct: "le marche",
-      correctEn: "the market",
+      question: "How do you say How are you? (informal)?",
+      questionFr: "Comment dit-on Ca va ?",
+      correct: "Ca va ?",
+      correctEn: "How are you? (informal)",
       alternatives: [],
-      explanation: "Le marche = the market. Le marche aux puces = flea market.",
-      explanationFr: "Le marche = le marche. Le marche aux puces = le marche aux puces."
+      explanation: "Ca va ? = informal How are you?",
+      explanationFr: "Ca va ? = ca va (informel)."
     },
     {
       id: "04-l8",
       type: "libre",
-      question: "Translate: Good evening, madam.",
-      questionFr: "Traduisez : Bonsoir, madame.",
-      correct: "Bonsoir, madame.",
-      correctEn: "Good evening, madam.",
+      question: "Complete: ___ voisine habite a cote.",
+      questionFr: "Completez : ___ voisine habite a cote.",
+      correct: "Ma",
+      correctEn: "My",
       alternatives: [],
-      explanation: "Bonsoir = good evening. Bonjour = good day / hello.",
-      explanationFr: "Bonsoir = bonsoir. Bonjour = bonjour."
-    },
-    {
-      id: "04-l9",
-      type: "libre",
-      question: "Complete: ___ madame, comment allez-vous ?",
-      questionFr: "Completez : ___ madame, comment allez-vous ?",
-      correct: "Bonjour",
-      correctEn: "Hello",
-      alternatives: [],
-      explanation: "Always start with Bonjour in formal situations.",
-      explanationFr: "Toujours commencer par Bonjour en situation formelle."
-    },
-    {
-      id: "04-l10",
-      type: "libre",
-      question: "What does au revoir mean?",
-      questionFr: "Que signifie au revoir ?",
-      correct: "goodbye",
-      correctEn: "goodbye",
-      alternatives: ["bye","see you again"],
-      explanation: "Au revoir (oh ruh-VWAHR) = goodbye. A bientot = see you soon.",
-      explanationFr: "Au revoir = au revoir. A bientot = a bientot."
+      explanation: "Ma voisine = my (female) neighbour. Ma = my (feminine).",
+      explanationFr: "Ma voisine = ma voisine. Ma = ma (feminin)."
     }
   ]
 };
