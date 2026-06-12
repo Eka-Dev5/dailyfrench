@@ -5,7 +5,7 @@
 
 /* ── HERO ───────────────────────────────────────────────────────── */
 .conversation-hero {
-  background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 50%, #A855F7 100%) !important;
+  background: linear-gradient(135deg, var(--hero-from) 0%, var(--hero-via) 50%, var(--hero-to) 100%);
 }
 
 /* ── MAIN ───────────────────────────────────────────────────────── */
