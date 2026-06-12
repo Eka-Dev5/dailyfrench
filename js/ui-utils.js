@@ -1,13 +1,10 @@
 // ═══════════════════════════════════════════════════════════════════
-// UI-UTILS.JS — Daily French 🥖 v2.1
+// UI-UTILS.JS — Daily French v2.2
 // Toast, export/import, popup vocabulaire, navigation, helpers
 //
-// MODIFICATIONS v2.1 :
-//   + normalizeForMatch() — NFD + strip diacritics + lower + trim
-//   + getDirectionLabel() — helper pour affichage direction
-//   + _esc() amélioré
-//   ~ openVocabPopup : fonctionne avec les deux structures HTML
-//   ~ closeVocabPopup : corrigé, ferme proprement
+// CORRECTIONS v2.2 :
+//   ~ toggleLessonEx : nextElementSibling au lieu de querySelector
+//   ~ toggleLessonEx : drapeau 🇬🇧/🇫🇷 sur le bouton
 // ═══════════════════════════════════════════════════════════════════
 
 // ── TOAST ──
@@ -16,7 +13,7 @@ function showToast(msg) {
   if (!t) return;
   t.textContent = msg;
   t.classList.add("show");
-  setTimeout(() => t.classList.remove("show"), 3000);
+  setTimeout(function() { t.classList.remove("show"); }, 3000);
 }
 
 // ── NAVIGATION ──
@@ -66,8 +63,7 @@ function importSave(event) {
   event.target.value = "";
 }
 
-// ── NORMALIZE — NOUVEAU v2.1 ──
-// Comparaison insensible aux accents, majuscules, espaces
+// ── NORMALIZE ──
 function normalizeForMatch(text) {
   if (!text) return '';
   return text
@@ -78,8 +74,7 @@ function normalizeForMatch(text) {
     .trim();
 }
 
-// ── DIRECTION HELPER — NOUVEAU v2.1 ──
-// Retourne le label traduit du mode direction actuel
+// ── DIRECTION HELPER ──
 function getDirectionLabel() {
   if (typeof DirectionMode !== 'undefined') {
     return DirectionMode.getLabel();
@@ -90,11 +85,10 @@ function getDirectionLabel() {
 // ── VOCABULAIRE POPUP ──
 function openVocabPopup(fr) {
   if (typeof VOCABULARY_BDD === "undefined") return;
-  const w = VOCABULARY_BDD.find(x => x.fr === fr);
+  const w = VOCABULARY_BDD.find(function(x) { return x.fr === fr; });
   if (!w) return;
 
-  // Structure complète (vocabulary.html, dashboard.html)
-  const set = (id, v) => {
+  const set = function(id, v) {
     const el = document.getElementById(id);
     if (el) el.textContent = v || "";
   };
@@ -105,20 +99,17 @@ function openVocabPopup(fr) {
   set("vocabPopupEx", w.ex || "");
   set("vocabPopupCat", (w.cat || "") + (w.level ? " • Level " + w.level : ""));
 
-  // Structure simple (quiz.html) : #vocab-popup-body
   const body = document.getElementById("vocab-popup-body");
   if (body) {
-    body.innerHTML = `
-      <div class="vocab-popup-fr">${_esc(w.fr)}</div>
-      <div class="vocab-popup-phon">${_esc(w.phon || "")}</div>
-      <div class="vocab-popup-en">${_esc(w.en || "")}</div>
-      <div class="vocab-popup-def">${_esc(w.def || "")}</div>
-      <div class="vocab-popup-ex">${_esc(w.ex || "")}</div>
-      <div class="vocab-popup-cat">${_esc((w.cat || "") + (w.level ? " • Level " + w.level : ""))}</div>
-    `;
+    body.innerHTML = 
+      '<div class="vocab-popup-fr">' + _esc(w.fr) + '</div>' +
+      '<div class="vocab-popup-phon">' + _esc(w.phon || "") + '</div>' +
+      '<div class="vocab-popup-en">' + _esc(w.en || "") + '</div>' +
+      '<div class="vocab-popup-def">' + _esc(w.def || "") + '</div>' +
+      '<div class="vocab-popup-ex">' + _esc(w.ex || "") + '</div>' +
+      '<div class="vocab-popup-cat">' + _esc((w.cat || "") + (w.level ? " • Level " + w.level : "")) + '</div>';
   }
 
-  // Ouvrir le popup
   const modal = document.getElementById("vocabulary-popup-modal");
   if (modal) {
     modal.classList.add("open");
@@ -127,7 +118,6 @@ function openVocabPopup(fr) {
 }
 
 function closeVocabPopup(e) {
-  // Ne ferme pas si clic dans le contenu (sauf bouton ×)
   if (e && e.target) {
     if (e.target.closest(".vocab-popup-content")) {
       if (!e.target.classList.contains("vocab-popup-close")) return;
@@ -150,16 +140,29 @@ function _esc(s) {
     .replace(/"/g, '&quot;');
 }
 
-// ── TOGGLE TRADUCTION LEÇONS ──
+// ── TOGGLE TRADUCTION LEÇONS — CORRIGÉ v2.2 ──
 function toggleLessonEx(btn, ev) {
   if (ev) { ev.stopPropagation(); ev.preventDefault(); }
-  const span = btn.parentElement ? btn.parentElement.querySelector(".lesson-ex-en") : null;
+  
+  // Trouver le SPAN qui suit IMMÉDIATEMENT le bouton (pas le premier du parent)
+  var span = btn.nextElementSibling;
+  while (span && !span.classList.contains('lesson-ex-en')) {
+    span = span.nextElementSibling;
+  }
+  
   if (!span) return;
-  const show = span.style.display !== "block";
-  span.style.display = show ? "block" : "none";
-  btn.textContent = show ? "🇫🇷 Hide" : "🇬🇧 English";
+  
+  var isHidden = span.style.display === 'none' || span.style.display === '';
+  span.style.display = isHidden ? 'inline' : 'none';
+  btn.textContent = isHidden ? '🇫🇷 Hide' : '🇬🇧 English';
 }
 
+// ── STUBS pour mini-jeux (évitent les erreurs si fichiers manquants) ──
+function checkPhrase() { showToast('Phrase Builder: loading...'); }
+function clearPhrase() { showToast('Phrase Builder: cleared'); }
+function showHint() { showToast('Hint: coming soon!'); }
+function speakPhrase() { showToast('Listen: coming soon!'); }
+
 // ═══════════════════════════════════════════════════════════════════
-// FIN UI-UTILS.JS — v2.1 — 7 juin 2026
+// FIN UI-UTILS.JS — v2.2
 // ═══════════════════════════════════════════════════════════════════
