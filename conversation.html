@@ -81,11 +81,11 @@
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
   <script src="js/conversation.js"></script>
-  <script>
-    function applyThemePick(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('dailyFrench_theme',t);if(typeof toast==='function')toast('Theme: '+t)}
-    function applyLangPick(l){localStorage.setItem('dailyFrench_lang',l);if(typeof toast==='function')toast('Language: '+l.toUpperCase())}
-    (function(){const t=localStorage.getItem('dailyFrench_theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
-    document.addEventListener('DOMContentLoaded',function(){if(typeof initConversation==='function')initConversation()});
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof initConversation === 'function') initConversation();
+    });
   </script>
+
 </body>
 </html>
