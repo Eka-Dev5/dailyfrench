@@ -178,59 +178,6 @@
   <!-- 9. nav.js — Navigation (après core.js ✅) -->
   <script src="js/nav.js"></script>
 
-  <!-- Scripts inline pour Settings -->
-  <script>
-    // applyDirectionPick — Choisir la direction (utilise DirectionMode.set())
-    function applyDirectionPick(d) {
-      if (typeof DirectionMode !== 'undefined') {
-        DirectionMode.set(d);
-        toast('Direction: ' + DirectionMode.getLabel(d) + ' 🔄');
-      }
-      document.querySelectorAll('.direction-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.direction === d);
-      });
-    }
-    
-    // applyThemePick — Choisir un thème
-    function applyThemePick(t) {
-      if (typeof Theme !== 'undefined') {
-        Theme.apply(t);
-      } else {
-        document.documentElement.setAttribute('data-theme', t);
-        localStorage.setItem('dailyFrench_theme', t);
-      }
-      if (typeof toast === 'function') toast('Theme: ' + t);
-    }
-    
-    // applyLangPick — Choisir une langue
-    function applyLangPick(l) {
-      if (typeof I18n !== 'undefined') {
-        I18n.current = l;
-        Storage.set('dailyFrench_lang', l);
-      }
-      localStorage.setItem('dailyFrench_lang', l);
-      if (typeof toast === 'function') toast('Language: ' + l.toUpperCase());
-    }
-    
-    // Initialisation
-    (function() {
-      // Appliquer la direction sauvegardée
-      const s = localStorage.getItem('dailyFrench_direction') || 'en-first';
-      if (typeof DirectionMode !== 'undefined') {
-        DirectionMode.set(s);
-      }
-      document.querySelectorAll('.direction-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.direction === s);
-      });
-      
-      // Appliquer le thème sauvegardé
-      const t = localStorage.getItem('dailyFrench_theme');
-      if (t && typeof Theme !== 'undefined') {
-        Theme.apply(t);
-      } else if (t) {
-        document.documentElement.setAttribute('data-theme', t);
-      }
-    })();
-  </script>
+
 </body>
 </html>
