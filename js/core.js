@@ -110,7 +110,7 @@ const PlayerManager = {
     const trimmed = name.trim();
     if (trimmed.length === 0) return { ok: false, msg: 'Name cannot be empty' };
     if (trimmed.length > 30) return { ok: false, msg: 'Name too long (max 30)' };
-    if (!/^[\p{L}\p{N}\s\-'_]+$/u.test(trimmed)) return { ok: false, msg: 'Invalid characters' };
+    if (!/^[a-zA-Z0-9\s\-'_]+$/.test(trimmed)) return { ok: false, msg: 'Invalid characters' };
     return { ok: true, name: trimmed };
   },
   create(name) {
