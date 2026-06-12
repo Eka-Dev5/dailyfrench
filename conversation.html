@@ -6,6 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Daily French 🥖 — Conversation Simulator</title>
+  <script src="js/theme-loader.js"></script>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/conversation.css">
   <script src="js/nav.js"></script>
@@ -75,18 +76,16 @@
       </div>
     </section>
   </main>
-<script src="js/config.js"></script>
-<script src="js/core.js"></script>        <!-- ✅ AVANT les données -->
-<script src="js/data.js"></script>
-<script src="js/conversation-data.js"></script>
-<script src="js/ui-utils.js"></script>
-<script src="js/conversation.js"></script>
-
-    <script>
+  <script src="js/config.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/conversation-data.js"></script>
+  <script src="js/ui-utils.js"></script>
+  <script src="js/conversation.js"></script>
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof initConversation === 'function') initConversation();
     });
   </script>
-
 </body>
 </html>
