@@ -13,48 +13,48 @@ const LESSON_21 = {
 <h4>Social Security & Health</h4>
 <table class="lesson-table">
 <tr><th>French</th><th>Phonetics</th><th>English</th></tr>
-<tr><td>la Securite Sociale</td><td><em>*la say-kew-ree-tay so-see-AL*</em></td><td>French national health insurance</td></tr>
-<tr><td>la carte Vitale</td><td><em>*la kart vee-TAL*</em></td><td>health insurance card</td></tr>
-<tr><td>la mutuelle</td><td><em>*la moo-TWEL*</em></td><td>top-up/private health insurance</td></tr>
-<tr><td>le medecin traitant</td><td><em>*le mayd-SAN tre-TAN*</em></td><td>registered GP / family doctor</td></tr>
-<tr><td>la CPAM</td><td><em>*la say-pay-ah-em*</em></td><td>health insurance office</td></tr>
-<tr><td>un remboursement</td><td><em>*un rom-boorse-MON*</em></td><td>reimbursement</td></tr>
+<tr><td>la Securite Sociale</td><td><em>*la say-kew-ree-TAY so-see-AL*</em></td><td>French national health insurance <!-- *FRENTCH nash-uh-nul helth in-shoor-ANS* --></td></tr>
+<tr><td>la carte Vitale</td><td><em>*la kart vee-TAL*</em></td><td>health insurance card <!-- *HELTH in-shoor-ANS card* --></td></tr>
+<tr><td>la mutuelle</td><td><em>*la moo-TWEL*</em></td><td>top-up/private health insurance <!-- *TOP-up / PRAHY-vut helth in-shoor-ANS* --></td></tr>
+<tr><td>le medecin traitant</td><td><em>*luh mayd-SAN tre-TAN*</em></td><td>registered GP / family doctor <!-- *REJ-ist-urd jee-pee / FAM-uh-lee DOK-tur* --></td></tr>
+<tr><td>la CPAM</td><td><em>*la say-pay-ah-em*</em></td><td>health insurance office <!-- *HELTH in-shoor-ANS OH-fis* --></td></tr>
+<tr><td>un remboursement</td><td><em>*uhn rom-boorse-MON*</em></td><td>reimbursement <!-- *ree-im-BURS-munt* --></td></tr>
 </table>
 </div>
 <div class="lesson-rule">
 <h4>Taxes & Money</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>les impots</td><td>taxes / income tax</td></tr>
-<tr><td>la declaration d'impots</td><td>tax return</td></tr>
-<tr><td>le fisc</td><td>the tax office</td></tr>
-<tr><td>le numero fiscal</td><td>tax identification number</td></tr>
-<tr><td>le prelevement a la source</td><td>tax deducted at source</td></tr>
-<tr><td>les charges sociales</td><td>social security contributions</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>les impots</td><td><em>*lay zan-POH*</em></td><td>taxes / income tax <!-- *TAK-sis / IN-kum taks* --></td></tr>
+<tr><td>la declaration d'impots</td><td><em>*la day-kla-ra-SYON dan-POH*</em></td><td>tax return <!-- *taks ree-TURN* --></td></tr>
+<tr><td>le fisc</td><td><em>*luh feesk*</em></td><td>the tax office <!-- *thuh taks OH-fis* --></td></tr>
+<tr><td>le numero fiscal</td><td><em>*luh noo-may-roh fees-kal*</em></td><td>tax identification number <!-- *taks eye-den-ti-fi-KAY-shun NUM-bur* --></td></tr>
+<tr><td>le prelevement a la source</td><td><em>*luh pray-lev-MON ah la soors*</em></td><td>tax deducted at source <!-- *taks dee-DUK-tid at sors* --></td></tr>
+<tr><td>les charges sociales</td><td><em>*lay sharzh so-see-AL*</em></td><td>social security contributions <!-- *SOH-shul see-KYOO-ruh-tee kon-tri-BYOO-shunz* --></td></tr>
 </table>
 </div>
 <div class="lesson-rule">
 <h4>Housing & Benefits</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>la CAF</td><td>family benefits office</td></tr>
-<tr><td>les APL / l'aide au logement</td><td>housing benefit / housing aid</td></tr>
-<tr><td>le loyer</td><td>rent</td></tr>
-<tr><td>la caution / le depot de garantie</td><td>security deposit</td></tr>
-<tr><td>l'etat des lieux</td><td>inventory / condition report</td></tr>
-<tr><td>le bail</td><td>lease / tenancy agreement</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>la CAF</td><td><em>*la kah-ay-eff*</em></td><td>family benefits office <!-- *FAM-uh-lee BEN-e-fits OH-fis* --></td></tr>
+<tr><td>les APL / l'aide au logement</td><td><em>*lay zah-pay-el / led oh lohzh-MON*</em></td><td>housing benefit / housing aid <!-- *HOW-zing BEN-e-fit / HOW-zing AYD* --></td></tr>
+<tr><td>le loyer</td><td><em>*luh lwah-YAY*</em></td><td>rent <!-- *rent* --></td></tr>
+<tr><td>la caution / le depot de garantie</td><td><em>*la koh-SYON / luh day-POH duh ga-ran-TEE*</em></td><td>security deposit <!-- *see-KYOO-ruh-tee dee-POZ-it* --></td></tr>
+<tr><td>l'etat des lieux</td><td><em>*lay-TAH day LYUH*</em></td><td>inventory / condition report <!-- *IN-vun-tor-ee / kun-DISH-un ree-PORT* --></td></tr>
+<tr><td>le bail</td><td><em>*luh bahyee*</em></td><td>lease / tenancy agreement <!-- *lees / TEN-un-see uh-GREE-munt* --></td></tr>
 </table>
 </div>
 <div class="lesson-rule">
 <h4>Essential Admin Phrases</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>Je voudrais faire une demande de...</td><td>I would like to apply for...</td></tr>
-<tr><td>Ou puis-je trouver le formulaire ?</td><td>Where can I find the form?</td></tr>
-<tr><td>Quels sont les documents necessaires ?</td><td>What documents are required?</td></tr>
-<tr><td>Je n'ai pas encore recu...</td><td>I haven't received... yet</td></tr>
-<tr><td>Pouvez-vous me faire une attestation ?</td><td>Can you give me a certificate?</td></tr>
-<tr><td>Je voudrais prendre un rendez-vous.</td><td>I would like to make an appointment.</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>Je voudrais faire une demande de...</td><td><em>*zhuh voo-DRAY fair oon duh-MON duh...*</em></td><td>I would like to apply for... <!-- *eye wood LAYK too uh-PLY for...* --></td></tr>
+<tr><td>Ou puis-je trouver le formulaire ?</td><td><em>*oo pweezh troo-VAY luh for-moo-LAIR*</em></td><td>Where can I find the form? <!-- *WAIR kan eye fynd thuh form* --></td></tr>
+<tr><td>Quels sont les documents necessaires ?</td><td><em>*kel son lay dok-oo-MON nay-say-SAIR*</em></td><td>What documents are required? <!-- *wot DOK-oo-munts ar ree-KWY-urd* --></td></tr>
+<tr><td>Je n'ai pas encore recu...</td><td><em>*zhuh nay pah on-KOR ruh-SEW...*</em></td><td>I haven't received... yet <!-- *eye HAV-unt ree-SEEVD... yet* --></td></tr>
+<tr><td>Pouvez-vous me faire une attestation ?</td><td><em>*poo-vay-VOO muh fair oon ah-tay-sta-SYON*</em></td><td>Can you give me a certificate? <!-- *kan yoo giv mee uh sur-TIF-i-kit* --></td></tr>
+<tr><td>Je voudrais prendre un rendez-vous.</td><td><em>*zhuh voo-DRAY pron-druh uhn ron-day-VOO*</em></td><td>I would like to make an appointment. <!-- *eye wood LAYK too mayk an uh-POYNT-munt* --></td></tr>
 </table>
 </div>
 <div class="lesson-warning">Important: Always keep copies of everything! French administration loves paper trails. The <strong>attestation</strong> (official certificate/letter) is your best friend.</div>
@@ -304,4 +304,3 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
   window.LESSON_21 = LESSON_21;
 }
-
