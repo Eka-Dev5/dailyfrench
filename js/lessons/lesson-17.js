@@ -1,273 +1,253 @@
-// lesson-17.js -- My Plans -- Futur proche
+// lesson-17.js -- Future Plans (Futur Proche)
 const LESSON_17 = {
   id: 17,
-  title: "My Plans -- Futur proche",
-  titleFr: "Mes projets -- Futur proche",
-  objectiveEn: "Talk about future plans using futur proche (aller + infinitive)",
-  objectiveFr: "Parler de projets futurs avec le futur proche (aller + infinitif)",
-  hintEn: "Futur proche = aller (conjugated) + infinitive. Simpler and more common than future tense!",
-  hintFr: "Futur proche = aller (conjugue) + infinitif. Plus simple et plus courant que le futur !",
+  title: "Future Plans",
+  titleFr: "Projets Futurs (Futur Proche)",
+  objectiveEn: "Talk about future plans using the futur proche (aller + infinitive)",
+  objectiveFr: "Parler des projets futurs en utilisant le futur proche (aller + infinitif)",
+  hintEn: "The futur proche is very easy: Je vais + verb = I am going to...",
+  hintFr: "Le futur proche est tres facile : Je vais + verbe = je vais...",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>Near future: aller + infinitive</h4>
-<p><strong>Formula: sujet + aller + infinitive</strong></p>
+<h4>Futur proche (near future)</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>Je vais cuisiner.</td><td>I'm going to cook.</td></tr>
-<tr><td>Elle va telephoner.</td><td>She's going to phone.</td></tr>
-<tr><td>Nous allons au marche.</td><td>We're going to the market.</td></tr>
-<tr><td>Je vais faire les courses.</td><td>I'm going to do the shopping.</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>Je vais cuisiner.</td><td><em>*zhuh vay kwee-zee-NAY*</em></td><td>I am going to cook. <!-- *eye am GOH-ing too kook* --></td></tr>
+<tr><td>Elle va telephoner.</td><td><em>*el vah tay-lay-fo-NAY*</em></td><td>She is going to phone. <!-- *shee iz GOH-ing too fohn* --></td></tr>
+<tr><td>Nous allons au marche.</td><td><em>*noo za-LON oh mar-SHAY*</em></td><td>We are going to the market. <!-- *wee ar GOH-ing too thuh MAR-kit* --></td></tr>
+<tr><td>Je vais faire les courses.</td><td><em>*zhuh vay fair lay KOORS*</em></td><td>I am going to do the shopping. <!-- *eye am GOH-ing too doo thuh SHOP-ing* --></td></tr>
 </table>
 </div>
 <div class="lesson-rule">
-<h4>Time expressions for plans</h4>
+<h4>Time markers for the future</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>demain</td><td>tomorrow</td></tr>
-<tr><td>ce week-end</td><td>this weekend</td></tr>
-<tr><td>la semaine prochaine</td><td>next week</td></tr>
-<tr><td>le mois prochain</td><td>next month</td></tr>
-<tr><td>bientot</td><td>soon</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>demain</td><td><em>*duh-MAN*</em></td><td>tomorrow <!-- *tuh-MOR-oh* --></td></tr>
+<tr><td>ce week-end</td><td><em>*suh WEEK-end*</em></td><td>this weekend <!-- *this WEEK-end* --></td></tr>
+<tr><td>la semaine prochaine</td><td><em>*la suh-MEN pro-SHEN*</em></td><td>next week <!-- *nekst week* --></td></tr>
+<tr><td>le mois prochain</td><td><em>*luh mwah pro-SHAN*</em></td><td>next month <!-- *nekst munth* --></td></tr>
+<tr><td>bientot</td><td><em>*byan-TOH*</em></td><td>soon <!-- *soon* --></td></tr>
 </table>
 </div>
+<div class="lesson-warning">The <strong>futur proche</strong> (aller + infinitive) is used for planned near future. It is much more common in spoken French than the formal futur simple.</div>
 <div class="lesson-example">
-Ce week-end je vais nettoyer la maison et nous allons au restaurant dimanche. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
-<span class="lesson-ex-en">This weekend I'm going to clean the house and we're going to a restaurant on Sunday.</span>
+-- Qu'est-ce que tu vas faire ce week-end ? <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">What are you going to do this weekend?</span><br>
+-- Je vais cuisiner et je vais au cinema. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">I am going to cook and I am going to the cinema.</span>
 </div>
   `,
   qcm: [
     {
       id: "17-1",
       type: "qcm",
-      question: "I'm going to cook in French:",
+      question: "I am going to cook. in French:",
       questionFr: "Je vais cuisiner. en anglais :",
-      options: ["Je vais cuisiner.","Je suis cuisiner.","J'ai cuisine.","Je cuisine."],
-      optionsEn: ["I'm going to cook.","I am cook.","I have cooked.","I cook."],
+      options: ["Je vais cuisiner.","Je cuisiner.","Je vais a cuisiner.","Je suis cuisiner."],
+      optionsEn: ["I am going to cook.","I cook.","I go to cook.","I am cook."],
       correct: "Je vais cuisiner.",
-      correctEn: "I'm going to cook.",
-      explanation: "Futur proche: je vais + infinitive. Je vais cuisiner = I'm going to cook.",
-      explanationFr: "Futur proche : je vais + infinitif. Je vais cuisiner = je vais cuisiner."
+      correctEn: "I am going to cook.",
+      explanation: "Je vais cuisiner (zhuh vay kwee-zee-NAY) = I am going to cook. Aller + infinitive.",
+      explanationFr: "Je vais cuisiner = je vais cuisiner. Aller + infinitif."
     },
     {
       id: "17-2",
       type: "qcm",
-      question: "She's going to phone in French:",
+      question: "She is going to phone. in French:",
       questionFr: "Elle va telephoner. en anglais :",
-      options: ["Elle va telephoner.","Elle est telephoner.","Elle va telephone.","Elle ira telephoner."],
-      optionsEn: ["She's going to phone.","She is phone.","She goes phone.","She will phone."],
+      options: ["Elle va telephoner.","Elle telephoner.","Elle va a telephoner.","Elle est telephoner."],
+      optionsEn: ["She is going to phone.","She phone.","She goes to phone.","She is phone."],
       correct: "Elle va telephoner.",
-      correctEn: "She's going to phone.",
-      explanation: "Elle va + infinitive. Telephoner = to phone.",
-      explanationFr: "Elle va + infinitif. Telephoner = telephoner."
+      correctEn: "She is going to phone.",
+      explanation: "Elle va telephoner (el vah tay-lay-fo-NAY) = She is going to phone.",
+      explanationFr: "Elle va telephoner = elle va telephoner."
     },
     {
       id: "17-3",
       type: "qcm",
-      question: "Next week in French:",
-      questionFr: "La semaine prochaine en anglais :",
-      options: ["La semaine prochaine","La prochaine semaine","Semaine prochaine","Next week"],
-      optionsEn: ["Next week","The next week","Week next","Next week"],
-      correct: "La semaine prochaine",
-      correctEn: "Next week",
-      explanation: "La semaine prochaine = next week. Le mois prochain = next month.",
-      explanationFr: "La semaine prochaine = la semaine prochaine. Le mois prochain = le mois prochain."
+      question: "We are going to the market. in French:",
+      questionFr: "Nous allons au marche. en anglais :",
+      options: ["Nous allons au marche.","Nous allons marche.","Nous allons a le marche.","Nous sommes au marche."],
+      optionsEn: ["We are going to the market.","We go market.","We go to the market (wrong)","We are at the market."],
+      correct: "Nous allons au marche.",
+      correctEn: "We are going to the market.",
+      explanation: "Nous allons (noo za-LON) = We are going. Au = to the (masculine).",
+      explanationFr: "Nous allons = nous allons. Au = au (masculin)."
     },
     {
       id: "17-4",
       type: "qcm",
-      question: "This weekend in French:",
-      questionFr: "Ce week-end en anglais :",
-      options: ["Ce week-end","Ce fin de semaine","Ce weekend","Ce we"],
-      optionsEn: ["This weekend","This end of week","This weekend","This we"],
-      correct: "Ce week-end",
-      correctEn: "This weekend",
-      explanation: "Ce week-end = this weekend. The word week-end is used in French!",
-      explanationFr: "Ce week-end = ce week-end. Le mot week-end est utilise en francais !"
+      question: "I am going to do the shopping. in French:",
+      questionFr: "Je vais faire les courses. en anglais :",
+      options: ["Je vais faire les courses.","Je vais les courses.","Je fais les courses.","Je suis faire les courses."],
+      optionsEn: ["I am going to do the shopping.","I go the shopping.","I do the shopping.","I am do the shopping."],
+      correct: "Je vais faire les courses.",
+      correctEn: "I am going to do the shopping.",
+      explanation: "Je vais faire (zhuh vay fair) = I am going to do. Faire = to do/make.",
+      explanationFr: "Je vais faire = je vais faire. Faire = faire."
     },
     {
       id: "17-5",
       type: "qcm",
-      question: "We're going to the restaurant in French:",
-      questionFr: "Nous allons au restaurant. en anglais :",
-      options: ["Nous allons au restaurant.","Nous allons a restaurant.","Nous allons le restaurant.","Nous sommes restaurant."],
-      optionsEn: ["We're going to the restaurant.","We're going to restaurant.","We're going the restaurant.","We are restaurant."],
-      correct: "Nous allons au restaurant.",
-      correctEn: "We're going to the restaurant.",
-      explanation: "Au = a + le. Nous allons = we are going (also futur proche when with infinitive).",
-      explanationFr: "Au = a + le. Nous allons = nous allons (aussi futur proche avec infinitif)."
+      question: "Tomorrow in French:",
+      questionFr: "Demain en anglais :",
+      options: ["demain","hier","aujourd'hui","apres"],
+      optionsEn: ["tomorrow","yesterday","today","after"],
+      correct: "demain",
+      correctEn: "tomorrow",
+      explanation: "Demain (duh-MAN) = tomorrow. A demain = see you tomorrow.",
+      explanationFr: "Demain = demain. A demain = a demain."
     },
     {
       id: "17-6",
       type: "qcm",
-      question: "Which is an example of futur proche?",
-      questionFr: "Lequel est un exemple de futur proche ?",
-      options: ["Je vais manger","J'ai mange","Je mange","Je mangerai"],
-      optionsEn: ["I'm going to eat","I have eaten","I eat","I will eat"],
-      correct: "Je vais manger",
-      correctEn: "I'm going to eat",
-      explanation: "Futur proche = aller + infinitive. Je vais manger = I'm going to eat.",
-      explanationFr: "Futur proche = aller + infinitif. Je vais manger = je vais manger."
+      question: "This weekend in French:",
+      questionFr: "Ce week-end en anglais :",
+      options: ["ce week-end","ce weekend","cette semaine","le week-end"],
+      optionsEn: ["this weekend","this weekend (wrong)","this week","the weekend"],
+      correct: "ce week-end",
+      correctEn: "this weekend",
+      explanation: "Ce week-end (suh WEEK-end) = this weekend. Borrowed from English!",
+      explanationFr: "Ce week-end = ce week-end. Emprunte a l'anglais !"
     },
     {
       id: "17-7",
       type: "qcm",
-      question: "I'm going to do the shopping in French:",
-      questionFr: "Je vais faire les courses. en anglais :",
-      options: ["Je vais faire les courses.","Je vais les courses faire.","Je faire les courses.","Je vais les courses."],
-      optionsEn: ["I'm going to do the shopping.","I'm going the shopping do.","I do the shopping.","I'm going the shopping."],
-      correct: "Je vais faire les courses.",
-      correctEn: "I'm going to do the shopping.",
-      explanation: "Je vais + faire + les courses. The infinitive always comes after aller.",
-      explanationFr: "Je vais + faire + les courses. L'infinitif vient toujours apres aller."
+      question: "Next week in French:",
+      questionFr: "La semaine prochaine en anglais :",
+      options: ["la semaine prochaine","la prochaine semaine","semaine prochaine","prochaine semaine"],
+      optionsEn: ["next week","the next week","week next","next week (wrong order)"],
+      correct: "la semaine prochaine",
+      correctEn: "next week",
+      explanation: "La semaine prochaine (la suh-MEN pro-SHEN) = next week. Prochain(e) = next.",
+      explanationFr: "La semaine prochaine = la semaine prochaine. Prochain(e) = prochain(e)."
     },
     {
       id: "17-8",
       type: "qcm",
-      question: "Soon in French:",
-      questionFr: "Bientot en anglais :",
-      options: ["Bientot","Vite","Prochain","Apres"],
-      optionsEn: ["Soon","Fast","Next","After"],
-      correct: "Bientot",
-      correctEn: "Soon",
-      explanation: "Bientot = soon. A bientot = see you soon!",
-      explanationFr: "Bientot = bientot. A bientot = a bientot !"
+      question: "Next month in French:",
+      questionFr: "Le mois prochain en anglais :",
+      options: ["le mois prochain","la mois prochain","le prochain mois","mois prochain"],
+      optionsEn: ["next month","next month (wrong)","the next month","month next"],
+      correct: "le mois prochain",
+      correctEn: "next month",
+      explanation: "Le mois prochain (luh mwah pro-SHAN) = next month. Mois = month (masculine).",
+      explanationFr: "Le mois prochain = le mois prochain. Mois = mois (masculin)."
     },
     {
       id: "17-9",
       type: "qcm",
-      question: "Next month in French:",
-      questionFr: "Le mois prochain en anglais :",
-      options: ["Le mois prochain","Le prochain mois","Mois prochain","Le prochain mois"],
-      optionsEn: ["Next month","The next month","Month next","The next month"],
-      correct: "Le mois prochain",
-      correctEn: "Next month",
-      explanation: "Le mois prochain = next month. La semaine prochaine = next week.",
-      explanationFr: "Le mois prochain = le mois prochain. La semaine prochaine = la semaine prochaine."
+      question: "Soon in French:",
+      questionFr: "Bientot en anglais :",
+      options: ["bientot","tout de suite","maintenant","apres"],
+      optionsEn: ["soon","right away","now","after"],
+      correct: "bientot",
+      correctEn: "soon",
+      explanation: "Bientot (byan-TOH) = soon. A bientot = see you soon.",
+      explanationFr: "Bientot = bientot. A bientot = a bientot."
     },
     {
       id: "17-10",
       type: "qcm",
-      question: "They're going to visit us in French:",
-      questionFr: "Ils vont nous rendre visite. en anglais :",
-      options: ["Ils vont nous rendre visite.","Ils sont nous visiter.","Ils vont nous visit.","Ils allons visiter."],
-      optionsEn: ["They're going to visit us.","They are us visit.","They go us visit.","They going visit."],
-      correct: "Ils vont nous rendre visite.",
-      correctEn: "They're going to visit us.",
-      explanation: "Ils vont + infinitive = they are going to. Nous rendre visite = visit us.",
-      explanationFr: "Ils vont + infinitif = ils vont. Nous rendre visite = nous rendre visite."
+      question: "What are you going to do this weekend? in French:",
+      questionFr: "Qu'est-ce que tu vas faire ce week-end ? en anglais :",
+      options: ["Qu'est-ce que tu vas faire ce week-end ?","Que vas-tu faire ce week-end ?","Tu vas faire quoi ce week-end ?","Quoi faire ce week-end ?"],
+      optionsEn: ["What are you going to do this weekend?","What are you going to do this weekend?","You going to do what this weekend?","What to do this weekend?"],
+      correct: "Qu'est-ce que tu vas faire ce week-end ?",
+      correctEn: "What are you going to do this weekend?",
+      explanation: "Qu'est-ce que tu vas faire... = What are you going to do... Very common question.",
+      explanationFr: "Qu'est-ce que tu vas faire... = question tres courante."
     }
   ],
   libre: [
     {
       id: "17-l1",
       type: "libre",
-      question: "Translate: I'm going to clean the house tomorrow.",
-      questionFr: "Traduisez : Je vais nettoyer la maison demain.",
-      correct: "Je vais nettoyer la maison demain.",
-      correctEn: "I'm going to clean the house tomorrow.",
+      question: "Translate: I am going to cook tomorrow.",
+      questionFr: "Traduisez : Je vais cuisiner demain.",
+      correct: "Je vais cuisiner demain.",
+      correctEn: "I am going to cook tomorrow.",
       alternatives: [],
-      explanation: "Je vais + infinitive + demain.",
-      explanationFr: "Je vais + infinitif + demain."
+      explanation: "Je vais cuisiner = I am going to cook. Demain = tomorrow.",
+      explanationFr: "Je vais cuisiner = je vais cuisiner. Demain = demain."
     },
     {
       id: "17-l2",
       type: "libre",
-      question: "How do you say she is going to?",
-      questionFr: "Comment dit-on elle va ?",
-      correct: "elle va",
-      correctEn: "she is going to",
+      question: "How do you say She is going to phone?",
+      questionFr: "Comment dit-on Elle va telephoner ?",
+      correct: "Elle va telephoner.",
+      correctEn: "She is going to phone.",
       alternatives: [],
-      explanation: "Aller conjugated: je vais, tu vas, il/elle va, nous allons, vous allez, ils/elles vont.",
-      explanationFr: "Aller conjugue : je vais, tu vas, il/elle va, nous allons, vous allez, ils/elles vont."
+      explanation: "Elle va telephoner = She is going to phone. Aller + infinitive.",
+      explanationFr: "Elle va telephoner = elle va telephoner. Aller + infinitif."
     },
     {
       id: "17-l3",
       type: "libre",
-      question: "Translate: Next week I'm going to visit my family.",
-      questionFr: "Traduisez : La semaine prochaine je vais rendre visite a ma famille.",
-      correct: "La semaine prochaine je vais rendre visite a ma famille.",
-      correctEn: "Next week I'm going to visit my family.",
-      alternatives: ["La semaine prochaine je vais voir ma famille."],
-      explanation: "Rendre visite a = to visit (a person). Voir = to see.",
-      explanationFr: "Rendre visite a = rendre visite a (une personne). Voir = voir."
+      question: "Translate: We are going to the market next week.",
+      questionFr: "Traduisez : Nous allons au marche la semaine prochaine.",
+      correct: "Nous allons au marche la semaine prochaine.",
+      correctEn: "We are going to the market next week.",
+      alternatives: [],
+      explanation: "Nous allons = We are going. La semaine prochaine = next week.",
+      explanationFr: "Nous allons = nous allons. La semaine prochaine = la semaine prochaine."
     },
     {
       id: "17-l4",
       type: "libre",
-      question: "Complete: Je vais ___ la vaisselle ce soir.",
-      questionFr: "Completez : Je vais ___ la vaisselle ce soir.",
+      question: "Complete: Je vais ___ les courses.",
+      questionFr: "Completez : Je vais ___ les courses.",
       correct: "faire",
       correctEn: "do",
       alternatives: [],
-      explanation: "Faire la vaisselle = do the dishes. Je vais faire = I'm going to do.",
-      explanationFr: "Faire la vaisselle = faire la vaisselle. Je vais faire = je vais faire."
+      explanation: "Je vais faire les courses = I am going to do the shopping.",
+      explanationFr: "Je vais faire les courses = je vais faire les courses."
     },
     {
       id: "17-l5",
-      type: "libre",
-      question: "Translate: This weekend we're going to the market.",
-      questionFr: "Traduisez : Ce week-end nous allons au marche.",
-      correct: "Ce week-end nous allons au marche.",
-      correctEn: "This weekend we're going to the market.",
-      alternatives: [],
-      explanation: "Au marche = to the market. Au = a + le.",
-      explanationFr: "Au marche = au marche. Au = a + le."
-    },
-    {
-      id: "17-l6",
-      type: "libre",
-      question: "How do you say soon?",
-      questionFr: "Comment dit-on bientot ?",
-      correct: "bientot",
-      correctEn: "soon",
-      alternatives: [],
-      explanation: "Bientot = soon. A bientot = see you soon!",
-      explanationFr: "Bientot = bientot. A bientot = a bientot !"
-    },
-    {
-      id: "17-l7",
-      type: "libre",
-      question: "Translate: I'm going to rest this afternoon.",
-      questionFr: "Traduisez : Je vais me reposer cet apres-midi.",
-      correct: "Je vais me reposer cet apres-midi.",
-      correctEn: "I'm going to rest this afternoon.",
-      alternatives: [],
-      explanation: "Me reposer = to rest (myself). Cet apres-midi = this afternoon.",
-      explanationFr: "Me reposer = me reposer. Cet apres-midi = cet apres-midi."
-    },
-    {
-      id: "17-l8",
-      type: "libre",
-      question: "Complete: Nous ___ aller au restaurant samedi.",
-      questionFr: "Completez : Nous ___ aller au restaurant samedi.",
-      correct: "allons",
-      correctEn: "are going",
-      alternatives: [],
-      explanation: "Nous allons = we are going. Futur proche with nous.",
-      explanationFr: "Nous allons = nous allons. Futur proche avec nous."
-    },
-    {
-      id: "17-l9",
-      type: "libre",
-      question: "Translate: She's going to call next week.",
-      questionFr: "Traduisez : Elle va telephoner la semaine prochaine.",
-      correct: "Elle va telephoner la semaine prochaine.",
-      correctEn: "She's going to call next week.",
-      alternatives: [],
-      explanation: "Elle va + telephoner. La semaine prochaine = next week.",
-      explanationFr: "Elle va + telephoner. La semaine prochaine = la semaine prochaine."
-    },
-    {
-      id: "17-l10",
       type: "libre",
       question: "How do you say next month?",
       questionFr: "Comment dit-on le mois prochain ?",
       correct: "le mois prochain",
       correctEn: "next month",
       alternatives: [],
-      explanation: "Le mois prochain. Note: prochain comes AFTER the noun in French!",
-      explanationFr: "Le mois prochain. Note : prochain vient APRES le nom en francais !"
+      explanation: "Le mois prochain = next month. Mois = month.",
+      explanationFr: "Le mois prochain = le mois prochain. Mois = mois."
+    },
+    {
+      id: "17-l6",
+      type: "libre",
+      question: "Translate: See you soon!",
+      questionFr: "Traduisez : A bientot !",
+      correct: "A bientot !",
+      correctEn: "See you soon!",
+      alternatives: [],
+      explanation: "A bientot = See you soon. Bientot = soon.",
+      explanationFr: "A bientot = a bientot. Bientot = bientot."
+    },
+    {
+      id: "17-l7",
+      type: "libre",
+      question: "Complete: ___ allons au cinema.",
+      questionFr: "Completez : ___ allons au cinema.",
+      correct: "Nous",
+      correctEn: "We",
+      alternatives: [],
+      explanation: "Nous allons = We are going. Nous = we.",
+      explanationFr: "Nous allons = nous allons. Nous = nous."
+    },
+    {
+      id: "17-l8",
+      type: "libre",
+      question: "How do you say this weekend?",
+      questionFr: "Comment dit-on ce week-end ?",
+      correct: "ce week-end",
+      correctEn: "this weekend",
+      alternatives: [],
+      explanation: "Ce week-end = this weekend. Week-end = weekend (borrowed from English).",
+      explanationFr: "Ce week-end = ce week-end. Week-end = week-end (emprunte a l'anglais)."
     }
   ]
 };
