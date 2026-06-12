@@ -75,12 +75,13 @@
       </div>
     </section>
   </main>
-  <script src="js/config.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/conversation-data.js"></script>
-  <script src="js/core.js"></script>
-  <script src="js/ui-utils.js"></script>
-  <script src="js/conversation.js"></script>
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>        <!-- ✅ AVANT les données -->
+<script src="js/data.js"></script>
+<script src="js/conversation-data.js"></script>
+<script src="js/ui-utils.js"></script>
+<script src="js/conversation.js"></script>
+
     <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof initConversation === 'function') initConversation();
