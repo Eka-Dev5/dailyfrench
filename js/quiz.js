@@ -1,11 +1,6 @@
 /**
- * quiz.js — Logique page quiz v2.1
- * Dépendances : core.js, game-engine.js, vocabulary-engine.js
- * 
- * MODIFICATIONS v2.1 :
- *   + selectDirection(mode) — toggle direction EN→FR / FR→EN / Mixed
- *   + renderDirectionSelector() — affiche les boutons direction
- *   ~ handleRoute() — gère aussi ?direction=xxx
+ * quiz.js — Logique page quiz v2.2
+ * CORRECTION : renderLessons attend lessonsLoaded proprement
  */
 
 function handleRoute() {
@@ -13,13 +8,51 @@ function handleRoute() {
   const section = params.get('section') || 'home';
   
   const dir = params.get('direction');
-  if (dir && ['en-first', 'fr-first', 'mixed'].includes(dir)) {
+  if (dir && ['en-first', 'fr-first', 'mixed'].indexOf(dir) !== -1) {
     if (typeof DirectionMode !== 'undefined') DirectionMode.set(dir);
   }
 
   if (typeof showSection === 'function') showSection(section);
-  if (section === 'lecons') renderLessons();
-  if (section === 'levels' && typeof renderLevels === 'function') renderLevels();
+  
+  if (section === 'lecons') {
+    renderLessonsWhenReady();
+  }
+  if (section === 'levels' && typeof renderLevels === 'function') {
+    renderLevelsWhenReady();
+  }
+}
+
+function renderLessonsWhenReady() {
+  if (window._lessonsReady && LESSONS_DATA.length > 0) {
+    renderLessons();
+  } else if (typeof EventBus !== 'undefined') {
+    EventBus.on('lessonsLoaded', function() {
+      renderLessons();
+    });
+    setTimeout(function() {
+      if (window._lessonsReady && LESSONS_DATA.length > 0) {
+        renderLessons();
+      }
+    }, 100);
+  } else {
+    const container = document.getElementById('lessonsContainer');
+    if (container) container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">Loading lessons...</div>';
+  }
+}
+
+function renderLevelsWhenReady() {
+  if (window._lessonsReady && LESSONS_DATA.length > 0) {
+    renderLevels();
+  } else if (typeof EventBus !== 'undefined') {
+    EventBus.on('lessonsLoaded', function() {
+      renderLevels();
+    });
+    setTimeout(function() {
+      if (window._lessonsReady && LESSONS_DATA.length > 0) {
+        renderLevels();
+      }
+    }, 100);
+  }
 }
 
 function renderLessons() {
@@ -27,7 +60,7 @@ function renderLessons() {
   if (!container || typeof LESSONS_DATA === 'undefined') return;
   
   container.innerHTML = '';
-  LESSONS_DATA.forEach((lesson, index) => {
+  LESSONS_DATA.forEach(function(lesson, index) {
     const num = index + 1;
     const card = document.createElement('div');
     card.className = 'lesson-card';
@@ -35,17 +68,14 @@ function renderLessons() {
     
     const header = document.createElement('div');
     header.className = 'lesson-header';
-    header.innerHTML = `
-      <span class="lesson-num">${num}</span>
-      <span class="lesson-title">${lesson.title}</span>
-      <span class="lesson-chevron">▼</span>`;
-    header.addEventListener('click', () => toggleLesson(num));
+    header.innerHTML = '<span class="lesson-num">' + num + '</span><span class="lesson-title">' + lesson.title + '</span><span class="lesson-chevron">▼</span>';
+    header.addEventListener('click', function() { toggleLesson(num); });
     
     const body = document.createElement('div');
     body.className = 'lesson-body';
     body.id = 'lesson-body-' + num;
     body.style.display = 'none';
-    body.innerHTML = lesson.content || '';
+    body.innerHTML = lesson.contentHtml || lesson.content || '';
     
     if (typeof highlightVocabularyWords === 'function') {
       highlightVocabularyWords(body);
@@ -74,17 +104,16 @@ function toggleLesson(num) {
 
 function selectMode(mode) {
   if (typeof gameState !== 'undefined') gameState.currentMode = mode;
-  document.querySelectorAll('.mode-btn').forEach(btn => {
+  document.querySelectorAll('.mode-btn').forEach(function(btn) {
     btn.classList.toggle('active', btn.dataset.mode === mode);
   });
 }
 
-// NOUVEAU v2.1 — Direction selector
 function selectDirection(mode) {
   if (typeof DirectionMode !== 'undefined') DirectionMode.set(mode);
   if (typeof gameState !== 'undefined') gameState.currentDirection = mode;
   
-  document.querySelectorAll('.direction-btn').forEach(btn => {
+  document.querySelectorAll('.direction-btn').forEach(function(btn) {
     btn.classList.toggle('active', btn.dataset.direction === mode);
   });
   
@@ -102,7 +131,7 @@ function renderDirectionSelector() {
   
   const currentDir = (typeof DirectionMode !== 'undefined') 
     ? DirectionMode.load() 
-    : (gameState?.currentDirection || 'en-first');
+    : (gameState && gameState.currentDirection ? gameState.currentDirection : 'en-first');
   
   const modes = [
     { key: 'en-first', icon: '🇬🇧→🇫🇷', label: 'English First' },
@@ -111,21 +140,21 @@ function renderDirectionSelector() {
   ];
   
   container.innerHTML = '';
-  modes.forEach(m => {
+  modes.forEach(function(m) {
     const btn = document.createElement('button');
     btn.className = 'direction-btn' + (m.key === currentDir ? ' active' : '');
     btn.dataset.direction = m.key;
-    btn.innerHTML = `<span class="dir-icon">${m.icon}</span><span class="dir-label">${m.label}</span>`;
-    btn.addEventListener('click', () => selectDirection(m.key));
+    btn.innerHTML = '<span class="dir-icon">' + m.icon + '</span><span class="dir-label">' + m.label + '</span>';
+    btn.addEventListener('click', function() { selectDirection(m.key); });
     container.appendChild(btn);
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   if (typeof initCore === 'function') initCore();
   
-  document.querySelectorAll('.mode-btn').forEach(btn => {
-    btn.addEventListener('click', () => selectMode(btn.dataset.mode));
+  document.querySelectorAll('.mode-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { selectMode(btn.dataset.mode); });
   });
   
   renderDirectionSelector();
