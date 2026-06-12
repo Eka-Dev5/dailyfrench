@@ -1,275 +1,261 @@
-// lesson-10.js — Politeness 🎩
+// lesson-10.js -- Politeness & Social Skills
 const LESSON_10 = {
   id: 10,
-  title: `Politeness 🎩`,
-  titleFr: `Politesse`,
-  objectiveEn: `Use polite French in any situation, ask for help graciously`,
-  objectiveFr: `Utiliser le francais poli dans toute situation, demander de l'aide avec grace`,
-  hintEn: `French politeness is non-negotiable — always use it and you'll be well received!`,
-  hintFr: `La politesse francaise est non negociable — utilisez-la toujours et vous serez bien accueilli !`,
+  title: "Politeness & Social Skills",
+  titleFr: "Politesse & Savoir-vivre",
+  objectiveEn: "Use polite expressions, apologise, ask for help and handle misunderstandings",
+  objectiveFr: "Utiliser des expressions polies, s'excuser, demander de l'aide et gerer les malentendus",
+  hintEn: "Politeness opens doors in France -- always err on the side of formality!",
+  hintFr: "La politesse ouvre les portes en France -- soyez toujours trop formel plutot que pas assez !",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>🎩 Essential polite phrases</h4>
+<h4>Essential polite expressions</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>S'il vous plait</td><td>Please (formal)</td></tr>
-<tr><td>Merci (beaucoup)</td><td>Thank you (very much)</td></tr>
-<tr><td>De rien</td><td>You're welcome</td></tr>
-<tr><td>Excusez-moi</td><td>Excuse me / Sorry (formal)</td></tr>
-<tr><td>Pardon</td><td>Sorry / Pardon</td></tr>
-<tr><td>Je suis desole(e)</td><td>I'm sorry (m/f)</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>S'il vous plait</td><td><em>*seel voo PLAY*</em></td><td>Please (formal) <!-- *PLEEZ (for-MAL)* --></td></tr>
+<tr><td>Merci (beaucoup)</td><td><em>*mair-SEE (boh-KOO)*</em></td><td>Thank you (very much) <!-- *THAN-k yoo (VEH-ree much)* --></td></tr>
+<tr><td>De rien</td><td><em>*duh RYAN*</em></td><td>You re welcome <!-- *yoor WEL-kum* --></td></tr>
+<tr><td>Excusez-moi</td><td><em>*ex-kue-ZAY mwah*</em></td><td>Excuse me <!-- *ex-KYOOZ mee* --></td></tr>
+<tr><td>Pardon</td><td><em>*par-DON*</em></td><td>Sorry / Pardon <!-- *SOR-ree / PAR-dun* --></td></tr>
+<tr><td>Je suis desole(e)</td><td><em>*zhuh swee day-zoh-LAY*</em></td><td>I am sorry <!-- *eye am SOR-ree* --></td></tr>
+<tr><td>Pourriez-vous m'aider ?</td><td><em>*poo-ryay-VOO may-DAY*</em></td><td>Could you help me? <!-- *kood yoo HELP mee* --></td></tr>
+<tr><td>Je ne comprends pas.</td><td><em>*zhuh nuh kom-PRON PAH*</em></td><td>I don t understand. <!-- *eye DOHNT un-der-STAND* --></td></tr>
+<tr><td>Pouvez-vous repeter, s'il vous plait ?</td><td><em>*poo-vay-VOO ruh-pay-TAY, seel voo PLAY*</em></td><td>Could you repeat, please? <!-- *kood yoo ree-PEET, PLEEZ* --></td></tr>
+<tr><td>Parlez-vous anglais ?</td><td><em>*par-lay-VOO an-GLAY*</em></td><td>Do you speak English? <!-- *doo yoo SPEEK ING-lish* --></td></tr>
 </table>
 </div>
 <div class="lesson-rule">
-<h4>🗣️ Asking for help politely</h4>
+<h4>When to use tu vs vous</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>Pourriez-vous m'aider ?</td><td>Could you help me?</td></tr>
-<tr><td>Je ne comprends pas.</td><td>I don't understand.</td></tr>
-<tr><td>Pouvez-vous repeter, s'il vous plait ?</td><td>Can you repeat, please?</td></tr>
-<tr><td>Parlez-vous anglais ?</td><td>Do you speak English?</td></tr>
+<tr><th>Person</th><th>Use</th></tr>
+<tr><td>Strangers, officials, shopkeepers, elderly</td><td><strong>vous</strong> (formal)</td></tr>
+<tr><td>Friends, family, children, colleagues</td><td><strong>tu</strong> (informal)</td></tr>
 </table>
 </div>
-<div class="lesson-warning">⚠️ <strong>Merci</strong> alone can sound abrupt. <strong>Merci beaucoup</strong> or <strong>merci bien</strong> is warmer.</div>
+<div class="lesson-warning">When in doubt, always use <strong>vous</strong>. French people will tell you if you can use <strong>tu</strong> -- they may say <em>On peut se tutoyer</em> (We can use tu).</div>
+<div class="lesson-example">
+-- Excusez-moi, pourriez-vous m'aider ? <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">Excuse me, could you help me?</span><br>
+-- Avec plaisir ! Qu'est-ce que vous cherchez ? <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">With pleasure! What are you looking for?</span>
+</div>
   `,
   qcm: [
     {
-      id: `10-1`,
-      type: `qcm`,
-      question: `Could you help me? (very polite) in French:`,
-      questionFr: `Pourriez-vous m'aider ? (tres poli) en anglais :`,
-      options: [`Pourriez-vous m'aider ?`,`Pouvez-vous aider ?`,`Aidez-moi.`,`Help me please.`],
-      optionsEn: [`Could you help me?`,`Can you help?`,`Help me.`,`Help me please.`],
-      correct: `Pourriez-vous m'aider ?`,
-      correctEn: `Could you help me?`,
-      explanation: `Pourriez-vous (*poo-ryay-VOO*) = could you (conditional = extra polite). More polite than pouvez-vous.`,
-      explanationFr: `Pourriez-vous = pourriez-vous (conditionnel = tres poli). Plus poli que pouvez-vous.`
+      id: "10-1",
+      type: "qcm",
+      question: "Please (formal) in French:",
+      questionFr: "S'il vous plait en anglais :",
+      options: ["S'il vous plait","S'il te plait","Merci","De rien"],
+      optionsEn: ["Please (formal)","Please (informal)","Thank you","You're welcome"],
+      correct: "S'il vous plait",
+      correctEn: "Please (formal)",
+      explanation: "S'il vous plait (seel voo PLAY) = please (formal). S'il te plait = informal.",
+      explanationFr: "S'il vous plait = s'il vous plait (formel). S'il te plait = informel."
     },
     {
-      id: `10-2`,
-      type: `qcm`,
-      question: `I don't understand. in French:`,
-      questionFr: `Je ne comprends pas. en anglais :`,
-      options: [`Je ne comprends pas.`,`Je comprends pas.`,`Je sais pas.`,`Je ne sais pas.`],
-      optionsEn: [`I don't understand.`,`I don't understand (informal).`,`I don't know.`,`I don't know.`],
-      correct: `Je ne comprends pas.`,
-      correctEn: `I don't understand.`,
-      explanation: `Je ne comprends pas (*zhuh nuh kom-PRON PAH*). Always use the full ne...pas in formal situations.`,
-      explanationFr: `Je ne comprends pas. Utilisez toujours le ne...pas complet en situation formelle.`
+      id: "10-2",
+      type: "qcm",
+      question: "Thank you very much in French:",
+      questionFr: "Merci beaucoup en anglais :",
+      options: ["Merci beaucoup","Merci bien","Merci","De rien"],
+      optionsEn: ["Thank you very much","Thank you well","Thank you","You're welcome"],
+      correct: "Merci beaucoup",
+      correctEn: "Thank you very much",
+      explanation: "Merci beaucoup (mair-SEE boh-KOO) = Thank you very much. Beaucoup = very much.",
+      explanationFr: "Merci beaucoup = merci beaucoup. Beaucoup = beaucoup."
     },
     {
-      id: `10-3`,
-      type: `qcm`,
-      question: `Can you speak more slowly? in French:`,
-      questionFr: `Pouvez-vous parler plus lentement ? en anglais :`,
-      options: [`Pouvez-vous parler plus lentement ?`,`Parlez lent.`,`Parlez doucement.`,`Vous parlez lentement ?`],
-      optionsEn: [`Can you speak more slowly?`,`Speak slow.`,`Speak gently.`,`Do you speak slowly?`],
-      correct: `Pouvez-vous parler plus lentement ?`,
-      correctEn: `Can you speak more slowly?`,
-      explanation: `Plus lentement (*plue lon-tuh-MON*) = more slowly. Absolutely essential for learners!`,
-      explanationFr: `Plus lentement = plus lentement. Absolument essentiel pour les apprenants !`
+      id: "10-3",
+      type: "qcm",
+      question: "You re welcome in French:",
+      questionFr: "De rien en anglais :",
+      options: ["De rien","Merci","Pardon","Excusez-moi"],
+      optionsEn: ["You're welcome","Thank you","Sorry","Excuse me"],
+      correct: "De rien",
+      correctEn: "You're welcome",
+      explanation: "De rien (duh RYAN) = You're welcome. Literally 'of nothing'.",
+      explanationFr: "De rien = de rien. Litteralement 'de rien'."
     },
     {
-      id: `10-4`,
-      type: `qcm`,
-      question: `You're welcome. (most common) in French:`,
-      questionFr: `De rien. (le plus courant) en anglais :`,
-      options: [`De rien.`,`Pas de quoi.`,`Avec plaisir.`,`C'est normal.`],
-      optionsEn: [`You're welcome.`,`Don't mention it.`,`With pleasure.`,`It's normal.`],
-      correct: `De rien.`,
-      correctEn: `You're welcome.`,
-      explanation: `De rien (*duh RYAN*) = You're welcome. Pas de quoi / Avec plaisir are also correct.`,
-      explanationFr: `De rien = de rien. Pas de quoi / Avec plaisir sont aussi corrects.`
+      id: "10-4",
+      type: "qcm",
+      question: "Excuse me (formal) in French:",
+      questionFr: "Excusez-moi en anglais :",
+      options: ["Excusez-moi","Excuse-moi","Pardon","Desole"],
+      optionsEn: ["Excuse me (formal)","Excuse me (informal)","Sorry","Sorry"],
+      correct: "Excusez-moi",
+      correctEn: "Excuse me (formal)",
+      explanation: "Excusez-moi (ex-kue-ZAY mwah) = Excuse me (formal). Excuse-moi = informal.",
+      explanationFr: "Excusez-moi = excusez-moi (formel). Excuse-moi = informel."
     },
     {
-      id: `10-5`,
-      type: `qcm`,
-      question: `I'm sorry. in French:`,
-      questionFr: `Je suis desole(e). en anglais :`,
-      options: [`Je suis desole(e).`,`Je suis sorry.`,`Pardon.`,`Excusez-moi.`],
-      optionsEn: [`I'm sorry.`,`I am sorry.`,`Pardon.`,`Excuse me.`],
-      correct: `Je suis desole(e).`,
-      correctEn: `I'm sorry.`,
-      explanation: `Je suis desole(e) = I'm sorry (sincere apology). Pardon/Excusez-moi are for minor things.`,
-      explanationFr: `Je suis desole(e) = je suis desole(e) (excuses sinceres). Pardon/Excusez-moi sont pour les petits incidents.`
+      id: "10-5",
+      type: "qcm",
+      question: "I am sorry in French:",
+      questionFr: "Je suis desole en anglais :",
+      options: ["Je suis desole.","Pardon.","Excusez-moi.","De rien."],
+      optionsEn: ["I am sorry.","Sorry.","Excuse me.","You're welcome."],
+      correct: "Je suis desole.",
+      correctEn: "I am sorry.",
+      explanation: "Je suis desole (zhuh swee day-zoh-LAY) = I am sorry. Add -e if female: desolee.",
+      explanationFr: "Je suis desole = je suis desole. Ajoutez -e si femme : desolee."
     },
     {
-      id: `10-6`,
-      type: `qcm`,
-      question: `Excuse me to get someone's attention:`,
-      questionFr: `Excusez-moi pour attirer l'attention :`,
-      options: [`Excusez-moi`,`Pardon`,`S'il vous plait`,`Attention`],
-      optionsEn: [`Excuse me`,`Pardon`,`Please`,`Attention`],
-      correct: `Excusez-moi`,
-      correctEn: `Excuse me`,
-      explanation: `Excusez-moi (*ex-kue-ZAY mwah*) to get attention. Pardon to say sorry for bumping into someone.`,
-      explanationFr: `Excusez-moi pour attirer l'attention. Pardon pour s'excuser de bousculer quelqu'un.`
+      id: "10-6",
+      type: "qcm",
+      question: "Could you help me? in French:",
+      questionFr: "Pourriez-vous m'aider ? en anglais :",
+      options: ["Pourriez-vous m'aider ?","Pouvez-vous m'aider ?","Aidez-moi ?","M'aidez ?"],
+      optionsEn: ["Could you help me?","Can you help me?","Help me?","Help me?"],
+      correct: "Pourriez-vous m'aider ?",
+      correctEn: "Could you help me?",
+      explanation: "Pourriez-vous (poo-ryay-VOO) = Could you (conditional, very polite).",
+      explanationFr: "Pourriez-vous = pourriez-vous (conditionnel, tres poli)."
     },
     {
-      id: `10-7`,
-      type: `qcm`,
-      question: `Which phrase asks someone to repeat?`,
-      questionFr: `Quelle phrase demande de repeter ?`,
-      options: [`Pouvez-vous repeter, s'il vous plait ?`,`Parlez encore.`,`Encore une fois.`,`Dites encore.`],
-      optionsEn: [`Can you repeat, please?`,`Speak again.`,`Once more.`,`Say again.`],
-      correct: `Pouvez-vous repeter, s'il vous plait ?`,
-      correctEn: `Can you repeat, please?`,
-      explanation: `Repeter (*ray-pay-TAY*) = to repeat. Essential for all language learners!`,
-      explanationFr: `Repeter = repeter. Essentiel pour tous les apprenants de langue !`
+      id: "10-7",
+      type: "qcm",
+      question: "I don t understand. in French:",
+      questionFr: "Je ne comprends pas. en anglais :",
+      options: ["Je ne comprends pas.","Je comprends pas.","Je ne sais pas.","Je ne parle pas."],
+      optionsEn: ["I don't understand.","I understand not.","I don't know.","I don't speak."],
+      correct: "Je ne comprends pas.",
+      correctEn: "I don't understand.",
+      explanation: "Je ne comprends pas (zhuh nuh kom-PRON PAH) = I don't understand. Essential phrase!",
+      explanationFr: "Je ne comprends pas = je ne comprends pas. Phrase essentielle !"
     },
     {
-      id: `10-8`,
-      type: `qcm`,
-      question: `Do you speak English? (formal) in French:`,
-      questionFr: `Parlez-vous anglais ? (formel) en anglais :`,
-      options: [`Parlez-vous anglais ?`,`Vous parlez anglais ?`,`Savez-vous l'anglais ?`,`L'anglais vous ?`],
-      optionsEn: [`Do you speak English?`,`You speak English?`,`Do you know English?`,`English you?`],
-      correct: `Parlez-vous anglais ?`,
-      correctEn: `Do you speak English?`,
-      explanation: `Parlez-vous ? (*par-lay-VOO*) = Do you speak? Formal inversion question.`,
-      explanationFr: `Parlez-vous ? = parlez-vous ? Question d'inversion formelle.`
+      id: "10-8",
+      type: "qcm",
+      question: "Could you repeat, please? in French:",
+      questionFr: "Pouvez-vous repeter, s'il vous plait ? en anglais :",
+      options: ["Pouvez-vous repeter, s'il vous plait ?","Repeter, s'il vous plait.","Encore, s'il vous plait.","Dites encore."],
+      optionsEn: ["Could you repeat, please?","Repeat, please.","Again, please.","Say again."],
+      correct: "Pouvez-vous repeter, s'il vous plait ?",
+      correctEn: "Could you repeat, please?",
+      explanation: "Repeter (ruh-pay-TAY) = to repeat. Very useful when learning French!",
+      explanationFr: "Repeter = repeter. Tres utile quand on apprend le francais !"
     },
     {
-      id: `10-9`,
-      type: `qcm`,
-      question: `Thank you very much. in French:`,
-      questionFr: `Merci beaucoup. en anglais :`,
-      options: [`Merci beaucoup.`,`Merci tres.`,`Grand merci.`,`Beaucoup merci.`],
-      optionsEn: [`Thank you very much.`,`Thank you very.`,`Big thanks.`,`Much thanks.`],
-      correct: `Merci beaucoup.`,
-      correctEn: `Thank you very much.`,
-      explanation: `Merci beaucoup (*mair-see boh-KOO*) = Thank you very much. Merci mille fois = thanks a thousand times.`,
-      explanationFr: `Merci beaucoup = merci beaucoup. Merci mille fois = merci mille fois.`
+      id: "10-9",
+      type: "qcm",
+      question: "Do you speak English? in French:",
+      questionFr: "Parlez-vous anglais ? en anglais :",
+      options: ["Parlez-vous anglais ?","Vous parlez anglais ?","Parle anglais ?","Parles-tu anglais ?"],
+      optionsEn: ["Do you speak English?","Do you speak English?","Speak English?","Do you speak English? (informal)"],
+      correct: "Parlez-vous anglais ?",
+      correctEn: "Do you speak English?",
+      explanation: "Parlez-vous anglais ? (par-lay-VOO an-GLAY) = Do you speak English? Use when stuck!",
+      explanationFr: "Parlez-vous anglais ? = parlez-vous anglais ? A utiliser en cas de blocage !"
     },
     {
-      id: `10-10`,
-      type: `qcm`,
-      question: `The most important word to say first in any French interaction:`,
-      questionFr: `Le mot le plus important a dire d'abord dans toute interaction francaise :`,
-      options: [`Bonjour`,`Merci`,`S'il vous plait`,`Excusez-moi`],
-      optionsEn: [`Hello`,`Thank you`,`Please`,`Excuse me`],
-      correct: `Bonjour`,
-      correctEn: `Hello`,
-      explanation: `ALWAYS start with Bonjour. Going straight to your request without it is considered very rude in France.`,
-      explanationFr: `Commencez TOUJOURS par Bonjour. Aller directement a votre demande sans est considere comme tres impoli en France.`
+      id: "10-10",
+      type: "qcm",
+      question: "Sorry (bumping into someone) in French:",
+      questionFr: "Pardon (en bousculant quelqu'un) en anglais :",
+      options: ["Pardon","Excusez-moi","Desole","De rien"],
+      optionsEn: ["Sorry","Excuse me","Sorry","You're welcome"],
+      correct: "Pardon",
+      correctEn: "Sorry",
+      explanation: "Pardon (par-DON) = Sorry for small accidents. Very common in crowded places!",
+      explanationFr: "Pardon = pardon pour les petits accidents. Tres courant dans les endroits bondes !"
     }
   ],
   libre: [
     {
-      id: `10-l1`,
-      type: `libre`,
-      question: `Translate: Can you repeat more slowly, please?`,
-      questionFr: `Traduisez : Pouvez-vous repeter plus lentement, s'il vous plait ?`,
-      correct: `Pouvez-vous repeter plus lentement, s'il vous plait ?`,
-      correctEn: `Can you repeat more slowly, please?`,
+      id: "10-l1",
+      type: "libre",
+      question: "Translate: Thank you very much.",
+      questionFr: "Traduisez : Merci beaucoup.",
+      correct: "Merci beaucoup.",
+      correctEn: "Thank you very much.",
       alternatives: [],
-      explanation: `Repeter = to repeat. Plus lentement = more slowly.`,
-      explanationFr: `Repeter = repeter. Plus lentement = plus lentement.`
+      explanation: "Merci beaucoup = Thank you very much. Beaucoup = very much.",
+      explanationFr: "Merci beaucoup = merci beaucoup. Beaucoup = beaucoup."
     },
     {
-      id: `10-l2`,
-      type: `libre`,
-      question: `How do you say I don't understand?`,
-      questionFr: `Comment dit-on Je ne comprends pas ?`,
-      correct: `Je ne comprends pas.`,
-      correctEn: `I don't understand.`,
+      id: "10-l2",
+      type: "libre",
+      question: "How do you say Excuse me (formal)?",
+      questionFr: "Comment dit-on Excusez-moi ?",
+      correct: "Excusez-moi",
+      correctEn: "Excuse me (formal)",
       alternatives: [],
-      explanation: `Comprendre = to understand. Ne...pas = negation.`,
-      explanationFr: `Comprendre = comprendre. Ne...pas = negation.`
+      explanation: "Excusez-moi = Excuse me (formal). Excuse-moi = informal.",
+      explanationFr: "Excusez-moi = excusez-moi (formel). Excuse-moi = informel."
     },
     {
-      id: `10-l3`,
-      type: `libre`,
-      question: `Translate: I'm sorry, I'm late.`,
-      questionFr: `Traduisez : Je suis desole(e), je suis en retard.`,
-      correct: `Je suis desole(e), je suis en retard.`,
-      correctEn: `I'm sorry, I'm late.`,
+      id: "10-l3",
+      type: "libre",
+      question: "Translate: I don't understand.",
+      questionFr: "Traduisez : Je ne comprends pas.",
+      correct: "Je ne comprends pas.",
+      correctEn: "I don't understand.",
       alternatives: [],
-      explanation: `En retard = late. Je suis desole(e) = I'm sorry.`,
-      explanationFr: `En retard = en retard. Je suis desole(e) = je suis desole(e).`
+      explanation: "Je ne comprends pas = I don't understand. Essential survival phrase!",
+      explanationFr: "Je ne comprends pas = je ne comprends pas. Phrase de survie essentielle !"
     },
     {
-      id: `10-l4`,
-      type: `libre`,
-      question: `How do you say You're welcome?`,
-      questionFr: `Comment dit-on De rien ?`,
-      correct: `De rien.`,
-      correctEn: `You're welcome.`,
-      alternatives: [`Pas de quoi.`,`Avec plaisir.`],
-      explanation: `De rien is most common. Pas de quoi / Avec plaisir also work.`,
-      explanationFr: `De rien est le plus courant. Pas de quoi / Avec plaisir fonctionnent aussi.`
-    },
-    {
-      id: `10-l5`,
-      type: `libre`,
-      question: `What is the FIRST thing to say when entering any French shop?`,
-      questionFr: `Quelle est la PREMIERE chose a dire en entrant dans un magasin francais ?`,
-      correct: `Bonjour !`,
-      correctEn: `Hello!`,
+      id: "10-l4",
+      type: "libre",
+      question: "Complete: ___ vous plait.",
+      questionFr: "Completez : ___ vous plait.",
+      correct: "S'il",
+      correctEn: "If it",
       alternatives: [],
-      explanation: `ALWAYS say Bonjour when entering. Not doing so is considered rude.`,
-      explanationFr: `Dites TOUJOURS Bonjour en entrant. Ne pas le faire est considere comme impoli.`
+      explanation: "S'il vous plait = Please. S'il = if it.",
+      explanationFr: "S'il vous plait = s'il vous plait. S'il = s'il."
     },
     {
-      id: `10-l6`,
-      type: `libre`,
-      question: `Complete: Pouvez-vous parler ___ lentement ?`,
-      questionFr: `Completez : Pouvez-vous parler ___ lentement ?`,
-      correct: `plus`,
-      correctEn: `more`,
+      id: "10-l5",
+      type: "libre",
+      question: "How do you say Could you help me?",
+      questionFr: "Comment dit-on Pourriez-vous m'aider ?",
+      correct: "Pourriez-vous m'aider ?",
+      correctEn: "Could you help me?",
       alternatives: [],
-      explanation: `Plus lentement = more slowly. Plus = more in comparisons.`,
-      explanationFr: `Plus lentement = plus lentement. Plus = plus dans les comparaisons.`
+      explanation: "Pourriez-vous = Could you (conditional). M'aider = help me.",
+      explanationFr: "Pourriez-vous = pourriez-vous (conditionnel). M'aider = m'aider."
     },
     {
-      id: `10-l7`,
-      type: `libre`,
-      question: `Translate: Excuse me, I don't understand French very well.`,
-      questionFr: `Traduisez : Excusez-moi, je ne comprends pas tres bien le francais.`,
-      correct: `Excusez-moi, je ne comprends pas tres bien le francais.`,
-      correctEn: `Excuse me, I don't understand French very well.`,
+      id: "10-l6",
+      type: "libre",
+      question: "Translate: Do you speak English?",
+      questionFr: "Traduisez : Parlez-vous anglais ?",
+      correct: "Parlez-vous anglais ?",
+      correctEn: "Do you speak English?",
       alternatives: [],
-      explanation: `Je ne comprends pas bien = I don't understand well. Honest and useful!`,
-      explanationFr: `Je ne comprends pas bien = je ne comprends pas bien. Honnete et utile !`
+      explanation: "Parlez-vous = Do you speak. Anglais = English.",
+      explanationFr: "Parlez-vous = parlez-vous. Anglais = anglais."
     },
     {
-      id: `10-l8`,
-      type: `libre`,
-      question: `How do you say Thank you very much, goodbye?`,
-      questionFr: `Comment dit-on Merci beaucoup, au revoir ?`,
-      correct: `Merci beaucoup, au revoir.`,
-      correctEn: `Thank you very much, goodbye.`,
+      id: "10-l7",
+      type: "libre",
+      question: "Complete: Je suis ___.",
+      questionFr: "Completez : Je suis ___.",
+      correct: "desole",
+      correctEn: "sorry",
+      alternatives: ["desolee"],
+      explanation: "Je suis desole = I am sorry. Add -e if female.",
+      explanationFr: "Je suis desole = je suis desole. Ajoutez -e si femme."
+    },
+    {
+      id: "10-l8",
+      type: "libre",
+      question: "How do you say You're welcome?",
+      questionFr: "Comment dit-on De rien ?",
+      correct: "De rien",
+      correctEn: "You're welcome",
       alternatives: [],
-      explanation: `Always end interactions with merci + au revoir. It matters!`,
-      explanationFr: `Terminez toujours les interactions par merci + au revoir. Ca compte !`
-    },
-    {
-      id: `10-l9`,
-      type: `libre`,
-      question: `Translate: Could you help me please?`,
-      questionFr: `Traduisez : Pourriez-vous m'aider, s'il vous plait ?`,
-      correct: `Pourriez-vous m'aider, s'il vous plait ?`,
-      correctEn: `Could you help me please?`,
-      alternatives: [],
-      explanation: `Pourriez-vous = could you (conditional, very polite).`,
-      explanationFr: `Pourriez-vous = pourriez-vous (conditionnel, tres poli).`
-    },
-    {
-      id: `10-l10`,
-      type: `libre`,
-      question: `What does je ne comprends pas mean?`,
-      questionFr: `Que signifie je ne comprends pas ?`,
-      correct: `I don't understand`,
-      correctEn: `I don't understand`,
-      alternatives: [`I do not understand`],
-      explanation: `Je ne comprends pas — one of the most important phrases for a learner!`,
-      explanationFr: `Je ne comprends pas — une des phrases les plus importantes pour un apprenant !`
+      explanation: "De rien = You're welcome. Literally 'of nothing'.",
+      explanationFr: "De rien = de rien. Litteralement 'de rien'."
     }
   ]
 };
 
-if (typeof module !== `undefined` && module.exports) {
+if (typeof module !== 'undefined' && module.exports) {
   module.exports = LESSON_10;
 } else {
   window.LESSON_10 = LESSON_10;
