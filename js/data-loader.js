@@ -1,5 +1,4 @@
-// js/data-loader.js — Charge les 20 lecons depuis lessons/ (fichiers lesson-01.js, lesson-02.js...)
-// CORRECTION 2026-06-12 : Evenement 'coreReady' (pas 'coreInitialized') + fallback CONFIG
+// js/data-loader.js — Charge les 20 lecons depuis lessons/
 
 let LESSONS_DATA = [];
 let QUESTIONS_DB = {};
@@ -8,7 +7,6 @@ function loadLessons() {
   LESSONS_DATA = [];
   QUESTIONS_DB = {};
   
-  // CORRECTION 2026-06-12 : Fallback si CONFIG n'existe pas
   const count = (typeof CONFIG !== 'undefined' && CONFIG.LESSONS_COUNT) 
     ? CONFIG.LESSONS_COUNT 
     : 20;
@@ -51,7 +49,7 @@ function loadLessons() {
         }
       } else {
         errors++;
-        console.error('[DataLoader] Variable ' + lessonVar + ' not found in lesson-' + numStr + '.js');
+        console.error('[DataLoader] Variable ' + lessonVar + ' not found');
         if (typeof EventBus !== 'undefined') {
           EventBus.emit('lessonError', { id: i, error: 'Variable not found' });
         }
@@ -84,16 +82,24 @@ function loadLessons() {
   }
 }
 
-// CORRECTION 2026-06-12 : 'coreReady' (pas 'coreInitialized')
-if (typeof EventBus !== 'undefined') {
-  EventBus.on('coreReady', function(data) {
-    console.log('[DataLoader] coreReady received, starting load...');
+// ═══════════════════════════════════════════════════════════════════
+// CORRECTION CRITIQUE : Filet de sécurité contre la race condition
+// Si core.js a déjà fini (PlayerManager existe), coreReady est déjà
+// passé → on lance directement loadLessons()
+// ═══════════════════════════════════════════════════════════════════
+function tryStart() {
+  // Cas 1 : core.js n'a pas encore fini → on écoute l'event
+  if (typeof EventBus !== 'undefined') {
+    EventBus.on('coreReady', loadLessons);
+  }
+  
+  // Cas 2 : core.js a DÉJÀ fini (race condition) → on lance direct
+  // PlayerManager est défini en dernier dans core.js, donc s'il
+  // existe, coreReady est déjà passé
+  if (typeof PlayerManager !== 'undefined' && typeof EventBus !== 'undefined') {
+    console.log('[DataLoader] core.js already ready (race condition detected) — launching directly');
     loadLessons();
-  });
-} else {
-  setTimeout(function() {
-    if (typeof EventBus !== 'undefined') {
-      EventBus.on('coreReady', loadLessons);
-    }
-  }, 100);
+  }
 }
+
+tryStart();
