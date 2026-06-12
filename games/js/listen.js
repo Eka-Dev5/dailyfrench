@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════
-// LISTEN.JS — Daily French 🎧 v1.0
-// Listen & Repeat — Shadowing practice
+// LISTEN.JS — Daily French 🎧 v1.1
+// CORRECTION : délégation d'événement pour les boutons
 // ═══════════════════════════════════════════════════════════════════
 
 var ListenApp = {
@@ -18,7 +18,6 @@ var ListenApp = {
   },
   
   loadPhrases: function() {
-    // Extraire phrases depuis QUESTIONS_DB ou utiliser phrases par défaut
     this.phrases = [];
     
     if (typeof QUESTIONS_DB !== 'undefined') {
@@ -39,7 +38,6 @@ var ListenApp = {
       }
     }
     
-    // Phrases par défaut si vide
     if (this.phrases.length === 0) {
       this.phrases = [
         { fr: "Bonjour, comment allez-vous ?", en: "Hello, how are you?", phon: "*bon-ZHOOR, ko-MON tal-lay VOO*", level: 1 },
@@ -80,7 +78,6 @@ var ListenApp = {
   },
   
   filterByLevel: function(level) {
-    // Filtrer les phrases par niveau
     this.currentIndex = 0;
     this.nextPhrase();
   },
@@ -108,7 +105,6 @@ var ListenApp = {
     if (phoneticEl) phoneticEl.textContent = phrase.phon || '';
     if (translationEl) translationEl.textContent = phrase.en || '';
     
-    // Reset pills
     document.querySelectorAll('.word-pill').forEach(function(p) {
       p.classList.remove('correct', 'incorrect');
     });
@@ -136,34 +132,48 @@ var ListenApp = {
   
   record: function() {
     showToast('Recording... (Speech recognition coming soon)');
-    // STT nécessite SpeechRecognition API — limité sur mobile
   },
   
   bindEvents: function() {
-    var btnListen = document.getElementById('btnListen');
-    var btnRecord = document.getElementById('btnRecord');
-    var btnNext = document.getElementById('btnNext');
-    var voiceCircle = document.getElementById('voiceCircle');
+    var self = this;
     
-    if (btnListen) {
-      btnListen.addEventListener('click', function() { ListenApp.speakCurrentPhrase(); });
-    }
+    // Délégation d'événement sur le document entier
+    // Fonctionne même si les boutons sont recréés ou déplacés
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Remonter la hiérarchie pour trouver le bouton cliqué
+      while (target && target !== document.body) {
+        if (target.id === 'btnListen') {
+          e.preventDefault();
+          e.stopPropagation();
+          self.speakCurrentPhrase();
+          return;
+        }
+        if (target.id === 'btnRecord') {
+          e.preventDefault();
+          e.stopPropagation();
+          self.record();
+          return;
+        }
+        if (target.id === 'btnNext') {
+          e.preventDefault();
+          e.stopPropagation();
+          self.currentIndex++;
+          self.nextPhrase();
+          return;
+        }
+        target = target.parentElement;
+      }
+    });
+    
+    // Voice circle (inchangé)
+    var voiceCircle = document.getElementById('voiceCircle');
     if (voiceCircle) {
-      voiceCircle.addEventListener('click', function() { ListenApp.speakCurrentPhrase(); });
-    }
-    if (btnRecord) {
-      btnRecord.addEventListener('click', function() { ListenApp.record(); });
-    }
-    if (btnNext) {
-      btnNext.addEventListener('click', function() {
-        ListenApp.currentIndex++;
-        ListenApp.nextPhrase();
-      });
+      voiceCircle.addEventListener('click', function() { self.speakCurrentPhrase(); });
     }
   }
 };
 
-// Démarrage
-document.addEventListener('DOMContentLoaded', function() {
-  ListenApp.init();
-});
+// Lancement immédiat
+ListenApp.init();
