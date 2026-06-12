@@ -2,268 +2,254 @@
 const LESSON_06 = {
   id: 6,
   title: "At the Shops",
-  titleFr: "Chez les commercants",
-  objectiveEn: "Navigate French shops, pay, ask for help",
-  objectiveFr: "Naviguer dans les magasins francais, payer, demander de l aide",
-  hintEn: "Many French shops close 12h-14h and often all day Monday!",
-  hintFr: "Beaucoup de magasins francais ferment de 12h a 14h et souvent tout le lundi !",
+  titleFr: "Dans les magasins",
+  objectiveEn: "Buy things, ask prices, pay and handle money in French shops",
+  objectiveFr: "Acheter des choses, demander les prix, payer et gerer l'argent dans les magasins francais",
+  hintEn: "Always say bonjour when entering ANY shop in France -- it is essential!",
+  hintFr: "Dites toujours bonjour en entrant dans N'IMPORTE QUEL magasin en France -- c'est essentiel !",
   vocabulary: [],
   contentHtml: `
 <div class="lesson-rule">
-<h4>Shops vocabulary</h4>
+<h4>Shop types</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>la boulangerie</td><td>the bakery</td></tr>
-<tr><td>la pharmacie</td><td>the pharmacy</td></tr>
-<tr><td>la poste</td><td>the post office</td></tr>
-<tr><td>la banque</td><td>the bank</td></tr>
-<tr><td>le supermarche</td><td>the supermarket</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>la boulangerie</td><td><em>*la boo-lon-ZHREE*</em></td><td>the bakery <!-- *thuh BAY-kuh-ree* --></td></tr>
+<tr><td>la pharmacie</td><td><em>*la far-ma-SEE*</em></td><td>the pharmacy <!-- *thuh FAR-muh-see* --></td></tr>
+<tr><td>la poste</td><td><em>*la post*</em></td><td>the post office <!-- *thuh post OH-fis* --></td></tr>
+<tr><td>la banque</td><td><em>*la bonk*</em></td><td>the bank <!-- *thuh bank* --></td></tr>
+<tr><td>le supermarche</td><td><em>*luh soo-pair-mar-SHAY*</em></td><td>the supermarket <!-- *thuh SOO-pur-mar-ket* --></td></tr>
 </table>
 </div>
 <div class="lesson-rule">
-<h4>Paying</h4>
+<h4>Paying and shopping phrases</h4>
 <table class="lesson-table">
-<tr><th>French</th><th>English</th></tr>
-<tr><td>Je paie par carte.</td><td>I m paying by card.</td></tr>
-<tr><td>Vous acceptez les cheques ?</td><td>Do you accept cheques?</td></tr>
-<tr><td>Avez-vous la monnaie ?</td><td>Do you have change?</td></tr>
-<tr><td>Un ticket de caisse, s il vous plait.</td><td>A receipt, please.</td></tr>
+<tr><th>French</th><th>Phonetics</th><th>English</th></tr>
+<tr><td>Je paie par carte.</td><td><em>*zhuh pay par kart*</em></td><td>I pay by card. <!-- *eye pay by card* --></td></tr>
+<tr><td>Vous acceptez les cheques ?</td><td><em>*voo ak-sep-TAY lay shek*</em></td><td>Do you accept cheques? <!-- *doo yoo ak-SEPT checks* --></td></tr>
+<tr><td>Avez-vous la monnaie ?</td><td><em>*a-vay-VOO la mo-NAY*</em></td><td>Do you have change? <!-- *doo yoo hav chaynj* --></td></tr>
+<tr><td>Un ticket de caisse, s il vous plait.</td><td><em>*uhn tee-kay duh kess, seel voo PLAY*</em></td><td>A receipt, please. <!-- *uh re-SEET, PLEEZ* --></td></tr>
 </table>
 </div>
-<div class="lesson-warning">Many small French shops close at lunch (12h-14h). Always check opening hours!</div>
+<div class="lesson-warning">In France, <strong>la carte</strong> (card) is now the standard payment. Cheques are rare but still accepted in some places.</div>
+<div class="lesson-example">
+-- Bonjour, je voudrais ce pain, s il vous plait. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">Hello, I would like this bread, please.</span><br>
+-- Voila. Vous payez comment ? <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">Here you go. How will you pay?</span><br>
+-- Je paie par carte. <button class="lesson-ex-btn" onclick="toggleLessonEx(this,event)">English</button>
+<span class="lesson-ex-en">I pay by card.</span>
+</div>
   `,
   qcm: [
     {
       id: "06-1",
       type: "qcm",
-      question: "The bakery in French:",
-      questionFr: "La boulangerie en anglais :",
-      options: ["La boulangerie","La pharmacie","La boucherie","La fromagerie"],
-      optionsEn: ["The bakery","The pharmacy","The butcher","The cheese shop"],
-      correct: "La boulangerie",
-      correctEn: "The bakery",
-      explanation: "La boulangerie (boo-lon-zhuh-REE) = bakery. Le boulanger = the baker.",
-      explanationFr: "La boulangerie = la boulangerie. Le boulanger = le boulanger."
+      question: "I pay by card. in French:",
+      questionFr: "Je paie par carte. en anglais :",
+      options: ["Je paie par carte.","Je paye carte.","Je paie avec carte.","Je donne carte."],
+      optionsEn: ["I pay by card.","I pay card.","I pay with card.","I give card."],
+      correct: "Je paie par carte.",
+      correctEn: "I pay by card.",
+      explanation: "Je paie (zhuh pay) = I pay. Par carte = by card.",
+      explanationFr: "Je paie = je paie. Par carte = par carte."
     },
     {
       id: "06-2",
       type: "qcm",
-      question: "I m paying by card. in French:",
-      questionFr: "Je paie par carte. en anglais :",
-      options: ["Je paie par carte.","Je paye carte.","J ai une carte.","Carte s il vous plait."],
-      optionsEn: ["I m paying by card.","I pay card.","I have a card.","Card please."],
-      correct: "Je paie par carte.",
-      correctEn: "I m paying by card.",
-      explanation: "Je paie par carte (zhuh pay par KART) = I m paying by card. Especes = cash.",
-      explanationFr: "Je paie par carte = je paie par carte. Especes = especes."
+      question: "Do you accept cheques? in French:",
+      questionFr: "Vous acceptez les cheques ? en anglais :",
+      options: ["Vous acceptez les cheques ?","Vous prenez cheques ?","Cheques acceptez ?","Acceptez-vous cheques ?"],
+      optionsEn: ["Do you accept cheques?","Do you take cheques?","Cheques accept?","Do you accept cheques?"],
+      correct: "Vous acceptez les cheques ?",
+      correctEn: "Do you accept cheques?",
+      explanation: "Accepter (ak-sep-TAY) = to accept. Les cheques = cheques.",
+      explanationFr: "Accepter = accepter. Les cheques = les cheques."
     },
     {
       id: "06-3",
       type: "qcm",
-      question: "Do you have change? in French:",
-      questionFr: "Avez-vous la monnaie ? en anglais :",
-      options: ["Avez-vous la monnaie ?","Avez-vous de l argent ?","Vous avez change ?","La monnaie vous ?"],
-      optionsEn: ["Do you have change?","Do you have money?","You have change?","The change you?"],
-      correct: "Avez-vous la monnaie ?",
-      correctEn: "Do you have change?",
-      explanation: "La monnaie (la mo-NAY) = change (coins). La piece = a coin.",
-      explanationFr: "La monnaie = la monnaie (pieces). La piece = une piece."
+      question: "The bakery in French:",
+      questionFr: "La boulangerie en anglais :",
+      options: ["La boulangerie","La banque","La pharmacie","La poste"],
+      optionsEn: ["The bakery","The bank","The pharmacy","The post office"],
+      correct: "La boulangerie",
+      correctEn: "The bakery",
+      explanation: "La boulangerie (boo-lon-ZHREE) = the bakery. Le pain = bread.",
+      explanationFr: "La boulangerie = la boulangerie. Le pain = le pain."
     },
     {
       id: "06-4",
       type: "qcm",
-      question: "A receipt please. in French:",
-      questionFr: "Un ticket de caisse, s il vous plait. en anglais :",
-      options: ["Un ticket de caisse, s il vous plait.","Un recu s il vous plait.","La note s il vous plait.","Le papier s il vous plait."],
-      optionsEn: ["A receipt, please.","A receipt please.","The bill please.","The paper please."],
-      correct: "Un ticket de caisse, s il vous plait.",
-      correctEn: "A receipt, please.",
-      explanation: "Un ticket de caisse (teekay de kess) = receipt. Un recu is also accepted.",
-      explanationFr: "Un ticket de caisse = un ticket de caisse. Un recu est aussi accepte."
+      question: "Do you have change? in French:",
+      questionFr: "Avez-vous la monnaie ? en anglais :",
+      options: ["Avez-vous la monnaie ?","Vous avez monnaie ?","Avez monnaie ?","Monnaie vous ?"],
+      optionsEn: ["Do you have change?","Do you have change?","Have change?","Change you?"],
+      correct: "Avez-vous la monnaie ?",
+      correctEn: "Do you have change?",
+      explanation: "La monnaie (mo-NAY) = change / coins. Not 'argent' (money) in this context!",
+      explanationFr: "La monnaie = la monnaie. Pas 'argent' dans ce contexte !"
     },
     {
       id: "06-5",
       type: "qcm",
-      question: "The pharmacy in French:",
-      questionFr: "La pharmacie en anglais :",
-      options: ["La pharmacie","La boulangerie","La droguerie","La clinique"],
-      optionsEn: ["The pharmacy","The bakery","The drugstore","The clinic"],
-      correct: "La pharmacie",
-      correctEn: "The pharmacy",
-      explanation: "La pharmacie (far-ma-SEE) = pharmacy/chemist. Look for the green cross!",
-      explanationFr: "La pharmacie = la pharmacie. Cherchez la croix verte !"
+      question: "A receipt, please. in French:",
+      questionFr: "Un ticket de caisse, s il vous plait. en anglais :",
+      options: ["Un ticket de caisse, s il vous plait.","Un recu, s il vous plait.","La caisse, s il vous plait.","Un ticket, s il vous plait."],
+      optionsEn: ["A receipt, please.","A receipt, please.","The till, please.","A ticket, please."],
+      correct: "Un ticket de caisse, s il vous plait.",
+      correctEn: "A receipt, please.",
+      explanation: "Ticket de caisse (tee-kay duh kess) = receipt. Un recu also works.",
+      explanationFr: "Ticket de caisse = ticket de caisse. Un recu marche aussi."
     },
     {
       id: "06-6",
       type: "qcm",
-      question: "Is it open on Sundays? in French:",
-      questionFr: "C est ouvert le dimanche ? en anglais :",
-      options: ["C est ouvert le dimanche ?","Ouvert dimanche ?","Vous ouvrez dimanche ?","Le dimanche c est quand ?"],
-      optionsEn: ["Is it open on Sundays?","Open Sunday?","You open Sunday?","Sunday is when?"],
-      correct: "C est ouvert le dimanche ?",
-      correctEn: "Is it open on Sundays?",
-      explanation: "Ouvert (oo-VAIR) = open. Ferme = closed. Le dimanche = on Sundays.",
-      explanationFr: "Ouvert = ouvert. Ferme = ferme. Le dimanche = le dimanche."
+      question: "The bank in French:",
+      questionFr: "La banque en anglais :",
+      options: ["La banque","La boulangerie","La pharmacie","La poste"],
+      optionsEn: ["The bank","The bakery","The pharmacy","The post office"],
+      correct: "La banque",
+      correctEn: "The bank",
+      explanation: "La banque (bonk) = the bank. Un distributeur = ATM.",
+      explanationFr: "La banque = la banque. Un distributeur = un distributeur."
     },
     {
       id: "06-7",
       type: "qcm",
-      question: "What time do you close? in French:",
-      questionFr: "Vous fermez a quelle heure ? en anglais :",
-      options: ["Vous fermez a quelle heure ?","Quelle heure fermer ?","C est quand la fermeture ?","Vous etes quand ferme ?"],
-      optionsEn: ["What time do you close?","What time close?","When is the closing?","You are when closed?"],
-      correct: "Vous fermez a quelle heure ?",
-      correctEn: "What time do you close?",
-      explanation: "Vous fermez (voo fair-MAY) = you close. A quelle heure = at what time.",
-      explanationFr: "Vous fermez = vous fermez. A quelle heure = a quelle heure."
+      question: "The supermarket in French:",
+      questionFr: "Le supermarche en anglais :",
+      options: ["Le supermarche","Le marche","Le magasin","Le hypermarche"],
+      optionsEn: ["The supermarket","The market","The shop","The hypermarket"],
+      correct: "Le supermarche",
+      correctEn: "The supermarket",
+      explanation: "Le supermarche (soo-pair-mar-SHAY) = supermarket. Le marche = market.",
+      explanationFr: "Le supermarche = le supermarche. Le marche = le marche."
     },
     {
       id: "06-8",
       type: "qcm",
-      question: "The post office in French:",
-      questionFr: "La poste en anglais :",
-      options: ["La poste","Le courrier","La lettre","Le bureau"],
-      optionsEn: ["The post office","The mail","The letter","The office"],
-      correct: "La poste",
-      correctEn: "The post office",
-      explanation: "La poste (la POST) = the post office. To send: envoyer (on-vwa-YAY).",
-      explanationFr: "La poste = la poste. Pour envoyer : envoyer."
+      question: "The pharmacy in French:",
+      questionFr: "La pharmacie en anglais :",
+      options: ["La pharmacie","La banque","La boulangerie","La poste"],
+      optionsEn: ["The pharmacy","The bank","The bakery","The post office"],
+      correct: "La pharmacie",
+      correctEn: "The pharmacy",
+      explanation: "La pharmacie (far-ma-SEE) = pharmacy. Look for the green cross!",
+      explanationFr: "La pharmacie = la pharmacie. Cherchez la croix verte !"
     },
     {
       id: "06-9",
       type: "qcm",
-      question: "Excuse me, where is the till? in French:",
-      questionFr: "Excusez-moi, ou est la caisse ? en anglais :",
-      options: ["Excusez-moi, ou est la caisse ?","Pardon, caisse ou ?","S il vous plait caisse.","Ou payer ?"],
-      optionsEn: ["Excuse me, where is the till?","Sorry, till where?","Please till.","Where pay?"],
-      correct: "Excusez-moi, ou est la caisse ?",
-      correctEn: "Excuse me, where is the till?",
-      explanation: "La caisse (la KESS) = the till / checkout. Excusez-moi to get attention politely.",
-      explanationFr: "La caisse = la caisse. Excusez-moi pour attirer l attention poliment."
+      question: "The post office in French:",
+      questionFr: "La poste en anglais :",
+      options: ["La poste","La banque","La pharmacie","La boulangerie"],
+      optionsEn: ["The post office","The bank","The pharmacy","The bakery"],
+      correct: "La poste",
+      correctEn: "The post office",
+      explanation: "La poste (post) = post office. Le facteur = postman.",
+      explanationFr: "La poste = la poste. Le facteur = le facteur."
     },
     {
       id: "06-10",
       type: "qcm",
-      question: "It s closed today. in French:",
-      questionFr: "C est ferme aujourd hui. en anglais :",
-      options: ["C est ferme aujourd hui.","Aujourd hui ferme.","C est pas ouvert.","Ferme est aujourd hui."],
-      optionsEn: ["It s closed today.","Today closed.","It s not open.","Closed is today."],
-      correct: "C est ferme aujourd hui.",
-      correctEn: "It s closed today.",
-      explanation: "Ferme (fair-MAY) = closed. Aujourd hui = today. Demain = tomorrow.",
-      explanationFr: "Ferme = ferme. Aujourd hui = aujourd hui. Demain = demain."
+      question: "How will you pay? in French:",
+      questionFr: "Vous payez comment ? en anglais :",
+      options: ["Vous payez comment ?","Comment payez-vous ?","Comment payer ?","Vous payer comment ?"],
+      optionsEn: ["How will you pay?","How do you pay?","How to pay?","You pay how?"],
+      correct: "Vous payez comment ?",
+      correctEn: "How will you pay?",
+      explanation: "Vous payez comment ? (voo pay-ay ko-mahn) = How will you pay? Very common question.",
+      explanationFr: "Vous payez comment ? = comment payez-vous ? Question tres courante."
     }
   ],
   libre: [
     {
       id: "06-l1",
       type: "libre",
-      question: "Translate: I m looking for the supermarket.",
-      questionFr: "Traduisez : Je cherche le supermarche.",
-      correct: "Je cherche le supermarche.",
-      correctEn: "I m looking for the supermarket.",
+      question: "Translate: I pay by card.",
+      questionFr: "Traduisez : Je paie par carte.",
+      correct: "Je paie par carte.",
+      correctEn: "I pay by card.",
       alternatives: [],
-      explanation: "Chercher = to look for / search for.",
-      explanationFr: "Chercher = chercher."
+      explanation: "Je paie = I pay. Par carte = by card.",
+      explanationFr: "Je paie = je paie. Par carte = par carte."
     },
     {
       id: "06-l2",
       type: "libre",
-      question: "How do you say Is there a bakery nearby?",
-      questionFr: "Comment dit-on Il y a une boulangerie pres d ici ?",
-      correct: "Il y a une boulangerie pres d ici ?",
-      correctEn: "Is there a bakery nearby?",
-      alternatives: ["Y a-t-il une boulangerie pres d ici ?"],
-      explanation: "Il y a = there is. Pres d ici = nearby.",
-      explanationFr: "Il y a = il y a. Pres d ici = pres d ici."
+      question: "How do you say Do you accept cheques?",
+      questionFr: "Comment dit-on Vous acceptez les cheques ?",
+      correct: "Vous acceptez les cheques ?",
+      correctEn: "Do you accept cheques?",
+      alternatives: [],
+      explanation: "Accepter = to accept. Les cheques = cheques.",
+      explanationFr: "Accepter = accepter. Les cheques = les cheques."
     },
     {
       id: "06-l3",
       type: "libre",
-      question: "Complete: Je paie ___ especes.",
-      questionFr: "Completez : Je paie ___ especes.",
-      correct: "en",
-      correctEn: "in",
-      alternatives: [],
-      explanation: "Payer en especes = to pay in cash. Payer par carte = to pay by card.",
-      explanationFr: "Payer en especes = payer en especes. Payer par carte = payer par carte."
+      question: "Translate: A receipt, please.",
+      questionFr: "Traduisez : Un ticket de caisse, s il vous plait.",
+      correct: "Un ticket de caisse, s il vous plait.",
+      correctEn: "A receipt, please.",
+      alternatives: ["Un recu, s il vous plait."],
+      explanation: "Ticket de caisse = receipt. Recu = receipt (also correct).",
+      explanationFr: "Ticket de caisse = ticket de caisse. Recu = recu (aussi correct)."
     },
     {
       id: "06-l4",
       type: "libre",
-      question: "Translate: A receipt please.",
-      questionFr: "Traduisez : Un ticket de caisse, s il vous plait.",
-      correct: "Un ticket de caisse, s il vous plait.",
-      correctEn: "A receipt, please.",
-      alternatives: [],
-      explanation: "Ticket de caisse is the most common term for receipt at a shop.",
-      explanationFr: "Ticket de caisse est le terme le plus courant pour le recu en magasin."
+      question: "Complete: Je paie par ___.",
+      questionFr: "Completez : Je paie par ___.",
+      correct: "carte",
+      correctEn: "card",
+      alternatives: ["cheque"],
+      explanation: "Je paie par carte = I pay by card. Par cheque = by cheque.",
+      explanationFr: "Je paie par carte = je paie par carte. Par cheque = par cheque."
     },
     {
       id: "06-l5",
       type: "libre",
-      question: "How do you ask What time do you open?",
-      questionFr: "Comment demande-t-on Vous ouvrez a quelle heure ?",
-      correct: "Vous ouvrez a quelle heure ?",
-      correctEn: "What time do you open?",
-      alternatives: ["A quelle heure vous ouvrez ?"],
-      explanation: "Ouvrir = to open. Vous ouvrez = you open.",
-      explanationFr: "Ouvrir = ouvrir. Vous ouvrez = vous ouvrez."
+      question: "How do you say the bakery?",
+      questionFr: "Comment dit-on la boulangerie ?",
+      correct: "la boulangerie",
+      correctEn: "the bakery",
+      alternatives: [],
+      explanation: "La boulangerie = the bakery. Le boulanger = the baker.",
+      explanationFr: "La boulangerie = la boulangerie. Le boulanger = le boulanger."
     },
     {
       id: "06-l6",
       type: "libre",
-      question: "What is la pharmacie?",
-      questionFr: "Que signifie la pharmacie ?",
-      correct: "the pharmacy",
-      correctEn: "the pharmacy",
-      alternatives: ["pharmacy","chemist"],
-      explanation: "Recognised by the green cross. Open even during lunch in many towns!",
-      explanationFr: "Reconnue a la croix verte. Ouverte meme pendant le dejeuner dans beaucoup de villes !"
+      question: "Translate: Do you have change?",
+      questionFr: "Traduisez : Avez-vous la monnaie ?",
+      correct: "Avez-vous la monnaie ?",
+      correctEn: "Do you have change?",
+      alternatives: [],
+      explanation: "La monnaie = change. Argent = money.",
+      explanationFr: "La monnaie = la monnaie. Argent = argent."
     },
     {
       id: "06-l7",
       type: "libre",
-      question: "Translate: The bank is closed today.",
-      questionFr: "Traduisez : La banque est fermee aujourd hui.",
-      correct: "La banque est fermee aujourd hui.",
-      correctEn: "The bank is closed today.",
+      question: "Complete: ___ acceptez les cheques ?",
+      questionFr: "Completez : ___ acceptez les cheques ?",
+      correct: "Vous",
+      correctEn: "Do you",
       alternatives: [],
-      explanation: "Fermee = closed (feminine, agrees with la banque).",
-      explanationFr: "Fermee = fermee (feminin, s accorde avec la banque)."
+      explanation: "Vous acceptez = Do you accept. Vous = you (formal).",
+      explanationFr: "Vous acceptez = vous acceptez. Vous = vous (formel)."
     },
     {
       id: "06-l8",
       type: "libre",
-      question: "Complete: Avez-vous ___ monnaie pour 20 euros ?",
-      questionFr: "Completez : Avez-vous ___ monnaie pour 20 euros ?",
-      correct: "la",
-      correctEn: "the",
+      question: "How do you say the supermarket?",
+      questionFr: "Comment dit-on le supermarche ?",
+      correct: "le supermarche",
+      correctEn: "the supermarket",
       alternatives: [],
-      explanation: "La monnaie = change. Avez-vous la monnaie pour 20 euros = do you have change for 20 euros?",
-      explanationFr: "La monnaie = la monnaie. Avez-vous la monnaie pour 20 euros ?"
-    },
-    {
-      id: "06-l9",
-      type: "libre",
-      question: "How do you say I m looking for a chemist?",
-      questionFr: "Comment dit-on Je cherche une pharmacie ?",
-      correct: "Je cherche une pharmacie.",
-      correctEn: "I m looking for a chemist.",
-      alternatives: [],
-      explanation: "Chercher = to look for. Une pharmacie = a pharmacy.",
-      explanationFr: "Chercher = chercher. Une pharmacie = une pharmacie."
-    },
-    {
-      id: "06-l10",
-      type: "libre",
-      question: "Translate: Where is the post office, please?",
-      questionFr: "Traduisez : Ou est la poste, s il vous plait ?",
-      correct: "Ou est la poste, s il vous plait ?",
-      correctEn: "Where is the post office, please?",
-      alternatives: [],
-      explanation: "Ou est = where is. La poste = the post office.",
-      explanationFr: "Ou est = ou est. La poste = la poste."
+      explanation: "Le supermarche = the supermarket.",
+      explanationFr: "Le supermarche = le supermarche."
     }
   ]
 };
