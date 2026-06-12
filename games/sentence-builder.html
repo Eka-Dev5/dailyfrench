@@ -6,6 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Daily French 🥖 — Phrase Builder 🧩</title>
+  <script src="../js/theme-loader.js"></script>
   <link rel="stylesheet" href="../css/base.css">
   <script src="../js/nav.js"></script>
   <style>
@@ -85,13 +86,9 @@
     </div>
     <div class="feedback" id="feedback" style="display:none"></div>
   </div>
-<script src="js/config.js"></script>
-<script src="js/core.js"></script>
-<script src="js/ui-utils.js"></script>
-<script src="games/js/sentence-builder.js"></script>
-  <script>
-    function applyThemePick(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('dailyFrench_theme',t);if(typeof toast==='function')toast('Theme: '+t)}
-    (function(){const t=localStorage.getItem('dailyFrench_theme');if(t)document.documentElement.setAttribute('data-theme',t)})();
-  </script>
+  <script src="../js/config.js"></script>
+  <script src="../js/core.js"></script>
+  <script src="../js/ui-utils.js"></script>
+  <script src="js/sentence-builder.js"></script>
 </body>
 </html>
