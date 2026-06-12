@@ -177,6 +177,24 @@
   
   <!-- 9. nav.js — Navigation (après core.js ✅) -->
   <script src="js/nav.js"></script>
+<script>
+  // TEST : Forcer l'affichage des leçons quand elles sont chargées
+  document.addEventListener('DOMContentLoaded', function() {
+    // Si les leçons sont déjà chargées, afficher directement
+    if (typeof LESSONS_DATA !== 'undefined' && LESSONS_DATA.length > 0) {
+      console.log('Lessons already loaded: ' + LESSONS_DATA.length);
+      if (typeof renderLessons === 'function') renderLessons();
+    }
+    
+    // Sinon, attendre l'événement
+    if (typeof EventBus !== 'undefined') {
+      EventBus.on('lessonsLoaded', function(data) {
+        console.log('lessonsLoaded event received: ' + (data ? data.count : '?'));
+        if (typeof renderLessons === 'function') renderLessons();
+      });
+    }
+  });
+</script>
 
 
 </body>
