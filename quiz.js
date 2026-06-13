@@ -91,21 +91,6 @@ function renderLessons() {
   }
 }
 
-// ─── INVERSION DES COLONNES (INDÉPENDANT) ────────────────────────
-
-function toggleLessonColumns() {
-  if (typeof LessonViewMode === 'undefined') {
-    console.error('[toggleLessonColumns] LessonViewMode not available');
-    return;
-  }
-  
-  const newMode = LessonViewMode.toggle();
-  const msg = newMode === 'inverted' 
-    ? (I18n.current === 'fr' ? 'Colonnes inversées' : 'Columns inverted')
-    : (I18n.current === 'fr' ? 'Colonnes normales' : 'Normal columns');
-  toast(msg + ' 🔄');
-}
-
 function toggleLesson(num) {
   const body = document.getElementById('lesson-body-' + num);
   const card = document.querySelector('.lesson-card[data-num="' + num + '"]');
