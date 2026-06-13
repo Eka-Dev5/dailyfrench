@@ -531,7 +531,7 @@ const Modal = {
     if (!wrap) return;
     wrap.classList.remove('open');
     document.body.style.overflow = '';
-n    if (this.lastFocus) this.lastFocus.focus();
+    if (this.lastFocus) this.lastFocus.focus();
     if (this.closeCallback) this.closeCallback();
   },
   trapFocus(element) {
