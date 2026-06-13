@@ -10,6 +10,10 @@ function showSection(id) {
   }
 }
 
+// quiz.js — Logique page quiz v2.3
+// CORRECTION : LessonViewMode indépendant de DirectionMode
+//
+
 function handleRoute() {
   const params = new URLSearchParams(window.location.search);
   const section = params.get('section') || 'home';
@@ -93,15 +97,30 @@ function renderLessons() {
     container.appendChild(card);
   });
   
-  // Appliquer le mode d'affichage des colonnes (independant de DirectionMode)
+  // ✅ Appliquer le mode d'affichage des colonnes (indépendant de DirectionMode)
   if (typeof LessonViewMode !== 'undefined') {
     LessonViewMode.apply();
-  }
   
-  // Appliquer aussi la direction des colonnes
+  
+  // Appliquer aussi la direction des colonnes (DirectionMode)
   if (typeof DirectionMode !== 'undefined' && DirectionMode.applyToAllTables) {
     DirectionMode.applyToAllTables();
+  }}
+}
+
+// ─── INVERSION DES COLONNES (INDÉPENDANT) ────────────────────────
+
+function toggleLessonColumns() {
+  if (typeof LessonViewMode === 'undefined') {
+    console.error('[toggleLessonColumns] LessonViewMode not available');
+    return;
   }
+  
+  const newMode = LessonViewMode.toggle();
+  const msg = newMode === 'inverted' 
+    ? (I18n.current === 'fr' ? 'Colonnes inversées' : 'Columns inverted')
+    : (I18n.current === 'fr' ? 'Colonnes normales' : 'Normal columns');
+  toast(msg + ' 🔄');
 }
 
 function toggleLesson(num) {
@@ -118,7 +137,7 @@ function toggleLesson(num) {
     card.classList.toggle('open', !isOpen);
   }
   
-  // Reappliquer le mode quand on ouvre une lecon (au cas ou)
+  // Réappliquer le mode quand on ouvre une leçon (au cas où)
   if (!isOpen && typeof LessonViewMode !== 'undefined') {
     LessonViewMode.apply();
   }
@@ -172,22 +191,7 @@ function renderDirectionSelector() {
   });
 }
 
-// --- INVERSION DES COLONNES (INDEPENDANT) --------------------------
-
-function toggleLessonColumns() {
-  if (typeof LessonViewMode === 'undefined') {
-    console.error('[toggleLessonColumns] LessonViewMode not available');
-    return;
-  }
-  
-  const newMode = LessonViewMode.toggle();
-  const msg = newMode === 'inverted' 
-    ? (I18n.current === 'fr' ? 'Colonnes inversées' : 'Columns inverted')
-    : (I18n.current === 'fr' ? 'Colonnes normales' : 'Normal columns');
-  toast(msg + ' 🔄');
-}
-
-// --- INIT ----------------------------------------------------------
+// ─── INVERSION DES COLONNES (INDÉPENDANT) ────────────────────────
 
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof initCore === 'function') initCore();
