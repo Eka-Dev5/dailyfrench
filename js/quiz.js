@@ -85,7 +85,15 @@ function renderLessons() {
     card.appendChild(body);
     container.appendChild(card);
   });
+  
+  // ✅ AJOUT : Appliquer la direction des colonnes après le rendu
+  if (typeof DirectionMode !== 'undefined' && DirectionMode.applyToAllTables) {
+    requestAnimationFrame(function() {
+      DirectionMode.applyToAllTables();
+    });
+  }
 }
+
 
 function toggleLesson(num) {
   const body = document.getElementById('lesson-body-' + num);
