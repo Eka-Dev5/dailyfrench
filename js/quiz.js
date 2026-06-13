@@ -200,10 +200,4 @@ document.addEventListener('DOMContentLoaded', function() {
   
   renderDirectionSelector();
   handleRoute();
-});
-'''
-
-with open('/mnt/agents/output/quiz.js', 'w', encoding='utf-8') as f:
-    f.write(quiz_js)
-
-print("✅ quiz.js écrit :", len(quiz_js), "caractères")
+}

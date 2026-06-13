@@ -111,7 +111,7 @@ const PlayerManager = {
     const trimmed = name.trim();
     if (trimmed.length === 0) return { ok: false, msg: 'Name cannot be empty' };
     if (trimmed.length > 30) return { ok: false, msg: 'Name too long (max 30)' };
-    if (!/^[\\p{L}\\p{N}\\s\\-'_]+$/u.test(trimmed)) return { ok: false, msg: 'Invalid characters' };
+    if (!/^[\p{L}\p{N}\\s\\-'_]+$/u.test(trimmed)) return { ok: false, msg: 'Invalid characters' };
     return { ok: true, name: trimmed };
   },
   create(name) {
@@ -178,7 +178,7 @@ const I18N = {
     currentLevel: 'Current level', points: 'Points', levelsDone: 'Levels done',
     badges: 'Badges', history: 'History', errors: 'Errors', cameleon: 'Cameleon',
     playNow: 'Play now', noSessions: 'No sessions yet — go play!',
-    noErrors: 'No errors — you\\'re doing brilliantly!',
+    noErrors: 'No errors — you\'re doing brilliantly!',
     geniusTitle: 'Mon Génie', geniusSub: 'Your personal word collection',
     geniusEmpty: 'No words saved yet.', geniusQuiz: 'Quiz me on my words!',
     remove: 'Remove', playerExists: 'Player already exists!',
@@ -211,7 +211,7 @@ const I18N = {
     currentLevel: 'Niveau actuel', points: 'Points', levelsDone: 'Faits',
     badges: 'Badges', history: 'Historique', errors: 'Erreurs', cameleon: 'Caméléon',
     playNow: 'Jouer', noSessions: 'Pas encore de sessions — va jouer !',
-    noErrors: 'Pas d\\'erreurs — tu es brillante !',
+    noErrors: 'Pas d\'erreurs — tu es brillante !',
     geniusTitle: 'Mon Génie', geniusSub: 'Ta collection personnelle',
     geniusEmpty: 'Pas encore de mots sauvegardés.', geniusQuiz: 'Teste-moi sur mes mots !',
     remove: 'Retirer', playerExists: 'Ce joueur existe déjà !',
@@ -228,8 +228,8 @@ const I18N = {
     confirmQuit: 'Quitter ? Ta progression est sauvegardée.',
     continueSession: 'Continuer où tu en étais ?',
     sessionProgress: 'fait',
-    dirEnFirst: '🇬🇧→🇫🇷 Anglais d\\'abord',
-    dirFrFirst: '🇫🇷→🇬🇧 Français d\\'abord',
+    dirEnFirst: '🇬🇧→🇫🇷 Anglais d\'abord',
+    dirFrFirst: '🇫🇷→🇬🇧 Français d\'abord',
     dirMixed: '🔄 Direction mixte',
     dirLabel: 'Direction',
     invertCols: '🔄 Inverser colonnes',
@@ -274,8 +274,8 @@ const I18n = {
 
 // ─── DIRECTION MODES (QUIZ) ──────────────────────────────────────
 const DIRECTION_MODES = {
-  'en-first': { label: '🇬🇧→🇫🇷 English First', labelFr: '🇬🇧→🇫🇷 Anglais d\\'abord', qLang: 'en', aLang: 'fr' },
-  'fr-first': { label: '🇫🇷→🇬🇧 French First', labelFr: '🇫🇷→🇬🇧 Français d\\'abord', qLang: 'fr', aLang: 'en' },
+  'en-first': { label: '🇬🇧→🇫🇷 English First', labelFr: '🇬🇧→🇫🇷 Anglais d\'abord', qLang: 'en', aLang: 'fr' },
+  'fr-first': { label: '🇫🇷→🇬🇧 French First', labelFr: '🇫🇷→🇬🇧 Français d\'abord', qLang: 'fr', aLang: 'en' },
   'mixed':    { label: '🔄 Mixed Direction',    labelFr: '🔄 Direction mixte',    qLang: 'en', aLang: 'fr' }
 };
 
@@ -1006,9 +1006,3 @@ if (typeof document !== 'undefined') {
     initCore();
   }
 }
-'''
-
-with open('/mnt/agents/output/core.js', 'w', encoding='utf-8') as f:
-    f.write(core_js)
-
-print("✅ core.js écrit :", len(core_js), "caractères")
