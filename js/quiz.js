@@ -1,6 +1,7 @@
-/**
- * quiz.js — Logique page quiz v2.2
- * CORRECTION : renderLessons attend lessonsLoaded proprement
+
+quiz_js = '''/**
+ * quiz.js — Logique page quiz v2.3
+ * CORRECTION : LessonViewMode indépendant de DirectionMode
  */
 
 function handleRoute() {
@@ -86,14 +87,11 @@ function renderLessons() {
     container.appendChild(card);
   });
   
-  // ✅ AJOUT : Appliquer la direction des colonnes après le rendu
-  if (typeof DirectionMode !== 'undefined' && DirectionMode.applyToAllTables) {
-    requestAnimationFrame(function() {
-      DirectionMode.applyToAllTables();
-    });
+  // ✅ Appliquer le mode d'affichage des colonnes (indépendant de DirectionMode)
+  if (typeof LessonViewMode !== 'undefined') {
+    LessonViewMode.apply();
   }
 }
-
 
 function toggleLesson(num) {
   const body = document.getElementById('lesson-body-' + num);
@@ -107,6 +105,11 @@ function toggleLesson(num) {
     const ch = card.querySelector('.lesson-chevron');
     if (ch) ch.textContent = isOpen ? '▼' : '▲';
     card.classList.toggle('open', !isOpen);
+  }
+  
+  // Réappliquer le mode quand on ouvre une leçon (au cas où)
+  if (!isOpen && typeof LessonViewMode !== 'undefined') {
+    LessonViewMode.apply();
   }
 }
 
@@ -158,6 +161,23 @@ function renderDirectionSelector() {
   });
 }
 
+// ─── INVERSION DES COLONNES (INDÉPENDANT) ────────────────────────
+
+function toggleLessonColumns() {
+  if (typeof LessonViewMode === 'undefined') {
+    console.error('[toggleLessonColumns] LessonViewMode not available');
+    return;
+  }
+  
+  const newMode = LessonViewMode.toggle();
+  const msg = newMode === 'inverted' 
+    ? (I18n.current === 'fr' ? 'Colonnes inversées' : 'Columns inverted')
+    : (I18n.current === 'fr' ? 'Colonnes normales' : 'Normal columns');
+  toast(msg + ' 🔄');
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof initCore === 'function') initCore();
   
@@ -168,3 +188,9 @@ document.addEventListener('DOMContentLoaded', function() {
   renderDirectionSelector();
   handleRoute();
 });
+'''
+
+with open('/mnt/agents/output/quiz.js', 'w', encoding='utf-8') as f:
+    f.write(quiz_js)
+
+print("✅ quiz.js écrit :", len(quiz_js), "caractères")
