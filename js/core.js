@@ -296,8 +296,9 @@ const DirectionMode = {
     if (mode === 'en-first') return { qLang: 'en', aLang: 'fr' };
     if (mode === 'fr-first') return { qLang: 'fr', aLang: 'en' };
     return index % 2 === 0 ? { qLang: 'en', aLang: 'fr' } : { qLang: 'fr', aLang: 'en' };
-  }
-    // ✅ AJOUT : Inverser les colonnes des tables de leçons
+  },
+  
+  // ✅ AJOUT : Inverser les colonnes des tables de leçons
   applyToAllTables() {
     const tables = document.querySelectorAll('.lesson-table');
     tables.forEach(table => {
@@ -331,6 +332,23 @@ const DirectionMode = {
             tds[2].innerHTML
           ]);
         }
+        
+        const original = JSON.parse(rows[r].dataset.original);
+        
+        if (this.current === 'en-first') {
+          tds[0].innerHTML = original[2]; // English
+          tds[1].innerHTML = original[1]; // Phonetics
+          tds[2].innerHTML = original[0]; // French
+        } else {
+          tds[0].innerHTML = original[0]; // French
+          tds[1].innerHTML = original[1]; // Phonetics
+          tds[2].innerHTML = original[2]; // English
+        }
+      }
+    });
+  }
+};
+
         
         const original = JSON.parse(rows[r].dataset.original);
         
