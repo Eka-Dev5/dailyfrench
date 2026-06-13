@@ -1,8 +1,8 @@
-// ═══════════════════════════════════════════════════════════════════
+// ===================================================================
 // CORE.JS — Daily French 🥖 v2.3.1
 // Moteur central : Storage, PlayerManager, I18n, Theme, DirectionMode,
 // Modal, Toast, Router, EventBus, Analytics, SETTINGS GLOBALES
-// ═══════════════════════════════════════════════════════════════════
+// ===================================================================
 
 const CORE_VERSION = '2.3.1';
 const STORAGE_PREFIX = 'dailyFrench_';
@@ -18,7 +18,7 @@ const KEYS = {
   analytics: 'dailyFrench_analytics_opt_out'
 };
 
-// ─── STORAGE ──────────────────────────────────────────────────────
+// --- STORAGE ------------------------------------------------------
 const Storage = {
   isAvailable() {
     try {
@@ -82,7 +82,7 @@ const Storage = {
   }
 };
 
-// ─── PLAYER MANAGER ───────────────────────────────────────────────
+// --- PLAYER MANAGER -----------------------------------------------
 const PlayerManager = {
   defaultPlayer(name) {
     return {
@@ -168,7 +168,7 @@ const PlayerManager = {
   }
 };
 
-// ─── I18N (TRANSLATIONS) ──────────────────────────────────────────
+// --- I18N (TRANSLATIONS) ------------------------------------------
 const I18N = {
   en: {
     home: 'Home', lessons: 'Lessons', play: 'Play', vocab: 'Vocab',
@@ -272,7 +272,7 @@ const I18n = {
   }
 };
 
-// ─── DIRECTION MODES (QUIZ) ──────────────────────────────────────
+// --- DIRECTION MODES (QUIZ) --------------------------------------
 const DIRECTION_MODES = {
   'en-first': { label: '🇬🇧→🇫🇷 English First', labelFr: '🇬🇧→🇫🇷 Anglais d\'abord', qLang: 'en', aLang: 'fr' },
   'fr-first': { label: '🇫🇷→🇬🇧 French First', labelFr: '🇫🇷→🇬🇧 Français d\'abord', qLang: 'fr', aLang: 'en' },
@@ -306,7 +306,7 @@ const DirectionMode = {
   }
 };
 
-// ─── LESSON VIEW MODE (COLONNES LEÇONS — INDÉPENDANT) ───────────
+// --- LESSON VIEW MODE (COLONNES LEÇONS — INDÉPENDANT) -----------
 const LessonViewMode = {
   load() {
     return Storage.get(KEYS.lessonView, 'normal');
@@ -399,7 +399,7 @@ const LessonViewMode = {
   }
 };
 
-// ─── LESSON VIEW MODE (COLONNES LEÇONS — INDÉPENDANT) ───────────
+// --- LESSON VIEW MODE (COLONNES LEÇONS — INDÉPENDANT) -----------
 const LessonViewMode = {
   load() {
     return Storage.get(KEYS.lessonView, 'normal');
@@ -486,7 +486,7 @@ const LessonViewMode = {
   }
 };
 
-// ─── FLIP QUESTION ────────────────────────────────────────────────
+// --- FLIP QUESTION ------------------------------------------------
 function flipQuestion(q, index) {
   if (!q) return q;
   const dir = DirectionMode.getDirectionForQuestion(index);
@@ -506,7 +506,7 @@ function flipQuestion(q, index) {
   return flipped;
 }
 
-// ─── THEMES ───────────────────────────────────────────────────────
+// --- THEMES -------------------------------------------------------
 const THEMES = {
   ardoise: {
     name: 'Ardoise', primary: '#4A5568', primaryMid: '#64748B', primaryLight: '#F1F5F9',
@@ -555,7 +555,7 @@ const Theme = {
   }
 };
 
-// ─── MODAL ────────────────────────────────────────────────────────
+// --- MODAL --------------------------------------------------------
 const Modal = {
   openCallback: null, closeCallback: null, lastFocus: null,
   open(options) {
@@ -599,7 +599,7 @@ const Modal = {
   }
 };
 
-// ─── TOAST ────────────────────────────────────────────────────────
+// --- TOAST --------------------------------------------------------
 const Toast = {
   queue: [], active: false, defaultDuration: 3000,
   show(message, duration) {
@@ -628,7 +628,7 @@ const Toast = {
 
 function toast(msg, duration) { Toast.show(msg, duration); }
 
-// ─── ROUTER ───────────────────────────────────────────────────────
+// --- ROUTER -------------------------------------------------------
 const Router = {
   goTo(page, params) {
     params = params || {};
@@ -655,7 +655,7 @@ const Router = {
   }
 };
 
-// ─── EVENT BUS ────────────────────────────────────────────────────
+// --- EVENT BUS ----------------------------------------------------
 const EventBus = {
   events: {},
   on(event, callback) {
@@ -674,7 +674,7 @@ const EventBus = {
   }
 };
 
-// ─── ANALYTICS ────────────────────────────────────────────────────
+// --- ANALYTICS ----------------------------------------------------
 const Analytics = {
   enabled: true,
   setEnabled(val) { this.enabled = val; Storage.set(KEYS.analytics, !val); },
@@ -686,7 +686,7 @@ const Analytics = {
   }
 };
 
-// ─── FONCTIONS UTILITAIRES ────────────────────────────────────────
+// --- FONCTIONS UTILITAIRES ----------------------------------------
 
 function fillSelect(active) {
   const s = document.getElementById('selPlayer');
@@ -815,7 +815,7 @@ function doImport(ev) {
   ev.target.value = '';
 }
 
-// ─── SETTINGS GLOBALES ────────────────────────────────────────────
+// --- SETTINGS GLOBALES --------------------------------------------
 
 function applyThemePick(name) {
   if (typeof Theme !== 'undefined') Theme.apply(name);
@@ -845,7 +845,7 @@ function applyDirectionPick(mode) {
   if (panel) panel.style.display = 'none';
 }
 
-// ─── INIT CORE ────────────────────────────────────────────────────
+// --- INIT CORE ----------------------------------------------------
 
 function initCore() {
   if (window._coreInitialized) return;
@@ -936,7 +936,7 @@ function initCore() {
   EventBus.emit('coreReady', { version: CORE_VERSION });
 }
 
-// ─── ALIAS FONCTIONS ──────────────────────────────────────────────
+// --- ALIAS FONCTIONS ----------------------------------------------
 
 function gP() { return PlayerManager.getAll(); }
 function sP(d) { return PlayerManager.saveAll(d); }
@@ -997,7 +997,7 @@ function goToQuiz() { window.location.href = 'quiz.html'; }
 function goToDashboard() { window.location.href = 'dashboard.html'; }
 function goToVocabulary() { window.location.href = 'vocabulary.html'; }
 
-// ─── INITIALISATION AUTO ──────────────────────────────────────────
+// --- INITIALISATION AUTO ------------------------------------------
 
 if (typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
