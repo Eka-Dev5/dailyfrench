@@ -184,5 +184,5 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   renderDirectionSelector();
-  handleRoute();
+  handleRoute(); 
 }
