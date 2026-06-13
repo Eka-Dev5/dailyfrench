@@ -1,5 +1,5 @@
 function showSection(id) {
-  document.querySelectorAll('.section').forEach(function(s) {
+  document.querySelectorAll('.section').forEach(function(s) { 
     s.style.display = 'none';
     s.classList.remove('active');
   });
