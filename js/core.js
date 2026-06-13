@@ -1,10 +1,10 @@
-═══════════════════════════════════════════════════════════════════
-// CORE.JS — Daily French 🥖 v2.3.0
+// ===================================================================
+// CORE.JS - Daily French v2.3.1
 // Moteur central : Storage, PlayerManager, I18n, Theme, DirectionMode,
 // Modal, Toast, Router, EventBus, Analytics, SETTINGS GLOBALES
-// ═══════════════════════════════════════════════════════════════════
+// ===================================================================
 
-const CORE_VERSION = '2.3.0';
+const CORE_VERSION = '2.3.1';
 const STORAGE_PREFIX = 'dailyFrench_';
 
 const KEYS = {
@@ -12,12 +12,13 @@ const KEYS = {
   theme: 'dailyFrench_theme',
   lang: 'dailyFrench_lang',
   direction: 'dailyFrench_direction',
+  lessonView: 'dailyFrench_lessonView',
   genius: 'dailyFrench_genius',
   session: 'dailyFrench_v1',
   analytics: 'dailyFrench_analytics_opt_out'
 };
 
-// ─── STORAGE ──────────────────────────────────────────────────────
+// --- STORAGE -------------------------------------------------------
 const Storage = {
   isAvailable() {
     try {
@@ -81,7 +82,7 @@ const Storage = {
   }
 };
 
-// ─── PLAYER MANAGER ───────────────────────────────────────────────
+// --- PLAYER MANAGER ------------------------------------------------
 const PlayerManager = {
   defaultPlayer(name) {
     return {
@@ -167,7 +168,7 @@ const PlayerManager = {
   }
 };
 
-// ─── I18N (TRANSLATIONS) ──────────────────────────────────────────
+// --- I18N (TRANSLATIONS) -------------------------------------------
 const I18N = {
   en: {
     home: 'Home', lessons: 'Lessons', play: 'Play', vocab: 'Vocab',
@@ -197,7 +198,10 @@ const I18N = {
     dirEnFirst: '🇬🇧→🇫🇷 English First',
     dirFrFirst: '🇫🇷→🇬🇧 French First',
     dirMixed: '🔄 Mixed Direction',
-    dirLabel: 'Direction'
+    dirLabel: 'Direction',
+    invertCols: '🔄 Invert columns',
+    colsNormal: 'Normal columns',
+    colsInverted: 'Inverted columns'
   },
   fr: {
     home: 'Accueil', lessons: 'Leçons', play: 'Jouer', vocab: 'Vocab',
@@ -227,7 +231,10 @@ const I18N = {
     dirEnFirst: '🇬🇧→🇫🇷 Anglais d\'abord',
     dirFrFirst: '🇫🇷→🇬🇧 Français d\'abord',
     dirMixed: '🔄 Direction mixte',
-    dirLabel: 'Direction'
+    dirLabel: 'Direction',
+    invertCols: '🔄 Inverser colonnes',
+    colsNormal: 'Colonnes normales',
+    colsInverted: 'Colonnes inversées'
   }
 };
 
@@ -265,7 +272,7 @@ const I18n = {
   }
 };
 
-// ─── DIRECTION MODES ──────────────────────────────────────────────
+// --- DIRECTION MODES (QUIZ) ----------------------------------------
 const DIRECTION_MODES = {
   'en-first': { label: '🇬🇧→🇫🇷 English First', labelFr: '🇬🇧→🇫🇷 Anglais d\'abord', qLang: 'en', aLang: 'fr' },
   'fr-first': { label: '🇫🇷→🇬🇧 French First', labelFr: '🇫🇷→🇬🇧 Français d\'abord', qLang: 'fr', aLang: 'en' },
@@ -298,14 +305,13 @@ const DirectionMode = {
     return index % 2 === 0 ? { qLang: 'en', aLang: 'fr' } : { qLang: 'fr', aLang: 'en' };
   },
   
-  // ✅ AJOUT : Inverser les colonnes des tables de leçons
+  // Inverser les colonnes des tables de lecons
   applyToAllTables() {
     const tables = document.querySelectorAll('.lesson-table');
-    tables.forEach(table => {
+    tables.forEach(function(table) {
       const rows = table.querySelectorAll('tr');
       if (rows.length === 0) return;
       
-      // En-têtes
       const ths = rows[0].querySelectorAll('th');
       if (ths.length >= 3) {
         if (this.current === 'en-first') {
@@ -319,12 +325,10 @@ const DirectionMode = {
         }
       }
       
-      // Lignes de données
       for (let r = 1; r < rows.length; r++) {
         const tds = rows[r].querySelectorAll('td');
         if (tds.length < 3) continue;
         
-        // Sauvegarder l'original au premier passage
         if (!rows[r].dataset.original) {
           rows[r].dataset.original = JSON.stringify([
             tds[0].innerHTML,
@@ -336,20 +340,107 @@ const DirectionMode = {
         const original = JSON.parse(rows[r].dataset.original);
         
         if (this.current === 'en-first') {
-          tds[0].innerHTML = original[2]; // English
-          tds[1].innerHTML = original[1]; // Phonetics
-          tds[2].innerHTML = original[0]; // French
+          tds[0].innerHTML = original[2];
+          tds[1].innerHTML = original[1];
+          tds[2].innerHTML = original[0];
         } else {
-          tds[0].innerHTML = original[0]; // French
-          tds[1].innerHTML = original[1]; // Phonetics
-          tds[2].innerHTML = original[2]; // English
+          tds[0].innerHTML = original[0];
+          tds[1].innerHTML = original[1];
+          tds[2].innerHTML = original[2];
         }
       }
     });
   }
 };
 
-// ─── FLIP QUESTION ────────────────────────────────────────────────
+// --- LESSON VIEW MODE (COLONNES LECONS - INDEPENDANT) -------------
+const LessonViewMode = {
+  load() {
+    return Storage.get(KEYS.lessonView, 'normal');
+  },
+  set(mode) {
+    if (mode !== 'normal' && mode !== 'inverted') return false;
+    Storage.set(KEYS.lessonView, mode);
+    this.apply();
+    return true;
+  },
+  toggle() {
+    const current = this.load();
+    const next = current === 'normal' ? 'inverted' : 'normal';
+    this.set(next);
+    return next;
+  },
+  isInverted() {
+    return this.load() === 'inverted';
+  },
+  
+  apply() {
+    const tables = document.querySelectorAll('.lesson-table');
+    if (tables.length === 0) {
+      console.log('[LessonViewMode] No tables found yet');
+      return;
+    }
+    
+    const inverted = this.isInverted();
+    console.log('[LessonViewMode] Applying mode:', inverted ? 'inverted' : 'normal');
+    
+    tables.forEach(function(table) {
+      const rows = table.querySelectorAll('tr');
+      if (rows.length === 0) return;
+      
+      const headerRow = rows[0];
+      const ths = headerRow.querySelectorAll('th');
+      if (ths.length >= 3) {
+        if (inverted) {
+          ths[0].textContent = 'English';
+          ths[1].textContent = 'Phonetics';
+          ths[2].textContent = 'French';
+        } else {
+          ths[0].textContent = 'French';
+          ths[1].textContent = 'Phonetics';
+          ths[2].textContent = 'English';
+        }
+      }
+      
+      for (let r = 1; r < rows.length; r++) {
+        const tds = rows[r].querySelectorAll('td');
+        if (tds.length < 3) continue;
+        
+        if (!rows[r].dataset.original) {
+          rows[r].dataset.original = JSON.stringify([
+            tds[0].innerHTML,
+            tds[1].innerHTML,
+            tds[2].innerHTML
+          ]);
+        }
+        
+        const original = JSON.parse(rows[r].dataset.original);
+        
+        if (inverted) {
+          tds[0].innerHTML = original[2];
+          tds[1].innerHTML = original[1];
+          tds[2].innerHTML = original[0];
+        } else {
+          tds[0].innerHTML = original[0];
+          tds[1].innerHTML = original[1];
+          tds[2].innerHTML = original[2];
+        }
+      }
+    });
+    
+    this.updateButton();
+  },
+  
+  updateButton() {
+    const btn = document.getElementById('lessonInvertBtn');
+    if (!btn) return;
+    const inverted = this.isInverted();
+    btn.textContent = inverted ? I18n.t('colsInverted') : I18n.t('colsNormal');
+    btn.classList.toggle('active', inverted);
+  }
+};
+
+// --- FLIP QUESTION -------------------------------------------------
 function flipQuestion(q, index) {
   if (!q) return q;
   const dir = DirectionMode.getDirectionForQuestion(index);
@@ -369,7 +460,7 @@ function flipQuestion(q, index) {
   return flipped;
 }
 
-// ─── THEMES ───────────────────────────────────────────────────────
+// --- THEMES --------------------------------------------------------
 const THEMES = {
   ardoise: {
     name: 'Ardoise', primary: '#4A5568', primaryMid: '#64748B', primaryLight: '#F1F5F9',
@@ -418,7 +509,7 @@ const Theme = {
   }
 };
 
-// ─── MODAL ────────────────────────────────────────────────────────
+// --- MODAL ---------------------------------------------------------
 const Modal = {
   openCallback: null, closeCallback: null, lastFocus: null,
   open(options) {
@@ -440,7 +531,7 @@ const Modal = {
     if (!wrap) return;
     wrap.classList.remove('open');
     document.body.style.overflow = '';
-    if (this.lastFocus) this.lastFocus.focus();
+n    if (this.lastFocus) this.lastFocus.focus();
     if (this.closeCallback) this.closeCallback();
   },
   trapFocus(element) {
@@ -462,7 +553,7 @@ const Modal = {
   }
 };
 
-// ─── TOAST ────────────────────────────────────────────────────────
+// --- TOAST ---------------------------------------------------------
 const Toast = {
   queue: [], active: false, defaultDuration: 3000,
   show(message, duration) {
@@ -491,7 +582,7 @@ const Toast = {
 
 function toast(msg, duration) { Toast.show(msg, duration); }
 
-// ─── ROUTER ───────────────────────────────────────────────────────
+// --- ROUTER --------------------------------------------------------
 const Router = {
   goTo(page, params) {
     params = params || {};
@@ -518,7 +609,7 @@ const Router = {
   }
 };
 
-// ─── EVENT BUS ────────────────────────────────────────────────────
+// --- EVENT BUS -----------------------------------------------------
 const EventBus = {
   events: {},
   on(event, callback) {
@@ -537,7 +628,7 @@ const EventBus = {
   }
 };
 
-// ─── ANALYTICS ────────────────────────────────────────────────────
+// --- ANALYTICS -----------------------------------------------------
 const Analytics = {
   enabled: true,
   setEnabled(val) { this.enabled = val; Storage.set(KEYS.analytics, !val); },
@@ -549,7 +640,7 @@ const Analytics = {
   }
 };
 
-// ─── FONCTIONS UTILITAIRES ────────────────────────────────────────
+// --- FONCTIONS UTILITAIRES -----------------------------------------
 
 function fillSelect(active) {
   const s = document.getElementById('selPlayer');
@@ -678,7 +769,7 @@ function doImport(ev) {
   ev.target.value = '';
 }
 
-// ─── SETTINGS GLOBALES (CENTRALISÉ DANS CORE.JS) ──────────────────
+// --- SETTINGS GLOBALES ---------------------------------------------
 
 function applyThemePick(name) {
   if (typeof Theme !== 'undefined') Theme.apply(name);
@@ -709,7 +800,7 @@ function applyDirectionPick(mode) {
   if (panel) panel.style.display = 'none';
 }
 
-// ─── INIT CORE ────────────────────────────────────────────────────
+// --- INIT CORE -----------------------------------------------------
 
 function initCore() {
   if (window._coreInitialized) return;
@@ -800,7 +891,7 @@ function initCore() {
   EventBus.emit('coreReady', { version: CORE_VERSION });
 }
 
-// ─── ALIAS FONCTIONS (compatibilité) ──────────────────────────────
+// --- ALIAS FONCTIONS -----------------------------------------------
 
 function gP() { return PlayerManager.getAll(); }
 function sP(d) { return PlayerManager.saveAll(d); }
@@ -861,7 +952,7 @@ function goToQuiz() { window.location.href = 'quiz.html'; }
 function goToDashboard() { window.location.href = 'dashboard.html'; }
 function goToVocabulary() { window.location.href = 'vocabulary.html'; }
 
-// ─── INITIALISATION AUTO ──────────────────────────────────────────
+// --- INITIALISATION AUTO -------------------------------------------
 
 if (typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
