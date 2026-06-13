@@ -85,74 +85,14 @@
   <!-- Section 2: Lessons (leçons) -->
   <section id="lecons" class="section" style="display:none">
     <h2 class="section-title">📚 Lessons</h2>
-    <div id="lessonsContainer" class="lessons-container"></div>
-  </section>
-  
-  <!-- Section 3: Levels (niveaux) -->
-  <section id="levels" class="section" style="display:none">
-    <h2 class="section-title">🎮 Choose a Level</h2>
-    <div class="mode-selector">
-      <button class="mode-btn active" data-mode="mixte">Mixed</button>
-      <button class="mode-btn" data-mode="qcm">QCM</button>
-      <button class="mode-btn" data-mode="libre">Written</button>
+    
+    <!-- ✅ BOUTON INVERSION COLONNES (indépendant de la direction quiz) -->
+    <div style="text-align:center;margin-bottom:var(--space-md)">
+      <button id="lessonInvertBtn" class="btn-ghost btn-small" onclick="toggleLessonColumns()">
+        🔄 Invert columns
+      </button>
     </div>
-    <div id="levelsContainer" class="levels-container"></div>
-  </section>
-  
-  <!-- Section 4: Jeu (game area) -->
-  <section id="jeu" class="section" style="display:none">
-    <div id="lessonIntro" class="lesson-intro" style="display:none">
-      <h3 id="lessonIntroTitle" class="intro-title"></h3>
-      <p id="lessonIntroObj" class="intro-objective"></p>
-      <div id="lessonIntroContent" class="intro-content"></div>
-      <div id="lessonIntroVocabulary" class="intro-vocab"></div>
-      <button id="startLevelBtn" class="btn btn-primary btn-large">Start Level</button>
-    </div>
-    <div id="gameArea" class="game-area">
-      <div class="game-header">
-        <div id="gameTitle" class="game-title">Level 1</div>
-        <div class="game-meta">
-          <span id="questionCounter" class="counter">1 / 10</span>
-          <span id="scoreDisplay" class="score">0 pts</span>
-        </div>
-        <div class="bar-track"><div id="progressFill" class="bar-fill"></div></div>
-      </div>
-      <div id="questionText" class="question-text"></div>
-      <div class="bento-grid">
-    <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
-    <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
-    <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
-  </div>
-  
-  <!-- Section 1: Home (accueil) -->
-  <section id="home" class="section active">
-    <div style="text-align:center;padding:var(--space-lg) 0;">
-      <div style="font-size:3.5rem;margin-bottom:var(--space-sm)">🥖</div>
-      <h1 class="page-title" style="text-align:center">Daily French</h1>
-      <p class="page-subtitle" style="text-align:center;max-width:400px;margin:0 auto var(--space-lg)">Learn everyday French through interactive quizzes, conversations, and vocabulary.</p>
-    </div>
-    <div class="mode-selector">
-      <button class="mode-btn active" data-mode="mixte">Mixed</button>
-      <button class="mode-btn" data-mode="qcm">QCM</button>
-      <button class="mode-btn" data-mode="libre">Written</button>
-    </div>
-    <div style="margin-top:var(--space-lg);text-align:center">
-      <div style="font-size:var(--font-sm);color:var(--muted);margin-bottom:var(--space-sm);font-weight:600">Question direction:</div>
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-        <button class="direction-btn active" data-direction="en-first" onclick="applyDirectionPick('en-first')">🇬🇧→🇫🇷 EN First</button>
-        <button class="direction-btn" data-direction="fr-first" onclick="applyDirectionPick('fr-first')">🇫🇷→🇬🇧 FR First</button>
-        <button class="direction-btn" data-direction="mixed" onclick="applyDirectionPick('mixed')">🔄 Mixed</button>
-      </div>
-    </div>
-    <div style="margin-top:var(--space-xl);text-align:center">
-      <a href="quiz.html?section=levels" class="btn btn-primary btn-large">🎮 Start Playing</a>
-      <p style="margin-top:var(--space-md);font-size:var(--font-sm);color:var(--muted)">Or explore <a href="quiz.html?section=lecons" style="color:var(--primary)">Lessons</a> first</p>
-    </div>
-  </section>
-  
-  <!-- Section 2: Lessons (leçons) -->
-  <section id="lecons" class="section" style="display:none">
-    <h2 class="section-title">📚 Lessons</h2>
+    
     <div id="lessonsContainer" class="lessons-container"></div>
   </section>
   
