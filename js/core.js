@@ -349,24 +349,6 @@ const DirectionMode = {
   }
 };
 
-        
-        const original = JSON.parse(rows[r].dataset.original);
-        
-        if (this.current === 'en-first') {
-          tds[0].innerHTML = original[2]; // English
-          tds[1].innerHTML = original[1]; // Phonetics
-          tds[2].innerHTML = original[0]; // French
-        } else {
-          tds[0].innerHTML = original[0]; // French
-          tds[1].innerHTML = original[1]; // Phonetics
-          tds[2].innerHTML = original[2]; // English
-        }
-      }
-    });
-  }
-
-};
-
 // ─── FLIP QUESTION ────────────────────────────────────────────────
 function flipQuestion(q, index) {
   if (!q) return q;
@@ -717,8 +699,7 @@ function applyLangPick(lang) {
 function applyDirectionPick(mode) {
   if (typeof DirectionMode !== 'undefined') {
     DirectionMode.set(mode);
-    DirectionMode.applyToAllTables();  // ← AJOUTE CETTE LIGNE
-
+    DirectionMode.applyToAllTables();
     toast('Direction: ' + DirectionMode.getLabel(mode) + ' 🔄');
   }
   document.querySelectorAll('.direction-btn').forEach(function(btn) {
