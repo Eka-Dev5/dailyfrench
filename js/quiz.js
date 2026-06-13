@@ -1,6 +1,14 @@
-// quiz.js — Logique page quiz v2.3
-// CORRECTION : LessonViewMode indépendant de DirectionMode
-//
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(function(s) {
+    s.style.display = 'none';
+    s.classList.remove('active');
+  });
+  const target = document.getElementById(id);
+  if (target) {
+    target.style.display = 'block';
+    target.classList.add('active');
+  }
+}
 
 function handleRoute() {
   const params = new URLSearchParams(window.location.search);
@@ -85,25 +93,15 @@ function renderLessons() {
     container.appendChild(card);
   });
   
-  // ✅ Appliquer le mode d'affichage des colonnes (indépendant de DirectionMode)
+  // Appliquer le mode d'affichage des colonnes (independant de DirectionMode)
   if (typeof LessonViewMode !== 'undefined') {
     LessonViewMode.apply();
   }
-}
-
-// ─── INVERSION DES COLONNES (INDÉPENDANT) ────────────────────────
-
-function toggleLessonColumns() {
-  if (typeof LessonViewMode === 'undefined') {
-    console.error('[toggleLessonColumns] LessonViewMode not available');
-    return;
-  }
   
-  const newMode = LessonViewMode.toggle();
-  const msg = newMode === 'inverted' 
-    ? (I18n.current === 'fr' ? 'Colonnes inversées' : 'Columns inverted')
-    : (I18n.current === 'fr' ? 'Colonnes normales' : 'Normal columns');
-  toast(msg + ' 🔄');
+  // Appliquer aussi la direction des colonnes
+  if (typeof DirectionMode !== 'undefined' && DirectionMode.applyToAllTables) {
+    DirectionMode.applyToAllTables();
+  }
 }
 
 function toggleLesson(num) {
@@ -120,7 +118,7 @@ function toggleLesson(num) {
     card.classList.toggle('open', !isOpen);
   }
   
-  // Réappliquer le mode quand on ouvre une leçon (au cas où)
+  // Reappliquer le mode quand on ouvre une lecon (au cas ou)
   if (!isOpen && typeof LessonViewMode !== 'undefined') {
     LessonViewMode.apply();
   }
@@ -174,7 +172,7 @@ function renderDirectionSelector() {
   });
 }
 
-// ─── INVERSION DES COLONNES (INDÉPENDANT) ────────────────────────
+// --- INVERSION DES COLONNES (INDEPENDANT) --------------------------
 
 function toggleLessonColumns() {
   if (typeof LessonViewMode === 'undefined') {
@@ -189,7 +187,7 @@ function toggleLessonColumns() {
   toast(msg + ' 🔄');
 }
 
-// ─── INIT ─────────────────────────────────────────────────────────
+// --- INIT ----------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof initCore === 'function') initCore();
@@ -200,4 +198,4 @@ document.addEventListener('DOMContentLoaded', function() {
   
   renderDirectionSelector();
   handleRoute();
-}
+});
