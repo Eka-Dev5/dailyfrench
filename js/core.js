@@ -1,7 +1,5 @@
 
-# Write the complete core.js file
-
-core_js = '''// ═══════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════
 // CORE.JS — Daily French 🥖 v2.3.1
 // Moteur central : Storage, PlayerManager, I18n, Theme, DirectionMode,
 // Modal, Toast, Router, EventBus, Analytics, SETTINGS GLOBALES
