@@ -1,10 +1,10 @@
-// ═══════════════════════════════════════════════════════════════════
-// CORE.JS — Daily French 🥖 v2.3.1
+═══════════════════════════════════════════════════════════════════
+// CORE.JS — Daily French 🥖 v2.3.0
 // Moteur central : Storage, PlayerManager, I18n, Theme, DirectionMode,
 // Modal, Toast, Router, EventBus, Analytics, SETTINGS GLOBALES
 // ═══════════════════════════════════════════════════════════════════
 
-const CORE_VERSION = '2.3.1';
+const CORE_VERSION = '2.3.0';
 const STORAGE_PREFIX = 'dailyFrench_';
 
 const KEYS = {
@@ -12,7 +12,6 @@ const KEYS = {
   theme: 'dailyFrench_theme',
   lang: 'dailyFrench_lang',
   direction: 'dailyFrench_direction',
-  lessonView: 'dailyFrench_lessonView',
   genius: 'dailyFrench_genius',
   session: 'dailyFrench_v1',
   analytics: 'dailyFrench_analytics_opt_out'
@@ -111,7 +110,7 @@ const PlayerManager = {
     const trimmed = name.trim();
     if (trimmed.length === 0) return { ok: false, msg: 'Name cannot be empty' };
     if (trimmed.length > 30) return { ok: false, msg: 'Name too long (max 30)' };
-    if (!/^[\p{L}\p{N}\\s\\-'_]+$/u.test(trimmed)) return { ok: false, msg: 'Invalid characters' };
+    if (!/^[\p{L}\p{N}\s\-'_]+$/u.test(trimmed)) return { ok: false, msg: 'Invalid characters' };
     return { ok: true, name: trimmed };
   },
   create(name) {
@@ -198,10 +197,7 @@ const I18N = {
     dirEnFirst: '🇬🇧→🇫🇷 English First',
     dirFrFirst: '🇫🇷→🇬🇧 French First',
     dirMixed: '🔄 Mixed Direction',
-    dirLabel: 'Direction',
-    invertCols: '🔄 Invert columns',
-    colsNormal: 'Normal columns',
-    colsInverted: 'Inverted columns'
+    dirLabel: 'Direction'
   },
   fr: {
     home: 'Accueil', lessons: 'Leçons', play: 'Jouer', vocab: 'Vocab',
@@ -231,10 +227,7 @@ const I18N = {
     dirEnFirst: '🇬🇧→🇫🇷 Anglais d\'abord',
     dirFrFirst: '🇫🇷→🇬🇧 Français d\'abord',
     dirMixed: '🔄 Direction mixte',
-    dirLabel: 'Direction',
-    invertCols: '🔄 Inverser colonnes',
-    colsNormal: 'Colonnes normales',
-    colsInverted: 'Colonnes inversées'
+    dirLabel: 'Direction'
   }
 };
 
@@ -272,7 +265,7 @@ const I18n = {
   }
 };
 
-// ─── DIRECTION MODES (QUIZ) ──────────────────────────────────────
+// ─── DIRECTION MODES ──────────────────────────────────────────────
 const DIRECTION_MODES = {
   'en-first': { label: '🇬🇧→🇫🇷 English First', labelFr: '🇬🇧→🇫🇷 Anglais d\'abord', qLang: 'en', aLang: 'fr' },
   'fr-first': { label: '🇫🇷→🇬🇧 French First', labelFr: '🇫🇷→🇬🇧 Français d\'abord', qLang: 'fr', aLang: 'en' },
@@ -303,50 +296,19 @@ const DirectionMode = {
     if (mode === 'en-first') return { qLang: 'en', aLang: 'fr' };
     if (mode === 'fr-first') return { qLang: 'fr', aLang: 'en' };
     return index % 2 === 0 ? { qLang: 'en', aLang: 'fr' } : { qLang: 'fr', aLang: 'en' };
-  }
-};
-
-// ─── LESSON VIEW MODE (COLONNES LEÇONS — INDÉPENDANT) ───────────
-const LessonViewMode = {
-  load() {
-    return Storage.get(KEYS.lessonView, 'normal');
-  },
-  set(mode) {
-    if (mode !== 'normal' && mode !== 'inverted') return false;
-    Storage.set(KEYS.lessonView, mode);
-    this.apply();
-    return true;
-  },
-  toggle() {
-    const current = this.load();
-    const next = current === 'normal' ? 'inverted' : 'normal';
-    this.set(next);
-    return next;
-  },
-  isInverted() {
-    return this.load() === 'inverted';
   },
   
-  // Appliquer l'inversion sur TOUTES les tables visibles
-  apply() {
+  // ✅ AJOUT : Inverser les colonnes des tables de leçons
+  applyToAllTables() {
     const tables = document.querySelectorAll('.lesson-table');
-    if (tables.length === 0) {
-      console.log('[LessonViewMode] No tables found yet');
-      return;
-    }
-    
-    const inverted = this.isInverted();
-    console.log('[LessonViewMode] Applying mode:', inverted ? 'inverted' : 'normal');
-    
-    tables.forEach(function(table) {
+    tables.forEach(table => {
       const rows = table.querySelectorAll('tr');
       if (rows.length === 0) return;
       
       // En-têtes
-      const headerRow = rows[0];
-      const ths = headerRow.querySelectorAll('th');
+      const ths = rows[0].querySelectorAll('th');
       if (ths.length >= 3) {
-        if (inverted) {
+        if (this.current === 'en-first') {
           ths[0].textContent = 'English';
           ths[1].textContent = 'Phonetics';
           ths[2].textContent = 'French';
@@ -362,7 +324,7 @@ const LessonViewMode = {
         const tds = rows[r].querySelectorAll('td');
         if (tds.length < 3) continue;
         
-        // Sauvegarder l'original une seule fois
+        // Sauvegarder l'original au premier passage
         if (!rows[r].dataset.original) {
           rows[r].dataset.original = JSON.stringify([
             tds[0].innerHTML,
@@ -373,7 +335,7 @@ const LessonViewMode = {
         
         const original = JSON.parse(rows[r].dataset.original);
         
-        if (inverted) {
+        if (this.current === 'en-first') {
           tds[0].innerHTML = original[2]; // English
           tds[1].innerHTML = original[1]; // Phonetics
           tds[2].innerHTML = original[0]; // French
@@ -384,105 +346,6 @@ const LessonViewMode = {
         }
       }
     });
-    
-    // Mettre à jour le bouton si présent
-    this.updateButton();
-  },
-  
-  // Mettre à jour le texte du bouton d'inversion
-  updateButton() {
-    const btn = document.getElementById('lessonInvertBtn');
-    if (!btn) return;
-    const inverted = this.isInverted();
-    btn.textContent = inverted ? I18n.t('colsInverted') : I18n.t('colsNormal');
-    btn.classList.toggle('active', inverted);
-  }
-};
-
-// ─── LESSON VIEW MODE (COLONNES LEÇONS — INDÉPENDANT) ───────────
-const LessonViewMode = {
-  load() {
-    return Storage.get(KEYS.lessonView, 'normal');
-  },
-  set(mode) {
-    if (mode !== 'normal' && mode !== 'inverted') return false;
-    Storage.set(KEYS.lessonView, mode);
-    this.apply();
-    return true;
-  },
-  toggle() {
-    const current = this.load();
-    const next = current === 'normal' ? 'inverted' : 'normal';
-    this.set(next);
-    return next;
-  },
-  isInverted() {
-    return this.load() === 'inverted';
-  },
-  
-  apply() {
-    const tables = document.querySelectorAll('.lesson-table');
-    if (tables.length === 0) {
-      console.log('[LessonViewMode] No tables found yet');
-      return;
-    }
-    
-    const inverted = this.isInverted();
-    console.log('[LessonViewMode] Applying mode:', inverted ? 'inverted' : 'normal');
-    
-    tables.forEach(function(table) {
-      const rows = table.querySelectorAll('tr');
-      if (rows.length === 0) return;
-      
-      const headerRow = rows[0];
-      const ths = headerRow.querySelectorAll('th');
-      if (ths.length >= 3) {
-        if (inverted) {
-          ths[0].textContent = 'English';
-          ths[1].textContent = 'Phonetics';
-          ths[2].textContent = 'French';
-        } else {
-          ths[0].textContent = 'French';
-          ths[1].textContent = 'Phonetics';
-          ths[2].textContent = 'English';
-        }
-      }
-      
-      for (let r = 1; r < rows.length; r++) {
-        const tds = rows[r].querySelectorAll('td');
-        if (tds.length < 3) continue;
-        
-        if (!rows[r].dataset.original) {
-          rows[r].dataset.original = JSON.stringify([
-            tds[0].innerHTML,
-            tds[1].innerHTML,
-            tds[2].innerHTML
-          ]);
-        }
-        
-        const original = JSON.parse(rows[r].dataset.original);
-        
-        if (inverted) {
-          tds[0].innerHTML = original[2];
-          tds[1].innerHTML = original[1];
-          tds[2].innerHTML = original[0];
-        } else {
-          tds[0].innerHTML = original[0];
-          tds[1].innerHTML = original[1];
-          tds[2].innerHTML = original[2];
-        }
-      }
-    });
-    
-    this.updateButton();
-  },
-  
-  updateButton() {
-    const btn = document.getElementById('lessonInvertBtn');
-    if (!btn) return;
-    const inverted = this.isInverted();
-    btn.textContent = inverted ? I18n.t('colsInverted') : I18n.t('colsNormal');
-    btn.classList.toggle('active', inverted);
   }
 };
 
@@ -815,7 +678,7 @@ function doImport(ev) {
   ev.target.value = '';
 }
 
-// ─── SETTINGS GLOBALES ────────────────────────────────────────────
+// ─── SETTINGS GLOBALES (CENTRALISÉ DANS CORE.JS) ──────────────────
 
 function applyThemePick(name) {
   if (typeof Theme !== 'undefined') Theme.apply(name);
@@ -836,6 +699,7 @@ function applyLangPick(lang) {
 function applyDirectionPick(mode) {
   if (typeof DirectionMode !== 'undefined') {
     DirectionMode.set(mode);
+    DirectionMode.applyToAllTables();
     toast('Direction: ' + DirectionMode.getLabel(mode) + ' 🔄');
   }
   document.querySelectorAll('.direction-btn').forEach(function(btn) {
@@ -936,7 +800,7 @@ function initCore() {
   EventBus.emit('coreReady', { version: CORE_VERSION });
 }
 
-// ─── ALIAS FONCTIONS ──────────────────────────────────────────────
+// ─── ALIAS FONCTIONS (compatibilité) ──────────────────────────────
 
 function gP() { return PlayerManager.getAll(); }
 function sP(d) { return PlayerManager.saveAll(d); }
