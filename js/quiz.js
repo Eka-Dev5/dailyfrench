@@ -1,13 +1,9 @@
 function showSection(id) {
-  document.querySelectorAll('.section').forEach(function(s) { 
-    s.style.display = 'none';
-    s.classList.remove('active');
+  document.querySelectorAll('.section').forEach(function(s) {
+    s.style.display = 'none'; s.classList.remove('active');
   });
   const target = document.getElementById(id);
-  if (target) {
-    target.style.display = 'block';
-    target.classList.add('active');
-  }
+  if (target) { target.style.display = 'block'; target.classList.add('active'); }
 }
 
 // quiz.js — Logique page quiz v2.3
@@ -100,27 +96,7 @@ function renderLessons() {
   // ✅ Appliquer le mode d'affichage des colonnes (indépendant de DirectionMode)
   if (typeof LessonViewMode !== 'undefined') {
     LessonViewMode.apply();
-  
-  
-  // Appliquer aussi la direction des colonnes (DirectionMode)
-  if (typeof DirectionMode !== 'undefined' && DirectionMode.applyToAllTables) {
-    DirectionMode.applyToAllTables();
-  }}
-}
-
-// ─── INVERSION DES COLONNES (INDÉPENDANT) ────────────────────────
-
-function toggleLessonColumns() {
-  if (typeof LessonViewMode === 'undefined') {
-    console.error('[toggleLessonColumns] LessonViewMode not available');
-    return;
   }
-  
-  const newMode = LessonViewMode.toggle();
-  const msg = newMode === 'inverted' 
-    ? (I18n.current === 'fr' ? 'Colonnes inversées' : 'Columns inverted')
-    : (I18n.current === 'fr' ? 'Colonnes normales' : 'Normal columns');
-  toast(msg + ' 🔄');
 }
 
 function toggleLesson(num) {
@@ -193,6 +169,21 @@ function renderDirectionSelector() {
 
 // ─── INVERSION DES COLONNES (INDÉPENDANT) ────────────────────────
 
+function toggleLessonColumns() {
+  if (typeof LessonViewMode === 'undefined') {
+    console.error('[toggleLessonColumns] LessonViewMode not available');
+    return;
+  }
+  
+  const newMode = LessonViewMode.toggle();
+  const msg = newMode === 'inverted' 
+    ? (I18n.current === 'fr' ? 'Colonnes inversées' : 'Columns inverted')
+    : (I18n.current === 'fr' ? 'Colonnes normales' : 'Normal columns');
+  toast(msg + ' 🔄');
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof initCore === 'function') initCore();
   
@@ -201,5 +192,5 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   renderDirectionSelector();
-  handleRoute();
+  handleRoute(); 
 });
