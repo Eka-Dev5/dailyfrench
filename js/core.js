@@ -399,6 +399,93 @@ const LessonViewMode = {
   }
 };
 
+// ─── LESSON VIEW MODE (COLONNES LEÇONS — INDÉPENDANT) ───────────
+const LessonViewMode = {
+  load() {
+    return Storage.get(KEYS.lessonView, 'normal');
+  },
+  set(mode) {
+    if (mode !== 'normal' && mode !== 'inverted') return false;
+    Storage.set(KEYS.lessonView, mode);
+    this.apply();
+    return true;
+  },
+  toggle() {
+    const current = this.load();
+    const next = current === 'normal' ? 'inverted' : 'normal';
+    this.set(next);
+    return next;
+  },
+  isInverted() {
+    return this.load() === 'inverted';
+  },
+  
+  apply() {
+    const tables = document.querySelectorAll('.lesson-table');
+    if (tables.length === 0) {
+      console.log('[LessonViewMode] No tables found yet');
+      return;
+    }
+    
+    const inverted = this.isInverted();
+    console.log('[LessonViewMode] Applying mode:', inverted ? 'inverted' : 'normal');
+    
+    tables.forEach(function(table) {
+      const rows = table.querySelectorAll('tr');
+      if (rows.length === 0) return;
+      
+      const headerRow = rows[0];
+      const ths = headerRow.querySelectorAll('th');
+      if (ths.length >= 3) {
+        if (inverted) {
+          ths[0].textContent = 'English';
+          ths[1].textContent = 'Phonetics';
+          ths[2].textContent = 'French';
+        } else {
+          ths[0].textContent = 'French';
+          ths[1].textContent = 'Phonetics';
+          ths[2].textContent = 'English';
+        }
+      }
+      
+      for (let r = 1; r < rows.length; r++) {
+        const tds = rows[r].querySelectorAll('td');
+        if (tds.length < 3) continue;
+        
+        if (!rows[r].dataset.original) {
+          rows[r].dataset.original = JSON.stringify([
+            tds[0].innerHTML,
+            tds[1].innerHTML,
+            tds[2].innerHTML
+          ]);
+        }
+        
+        const original = JSON.parse(rows[r].dataset.original);
+        
+        if (inverted) {
+          tds[0].innerHTML = original[2];
+          tds[1].innerHTML = original[1];
+          tds[2].innerHTML = original[0];
+        } else {
+          tds[0].innerHTML = original[0];
+          tds[1].innerHTML = original[1];
+          tds[2].innerHTML = original[2];
+        }
+      }
+    });
+    
+    this.updateButton();
+  },
+  
+  updateButton() {
+    const btn = document.getElementById('lessonInvertBtn');
+    if (!btn) return;
+    const inverted = this.isInverted();
+    btn.textContent = inverted ? I18n.t('colsInverted') : I18n.t('colsNormal');
+    btn.classList.toggle('active', inverted);
+  }
+};
+
 // ─── FLIP QUESTION ────────────────────────────────────────────────
 function flipQuestion(q, index) {
   if (!q) return q;
