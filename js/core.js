@@ -297,6 +297,56 @@ const DirectionMode = {
     if (mode === 'fr-first') return { qLang: 'fr', aLang: 'en' };
     return index % 2 === 0 ? { qLang: 'en', aLang: 'fr' } : { qLang: 'fr', aLang: 'en' };
   }
+    // ✅ AJOUT : Inverser les colonnes des tables de leçons
+  applyToAllTables() {
+    const tables = document.querySelectorAll('.lesson-table');
+    tables.forEach(table => {
+      const rows = table.querySelectorAll('tr');
+      if (rows.length === 0) return;
+      
+      // En-têtes
+      const ths = rows[0].querySelectorAll('th');
+      if (ths.length >= 3) {
+        if (this.current === 'en-first') {
+          ths[0].textContent = 'English';
+          ths[1].textContent = 'Phonetics';
+          ths[2].textContent = 'French';
+        } else {
+          ths[0].textContent = 'French';
+          ths[1].textContent = 'Phonetics';
+          ths[2].textContent = 'English';
+        }
+      }
+      
+      // Lignes de données
+      for (let r = 1; r < rows.length; r++) {
+        const tds = rows[r].querySelectorAll('td');
+        if (tds.length < 3) continue;
+        
+        // Sauvegarder l'original au premier passage
+        if (!rows[r].dataset.original) {
+          rows[r].dataset.original = JSON.stringify([
+            tds[0].innerHTML,
+            tds[1].innerHTML,
+            tds[2].innerHTML
+          ]);
+        }
+        
+        const original = JSON.parse(rows[r].dataset.original);
+        
+        if (this.current === 'en-first') {
+          tds[0].innerHTML = original[2]; // English
+          tds[1].innerHTML = original[1]; // Phonetics
+          tds[2].innerHTML = original[0]; // French
+        } else {
+          tds[0].innerHTML = original[0]; // French
+          tds[1].innerHTML = original[1]; // Phonetics
+          tds[2].innerHTML = original[2]; // English
+        }
+      }
+    });
+  }
+
 };
 
 // ─── FLIP QUESTION ────────────────────────────────────────────────
@@ -649,6 +699,8 @@ function applyLangPick(lang) {
 function applyDirectionPick(mode) {
   if (typeof DirectionMode !== 'undefined') {
     DirectionMode.set(mode);
+    DirectionMode.applyToAllTables();  // ← AJOUTE CETTE LIGNE
+
     toast('Direction: ' + DirectionMode.getLabel(mode) + ' 🔄');
   }
   document.querySelectorAll('.direction-btn').forEach(function(btn) {
