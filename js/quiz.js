@@ -1,8 +1,6 @@
-
-quiz_js = '''/**
- * quiz.js — Logique page quiz v2.3
- * CORRECTION : LessonViewMode indépendant de DirectionMode
- */
+// quiz.js — Logique page quiz v2.3
+// CORRECTION : LessonViewMode indépendant de DirectionMode
+//
 
 function handleRoute() {
   const params = new URLSearchParams(window.location.search);
