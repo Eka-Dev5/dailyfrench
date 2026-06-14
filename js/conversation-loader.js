@@ -22,12 +22,11 @@ function loadConversations() {
       // Exposer explicitement sur window pour que conversation.js le trouve
       window.CONVERSATION_SCENARIOS = CONVERSATION_SCENARIOS;
       console.log('[ConversationLoader] All done. Loaded: ' + loaded + ', Errors: ' + errors);
-      if (typeof EventBus !== 'undefined') {
-        EventBus.emit('conversationsLoaded', { scenarios: CONVERSATION_SCENARIOS, count: loaded });
+          if (typeof EventBus !== 'undefined') {
+      EventBus.emit('conversationsLoaded', { scenarios: CONVERSATION_SCENARIOS, count: loaded });
       }
     }
   }
-  
   for (let i = 1; i <= count; i++) {
     const numStr = i.toString().padStart(2, '0');
     const script = document.createElement('script');
