@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════
-// CONVERSATION.JS — Daily French 🥖 v1.2
-// CORRECTION : pas de setInterval, chargement direct + fallback unique
+// CONVERSATION.JS — Daily French 🥖 v1.3
+// CORRECTION : CONVERSATION_SCENARIOS est un OBJET (clé->scénario), pas un tableau
 // ═══════════════════════════════════════════════════════════════════
 
 var currentScenario = null;
@@ -8,44 +8,50 @@ var currentStepIndex = 0;
 var userAnswers = [];
 var isWaitingForNext = false;
 
+function getScenarioList() {
+  if (typeof CONVERSATION_SCENARIOS === 'undefined') return [];
+  return Object.values(CONVERSATION_SCENARIOS);
+}
+
 function initConversation() {
   if (typeof initCore === 'function') initCore();
-  
-  // Chargement direct — conversation-data.js est déjà chargé avant
-  if (typeof CONVERSATION_SCENARIOS !== 'undefined' && CONVERSATION_SCENARIOS.length > 0) {
+
+  var list = getScenarioList();
+  if (list.length > 0) {
     renderScenarioList();
   } else {
-    // Fallback unique après 500ms si les données sont lentes
     setTimeout(function() {
-      if (typeof CONVERSATION_SCENARIOS !== 'undefined' && CONVERSATION_SCENARIOS.length > 0) {
+      var list2 = getScenarioList();
+      if (list2.length > 0) {
         renderScenarioList();
       } else {
         var container = document.getElementById('convScenarios');
         if (container) {
           container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">Unable to load scenarios. Check console.</div>';
         }
-        console.error('[Talk] CONVERSATION_SCENARIOS not found after 500ms');
+        console.error('[Talk] CONVERSATION_SCENARIOS not found or empty after 500ms');
       }
     }, 500);
   }
-  
+
   setupTTS();
 }
 
 function renderScenarioList() {
   var container = document.getElementById('convScenarios');
-  if (!container || typeof CONVERSATION_SCENARIOS === 'undefined') return;
+  var list = getScenarioList();
+  if (!container || list.length === 0) return;
 
   container.innerHTML = '';
 
-  CONVERSATION_SCENARIOS.forEach(function(scen) {
+  list.forEach(function(scen) {
     var card = document.createElement('div');
     card.className = 'conv-scenario-card';
     card.dataset.id = scen.id;
 
     var diffStars = '★'.repeat(scen.difficulty) + '☆'.repeat(3 - scen.difficulty);
 
-    card.innerHTML = 
+    card.innerHTML =
       '<div class="conv-scen-icon">' + scen.icon + '</div>' +
       '<div class="conv-scen-info">' +
       '<div class="conv-scen-title">' + scen.title + '</div>' +
@@ -87,13 +93,13 @@ function renderSetting() {
 
   var contextCard = document.createElement('div');
   contextCard.className = 'conv-msg conv-msg-setting';
-  contextCard.innerHTML = 
+  contextCard.innerHTML =
     '<div class="conv-setting-label">📍 Situation</div>' +
     '<div class="conv-setting-text">' + escapeHtml(currentScenario.setting) + '</div>' +
     '<div class="conv-setting-role"><strong>Your role:</strong> ' + escapeHtml(currentScenario.playerRole) + '</div>' +
     '<div class="conv-setting-npc"><strong>You\'re speaking to:</strong> ' + escapeHtml(currentScenario.npcName) + ' — ' + escapeHtml(currentScenario.npcRole) + '</div>' +
     '<button class="btn btn-primary" style="margin-top:1rem;" onclick="renderStep()">Start the conversation →</button>';
-  
+
   dialogue.appendChild(contextCard);
 
   var choices = document.getElementById('convChoices');
@@ -120,7 +126,7 @@ function renderStep() {
 
   var npcMsg = document.createElement('div');
   npcMsg.className = 'conv-msg conv-msg-npc';
-  npcMsg.innerHTML = 
+  npcMsg.innerHTML =
     '<div class="conv-msg-avatar" style="background:' + getCategoryColor(currentScenario.category) + '">' + currentScenario.icon + '</div>' +
     '<div class="conv-msg-bubble">' +
     '<div class="conv-msg-npc-name">' + escapeHtml(currentScenario.npcName) + '</div>' +
@@ -186,7 +192,7 @@ function handleChoice(choiceIndex) {
   if (dialogue) {
     var userMsg = document.createElement('div');
     userMsg.className = 'conv-msg conv-msg-user';
-    userMsg.innerHTML = 
+    userMsg.innerHTML =
       '<div class="conv-msg-bubble conv-msg-bubble-user">' +
       '<div class="conv-msg-text">' + escapeHtml(chosen.text) + '</div>' +
       '</div>' +
@@ -259,7 +265,7 @@ function showResults() {
       var row = document.createElement('div');
       row.className = 'conv-result-row';
       var icon = a.correct === 2 ? '✅' : a.correct === 1 ? '🟡' : '❌';
-      row.innerHTML = 
+      row.innerHTML =
         '<span class="conv-result-icon">' + icon + '</span>' +
         '<span class="conv-result-num">#' + (idx + 1) + '</span>' +
         '<span class="conv-result-text">' + escapeHtml(a.chosenText.substring(0, 40)) + (a.chosenText.length > 40 ? '...' : '') + '</span>';
