@@ -86,5 +86,41 @@
       if (typeof initConversation === 'function') initConversation();
     });
   </script>
+  
+    <!-- DEBUG : Vérification du chargement des données -->
+  <div id="debug-info" style="background:#ffeb3b;padding:10px;margin:10px;font-family:monospace;font-size:12px;">
+    <strong>Debug :</strong><br>
+    CONVERSATION_SCENARIOS = <span id="debug-scenarios">checking...</span><br>
+    config loaded = <span id="debug-config">checking...</span><br>
+    core loaded = <span id="debug-core">checking...</span><br>
+    data file size = <span id="debug-size">checking...</span>
+  </div>
+  
+  <script>
+    // Vérification immédiate
+    document.getElementById('debug-scenarios').textContent = 
+      typeof CONVERSATION_SCENARIOS !== 'undefined' ? '✅ OK (' + Object.keys(CONVERSATION_SCENARIOS).length + ' levels)' : '❌ UNDEFINED';
+    
+    document.getElementById('debug-config').textContent = 
+      typeof CONFIG !== 'undefined' ? '✅' : '❌';
+    
+    document.getElementById('debug-core').textContent = 
+      typeof initCore !== 'undefined' ? '✅' : '❌';
+    
+    // Vérification taille du fichier data
+    fetch('js/conversation-data.js')
+      .then(r => r.text())
+      .then(t => {
+        document.getElementById('debug-size').textContent = t.length + ' chars';
+        // Si le fichier est vide ou très petit, c'est le problème
+        if (t.length < 100) {
+          document.getElementById('debug-size').innerHTML += ' ⚠️ TROP PETIT !';
+        }
+      })
+      .catch(e => {
+        document.getElementById('debug-size').textContent = '❌ ERREUR: ' + e.message;
+      });
+  </script>
+
 </body>
 </html>
