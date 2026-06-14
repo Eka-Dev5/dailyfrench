@@ -1,6 +1,8 @@
 // ═══════════════════════════════════════════════════════════════════
-// CONVERSATION.JS — Daily French 🥖 v1.3
-// CORRECTION : CONVERSATION_SCENARIOS est un OBJET (clé->scénario), pas un tableau
+// CONVERSATION.JS — Daily French 🥖 v1.4
+// CORRECTION : Adapté à la structure réelle des données
+// CONVERSATION_SCENARIOS est un OBJET {id: scenario, ...}
+// Les scénarios utilisent 'dialogue' (pas 'steps'), 'setting' (pas 'npcName/playerRole/category')
 // ═══════════════════════════════════════════════════════════════════
 
 var currentScenario = null;
@@ -49,17 +51,24 @@ function renderScenarioList() {
     card.className = 'conv-scenario-card';
     card.dataset.id = scen.id;
 
-    var diffStars = '★'.repeat(scen.difficulty) + '☆'.repeat(3 - scen.difficulty);
+    // Calculer le nombre d'échanges (dialogue array / 2 car chaque échange = NPC + YOU)
+    var exchanges = 0;
+    if (scen.dialogue && Array.isArray(scen.dialogue)) {
+      // Compter les éléments où speaker === 'you' (choix de l'utilisateur)
+      exchanges = scen.dialogue.filter(function(d) { return d.speaker === 'you'; }).length;
+    }
+
+    var diffStars = '★'.repeat(scen.difficulty || 1) + '☆'.repeat(Math.max(0, 3 - (scen.difficulty || 1)));
 
     card.innerHTML =
-      '<div class="conv-scen-icon">' + scen.icon + '</div>' +
+      '<div class="conv-scen-icon">' + (scen.icon || '🗣️') + '</div>' +
       '<div class="conv-scen-info">' +
-      '<div class="conv-scen-title">' + scen.title + '</div>' +
-      '<div class="conv-scen-subtitle">' + scen.titleFr + '</div>' +
+      '<div class="conv-scen-title">' + (scen.title || 'Scenario') + '</div>' +
+      '<div class="conv-scen-subtitle">' + (scen.titleFr || '') + '</div>' +
       '<div class="conv-scen-meta">' +
       '<span class="conv-scen-diff" title="Difficulty">' + diffStars + '</span>' +
-      '<span class="conv-scen-steps">' + scen.steps.length + ' exchanges</span>' +
-      '<span class="conv-scen-npc">👤 ' + scen.npcName + '</span>' +
+      '<span class="conv-scen-steps">' + exchanges + ' exchanges</span>' +
+      '<span class="conv-scen-npc">📍 ' + (scen.setting ? scen.setting.substring(0, 40) + '...' : 'Conversation') + '</span>' +
       '</div></div>' +
       '<div class="conv-scen-arrow">▶</div>';
 
@@ -78,8 +87,8 @@ function startScenario(scen) {
 
   var iconEl = document.getElementById('convSimIcon');
   var titleEl = document.getElementById('convSimTitle');
-  if (iconEl) iconEl.textContent = scen.icon;
-  if (titleEl) titleEl.textContent = scen.title;
+  if (iconEl) iconEl.textContent = scen.icon || '🗣️';
+  if (titleEl) titleEl.textContent = scen.title || 'Conversation';
 
   showView('sim');
   renderSetting();
@@ -95,9 +104,8 @@ function renderSetting() {
   contextCard.className = 'conv-msg conv-msg-setting';
   contextCard.innerHTML =
     '<div class="conv-setting-label">📍 Situation</div>' +
-    '<div class="conv-setting-text">' + escapeHtml(currentScenario.setting) + '</div>' +
-    '<div class="conv-setting-role"><strong>Your role:</strong> ' + escapeHtml(currentScenario.playerRole) + '</div>' +
-    '<div class="conv-setting-npc"><strong>You\'re speaking to:</strong> ' + escapeHtml(currentScenario.npcName) + ' — ' + escapeHtml(currentScenario.npcRole) + '</div>' +
+    '<div class="conv-setting-text">' + escapeHtml(currentScenario.setting || 'Practice your French!') + '</div>' +
+    '<div class="conv-setting-role"><strong>Vocabulary:</strong> ' + escapeHtml((currentScenario.vocabulary || []).join(', ')) + '</div>' +
     '<button class="btn btn-primary" style="margin-top:1rem;" onclick="renderStep()">Start the conversation →</button>';
 
   dialogue.appendChild(contextCard);
@@ -109,57 +117,92 @@ function renderSetting() {
 }
 
 function renderStep() {
-  if (!currentScenario || currentStepIndex >= currentScenario.steps.length) {
+  if (!currentScenario || !currentScenario.dialogue || currentStepIndex >= currentScenario.dialogue.length) {
     showResults();
     return;
   }
 
-  var step = currentScenario.steps[currentStepIndex];
+  var step = currentScenario.dialogue[currentStepIndex];
   var dialogue = document.getElementById('convDialogue');
   var choices = document.getElementById('convChoices');
   var feedback = document.getElementById('convFeedback');
 
   var progressEl = document.getElementById('convSimProgress');
   if (progressEl) {
-    progressEl.textContent = (currentStepIndex + 1) + ' / ' + currentScenario.steps.length;
+    var totalSteps = currentScenario.dialogue.filter(function(d) { return d.speaker === 'you'; }).length;
+    var currentStep = currentScenario.dialogue.slice(0, currentStepIndex + 1).filter(function(d) { return d.speaker === 'you'; }).length;
+    progressEl.textContent = currentStep + ' / ' + totalSteps;
   }
 
-  var npcMsg = document.createElement('div');
-  npcMsg.className = 'conv-msg conv-msg-npc';
-  npcMsg.innerHTML =
-    '<div class="conv-msg-avatar" style="background:' + getCategoryColor(currentScenario.category) + '">' + currentScenario.icon + '</div>' +
-    '<div class="conv-msg-bubble">' +
-    '<div class="conv-msg-npc-name">' + escapeHtml(currentScenario.npcName) + '</div>' +
-    '<div class="conv-msg-text">' + escapeHtml(step.npc) + '</div>' +
-    '<button class="conv-msg-tts" data-tts="' + escapeHtml(step.npc) + '" title="Listen">🔊</button>' +
-    '</div>';
+  // Si c'est un message du NPC (baker, vendor, etc.)
+  if (step.speaker !== 'you') {
+    var npcMsg = document.createElement('div');
+    npcMsg.className = 'conv-msg conv-msg-npc';
+    npcMsg.innerHTML =
+      '<div class="conv-msg-avatar" style="background:#4A5568">' + (currentScenario.icon || '🗣️') + '</div>' +
+      '<div class="conv-msg-bubble">' +
+      '<div class="conv-msg-npc-name">' + escapeHtml(step.speaker || 'NPC') + '</div>' +
+      '<div class="conv-msg-text">' + escapeHtml(step.text || '') + '</div>' +
+      '<button class="conv-msg-tts" data-tts="' + escapeHtml(step.text || '') + '" title="Listen">🔊</button>' +
+      '</div>';
 
-  if (currentStepIndex === 0 && dialogue) {
-    dialogue.innerHTML = '';
+    if (dialogue) {
+      dialogue.appendChild(npcMsg);
+      scrollToBottom(dialogue);
+    }
+
+    var ttsBtn = npcMsg.querySelector('.conv-msg-tts');
+    if (ttsBtn) {
+      ttsBtn.addEventListener('click', function() { speakFrench(step.text); });
+    }
+
+    // Avancer automatiquement au prochain élément (qui devrait être 'you')
+    currentStepIndex++;
+    // Si le suivant est aussi un NPC, continuer
+    if (currentStepIndex < currentScenario.dialogue.length && currentScenario.dialogue[currentStepIndex].speaker !== 'you') {
+      setTimeout(function() { renderStep(); }, 300);
+    } else {
+      // Le suivant est 'you', montrer les choix
+      renderChoices();
+    }
+    return;
   }
 
-  if (dialogue) {
-    dialogue.appendChild(npcMsg);
-    scrollToBottom(dialogue);
+  // Si c'est au tour de l'utilisateur
+  renderChoices();
+}
+
+function renderChoices() {
+  if (!currentScenario || currentStepIndex >= currentScenario.dialogue.length) {
+    showResults();
+    return;
   }
 
-  var ttsBtn = npcMsg.querySelector('.conv-msg-tts');
-  if (ttsBtn) {
-    ttsBtn.addEventListener('click', function() { speakFrench(step.npc); });
+  var step = currentScenario.dialogue[currentStepIndex];
+  if (step.speaker !== 'you') {
+    // Pas un choix utilisateur, avancer
+    currentStepIndex++;
+    renderStep();
+    return;
   }
+
+  var choices = document.getElementById('convChoices');
+  var feedback = document.getElementById('convFeedback');
 
   if (choices) {
     choices.innerHTML = '';
     choices.style.display = 'block';
 
-    step.options.forEach(function(opt, idx) {
-      var btn = document.createElement('button');
-      btn.className = 'conv-choice-btn';
-      btn.innerHTML = '<span class="conv-choice-letter">' + String.fromCharCode(65 + idx) + '</span>' +
-                      '<span class="conv-choice-text">' + escapeHtml(opt.text) + '</span>';
-      btn.addEventListener('click', function() { handleChoice(idx); });
-      choices.appendChild(btn);
-    });
+    if (step.choices && Array.isArray(step.choices)) {
+      step.choices.forEach(function(opt, idx) {
+        var btn = document.createElement('button');
+        btn.className = 'conv-choice-btn';
+        btn.innerHTML = '<span class="conv-choice-letter">' + String.fromCharCode(65 + idx) + '</span>' +
+                        '<span class="conv-choice-text">' + escapeHtml(opt.text || '') + '</span>';
+        btn.addEventListener('click', function() { handleChoice(idx); });
+        choices.appendChild(btn);
+      });
+    }
   }
 
   if (feedback) feedback.style.display = 'none';
@@ -169,23 +212,25 @@ function renderStep() {
 function handleChoice(choiceIndex) {
   if (isWaitingForNext) return;
 
-  var step = currentScenario.steps[currentStepIndex];
-  var chosen = step.options[choiceIndex];
+  var step = currentScenario.dialogue[currentStepIndex];
+  if (!step.choices || !step.choices[choiceIndex]) return;
+
+  var chosen = step.choices[choiceIndex];
 
   var choiceBtns = document.querySelectorAll('.conv-choice-btn');
   choiceBtns.forEach(function(btn, idx) {
     btn.disabled = true;
     if (idx === choiceIndex) btn.classList.add('chosen');
-    if (step.options[idx].correct === 2) btn.classList.add('best');
+    if (step.choices[idx].correct === true) btn.classList.add('best');
   });
 
-  var maxCorrect = Math.max.apply(null, step.options.map(function(o) { return o.correct; }));
+  // Déterminer le score (1 = correct, 0 = incorrect)
+  var score = chosen.correct === true ? 1 : 0;
   userAnswers.push({
     step: currentStepIndex,
-    chosenText: chosen.text,
-    correct: chosen.correct,
-    maxCorrect: maxCorrect,
-    feedback: chosen.feedback
+    chosenText: chosen.text || '',
+    correct: score,
+    feedback: chosen.feedback || ''
   });
 
   var dialogue = document.getElementById('convDialogue');
@@ -194,7 +239,7 @@ function handleChoice(choiceIndex) {
     userMsg.className = 'conv-msg conv-msg-user';
     userMsg.innerHTML =
       '<div class="conv-msg-bubble conv-msg-bubble-user">' +
-      '<div class="conv-msg-text">' + escapeHtml(chosen.text) + '</div>' +
+      '<div class="conv-msg-text">' + escapeHtml(chosen.text || '') + '</div>' +
       '</div>' +
       '<div class="conv-msg-avatar conv-msg-avatar-user">🧑</div>';
     dialogue.appendChild(userMsg);
@@ -212,13 +257,12 @@ function showFeedback(chosen) {
 
   if (!feedback || !feedbackText) return;
 
-  var borderColor = '#F59E0B';
-  if (chosen.correct === 2) borderColor = '#059669';
-  if (chosen.correct === 0) borderColor = '#DC2626';
+  var borderColor = chosen.correct === true ? '#059669' : '#F59E0B';
+  if (chosen.correct === false) borderColor = '#DC2626';
 
   feedback.style.display = 'block';
   feedback.style.borderLeftColor = borderColor;
-  feedbackText.innerHTML = chosen.feedback;
+  feedbackText.innerHTML = (chosen.feedback || '') + '<br><br><em>' + (chosen.correct === true ? '✅ Correct!' : '💡 Keep practicing!') + '</em>';
 
   var choices = document.getElementById('convChoices');
   if (choices) choices.style.display = 'none';
@@ -237,7 +281,7 @@ function showResults() {
   showView('results');
 
   var total = userAnswers.length;
-  var maxScore = total * 2;
+  var maxScore = total;
   var userScore = userAnswers.reduce(function(sum, a) { return sum + a.correct; }, 0);
   var pct = maxScore > 0 ? Math.round((userScore / maxScore) * 100) : 0;
 
@@ -264,7 +308,7 @@ function showResults() {
     userAnswers.forEach(function(a, idx) {
       var row = document.createElement('div');
       row.className = 'conv-result-row';
-      var icon = a.correct === 2 ? '✅' : a.correct === 1 ? '🟡' : '❌';
+      var icon = a.correct === 1 ? '✅' : '❌';
       row.innerHTML =
         '<span class="conv-result-icon">' + icon + '</span>' +
         '<span class="conv-result-num">#' + (idx + 1) + '</span>' +
@@ -372,6 +416,14 @@ function escapeHtml(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+function showToast(msg) {
+  if (typeof toast === 'function') {
+    toast(msg);
+  } else {
+    console.log('Toast:', msg);
+  }
 }
 
 // Lancement immédiat — PAS de DOMContentLoaded
