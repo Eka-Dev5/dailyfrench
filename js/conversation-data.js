@@ -1,354 +1,430 @@
-// ═══════════════════════════════════════════════════════════════════
-// CONVERSATION-DATA.JS — Daily French 🥖
-// Scénarios de dialogues interactifs pour pratiquer le français réel
-// ═══════════════════════════════════════════════════════════════════
+// ================================================================
+// CONVERSATION-DATA.JS — Daily French 🥖 v1.0
+// Scénarios de conversation par niveau, alignés avec LESSONS_DATA 1-20
+// ================================================================
 
-const CONVERSATION_SCENARIOS = [
-  {
+const CONVERSATION_SCENARIOS = {
+
+  // NIVEAU 1-2 : Débutant (Leçons 1-2)
+  boulanger: {
     id: 'boulanger',
     icon: '🥖',
     title: 'At the Bakery',
-    titleFr: 'Chez le boulanger',
+    titleFr: 'À la boulangerie',
+    level: 1,
     difficulty: 1,
-    category: 'courses',
-    npcName: 'M. Martin',
-    npcRole: 'Boulanger',
-    setting: 'Une petite boulangerie française du matin. L\'odeur du pain chaud embaume.',
-    playerRole: 'Vous voulez acheter du pain pour le petit-déjeuner.',
-    steps: [
-      {
-        npc: "Bonjour Madame ! Qu'est-ce que je vous sers ce matin ?",
-        npcPhon: "Bon-ZHOOR mah-DAHM ! Kes-kuh zhuh voo sair suh mah-TAN ?",
-        options: [
-          { text: "Donne-moi une baguette.", correct: 0, feedback: "❌ Trop direct ! 'Donne-moi' est un ordre. En France, utilisez 'Je voudrais...' pour demander poliment." },
-          { text: "Je voudrais une baguette, s'il vous plaît.", correct: 2, feedback: "✅ Parfait ! 'Je voudrais' est la formule magique. Vous serez toujours bien accueilli avec cette phrase." },
-          { text: "Une baguette.", correct: 1, feedback: "😐 Compris, mais un peu sec. Essayez d'ajouter 'Je voudrais' et 's'il vous plaît' la prochaine fois." }
-        ]
-      },
-      {
-        npc: "Bien sûr ! Une tradition ou une classique ?",
-        npcPhon: "Byan sur ! Oon trad-dee-SYOHN oo oon klah-SEEK ?",
-        options: [
-          { text: "Quelle est la différence ?", correct: 2, feedback: "✅ Très bien ! Poser des questions montre votre intérêt. La tradition est plus croustillante, la classique plus moelleuse." },
-          { text: "Je ne sais pas. Donne-moi n'importe laquelle.", correct: 0, feedback: "❌ 'Donne-moi' est trop direct. Et 'n'importe laquelle' peut sembler désinvolte. Essayez : 'Que me recommandez-vous ?'" },
-          { text: "La tradition, s'il vous plaît.", correct: 1, feedback: "😐 Bien, mais vous auriez pu demander la différence pour apprendre quelque chose de nouveau !" }
-        ]
-      },
-      {
-        npc: "Excellent choix ! Ce sera tout ?",
-        npcPhon: "Ek-seh-LAHN shwah ! Suh sair TOO ?",
-        options: [
-          { text: "Non, donne-moi aussi six croissants.", correct: 1, feedback: "😐 Le 'donne-moi' encore... Essayez : 'Non, je prendrai aussi...' C'est plus doux." },
-          { text: "Oui, c'est tout. Combien je vous dois ?", correct: 2, feedback: "✅ Très naturel ! 'Combien je vous dois ?' est une façon élégante de demander le prix." },
-          { text: "Combien ça coûte ?", correct: 1, feedback: "😐 Correct, mais un peu abrupt. 'Combien je vous dois ?' sonne plus français." }
-        ]
-      },
-      {
-        npc: "Ça fait 4 euros 50. Vous payez comment ?",
-        npcPhon: "Sah fay kat uh-ROH sank-ahnt. Voo pay-AY koh-MAN ?",
-        options: [
-          { text: "Carte.", correct: 1, feedback: "😐 Compris, mais trop court. Essayez : 'Par carte, s'il vous plaît.'" },
-          { text: "Je paye par carte bancaire, s'il vous plaît.", correct: 2, feedback: "✅ Parfait ! Toujours aussi poli. Le boulanger apprécie." },
-          { text: "Espèces.", correct: 1, feedback: "😐 OK, mais ajoutez 'Je paye en...' pour être plus courtois." }
-        ]
-      },
-      {
-        npc: "Voilà votre monnaie et votre pain. Bonne journée !",
-        npcPhon: "Vwah-LAH votr maw-NAY ay votr PAN. Bon zhoor-NAY !",
-        options: [
-          { text: "Ouais, au revoir.", correct: 0, feedback: "❌ 'Ouais' est très familier. Dans un commerce, utilisez 'Oui' ou 'Merci beaucoup'. Et souriez !" },
-          { text: "Merci beaucoup, au revoir ! Bonne journée à vous aussi.", correct: 2, feedback: "✅ Excellent ! Vous avez terminé comme une vraie cliente française. Le boulanger sera ravi de vous revoir." },
-          { text: "Merci, au revoir.", correct: 1, feedback: "😐 Correct, mais vous auriez pu souhaiter une bonne journée en retour. C'est le petit plus qui compte !" }
-        ]
-      }
+    vocabulary: ['bonjour', 'je voudrais', 's\'il vous plaît', 'c\'est combien', 'merci', 'au revoir'],
+    setting: 'You enter a French bakery. The baker greets you.',
+    dialogue: [
+      { speaker: 'baker', text: 'Bonjour Madame ! Que désirez-vous aujourd\'hui ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonjour ! Je voudrais une baguette, s\'il vous plaît.', correct: true, feedback: 'Parfait ! Polite and clear.' },
+        { text: 'Donnez-moi une baguette.', correct: false, feedback: 'Too direct! Use "Je voudrais" + "s\'il vous plaît".' },
+        { text: 'Une baguette.', correct: false, feedback: 'Always say "Bonjour" first, and add "s\'il vous plaît"!' }
+      ]},
+      { speaker: 'baker', text: 'Voilà ! Ce sera tout ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Oui, c\'est tout. Combien ça fait ?', correct: true, feedback: 'Excellent! "C\'est tout" + asking for the price naturally.' },
+        { text: 'Non, je veux aussi un pain au chocolat.', correct: false, feedback: 'Use "Je voudrais" not "Je veux" — and add "s\'il vous plaît"!' },
+        { text: 'C\'est combien ?', correct: false, feedback: 'You forgot to say if that\'s everything! Say "C\'est tout" first.' }
+      ]},
+      { speaker: 'baker', text: 'Ça fait 2 euros 40. Vous payez comment ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Je paie par carte, s\'il vous plaît. Merci beaucoup, au revoir !', correct: true, feedback: 'Parfait! Polite payment + warm goodbye.' },
+        { text: 'Carte.', correct: false, feedback: 'Too short! Say "Je paie par carte" and always end with "Merci, au revoir".' },
+        { text: 'En espèces.', correct: false, feedback: 'Add "s\'il vous plaît" and a proper goodbye: "Merci, au revoir !"' }
+      ]}
     ]
   },
 
-  {
-    id: 'medecin',
-    icon: '🩺',
-    title: 'At the Doctor\'s',
-    titleFr: "Chez le médecin",
+  marché: {
+    id: 'marché',
+    icon: '🛒',
+    title: 'At the Market',
+    titleFr: 'Au marché',
+    level: 2,
+    difficulty: 1,
+    vocabulary: ['un kilo de', 'des tomates', 'c\'est combien', 'trop cher', 'un peu moins'],
+    setting: 'You\'re at a French market buying vegetables.',
+    dialogue: [
+      { speaker: 'vendor', text: 'Bonjour ! Regardez, mes tomates sont magnifiques aujourd\'hui !' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonjour ! Elles sont belles, en effet. Je voudrais un kilo de tomates, s\'il vous plaît.', correct: true, feedback: 'Excellent! You complimented + used polite request.' },
+        { text: 'Donnez-moi un kilo de tomates.', correct: false, feedback: 'Too direct! Compliment first, use "Je voudrais".' },
+        { text: 'Un kilo de tomates.', correct: false, feedback: 'Always start with "Bonjour" and use "Je voudrais... s\'il vous plaît"!' }
+      ]},
+      { speaker: 'vendor', text: 'Voilà ! C\'est 3 euros 50 le kilo.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'C\'est un peu cher... Vous ne pouvez pas faire 3 euros ?', correct: true, feedback: 'Bien joué ! Gentle negotiation is very French at markets.' },
+        { text: 'C\'est trop cher !', correct: false, feedback: 'Too blunt! Say "un peu cher" and ask gently: "Vous ne pouvez pas faire...?"' },
+        { text: 'D\'accord.', correct: false, feedback: 'You can negotiate gently! Try "Vous ne pouvez pas faire 3 euros?"' }
+      ]},
+      { speaker: 'vendor', text: 'Alors, 3 euros 20, c\'est mon dernier prix !' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'C\'est parfait, merci ! Et je voudrais aussi une botte de basilic.', correct: true, feedback: 'Parfait! You accepted gracefully and continued shopping.' },
+        { text: 'Non, c\'est encore trop.', correct: false, feedback: '3€20 is a good deal! Accept graciously: "C\'est parfait, merci !"' },
+        { text: 'Bon, d\'accord.', correct: false, feedback: 'Your tone sounds reluctant. Be warmer: "C\'est parfait, merci !"' }
+      ]}
+    ]
+  },
+
+  // NIVEAU 3-5 : Débutant+ (Leçons 3-5)
+  jardin: {
+    id: 'jardin',
+    icon: '🌿',
+    title: 'Garden Chat with a Neighbour',
+    titleFr: 'Discussion jardin avec un voisin',
+    level: 3,
     difficulty: 2,
-    category: 'sante',
-    npcName: 'Dr. Dubois',
-    npcRole: 'Médecin généraliste',
-    setting: 'Un cabinet médical calme. Vous attendez depuis 10 minutes. Le docteur vous fait entrer.',
-    playerRole: 'Vous ne vous sentez pas bien depuis 3 jours. Vous avez de la fièvre.',
-    steps: [
-      {
-        npc: "Bonjour, asseyez-vous. Qu'est-ce qui vous amène aujourd'hui ?",
-        npcPhon: "Bon-ZHOOR, ah-SWAY-voo. Kes-kuh kee voo ah-MAN oh-zhoor-DWEE ?",
-        options: [
-          { text: "J'ai mal partout et j'ai de la fièvre.", correct: 1, feedback: "😐 OK, mais un peu vague. Le médecin va vous demander des précisions. Essayez d'être plus spécifique sur quand ça a commencé." },
-          { text: "Je ne me sens pas bien depuis trois jours. J'ai de la fièvre et des frissons.", correct: 2, feedback: "✅ Très bien ! Vous donnez la durée ET les symptômes précis. Le médecin peut ainsi mieux vous aider." },
-          { text: "Je suis malade.", correct: 0, feedback: "❌ Trop vague ! Le médecin ne peut rien faire avec ça. Décrivez vos symptômes : fièvre, douleurs, depuis quand..." }
-        ]
-      },
-      {
-        npc: "Je vais vous examiner. Vous êtes allergique à des médicaments ?",
-        npcPhon: "Zhuh vay voo eg-zah-mee-NAY. Voo zay-tay al-lair-ZHEEK ah day may-dee-kah-MAHN ?",
-        options: [
-          { text: "Non, pas d'allergie.", correct: 1, feedback: "😐 Correct. Mais si vous aviez une allergie, il faudrait le dire clairement : 'Je suis allergique à...'" },
-          { text: "Je suis allergique à la pénicilline.", correct: 2, feedback: "✅ ESSENTIEL ! Toujours mentionner vos allergies. Cela peut sauver des vies. Vous avez bien fait." },
-          { text: "Je ne sais pas.", correct: 0, feedback: "❌ Dangereux ! Si vous ne savez pas, dites : 'Je ne suis pas sûr, je n'ai jamais pris d'antibiotiques.' Le médecin fera attention." }
-        ]
-      },
-      {
-        npc: "Vous avez une grippe. Je vous fais une ordonnance. Vous avez une mutuelle ?",
-        npcPhon: "Voo zah-vay oon greep. Zhuh voo fahn oon or-don-NAHNS. Voo zah-vay oon mew-TWEL ?",
-        options: [
-          { text: "C'est quoi une mutuelle ?", correct: 1, feedback: "😐 C'est une question légitime quand on arrive en France. La mutuelle rembourse une partie des soins. Demandez au médecin de vous expliquer." },
-          { text: "Oui, j'ai la mutuelle [MAAF]. Voici ma carte.", correct: 2, feedback: "✅ Parfait ! Avoir sa carte de mutuelle sur soi accélère les démarches. Bien joué." },
-          { text: "Non, je paie tout.", correct: 0, feedback: "❌ En France, la mutuelle est très importante ! Renseignez-vous rapidement pour en souscrire une. Ça vous fera économiser beaucoup d'argent." }
-        ]
-      },
-      {
-        npc: "Prenez ce médicament trois fois par jour après les repas. Reposez-vous beaucoup.",
-        npcPhon: "Pruh-NAY suh may-dee-kah-MAHN trwah fwa par zhoor ah-PREH lay ruh-PAH. Ruh-poh-SAY-voo boh-KOO.",
-        options: [
-          { text: "OK.", correct: 0, feedback: "❌ Trop sec ! Et le médecin vient de vous donner des instructions importantes. Montrez que vous avez compris." },
-          { text: "Merci docteur. Je prendrai bien le médicament. Au revoir.", correct: 1, feedback: "😐 Bien, mais vous auriez pu confirmer que vous avez bien compris les instructions." },
-          { text: "D'accord, trois fois par jour après manger. Merci beaucoup docteur, au revoir.", correct: 2, feedback: "✅ Excellent ! Vous répétez les instructions pour montrer que vous avez compris. C'est ce que font les Français." }
-        ]
-      }
+    vocabulary: ['arroser', 'la pelouse', 'les fleurs', 'tondre', 'beau temps'],
+    setting: 'Your neighbour is in the garden. You stop to chat.',
+    dialogue: [
+      { speaker: 'neighbour', text: 'Bonjour ! Il fait beau aujourd\'hui, n\'est-ce pas ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonjour Madame ! Oui, il fait très beau. Votre jardin est magnifique !', correct: true, feedback: 'Parfait! Compliment + weather chat = classic French neighbour talk.' },
+        { text: 'Oui, beau temps.', correct: false, feedback: 'Too short! Add "Bonjour Madame" and a compliment about their garden.' },
+        { text: 'Je dois arroser mes plantes.', correct: false, feedback: 'You skipped the social ritual! Say "Bonjour" and chat about weather first.' }
+      ]},
+      { speaker: 'neighbour', text: 'Merci ! Vous avez des roses ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Oui, j\'en ai quelques-unes. Mais je ne sais pas quand les tailler.', correct: true, feedback: 'Bien! You answered + asked for advice — very French!' },
+        { text: 'Non, je n\'aime pas les roses.', correct: false, feedback: 'A bit negative! Even if true, soften it: "Pas encore, mais j\'aimerais en avoir".' },
+        { text: 'Oui.', correct: false, feedback: 'Too short! Expand and ask a question to keep the conversation going.' }
+      ]},
+      { speaker: 'neighbour', text: 'En février, c\'est le meilleur moment. Vous devez aussi tondre la pelouse bientôt !' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Merci pour le conseil ! Je vais le faire ce week-end. Bonne journée !', correct: true, feedback: 'Parfait! You thanked for advice + planned action + warm goodbye.' },
+        { text: 'D\'accord.', correct: false, feedback: 'Too brief! Thank them: "Merci pour le conseil" and say your plans.' },
+        { text: 'Je n\'ai pas de tondeuse.', correct: false, feedback: 'That ends the conversation negatively. Try "Je vais louer une tondeuse ce week-end"!' }
+      ]}
     ]
   },
 
-  {
-    id: 'cafe',
-    icon: '☕',
-    title: 'At the Café',
-    titleFr: 'Au café',
-    difficulty: 1,
-    category: 'restaurant',
-    npcName: 'Claire',
-    npcRole: 'Serveuse',
-    setting: 'Un café parisien en terrasse. Il fait beau, les gens passent.',
-    playerRole: 'Vous voulez prendre un café et un croissant.',
-    steps: [
-      {
-        npc: "Bonjour ! Vous désirez ?",
-        npcPhon: "Bon-ZHOOR ! Voo day-zee-RAY ?",
-        options: [
-          { text: "Un café.", correct: 1, feedback: "😐 OK, mais ajoutez 's'il vous plaît' et peut-être un sourire. En France, la politesse ouvre toutes les portes." },
-          { text: "Bonjour ! Un café et un croissant, s'il vous plaît.", correct: 2, feedback: "✅ Parfait ! Vous avez répondu au 'Bonjour' (ESSENTIEL en France) et commandé poliment." },
-          { text: "Donne-moi un café.", correct: 0, feedback: "❌ 'Donne-moi' est impoli. La serveuse pourrait mal le prendre. Toujours 'Je voudrais' ou 'S'il vous plaît'." }
-        ]
-      },
-      {
-        npc: "Un café allongé ou un express ?",
-        npcPhon: "Uhn kah-FAY ah-lohn-ZHAY oo uhn ek-SPRES ?",
-        options: [
-          { text: "C'est quoi la différence ?", correct: 2, feedback: "✅ Bonne question ! L'allongé est plus long et léger, l'express est court et fort. C'est l'occasion d'apprendre." },
-          { text: "Un express.", correct: 1, feedback: "😐 OK, mais vous avez loupé une occasion de poser une question et d'apprendre quelque chose sur la culture française." },
-          { text: "Je ne comprends pas.", correct: 0, feedback: "❌ Ce n'est pas grave de ne pas comprendre, mais essayez plutôt : 'Pouvez-vous m'expliquer la différence ?' C'est plus engageant." }
-        ]
-      },
-      {
-        npc: "Voilà ! 5 euros 20. Vous restez manger ?",
-        npcPhon: "Vwah-LAH ! Sank uh-ROH vahn. Voo ruh-STAY mahn-ZHAY ?",
-        options: [
-          { text: "Non, juste le café.", correct: 1, feedback: "😐 Correct, mais un peu abrupt. Essayez : 'Non merci, juste le café pour aujourd'hui.'" },
-          { text: "Non merci, juste le petit-déjeuner. L'addition s'il vous plaît.", correct: 2, feedback: "✅ Poli et clair ! Et vous demandez l'addition en avance, c'est malin." },
-          { text: "Combien ?", correct: 0, feedback: "❌ Trop direct. Elle vient de vous dire le prix. Écoutez attentivement, c'est aussi ça apprendre une langue." }
-        ]
-      }
-    ]
-  },
-
-  {
+  voisin: {
     id: 'voisin',
     icon: '🏘️',
-    title: 'With a Neighbour',
-    titleFr: 'Avec un voisin',
-    difficulty: 1,
-    category: 'voisinage',
-    npcName: 'Mme Lefranc',
-    npcRole: 'Voisine',
-    setting: 'Vous croisez votre voisine dans l'escalier. C'est une dame âgée très aimable.',
-    playerRole: 'Vous habitez ici depuis peu. Vous voulez être sympathique avec vos voisins.',
-    steps: [
-      {
-        npc: "Bonjour ! Vous êtes le nouveau voisin, c'est ça ? Bienvenue dans l'immeuble !",
-        npcPhon: "Bon-ZHOOR ! Voo zayt luh nuh-VOH vwah-ZAN, say SAH ? Byan-VUH-new duh-ZAN lahn-MWEBL !",
-        options: [
-          { text: "Oui.", correct: 0, feedback: "❌ Trop court ! Votre voisine vient de vous souhaiter la bienvenue. Montrez que vous appréciez." },
-          { text: "Oui, merci beaucoup ! Je m'appelle [votre prénom]. Enchanté !", correct: 2, feedback: "✅ Parfait ! Vous répondez chaleureusement, vous vous présentez, et vous utilisez 'Enchanté' — très français !" },
-          { text: "Oui, merci.", correct: 1, feedback: "😐 Poli mais un peu froid. Vous auriez pu vous présenter. Les voisins sont importants en France !" }
-        ]
-      },
-      {
-        npc: "Je suis au deuxième étage. Vous venez d'où, si ce n'est pas indiscret ?",
-        npcPhon: "Zhuh swee oh duh-ZYEM ay-TAHZH. Voo vuh-NEE d'OO, see suh nay pah an-dis-KRAY ?",
-        options: [
-          { text: "De Corée.", correct: 1, feedback: "😐 Vrai, mais trop court. Votre voisine pose une question amicale, développez un peu." },
-          { text: "Je viens de Corée. J'habite ici avec ma famille.", correct: 2, feedback: "✅ Bien ! Vous répondez et ajoutez un détail personnel. Ça crée du lien." },
-          { text: "Ça ne vous regarde pas.", correct: 0, feedback: "❌ Oh non ! 'Si ce n'est pas indiscret' signifie qu'elle sait que c'est une question personnelle. Elle est juste curieuse et amicale." }
-        ]
-      },
-      {
-        npc: "Ah la Corée, quel beau pays ! Vous vous plaisez ici à [Craon] ?",
-        npcPhon: "Ah lah koh-RAY, kel boh pay-EE ! Voo voo PLEH-zay ee-SEE ah [krah-ON] ?",
-        options: [
-          { text: "Oui, c'est tranquille.", correct: 1, feedback: "😐 Correct, mais vous pourriez en dire un peu plus pour faire la conversation." },
-          { text: "Oui beaucoup ! Les gens sont très accueillants. Et le marché est super.", correct: 2, feedback: "✅ Excellent ! Vous complimentez la ville et vous montrez que vous participez à la vie locale. Le marché !" },
-          { text: "Bof.", correct: 0, feedback: "❌ 'Bof' est décontracté mais peut sembler négatif. Avec une voisine âgée qui fait un effort, soyez enthousiaste !" }
-        ]
-      },
-      {
-        npc: "Si vous avez besoin de quoi que ce soit, n'hésitez pas à frapper à ma porte !",
-        npcPhon: "See voo zahvay buh-ZWAN duh kwah kuh suh SEE-t, nay-zay-tay PAH ah frah-PAY ah mah port !",
-        options: [
-          { text: "OK.", correct: 0, feedback: "❌ Trop sec ! Elle vient de vous offrir son aide. C'est un geste précieux en France. Remerciez-la chaleureusement." },
-          { text: "C'est très gentil, merci beaucoup madame ! Bonne journée !", correct: 2, feedback: "✅ Parfait ! Vous remerciez, vous êtes poli, et vous lui souhaitez une bonne journée. Vous avez gagné une alliée dans l'immeuble !" },
-          { text: "Merci.", correct: 1, feedback: "😐 Correct, mais un peu minimal. 'C'est très gentil' est une formule magique avec les personnes âgées en France." }
-        ]
-      }
+    title: 'Meeting a New Neighbour',
+    titleFr: 'Rencontrer un nouveau voisin',
+    level: 4,
+    difficulty: 2,
+    vocabulary: ['depuis', 'nouveau', 'la mairie', 'connaître', 'sympa'],
+    setting: 'A new neighbour has moved in. You introduce yourself.',
+    dialogue: [
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonjour ! Je suis votre voisine, je m\'appelle Sarah. Vous habitez ici depuis longtemps ?', correct: true, feedback: 'Parfait! Introduction + question about their history here.' },
+        { text: 'Salut, je suis Sarah.', correct: false, feedback: 'Too informal! Use "Bonjour" + "je suis votre voisine" with new neighbours.' },
+        { text: 'Vous êtes nouveau ici ?', correct: false, feedback: 'You skipped "Bonjour" and your name! Always introduce yourself first.' }
+      ]},
+      { speaker: 'neighbour', text: 'Bonjour Sarah ! Enchanté. Je suis arrivé la semaine dernière. Je viens de Paris.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Ah, Paris ! C\'est une belle ville. Vous connaissez déjà la mairie et le marché ?', correct: true, feedback: 'Excellent! You acknowledged + offered practical info. Very helpful!' },
+        { text: 'Moi aussi j\'aime Paris.', correct: false, feedback: 'OK but self-centred. Ask about their needs: "Vous connaissez...?"' },
+        { text: 'Le marché est le jeudi.', correct: false, feedback: 'A bit abrupt! Soften: "Si vous ne connaissez pas, le marché est le jeudi".' }
+      ]},
+      { speaker: 'neighbour', text: 'Non, pas encore. C\'est par où ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'C\'est tout près ! Je peux vous montrer samedi si vous voulez. On pourrait y aller ensemble ?', correct: true, feedback: 'Génial! You offered help + made a social invitation. Very French!' },
+        { text: 'C\'est à côté de la pharmacie.', correct: false, feedback: 'Helpful but cold. Offer to show them: "Je peux vous montrer"!' },
+        { text: 'Prenez à gauche après la boulangerie.', correct: false, feedback: 'Directions are good, but offering to go together is much friendlier!' }
+      ]}
     ]
   },
 
-  {
+  restaurant: {
+    id: 'restaurant',
+    icon: '🍽️',
+    title: 'At the Restaurant',
+    titleFr: 'Au restaurant',
+    level: 5,
+    difficulty: 2,
+    vocabulary: ['une table', 'la carte', 'je voudrais', 'l\'addition', 'sans'],
+    setting: 'You enter a restaurant for dinner.',
+    dialogue: [
+      { speaker: 'waiter', text: 'Bonsoir Madame, Monsieur. Une table pour combien ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonsoir ! Une table pour deux, s\'il vous plaît. Près de la fenêtre, si possible.', correct: true, feedback: 'Parfait! Polite + specific request. Very French!' },
+        { text: 'Deux personnes.', correct: false, feedback: 'Too short! Say "Une table pour deux, s\'il vous plaît" and add a preference.' },
+        { text: 'Table pour deux.', correct: false, feedback: 'Missing "Bonsoir" and "s\'il vous plaît"! Always be polite.' }
+      ]},
+      { speaker: 'waiter', text: 'Voici la carte. Je reviens dans deux minutes.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Merci. Je voudrais aussi un verre d\'eau, s\'il vous plaît.', correct: true, feedback: 'Bien! You thanked + made an additional polite request.' },
+        { text: 'Dépêchez-vous.', correct: false, feedback: 'Rude! Never rush French waiters. Be patient and polite.' },
+        { text: 'OK.', correct: false, feedback: 'Too brief! Say "Merci" and you can ask for water while deciding.' }
+      ]},
+      { speaker: 'waiter', text: 'Vous avez choisi ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Oui, je voudrais le poulet rôti, sans ail, s\'il vous plaît. Et mon mari prend le poisson.', correct: true, feedback: 'Excellent! Clear order + dietary requirement + ordering for your companion.' },
+        { text: 'Le poulet.', correct: false, feedback: 'Too brief! Specify, add "s\'il vous plaît", mention any dietary needs.' },
+        { text: 'Je veux le poulet.', correct: false, feedback: 'Use "Je voudrais" not "Je veux" — and always add "s\'il vous plaît"!' }
+      ]},
+      { speaker: 'waiter', text: 'Très bien. Et comme boisson ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Une bouteille de vin rouge, et de l\'eau gazeuse pour mon mari. Merci !', correct: true, feedback: 'Parfait! You ordered drinks for both + polite ending.' },
+        { text: 'Du vin.', correct: false, feedback: 'Specify: "Une bouteille de vin rouge" and ask about your companion\'s drink too.' },
+        { text: 'Rien.', correct: false, feedback: 'Too abrupt! Say "Juste de l\'eau, merci" or specify what you want.' }
+      ]}
+    ]
+  },
+
+  // NIVEAU 6-8 : Intermédiaire (Leçons 6-8)
+  pharmacie: {
+    id: 'pharmacie',
+    icon: '💊',
+    title: 'At the Pharmacy',
+    titleFr: 'À la pharmacie',
+    level: 6,
+    difficulty: 2,
+    vocabulary: ['j\'ai mal à', 'depuis', 'médicament', 'ordonnance', 'contre'],
+    setting: 'You have a headache and need painkillers.',
+    dialogue: [
+      { speaker: 'pharmacist', text: 'Bonjour Madame. Qu\'est-ce qui vous amène ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonjour. J\'ai mal à la tête depuis ce matin. Auriez-vous quelque chose contre la douleur ?', correct: true, feedback: 'Parfait! Symptom + duration + polite request for pain relief.' },
+        { text: 'J\'ai mal à la tête.', correct: false, feedback: 'Too brief! Add "depuis quand" and ask politely for help.' },
+        { text: 'Donnez-moi des cachets.', correct: false, feedback: 'Too direct! Describe symptoms and ask for advice, not demand.' }
+      ]},
+      { speaker: 'pharmacist', text: 'Bien sûr. Avez-vous déjà pris quelque chose ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Non, rien encore. Je préfère demander conseil d\'abord.', correct: true, feedback: 'Excellent! Shows you respect their expertise — very French!' },
+        { text: 'Non.', correct: false, feedback: 'Too short! Explain why you came to them: "Je préfère demander conseil".' },
+        { text: 'Je veux du paracétamol.', correct: false, feedback: 'Don\'t name the drug yourself! Let the pharmacist recommend.' }
+      ]},
+      { speaker: 'pharmacist', text: 'Je vous recommande ce médicament. Prenez-en un comprimé toutes les 6 heures, maximum 3 par jour.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Merci beaucoup pour vos conseils. Puis-je payer par carte ?', correct: true, feedback: 'Parfait! You thanked + confirmed payment method. Very polite.' },
+        { text: 'D\'accord.', correct: false, feedback: 'Too brief! Thank them for advice: "Merci pour vos conseils".' },
+        { text: 'C\'est combien ?', correct: false, feedback: 'You can ask the price, but thank them first for their advice!' }
+      ]}
+    ]
+  },
+
+  mairie: {
     id: 'mairie',
     icon: '🏛️',
     title: 'At the Town Hall',
     titleFr: 'À la mairie',
+    level: 7,
     difficulty: 3,
-    category: 'admin',
-    npcName: 'Mme Bernard',
-    npcRole: 'Agent administratif',
-    setting: 'La mairie de votre commune. Il y a du monde, l'ambiance est un peu stressante.',
-    playerRole: 'Vous voulez changer votre adresse sur vos papiers officiels.',
-    steps: [
-      {
-        npc: "Bonjour, bienvenue. Vous avez pris rendez-vous ?",
-        npcPhon: "Bon-ZHOOR, byan-VUH-new. Voo zah-vay PRAN rahn-day-VOO ?",
-        options: [
-          { text: "Non, je suis juste passé.", correct: 0, feedback: "❌ En mairie, il faut souvent un RDV. Sans RDV, vous risquez d'attendre très longtemps ou de ne pas être reçu." },
-          { text: "Oui, j'ai rendez-vous à 14h avec [Mme Bernard].", correct: 2, feedback: "✅ Parfait ! Toujours préciser l'heure et le nom de la personne en mairie. C'est plus professionnel." },
-          { text: "Je ne savais pas qu'il fallait un rendez-vous.", correct: 1, feedback: "😐 C'est compréhensible quand on arrive en France. Demandez poliment : 'Puis-je prendre rendez-vous pour une autre fois ?'" }
-        ]
-      },
-      {
-        npc: "Très bien. Quelle démarche souhaitez-vous effectuer ?",
-        npcPhon: "Tray byan. Kel day-MAHRSH swah-tay-voo ay-fek-tew-AY ?",
-        options: [
-          { text: "Je veux changer mon adresse.", correct: 1, feedback: "😐 Correct, mais 'Je voudrais' est plus poli que 'Je veux' dans un contexte administratif." },
-          { text: "Je voudrais faire un changement d'adresse, s'il vous plaît.", correct: 2, feedback: "✅ Excellent ! Poli, clair, professionnel. L'agente administrative apprécie ce ton." },
-          { text: "Mon adresse est plus bonne.", correct: 0, feedback: "❌ 'Plus bonne' n'existe pas en français ! Dites : 'Mon adresse a changé' ou 'Je dois mettre à jour mon adresse.'" }
-        ]
-      },
-      {
-        npc: "D'accord. J'ai besoin de votre justificatif de domicile et d'une pièce d'identité.",
-        npcPhon: "Doh-kor. Zhuh bee-ZWAHN duh votr zhu-stee-fee-kah-TEEF duh doh-mee-SEEL ay dun pee-YES dee-dahn-tee-TAY.",
-        options: [
-          { text: "Qu'est-ce que c'est un justificatif de domicile ?", correct: 2, feedback: "✅ Excellente question ! Un justificatif de domicile = facture EDF, eau, ou assurance habitation de moins de 3 mois. C'est ESSENTIEL en France." },
-          { text: "Je n'ai rien sur moi.", correct: 0, feedback: "❌ Problème ! En mairie, il faut TOUJOURS avoir ses papiers. Revenez avec : ID + justificatif de domicile + ancien document à modifier." },
-          { text: "Voici ma carte d'identité et ma facture EDF.", correct: 2, feedback: "✅ Parfait ! Vous êtes bien préparé. La facture EDF est le justificatif de domicile le plus courant en France." }
-        ]
-      },
-      {
-        npc: "C'est noté. Le changement sera effectif sous 48 heures. Vous recevrez un courrier de confirmation.",
-        npcPhon: "Say noh-TAY. Luh shahn-ZHAH-MAN sair-rah ay-fek-TEEF soo kah-rahn-TEET-UR. Voo ruh-suh-VRAIR uhn koo-RYAY duh kohn-feer-mah-SYOHN.",
-        options: [
-          { text: "OK, merci.", correct: 1, feedback: "😐 Correct mais minimal. Essayez de confirmer que vous avez bien compris les délais." },
-          { text: "D'accord, sous 48 heures. Merci beaucoup madame, bonne journée !", correct: 2, feedback: "✅ Parfait ! Vous répétez l'information importante (48h) pour confirmer votre compréhension. Très professionnel." },
-          { text: "Je dois payer ?", correct: 0, feedback: "❌ Le changement d'adresse est gratuit en France ! Cette question peut surprendre l'agente. Demandez plutôt : 'Y a-t-il des frais ?' si vous n'êtes pas sûr." }
-        ]
-      }
+    vocabulary: ['je voudrais', 'déclarer', 'changer', 'papiers', 'rendez-vous'],
+    setting: 'You need to change your address at the town hall.',
+    dialogue: [
+      { speaker: 'clerk', text: 'Bonjour. Quelle est la nature de votre démarche ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonjour Madame. Je voudrais déclarer un changement d\'adresse, s\'il vous plaît.', correct: true, feedback: 'Parfait! Formal, clear, and polite. Exactly right for admin.' },
+        { text: 'Je change d\'adresse.', correct: false, feedback: 'Too informal for admin! Use "Je voudrais déclarer" + "s\'il vous plaît".' },
+        { text: 'J\'ai besoin de papiers.', correct: false, feedback: 'Too vague! Specify exactly what you need: "changement d\'adresse".' }
+      ]},
+      { speaker: 'clerk', text: 'Très bien. Votre carte d\'identité et un justificatif de domicile de moins de 3 mois, s\'il vous plaît.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Voici ma carte d\'identité et ma facture EDF de ce mois. Est-ce que cela suffit ?', correct: true, feedback: 'Excellent! You provided documents + asked if they\'re sufficient.' },
+        { text: 'Je n\'ai pas de facture.', correct: false, feedback: 'Negative! Say what you DO have: "J\'ai ma facture EDF, est-ce que ça suffit?"' },
+        { text: 'Voilà.', correct: false, feedback: 'Too brief! Name the documents and ask if they\'re OK.' }
+      ]},
+      { speaker: 'clerk', text: 'C\'est parfait. Je vous remets un récépissé. La carte sera prête dans 15 jours.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Merci beaucoup. Puis-je venir la récupérer sans rendez-vous, ou faut-il en prendre un ?', correct: true, feedback: 'Parfait! You thanked + asked about the collection process. Very thorough!' },
+        { text: 'OK, merci.', correct: false, feedback: 'Too brief! Ask about next steps: "Comment je récupère la carte?"' },
+        { text: '15 jours ! C\'est long.', correct: false, feedback: 'Don\'t complain about French admin speed! Just accept and ask practical questions.' }
+      ]}
     ]
   },
 
-  {
-    id: 'urgence',
-    icon: '🚨',
-    title: 'Emergency Call',
-    titleFr: "Appel d'urgence",
+  // NIVEAU 9-11 : Intermédiaire+ (Leçons 9-11)
+  médecin: {
+    id: 'médecin',
+    icon: '🩺',
+    title: 'At the Doctor',
+    titleFr: 'Chez le médecin',
+    level: 9,
     difficulty: 3,
-    category: 'urgence',
-    npcName: 'Opérateur SAMU',
-    npcRole: 'Service d'aide médicale urgente',
-    setting: "Votre enfant est tombé et s'est blessé au genou. Il saigne beaucoup. Vous appelez le 15.",
-    playerRole: "Vous devez expliquer calmement la situation à l'opérateur d'urgence.",
-    steps: [
-      {
-        npc: "SAMU 15, bonjour. Quelle est votre urgence ?",
-        npcPhon: "SAH-mew kahz, Bon-ZHOOR. Kel ay votr oor-ZHAHNS ?",
-        options: [
-          { text: "Mon fils saigne ! Venez vite !", correct: 1, feedback: "😐 Votre inquiétude est compréhensible, mais restez calme. L'opérateur a besoin d'informations précises pour vous aider." },
-          { text: "Bonjour, mon fils s'est blessé au genou et saigne beaucoup. Il a [9 ans].", correct: 2, feedback: "✅ Excellent ! Vous restez calme, vous décrivez la blessure, et vous donnez l'âge de l'enfant. C'est exactement ce qu'il faut faire." },
-          { text: "Je ne sais pas quoi faire !", correct: 0, feedback: "❌ L'opérateur est là pour vous guider, mais il a besoin de savoir ce qui se passe. Respirez et décrivez la situation." }
-        ]
-      },
-      {
-        npc: "D'accord. Le saignement s'arrête-t-il si vous appuyez sur la blessure ?",
-        npcPhon: "Doh-kor. Luh sayn-YAHM sah-RET-teel see voo zah-pwee-YAY sir lah blay-SUR ?",
-        options: [
-          { text: "Oui, un peu.", correct: 1, feedback: "😐 OK, c'est une bonne nouvelle. Mais précisez : ça saigne toujours à travers le pansement ou pas ?" },
-          { text: "Oui, ça s'arrête quand j'appuie avec un linge propre.", correct: 2, feedback: "✅ Très bien ! Vous utilisez un linge PROPRE (important pour l'hygiène) et vous décrivez précisément la situation." },
-          { text: "Non, ça coule partout !", correct: 1, feedback: "😐 Si le saignement ne s'arrête vraiment pas, l'opérateur va envoyer une ambulance. Restez calme et suivez ses instructions." }
-        ]
-      },
-      {
-        npc: "Très bien. Restez calme. Nettoyez la plaie avec de l'eau propre et mettez un pansement. Appelez-nous si le saignement reprend.",
-        npcPhon: "Tray byan. Ruh-STAY kalm. Nay-twah-YAY lah PLEH ah-VECK duh loh proor ay may-TAY uhn pahn-SAH-mahn. Ah-play-NOO see luh sayn-YAHM ruh-PREE.",
-        options: [
-          { text: "OK, merci, au revoir.", correct: 1, feedback: "😐 Correct, mais vous auriez pu répéter les instructions pour confirmer que vous avez bien compris." },
-          { text: "D'accord, je nettoie et je mets un pansement. Merci beaucoup.", correct: 2, feedback: "✅ Parfait ! Vous répétez les instructions, ce qui rassure l'opérateur que vous allez bien faire. Vous avez géré cette urgence comme il faut." },
-          { text: "Je ne comprends pas !", correct: 0, feedback: "❌ Si vous ne comprenez pas, dites : 'Pouvez-vous répéter plus lentement ?' L'opérateur est habitué aux étrangers." }
-        ]
-      }
+    vocabulary: ['depuis quand', 'les symptômes', 'ordonnance', 'suivre', 'traitement'],
+    setting: 'You have a doctor\'s appointment for a persistent cough.',
+    dialogue: [
+      { speaker: 'doctor', text: 'Bonjour Madame. Qu\'est-ce qui vous amène aujourd\'hui ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonjour Docteur. Je tousse depuis une semaine et j\'ai mal à la gorge. J\'ai aussi de la fièvre depuis hier.', correct: true, feedback: 'Parfait! Symptom + duration + additional details. Very clear.' },
+        { text: 'Je suis malade.', correct: false, feedback: 'Too vague! Describe specific symptoms and when they started.' },
+        { text: 'J\'ai besoin d\'antibiotiques.', correct: false, feedback: 'Don\'t self-diagnose! Describe symptoms and let the doctor decide.' }
+      ]},
+      { speaker: 'doctor', text: 'Je vais vous examiner. Ouvrez la bouche et dites "Aaaaah".' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Aaaaah. Docteur, est-ce que c\'est grave ?', correct: true, feedback: 'Bien! You followed instructions + asked a natural concern.' },
+        { text: 'Je déteste ça.', correct: false, feedback: 'Don\'t complain! Just cooperate and ask relevant questions after.' },
+        { text: 'D\'accord.', correct: false, feedback: 'A bit passive. After cooperating, ask about your condition.' }
+      ]},
+      { speaker: 'doctor', text: 'Ce n\'est pas grave, c\'est une angine. Je vous fais une ordonnance pour 5 jours.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Merci Docteur. Dois-je reprendre rendez-vous dans une semaine, ou seulement si ça ne va pas mieux ?', correct: true, feedback: 'Excellent! You asked about follow-up — very responsible and French!' },
+        { text: 'Merci.', correct: false, feedback: 'Too brief! Ask about follow-up: "Dois-je reprendre rendez-vous?"' },
+        { text: 'C\'est tout ?', correct: false, feedback: 'Sounds dismissive! Ask properly about follow-up care.' }
+      ]}
     ]
   },
 
-  {
+  banque: {
+    id: 'banque',
+    icon: '🏦',
+    title: 'At the Bank',
+    titleFr: 'À la banque',
+    level: 10,
+    difficulty: 3,
+    vocabulary: ['ouvrir un compte', 'RIB', 'virement', 'découvert', 'agios'],
+    setting: 'You want to open a bank account in France.',
+    dialogue: [
+      { speaker: 'advisor', text: 'Bonjour Madame. Comment puis-je vous aider ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonjour. Je voudrais ouvrir un compte courant, s\'il vous plaît. Je viens de m\'installer en France.', correct: true, feedback: 'Parfait! Clear request + context (newly arrived). Very helpful.' },
+        { text: 'Je veux un compte.', correct: false, feedback: 'Too vague! Specify "compte courant" and mention you\'re new in France.' },
+        { text: 'J\'ai besoin d\'une carte bancaire.', correct: false, feedback: 'You need an account first! Ask for "compte courant" first.' }
+      ]},
+      { speaker: 'advisor', text: 'Très bien. Votre passeport, un justificatif de domicile et votre contrat de travail, s\'il vous plaît.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Voici mon passeport et ma facture EDF. Pour le contrat, je suis auto-entrepreneuse — voici mon attestation URSSAF.', correct: true, feedback: 'Excellent! You provided what you have + explained your situation clearly.' },
+        { text: 'Je n\'ai pas de contrat.', correct: false, feedback: 'Don\'t just say what you lack! Explain your situation: "Je suis auto-entrepreneuse".' },
+        { text: 'Voilà.', correct: false, feedback: 'Name each document and explain if your situation is special.' }
+      ]},
+      { speaker: 'advisor', text: 'Parfait. Votre compte sera actif dans 48h. Souhaitez-vous un découvert autorisé ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Oui, de 500 euros si possible. Quels sont les agios en cas de dépassement ?', correct: true, feedback: 'Parfait! You accepted + asked about fees. Very financially aware!' },
+        { text: 'Oui.', correct: false, feedback: 'Too brief! Ask about the overdraft limit and fees: "Quels sont les agios?"' },
+        { text: 'Non merci.', correct: false, feedback: 'A bit rigid! An overdraft can be useful — ask about terms first.' }
+      ]}
+    ]
+  },
+
+  // NIVEAU 12-14 : Avancé (Leçons 12-14)
+  gare: {
     id: 'gare',
     icon: '🚆',
     title: 'At the Train Station',
-    titleFr: 'À la gare',
-    difficulty: 2,
-    category: 'transports',
-    npcName: 'Agent SNCF',
-    npcRole: 'Agent en gare',
-    setting: 'La gare de Nantes. Vous voulez prendre un train pour Paris. Il y a du monde au guichet.',
-    playerRole: 'Vous voulez acheter un billet et comprendre les horaires.',
-    steps: [
-      {
-        npc: "Bonjour, je peux vous aider ?",
-        npcPhon: "Bon-ZHOOR, zhuh puh voo zah-DAY ?",
-        options: [
-          { text: "Un billet pour Paris.", correct: 1, feedback: "😐 Compris, mais trop direct. Ajoutez 'Je voudrais' et 's'il vous plaît' pour être plus poli." },
-          { text: "Bonjour, je voudrais un billet pour Paris, s'il vous plaît.", correct: 2, feedback: "✅ Parfait ! Vous avez répondu au bonjour (ESSENTIEL) et vous êtes poli. L'agent sera plus enclin à vous aider." },
-          { text: "Paris.", correct: 0, feedback: "❌ Trop court et impersonnel. En France, toujours commencer par 'Bonjour' et finir par 's'il vous plaît'." }
-        ]
-      },
-      {
-        npc: "Un aller-simple ou un aller-retour ? Quel jour souhaitez-vous partir ?",
-        npcPhon: "Uhn ah-lay-SAN-pl oo uhn ah-lay ruh-TOOR ? Kel zhoor swah-tay-voo par-TEER ?",
-        options: [
-          { text: "Aujourd'hui. Aller-retour.", correct: 1, feedback: "😐 Correct, mais vous auriez pu préciser la date de retour et demander les horaires disponibles." },
-          { text: "Un aller-retour pour aujourd'hui, je reviens demain soir. Quels sont les horaires ?", correct: 2, feedback: "✅ Excellent ! Vous donnez toutes les informations nécessaires et vous posez une question utile." },
-          { text: "Je ne sais pas.", correct: 0, feedback: "❌ L'agent a besoin d'informations pour vous aider. Réfléchissez à votre voyage avant de venir au guichet." }
-        ]
-      },
-      {
-        npc: "Le prochain départ est à 14h30, voie B. 47 euros l'aller-retour. Ça vous va ?",
-        npcPhon: "Luh proh-SHAN day-PAR ay ah kah-RAHN-TWAH, vwah B. Kah-RAHN-TEH-SET uh-ROH lah-lay-ruh-TOOR. Sah voo VAH ?",
-        options: [
-          { text: "C'est cher.", correct: 0, feedback: "❌ En France, on ne négocie pas les prix à la SNCF ! Si c'est trop cher, demandez : 'Y a-t-il un tarif réduit ?'" },
-          { text: "Parfait, je prends. Je paye comment ?", correct: 2, feedback: "✅ Bien ! Vous confirmez et vous demandez les moyens de paiement. Efficace." },
-          { text: "Y a-t-il un tarif moins cher ?", correct: 1, feedback: "😐 Bonne question ! Il existe des cartes de réduction (Carte Avantage). Renseignez-vous." }
-        ]
-      },
-      {
-        npc: "Par carte ou espèces. Votre billet est échangeable et remboursable. Bon voyage !",
-        npcPhon: "Par kart oo ay-SPES. Voh-tuh bee-YAY ay tayk-SHAHN-zhabl ay rahn-boor-SAH-bluh. Bon vwah-YAHZH !",
-        options: [
-          { text: "OK.", correct: 0, feedback: "❌ Trop sec ! L'agent vient de vous donner des informations importantes et de vous souhaiter bon voyage. Remerciez !" },
-          { text: "Merci beaucoup ! Bonne journée !", correct: 2, feedback: "✅ Parfait ! Poli et enthousiaste. Vous êtes prêt pour votre voyage en train français !" },
-          { text: "Merci.", correct: 1, feedback: "😐 Minimal. 'Bonne journée' en retour est toujours apprécié en France." }
-        ]
-      }
+    titleFr: 'À la gare SNCF',
+    level: 12,
+    difficulty: 3,
+    vocabulary: ['billet', 'quai', 'retard', 'correspondance', 'composter'],
+    setting: 'You need to buy a train ticket and find your platform.',
+    dialogue: [
+      { speaker: 'agent', text: 'Bonjour. Destination et date ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonjour. Je voudrais un aller-retour pour Lyon, samedi prochain, départ le matin si possible.', correct: true, feedback: 'Parfait! Specific: destination, date, return, time preference.' },
+        { text: 'Lyon.', correct: false, feedback: 'Too brief! Specify date, return, and time preference.' },
+        { text: 'Un billet pour Lyon.', correct: false, feedback: 'Need more details! Say "aller-retour" + date + time preference.' }
+      ]},
+      { speaker: 'agent', text: 'Il y a un TGV à 8h30 et un autre à 10h15. Lequel préférez-vous ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Le 8h30, s\'il vous plaît. Y a-t-il une correspondance, ou c\'est direct ?', correct: true, feedback: 'Excellent! You chose + asked about transfers — very practical.' },
+        { text: 'Le premier.', correct: false, feedback: 'Specify "8h30" and ask if it\'s direct: "C\'est direct?"' },
+        { text: 'Le moins cher.', correct: false, feedback: 'Valid concern, but first confirm if it\'s direct! Ask "Y a-t-il une correspondance?"' }
+      ]},
+      { speaker: 'agent', text: 'C\'est direct, 2h de trajet. Quelle classe ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Deuxième classe, s\'il vous plaît. Et je voudrais un billet modifiable, au cas où.', correct: true, feedback: 'Parfait! You chose class + asked for flexibility. Very smart!' },
+        { text: 'Deuxième.', correct: false, feedback: 'Add "s\'il vous plaît" and consider asking for a flexible ticket.' },
+        { text: 'La moins chère.', correct: false, feedback: 'You already know 2nd class is cheaper! Just say "Deuxième classe".' }
+      ]}
+    ]
+  },
+
+  // NIVEAU 15-17 : Avancé+ (Leçons 15-17)
+  telephone: {
+    id: 'telephone',
+    icon: '📞',
+    title: 'Phone Call — Appointment',
+    titleFr: 'Appel téléphonique — Rendez-vous',
+    level: 15,
+    difficulty: 3,
+    vocabulary: ['appeler', 'décaler', 'confirmer', 'rappeler', 'indisponible'],
+    setting: 'You need to reschedule a dentist appointment by phone.',
+    dialogue: [
+      { speaker: 'receptionist', text: 'Cabinet dentaire Dubois, bonjour.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonjour Madame. C\'est Madame Smith à l\'appareil. Je voudrais décaler mon rendez-vous de demain, s\'il vous plaît.', correct: true, feedback: 'Parfait! Identify yourself + state purpose clearly. Very professional.' },
+        { text: 'Je peux pas venir demain.', correct: false, feedback: 'Too informal! Identify yourself and use "Je voudrais décaler".' },
+        { text: 'Rendez-vous demain, annulez.', correct: false, feedback: 'Rude and unclear! Say who you are and what you need politely.' }
+      ]},
+      { speaker: 'receptionist', text: 'Bien sûr Madame Smith. Quand seriez-vous disponible ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Je suis disponible jeudi ou vendredi après-midi, après 14h. Auriez-vous une place ces jours-là ?', correct: true, feedback: 'Excellent! You gave options + asked if they have availability. Very efficient.' },
+        { text: 'Je ne sais pas.', correct: false, feedback: 'Not helpful! Give them options: "Je suis disponible..."' },
+        { text: 'La semaine prochaine.', correct: false, feedback: 'Too vague! Specify days and times: "Jeudi ou vendredi après 14h".' }
+      ]},
+      { speaker: 'receptionist', text: 'Jeudi 15h, c\'est possible. Je vous confirme ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Oui, parfait. Merci beaucoup. Pourriez-vous m\'envoyer un SMS de rappel la veille ?', correct: true, feedback: 'Parfait! You confirmed + asked for a reminder. Very organised!' },
+        { text: 'D\'accord.', correct: false, feedback: 'Too brief! Confirm warmly and ask for a reminder if needed.' },
+        { text: 'Oui.', correct: false, feedback: 'Too short! Be warmer: "Oui, parfait, merci beaucoup" and ask for confirmation details.' }
+      ]}
+    ]
+  },
+
+  // NIVEAU 18-20 : Expert (Leçons 18-20)
+  urgence: {
+    id: 'urgence',
+    icon: '🚑',
+    title: 'Emergency — A&E',
+    titleFr: 'Urgences',
+    level: 18,
+    difficulty: 4,
+    vocabulary: ['urgences', 'douleur', 'brûlure', 'chute', 'inconscient'],
+    setting: 'You accompany your child to A&E after a fall.',
+    dialogue: [
+      { speaker: 'nurse', text: 'Les urgences. Quel est le motif de votre venue ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonsoir. Mon fils est tombé de son vélo. Il a une douleur vive au bras et il ne peut pas le bouger.', correct: true, feedback: 'Parfait! Clear: what happened, where it hurts, severity.' },
+        { text: 'Mon fils a mal.', correct: false, feedback: 'Too vague! Specify what happened, where, and severity.' },
+        { text: 'Accident vélo.', correct: false, feedback: 'Too brief! Give full details: "tombé de son vélo", "douleur vive au bras".' }
+      ]},
+      { speaker: 'nurse', text: 'Il est conscient ? Respire-t-il normalement ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Oui, il est conscient et il respire normalement. Mais il a très mal et il pleure beaucoup.', correct: true, feedback: 'Excellent! You answered both questions + added emotional state.' },
+        { text: 'Oui.', correct: false, feedback: 'Too brief! Answer both questions fully and add relevant details.' },
+        { text: 'Il va bien.', correct: false, feedback: 'If he\'s in A&E, he\'s not "bien"! Be accurate: "il est conscient mais il a très mal".' }
+      ]},
+      { speaker: 'nurse', text: 'D\'accord. Je prépare un brancard. Vous avez la carte Vitale ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Oui, la voici. Et j\'ai aussi son carnet de vaccination. Dois-je remplir un formulaire ?', correct: true, feedback: 'Parfait! You provided documents + offered to fill forms. Very prepared!' },
+        { text: 'Oui.', correct: false, feedback: 'Too brief! Hand over the card and ask about next steps.' },
+        { text: 'Je l\'ai oubliée.', correct: false, feedback: 'Always bring the carte Vitale! If forgotten, say "Je suis désolée, je l\'ai oubliée, mais j\'ai son numéro de sécurité sociale".' }
+      ]}
+    ]
+  },
+
+  colloquial: {
+    id: 'colloquial',
+    icon: '🗣️',
+    title: 'Real French — Colloquial Chat',
+    titleFr: 'Français authentique — Conversation informelle',
+    level: 20,
+    difficulty: 4,
+    vocabulary: ['du coup', 'franchement', 'bof', 'nickel', 'pas terrible'],
+    setting: 'You bump into a French friend at the market. Casual chat.',
+    dialogue: [
+      { speaker: 'friend', text: 'Hé ! Ça va ? Tu fais les courses ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Salut ! Oui, je fais les courses. Du coup, je prépare un dîner ce soir. Et toi, tu vas où ?', correct: true, feedback: 'Parfait! "Du coup" + natural follow-up question. Very authentic!' },
+        { text: 'Oui, je fais les courses.', correct: false, feedback: 'Too brief! Add "du coup" and ask them something back.' },
+        { text: 'Bonjour. Je vais au marché.', correct: false, feedback: 'Too formal for a friend! Use "salut" and be casual.' }
+      ]},
+      { speaker: 'friend', text: 'Moi, je vais chez ma mère. Franchement, ce restaurant d\'hier, bof...' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Ah oui ? Pas terrible ? Moi, j\'ai trouvé le service nickel, mais la nourriture, quand même...', correct: true, feedback: 'Génial! You used "pas terrible", "nickel", "quand même" — pure real French!' },
+        { text: 'C\'était mauvais ?', correct: false, feedback: 'Too direct! Use "pas terrible" and "quand même" like a French person.' },
+        { text: 'Je suis désolé.', correct: false, feedback: 'No need to apologise! Engage with their opinion using colloquial French.' }
+      ]},
+      { speaker: 'friend', text: 'Exactement ! Du coup, on se retrouve au café du coin samedi ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Ça marche ! À samedi alors. Et si le café est fermé, on essaie le nouveau bistrot ?', correct: true, feedback: 'Parfait! "Ça marche" + backup plan. Pure French pragmatism!' },
+        { text: 'D\'accord.', correct: false, feedback: 'Too brief! Use "Ça marche" and add a contingency plan.' },
+        { text: 'Oui, samedi.', correct: false, feedback: 'A bit dry! Be more enthusiastic: "Ça marche ! À samedi !"' }
+      ]}
     ]
   }
-];
+
+};
+
+// ================================================================
+// Export
+// ================================================================
+if (typeof window !== 'undefined') {
+  window.CONVERSATION_SCENARIOS = CONVERSATION_SCENARIOS;
+}
