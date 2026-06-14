@@ -1,127 +1,233 @@
 // ═══════════════════════════════════════════════════════════════════
-// SENTENCE-BUILDER.JS — Daily French 🧩 v1.0
+// SENTENCE-BUILDER.JS — Daily French 🧩 v2.0
 // Phrase Builder — Drag blocks to build sentences
+// CORRECTIONS: External data (sentence-builder-data.js), visual validation,
+// XP integration with core.js player system, streak, progress saving
 // ═══════════════════════════════════════════════════════════════════
 
 var PhraseApp = {
   currentLevel: 1,
+  currentMissionIndex: 0,
   currentMission: null,
   score: 0,
   streak: 0,
   completed: 0,
   blocks: [],
-  
-  // Données des niveaux
-  levels: {
-    1: {
-      title: "Basics",
-      missions: [
-        { target: "Je suis content", en: "I am happy", words: ["Je", "suis", "content", "très", "aujourd'hui"] },
-        { target: "Tu es français", en: "You are French", words: ["Tu", "es", "français", "anglais", "belge"] },
-        { target: "Il a un chien", en: "He has a dog", words: ["Il", "a", "un", "chien", "chat", "livre"] }
-      ]
-    },
-    2: {
-      title: "At the café",
-      missions: [
-        { target: "Je voudrais un café", en: "I would like a coffee", words: ["Je", "voudrais", "un", "café", "thé", "s'il", "vous", "plaît"] },
-        { target: "L'addition s'il vous plaît", en: "The bill please", words: ["L'", "addition", "s'il", "vous", "plaît", "merci"] }
-      ]
-    },
-    3: {
-      title: "Directions",
-      missions: [
-        { target: "Où est la gare", en: "Where is the train station", words: ["Où", "est", "la", "gare", "mairie", "banque", "s'il", "vous", "plaît"] },
-        { target: "Tournez à droite", en: "Turn right", words: ["Tournez", "à", "droite", "gauche", "tout", "droit"] }
-      ]
+  levelScores: {}, // best scores per level
+  missionHistory: [], // track completed missions
+
+  // ── DATA ─────────────────────────────────────────────────────────
+  getData: function() {
+    if (typeof SENTENCE_BUILDER_DATA !== 'undefined') {
+      return SENTENCE_BUILDER_DATA;
     }
+    console.error('[PhraseBuilder] SENTENCE_BUILDER_DATA not found!');
+    return {};
   },
-  
+
+  getLevelList: function() {
+    return Object.values(this.getData());
+  },
+
+  getLevel: function(levelNum) {
+    return this.getData()[levelNum] || null;
+  },
+
+  getMissions: function(levelNum) {
+    var lvl = this.getLevel(levelNum);
+    return lvl ? lvl.missions : [];
+  },
+
+  // ── INIT ─────────────────────────────────────────────────────────
   init: function() {
     if (typeof initCore === 'function') initCore();
     this.loadStats();
     this.renderLevelSelect();
     this.loadLevel(1);
     this.bindDragDrop();
+    this.updateHeroInfo();
   },
-  
+
+  // ── STATS & SAVE ─────────────────────────────────────────────────
   loadStats: function() {
-    var saved = localStorage.getItem('dailyFrench_phraseStats');
-    if (saved) {
-      try {
-        var data = JSON.parse(saved);
-        this.score = data.score || 0;
-        this.streak = data.streak || 0;
-        this.completed = data.completed || 0;
-      } catch(e) {}
+    var currentName = (typeof PlayerManager !== 'undefined') ? PlayerManager.getCurrent() : null;
+    var players = (typeof getPlayers === 'function') ? getPlayers() : {};
+    var p = currentName ? players[currentName] : null;
+
+    if (p && p.phraseBuilder) {
+      this.score = p.phraseBuilder.score || 0;
+      this.streak = p.phraseBuilder.streak || 0;
+      this.completed = p.phraseBuilder.completed || 0;
+      this.levelScores = p.phraseBuilder.levelScores || {};
+      this.missionHistory = p.phraseBuilder.missionHistory || [];
+    } else {
+      // Fallback localStorage
+      var saved = localStorage.getItem('dailyFrench_phraseStats');
+      if (saved) {
+        try {
+          var data = JSON.parse(saved);
+          this.score = data.score || 0;
+          this.streak = data.streak || 0;
+          this.completed = data.completed || 0;
+          this.levelScores = data.levelScores || {};
+          this.missionHistory = data.missionHistory || [];
+        } catch(e) {}
+      }
     }
     this.updateScoreBoard();
   },
-  
+
   saveStats: function() {
-    localStorage.setItem('dailyFrench_phraseStats', JSON.stringify({
+    var data = {
       score: this.score,
       streak: this.streak,
-      completed: this.completed
-    }));
+      completed: this.completed,
+      levelScores: this.levelScores,
+      missionHistory: this.missionHistory,
+      lastSaved: new Date().toISOString()
+    };
+
+    // Save to player system if available
+    var currentName = (typeof PlayerManager !== 'undefined') ? PlayerManager.getCurrent() : null;
+    var players = (typeof getPlayers === 'function') ? getPlayers() : {};
+    var p = currentName ? players[currentName] : null;
+
+    if (p) {
+      if (!p.phraseBuilder) p.phraseBuilder = {};
+      p.phraseBuilder = data;
+      if (typeof savePlayers === 'function') savePlayers(players);
+      if (typeof addXP === 'function') addXP(10); // XP for each correct phrase
+    }
+
+    // Always backup to localStorage
+    localStorage.setItem('dailyFrench_phraseStats', JSON.stringify(data));
+    this.updateScoreBoard();
+    this.updateHeroInfo();
   },
-  
+
+  // ── HERO INFO (integrates with core.js) ────────────────────────────
+  updateHeroInfo: function() {
+    var b1 = document.getElementById('b1');
+    var b2 = document.getElementById('b2');
+    var b3 = document.getElementById('b3');
+    var heroLvl = document.getElementById('heroLvl');
+
+    if (b1) b1.textContent = this.currentLevel;
+    if (b2) b2.textContent = this.score;
+    if (b3) b3.textContent = this.completed + '/' + this.getTotalMissions();
+    if (heroLvl) heroLvl.textContent = this.currentLevel;
+  },
+
+  getTotalMissions: function() {
+    var total = 0;
+    var data = this.getData();
+    for (var key in data) {
+      if (data[key].missions) total += data[key].missions.length;
+    }
+    return total;
+  },
+
+  // ── LEVEL SELECT ───────────────────────────────────────────────────
   renderLevelSelect: function() {
     var container = document.getElementById('levelSelect');
     if (!container) return;
-    
+
     container.innerHTML = '';
-    for (var lvl in this.levels) {
+    var data = this.getData();
+
+    for (var key in data) {
+      var lvl = data[key];
+      var lvlNum = parseInt(key);
+      var isActive = lvlNum === this.currentLevel;
+      var isCompleted = this.isLevelCompleted(lvlNum);
+      var bestScore = this.levelScores[lvlNum] || 0;
+
       var btn = document.createElement('button');
-      btn.className = 'lvl-btn' + (parseInt(lvl) === this.currentLevel ? ' active' : '');
-      btn.textContent = lvl + '. ' + this.levels[lvl].title;
-      btn.dataset.level = lvl;
+      btn.className = 'lvl-btn' + (isActive ? ' active' : '') + (isCompleted ? ' completed' : '');
+      btn.dataset.level = lvlNum;
+      btn.innerHTML = '<span class="lvl-num">' + lvlNum + '</span>' +
+                      '<span class="lvl-title">' + lvl.title + '</span>' +
+                      (isCompleted ? '<span class="lvl-check">✓</span>' : '') +
+                      (bestScore > 0 ? '<span class="lvl-score">' + bestScore + '★</span>' : '');
+
       btn.addEventListener('click', function() {
         PhraseApp.loadLevel(parseInt(this.dataset.level));
       });
+
       container.appendChild(btn);
     }
   },
-  
+
+  isLevelCompleted: function(lvlNum) {
+    var lvl = this.getLevel(lvlNum);
+    if (!lvl || !lvl.missions) return false;
+    var completedInLevel = this.missionHistory.filter(function(h) {
+      return h.level === lvlNum;
+    }).length;
+    return completedInLevel >= lvl.missions.length;
+  },
+
+  // ── LOAD LEVEL / MISSION ──────────────────────────────────────────
   loadLevel: function(level) {
     this.currentLevel = level;
     this.currentMissionIndex = 0;
-    
+    this.blocks = [];
+
     // Update active button
     document.querySelectorAll('.lvl-btn').forEach(function(btn) {
       btn.classList.toggle('active', parseInt(btn.dataset.level) === level);
     });
-    
+
+    this.updateHeroInfo();
     this.loadMission();
   },
-  
+
   loadMission: function() {
-    var level = this.levels[this.currentLevel];
-    if (!level) return;
-    
-    var missions = level.missions;
+    var missions = this.getMissions(this.currentLevel);
+    if (!missions || missions.length === 0) {
+      this.showLevelComplete();
+      return;
+    }
+
     var mission = missions[this.currentMissionIndex % missions.length];
     this.currentMission = mission;
-    
+
     var emojiEl = document.getElementById('missionEmoji');
     var textEl = document.getElementById('missionText');
     var hintEl = document.getElementById('missionHint');
-    
-    if (emojiEl) emojiEl.textContent = '🎯';
+    var levelBadge = document.getElementById('missionLevelBadge');
+
+    if (emojiEl) emojiEl.textContent = this.getLevel(this.currentLevel).icon || '🎯';
     if (textEl) textEl.textContent = mission.en;
-    if (hintEl) hintEl.textContent = 'Build: ' + mission.target;
-    
+    if (hintEl) hintEl.textContent = mission.hint || ('Build: ' + mission.target);
+    if (levelBadge) levelBadge.textContent = 'Level ' + this.currentLevel;
+
     this.renderBlocks(mission.words);
     this.clearDropZone();
+    this.hideFeedback();
   },
-  
+
+  showLevelComplete: function() {
+    var textEl = document.getElementById('missionText');
+    var hintEl = document.getElementById('missionHint');
+    var pool = document.getElementById('blocksPool');
+
+    if (textEl) textEl.textContent = '🎉 Level ' + this.currentLevel + ' Complete!';
+    if (hintEl) hintEl.textContent = 'All missions done! Choose another level.';
+    if (pool) pool.innerHTML = '';
+
+    this.clearDropZone();
+    this.renderLevelSelect(); // refresh to show checkmarks
+  },
+
+  // ── BLOCKS & DRAG-DROP ───────────────────────────────────────────
   renderBlocks: function(words) {
     var container = document.getElementById('blocksPool');
     if (!container) return;
-    
-    // Mélanger les mots
+
+    // Shuffle words
     var shuffled = words.slice().sort(function() { return Math.random() - 0.5; });
-    
+
     container.innerHTML = '';
     shuffled.forEach(function(word) {
       var block = document.createElement('div');
@@ -129,46 +235,49 @@ var PhraseApp = {
       block.textContent = word;
       block.draggable = true;
       block.dataset.word = word;
-      
+
       block.addEventListener('dragstart', function(e) {
         e.dataTransfer.setData('text/plain', word);
-        block.style.opacity = '0.5';
+        block.classList.add('dragging');
       });
-      
+
       block.addEventListener('dragend', function() {
-        block.style.opacity = '1';
+        block.classList.remove('dragging');
       });
-      
-      // Touch support
+
+      // Touch/click support
       block.addEventListener('click', function() {
-        PhraseApp.moveToDropZone(block);
+        if (!block.classList.contains('used')) {
+          PhraseApp.moveToDropZone(block);
+        }
       });
-      
+
       container.appendChild(block);
     });
   },
-  
+
   clearDropZone: function() {
     var zone = document.getElementById('dropZone');
     if (zone) {
-      zone.innerHTML = '<span style="color:var(--muted);font-style:italic">👇 Drag blocks here to build your phrase</span>';
+      zone.innerHTML = '<span class="drop-placeholder">👇 Drag or tap blocks to build your phrase</span>';
+      zone.classList.remove('correct', 'incorrect', 'shake');
     }
     this.blocks = [];
   },
-  
+
   bindDragDrop: function() {
     var zone = document.getElementById('dropZone');
     if (!zone) return;
-    
+
     zone.addEventListener('dragover', function(e) {
       e.preventDefault();
       zone.classList.add('drag-over');
     });
-    
+
     zone.addEventListener('dragleave', function() {
       zone.classList.remove('drag-over');
     });
-    
+
     zone.addEventListener('drop', function(e) {
       e.preventDefault();
       zone.classList.remove('drag-over');
@@ -176,118 +285,233 @@ var PhraseApp = {
       if (word) PhraseApp.addBlock(word);
     });
   },
-  
+
   moveToDropZone: function(block) {
     var word = block.dataset.word;
     this.addBlock(word);
-    block.style.visibility = 'hidden';
+    block.classList.add('used');
+    block.style.opacity = '0.3';
+    block.style.pointerEvents = 'none';
   },
-  
+
   addBlock: function(word) {
     var zone = document.getElementById('dropZone');
     if (!zone) return;
-    
-    // Remove placeholder
+
+    // Remove placeholder on first block
     if (this.blocks.length === 0) zone.innerHTML = '';
-    
+    zone.classList.remove('correct', 'incorrect', 'shake');
+
     this.blocks.push(word);
-    
+
     var slot = document.createElement('div');
     slot.className = 'slot filled';
     slot.textContent = word;
     slot.dataset.word = word;
-    
+
     slot.addEventListener('click', function() {
       PhraseApp.removeBlock(slot, word);
     });
-    
+
     zone.appendChild(slot);
+    this.scrollToBottom(zone);
   },
-  
+
   removeBlock: function(slot, word) {
     var zone = document.getElementById('dropZone');
     if (!zone) return;
-    
+
     zone.removeChild(slot);
-    this.blocks = this.blocks.filter(function(w) { return w !== word; });
-    
+    this.blocks = this.blocks.filter(function(w, i) {
+      return !(w === word && i === PhraseApp.blocks.indexOf(word));
+    });
+
     // Restore block in pool
-    var poolBlock = document.querySelector('.block[data-word="' + word + '"]');
-    if (poolBlock) poolBlock.style.visibility = 'visible';
-    
-    if (this.blocks.length === 0) {
-      zone.innerHTML = '<span style="color:var(--muted);font-style:italic">👇 Drag blocks here to build your phrase</span>';
-    }
-  },
-  
-  checkPhrase: function() {
-    if (!this.currentMission) return;
-    
-    var built = this.blocks.join(' ');
-    var target = this.currentMission.target;
-    
-    // Normalize pour comparaison
-    var normalize = function(s) {
-      return s.toLowerCase().replace(/[',]/g, '').replace(/\s+/g, ' ').trim();
-    };
-    
-    var isCorrect = normalize(built) === normalize(target);
-    
-    var feedback = document.getElementById('feedback');
-    if (feedback) {
-      feedback.style.display = 'block';
-      if (isCorrect) {
-        feedback.innerHTML = '<div style="color:var(--green);font-weight:700">✓ Correct! "' + target + '"</div>';
-        this.score += 10;
-        this.streak++;
-        this.completed++;
-        this.saveStats();
-        this.updateScoreBoard();
-        
-        setTimeout(function() {
-          PhraseApp.currentMissionIndex++;
-          PhraseApp.loadMission();
-          feedback.style.display = 'none';
-        }, 1500);
-      } else {
-        feedback.innerHTML = '<div style="color:var(--red);font-weight:700">✗ Try again. You built: "' + built + '"</div><div style="color:var(--muted);font-size:var(--font-sm)">Hint: ' + target + '</div>';
-        this.streak = 0;
+    var poolBlocks = document.querySelectorAll('.block[data-word="' + word + '"]');
+    for (var i = 0; i < poolBlocks.length; i++) {
+      if (poolBlocks[i].classList.contains('used')) {
+        poolBlocks[i].classList.remove('used');
+        poolBlocks[i].style.opacity = '1';
+        poolBlocks[i].style.pointerEvents = 'auto';
+        break;
       }
     }
+
+    if (this.blocks.length === 0) {
+      this.clearDropZone();
+    }
+    zone.classList.remove('correct', 'incorrect', 'shake');
   },
-  
+
+  // ── VALIDATION ───────────────────────────────────────────────────
+  checkPhrase: function() {
+    if (!this.currentMission) return;
+
+    var built = this.blocks.join(' ');
+    var target = this.currentMission.target;
+
+    // Normalize for comparison
+    var normalize = function(s) {
+      return s.toLowerCase()
+        .replace(/[']/g, '')
+        .replace(/[']/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    };
+
+    var isCorrect = normalize(built) === normalize(target);
+    var zone = document.getElementById('dropZone');
+
+    if (isCorrect) {
+      this.handleCorrect(target);
+    } else {
+      this.handleIncorrect(built, target);
+    }
+  },
+
+  handleCorrect: function(target) {
+    var zone = document.getElementById('dropZone');
+    var feedback = document.getElementById('feedback');
+
+    // Visual: green glow + checkmark
+    if (zone) {
+      zone.classList.add('correct');
+      zone.classList.remove('incorrect', 'shake');
+    }
+
+    // Score
+    var points = 10 + Math.min(this.streak, 5); // bonus streak
+    this.score += points;
+    this.streak++;
+    this.completed++;
+
+    // Track mission
+    this.missionHistory.push({
+      level: this.currentLevel,
+      missionIndex: this.currentMissionIndex,
+      target: target,
+      timestamp: new Date().toISOString()
+    });
+
+    // Update level best
+    if (!this.levelScores[this.currentLevel]) this.levelScores[this.currentLevel] = 0;
+    this.levelScores[this.currentLevel] = Math.max(this.levelScores[this.currentLevel], this.streak);
+
+    // Feedback
+    if (feedback) {
+      feedback.style.display = 'block';
+      feedback.className = 'feedback feedback-correct';
+      feedback.innerHTML =
+        '<div class="feedback-icon">✅</div>' +
+        '<div class="feedback-title">Correct!</div>' +
+        '<div class="feedback-phrase">"' + escapeHtml(target) + '"</div>' +
+        '<div class="feedback-message">' + escapeHtml(this.currentMission.feedbackCorrect || 'Well done!') + '</div>' +
+        '<div class="feedback-points">+' + points + ' points 🔥 Streak: ' + this.streak + '</div>';
+    }
+
+    // Save & update
+    this.saveStats();
+
+    // Auto-advance after delay
+    setTimeout(function() {
+      PhraseApp.currentMissionIndex++;
+      var missions = PhraseApp.getMissions(PhraseApp.currentLevel);
+      if (PhraseApp.currentMissionIndex >= missions.length) {
+        PhraseApp.showLevelComplete();
+      } else {
+        PhraseApp.loadMission();
+      }
+    }, 2000);
+  },
+
+  handleIncorrect: function(built, target) {
+    var zone = document.getElementById('dropZone');
+    var feedback = document.getElementById('feedback');
+
+    // Visual: red shake
+    if (zone) {
+      zone.classList.add('incorrect', 'shake');
+      zone.classList.remove('correct');
+      setTimeout(function() { zone.classList.remove('shake'); }, 500);
+    }
+
+    this.streak = 0;
+
+    // Feedback
+    if (feedback) {
+      feedback.style.display = 'block';
+      feedback.className = 'feedback feedback-incorrect';
+      feedback.innerHTML =
+        '<div class="feedback-icon">❌</div>' +
+        '<div class="feedback-title">Not quite!</div>' +
+        '<div class="feedback-built">You built: "' + escapeHtml(built) + '"</div>' +
+        '<div class="feedback-hint">' + escapeHtml(this.currentMission.feedbackIncorrect || ('Hint: ' + target)) + '</div>' +
+        '<div class="feedback-target">Target: "' + escapeHtml(target) + '"</div>';
+    }
+  },
+
+  hideFeedback: function() {
+    var feedback = document.getElementById('feedback');
+    if (feedback) {
+      feedback.style.display = 'none';
+      feedback.className = 'feedback';
+    }
+  },
+
+  // ── UTILITIES ────────────────────────────────────────────────────
   updateScoreBoard: function() {
     var scoreEl = document.getElementById('scoreTotal');
     var streakEl = document.getElementById('scoreStreak');
     var completedEl = document.getElementById('scoreCompleted');
-    
+
     if (scoreEl) scoreEl.textContent = this.score;
     if (streakEl) streakEl.textContent = this.streak;
     if (completedEl) completedEl.textContent = this.completed;
+  },
+
+  scrollToBottom: function(el) {
+    el.scrollTop = el.scrollHeight;
   }
 };
 
-// Remplacer les stubs globaux
+// ── GLOBAL STUBS (called from HTML onclick) ────────────────────────
 function checkPhrase() { PhraseApp.checkPhrase(); }
 function clearPhrase() { PhraseApp.clearDropZone(); }
-function showHint() { 
-  if (PhraseApp.currentMission) {
-    showToast('Hint: ' + PhraseApp.currentMission.target);
-  }
-}
-function speakPhrase() {
-  if (PhraseApp.currentMission) {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      var u = new SpeechSynthesisUtterance(PhraseApp.currentMission.target);
-      u.lang = 'fr-FR';
-      u.rate = 0.85;
-      window.speechSynthesis.speak(u);
-    }
+
+function showHint() {
+  if (PhraseApp.currentMission && PhraseApp.currentMission.hint) {
+    showToast('💡 ' + PhraseApp.currentMission.hint);
+  } else if (PhraseApp.currentMission) {
+    showToast('💡 Build: ' + PhraseApp.currentMission.target);
   }
 }
 
-// Démarrage
+function speakPhrase() {
+  if (!PhraseApp.currentMission) return;
+  var text = PhraseApp.currentMission.target;
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'fr-FR';
+    u.rate = 0.85;
+    var voices = window.speechSynthesis.getVoices();
+    var frVoice = voices.find(function(v) { return v.lang && v.lang.startsWith('fr'); });
+    if (frVoice) u.voice = frVoice;
+    window.speechSynthesis.speak(u);
+  }
+}
+
+// ── ESCAPE HTML ──────────────────────────────────────────────────
+function escapeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+// ── STARTUP ────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
   PhraseApp.init();
 });
