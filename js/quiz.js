@@ -93,7 +93,7 @@ function renderLessons() {
     container.appendChild(card);
   });
   
-  // ✅ Appliquer le mode d'affichage des colonnes (indépendant de DirectionMode)
+  // Appliquer le mode d'affichage des colonnes (indépendant de DirectionMode)
   if (typeof LessonViewMode !== 'undefined') {
     LessonViewMode.apply();
   }
