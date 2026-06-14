@@ -1,3 +1,253 @@
+// ═══════════════════════════════════════════════════════════════════
+// CONVERSATION-DATA.JS — Daily French 🥖 v1.0
+// Talk / Conversation Simulator — 20 scenarios aligned with lessons 1-20
+// Structure: { id: { id, icon, title, titleFr, level, difficulty, requiredLesson, vocabulary, setting, dialogue[] } }
+// Each dialogue step: { speaker: 'npc'|'you', text, choices[] }
+// Each choice: { text, correct: true|false, feedback }
+// ═══════════════════════════════════════════════════════════════════
+
+const CONVERSATION_SCENARIOS = {
+
+  // ═══════════════════════════════════════════════════════════════
+  // NIVEAU 1 — Greetings & Introductions
+  // Leçon 1 : Bonjour, Je m'appelle, Enchanté, Je suis
+  // ═══════════════════════════════════════════════════════════════
+  1: {
+    id: 'salutations',
+    icon: '🙋',
+    title: 'Greetings & Introductions',
+    titleFr: 'Salutations et présentations',
+    level: 1,
+    difficulty: 1,
+    requiredLesson: 1,
+    vocabulary: ['Bonjour', 'Je m\'appelle', 'Enchanté', 'Je suis', 'J\'habite'],
+    setting: 'You meet your new neighbour for the first time in the hallway.',
+    dialogue: [
+      { speaker: 'neighbour', text: 'Bonjour ! Je suis Monsieur Dupont, votre voisin du dessus.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonjour Monsieur Dupont. Je m\'appelle Marie Smith, enchantée de vous rencontrer.', correct: true, feedback: 'Parfait ! Polite greeting + full name + "enchantée". Very French!' },
+        { text: 'Bonjour.', correct: false, feedback: 'Too brief! Add your name and "enchantée" — it\'s essential in France.' },
+        { text: 'Salut Dupont.', correct: false, feedback: 'Too informal! Use "Monsieur" and be more formal with neighbours.' }
+      ]},
+      { speaker: 'neighbour', text: 'Vous êtes anglaise, c\'est ça ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Oui, je suis anglaise. J\'habite ici depuis deux semaines. J\'adore le quartier !', correct: true, feedback: 'Excellent ! You confirmed + added context + compliment. Very natural!' },
+        { text: 'Oui.', correct: false, feedback: 'Too brief! Expand: where you\'re from, how long you\'ve been here, what you think.' },
+        { text: 'Non, américaine.', correct: false, feedback: 'You said you were English earlier! Be consistent. And add more details.' }
+      ]}
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // NIVEAU 2 — At the Market
+  // Leçon 2 : Je voudrais, un kilo de, s'il vous plaît, C'est combien
+  // ═══════════════════════════════════════════════════════════════
+  2: {
+    id: 'marche',
+    icon: '🛒',
+    title: 'At the Market',
+    titleFr: 'Au marché',
+    level: 2,
+    difficulty: 1,
+    requiredLesson: 2,
+    vocabulary: ['Je voudrais', 'un kilo de', 's\'il vous plaît', 'C\'est combien', 'C\'est tout'],
+    setting: 'You are at the local market buying fresh produce.',
+    dialogue: [
+      { speaker: 'vendor', text: 'Bonjour Madame. Vous désirez ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Bonjour. Je voudrais un kilo de tomates et un kilo de pommes, s\'il vous plaît.', correct: true, feedback: 'Parfait ! "Je voudrais" is polite, quantities clear, "s\'il vous plaît" at the end.' },
+        { text: 'Donnez-moi des tomates.', correct: false, feedback: 'Too direct! Use "Je voudrais" and specify quantities.' },
+        { text: 'Tomates et pommes.', correct: false, feedback: 'Too brief! Use full sentences: "Je voudrais... s\'il vous plaît".' }
+      ]},
+      { speaker: 'vendor', text: 'Voilà. Ça fait 4,50 €.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'C\'est combien les pommes seules ? Et je voudrais aussi un bouquet de basilic.', correct: true, feedback: 'Excellent ! You asked for details + added another item. Very natural market chat!' },
+        { text: 'Voici 5 €.', correct: false, feedback: 'OK but abrupt! Ask about prices or add something: "C\'est combien les pommes seules ?"' },
+        { text: 'C\'est cher.', correct: false, feedback: 'Don\'t complain about prices! Ask politely or just pay.' }
+      ]}
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // NIVEAU 3 — In the Garden
+  // Leçon 3 : Je dois, arroser, le jardin, les fleurs, la pelouse
+  // ═══════════════════════════════════════════════════════════════
+  3: {
+    id: 'jardin',
+    icon: '🌿',
+    title: 'In the Garden',
+    titleFr: 'Dans le jardin',
+    level: 3,
+    difficulty: 1,
+    requiredLesson: 3,
+    vocabulary: ['Je dois', 'arroser', 'le jardin', 'les fleurs', 'la pelouse'],
+    setting: 'You are chatting with your neighbour about gardening.',
+    dialogue: [
+      { speaker: 'neighbour', text: 'Vous avez un beau jardin ! Vous faites du jardinage ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Merci ! Oui, je dois arroser les fleurs tous les soirs et je tonds la pelouse le samedi.', correct: true, feedback: 'Parfait ! You thanked + gave specific routine details. Very natural!' },
+nez-moi des tomates.', correct: false, feedback: 'Too direct! Use "Je voudrais" and specify quantities.' },
+        { text: 'Tomates et pommes.', correct: false, feedback: 'Too brief! Use full sentences: "Je voudrais... s\'il vous plaît".' }
+      ]},
+      { speaker: 'vendor', text: 'Voilà. Ça fait 4,50 €.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'C\'est combien les pommes seules ? Et je voudrais aussi un bouquet de basilic.', correct: true, feedback: 'Excellent ! You asked for details + added another item. Very natural market chat!' },
+        { text: 'Voici 5 €.', correct: false, feedback: 'OK but abrupt! Ask about prices or add something: "C\'est combien les pommes seules ?"' },
+        { text: 'C\'est cher.', correct: false, feedback: 'Don\'t complain about prices! Ask politely or just pay.' }
+      ]}
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // NIVEAU 3 — In the Garden
+  // Leçon 3 : Je dois, arroser, le jardin, les fleurs, la pelouse
+  // ═══════════════════════════════════════════════════════════════
+  3: {
+    id: 'jardin',
+    icon: '🌿',
+    title: 'In the Garden',
+    titleFr: 'Dans le jardin',
+    level: 3,
+    difficulty: 1,
+    requiredLesson: 3,
+    vocabulary: ['Je dois', 'arroser', 'le jardin', 'les fleurs', 'la pelouse'],
+    setting: 'You are chatting with your neighbour about gardening.',
+    dialogue: [
+      { speaker: 'neighbour', text: 'Vous avez un beau jardin ! Vous faites du jardinage ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Merci ! Oui, je dois arroser les fleurs tous les soirs et je tonds la pelouse le samedi.', correct: true, feedback: 'Parfait ! You thanked + gave specific routine details. Very natural!' },
+        { text: 'Oui, un peu.', correct: false, feedback: 'Too vague! Give specifics: what you do, when, how often.' },
+        { text: 'Non, je déteste ça.', correct: false, feedback: 'Too negative! Even if you don\'t love it, be polite: "J\'essaie de m\'en occuper".' }
+      ]},
+      { speaker: 'neighbour', text: 'Moi aussi, j\'adore les roses. Vous avez des roses ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Oui, j\'ai des roses rouges près de la fenêtre. Elles sont magnifiques en ce moment !', correct: true, feedback: 'Excellent ! You answered + added colour + commented on their state. Very French!' },
+        { text: 'Oui, j\'ai des roses.', correct: false, feedback: 'Too brief! Add details: colour, location, your opinion.' },
+        { text: 'Non, je préfère les tulipes.', correct: false, feedback: 'A bit dismissive! Acknowledge their interest first: "Oui, j\'ai des roses..." then mention tulipes.' }
+      ]}
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // NIVEAU 4 — Neighbours & Community
+  // Leçon 4 : Mon voisin, ma voisine, habitez, depuis, longtemps
+  // ═══════════════════════════════════════════════════════════════
+  4: {
+    id: 'voisinage',
+    icon: '🏘️',
+    title: 'Neighbours & Community',
+    titleFr: 'Voisinage et communauté',
+    level: 4,
+    difficulty: 2,
+    requiredLesson: 4,
+    vocabulary: ['mon voisin', 'ma voisine', 'habitez', 'depuis', 'longtemps'],
+    setting: 'You meet another neighbour at the local bakery.',
+    dialogue: [
+      { speaker: 'neighbour', text: 'Bonjour ! Vous habitez dans l\'immeuble depuis longtemps ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Non, je suis nouvelle. J\'habite ici depuis un mois seulement. Et vous, vous êtes d\'ici ?', correct: true, feedback: 'Parfait ! You answered + asked back. Very reciprocal and French!' },
+        { text: 'Un mois.', correct: false, feedback: 'Too brief! Use full sentences and ask about them too.' },
+        { text: 'Oui, longtemps.', correct: false, feedback: 'You said "non" then "yes" — contradictory! Be clear: "Non, je suis nouvelle depuis un mois".' }
+      ]},
+      { speaker: 'neighbour', text: 'Moi, j\'y suis depuis vingt ans ! C\'est un quartier tranquille.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Vingt ans ! C\'est impressionnant. J\'ai remarqué que c\'est très calme, j\'apprécie beaucoup.', correct: true, feedback: 'Excellent ! You reacted to their info + shared your observation. Very engaged!' },
+        { text: 'Ah oui.', correct: false, feedback: 'Too brief! React with enthusiasm: "Vingt ans !" + share your own impression.' },
+        { text: 'Je préfère les villes plus animées.', correct: false, feedback: 'That contradicts their positive comment! Find common ground first.' }
+      ]}
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // NIVEAU 5 — Tastes & Desires
+  // Leçon 5 : J\'aime, J\'adore, Je n\'aime pas, Je préfère, délicieux
+  // ═══════════════════════════════════════════════════════════════
+  5: {
+    id: 'gouts',
+    icon: '❤️',
+    title: 'Tastes & Desires',
+    titleFr: 'Goûts et désirs',
+    level: 5,
+    difficulty: 2,
+    requiredLesson: 5,
+    vocabulary: ['J\'aime', 'J\'adore', 'Je n\'aime pas', 'Je préfère', 'délicieux'],
+    setting: 'You are invited to dinner by a French friend. They ask about your food preferences.',
+    dialogue: [
+      { speaker: 'friend', text: 'Vous aimez le fromage ? J\'ai préparé une sélection.' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'J\'adore le fromage français ! Je préfère le chèvre et le comté. C\'est délicieux.', correct: true, feedback: 'Parfait ! "J\'adore" + specific types + "délicieux". Very enthusiastic and French!' },
+        { text: 'Oui, j\'aime.', correct: false, feedback: 'Too brief! Name specific cheeses and show enthusiasm.' },
+        { text: 'Non, je n\'aime pas.', correct: false, feedback: 'Too blunt! Even if you don\'t love it, be diplomatic: "J\'aime certains, comme le chèvre".' }
+      ]},
+      { speaker: 'friend', text: 'Et le vin ? Vous préférez rouge ou blanc ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Je préfère le rouge, mais le blanc est aussi très bon. Qu\'est-ce que vous recommandez avec le fromage ?', correct: true, feedback: 'Excellent ! You stated preference + showed openness + asked for advice. Perfect!' },
+        { text: 'Le rouge.', correct: false, feedback: 'Too brief! Add "mais" + ask for their recommendation.' },
+        { text: 'Je ne bois pas.', correct: false, feedback: 'That ends the conversation! Soften: "Je préfère le rouge, mais une petite coupe de blanc..."' }
+      ]}
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // NIVEAU 6 — At the Shops
+  // Leçon 6 : Je paie, par carte, la monnaie, Un ticket de caisse, fermé
+  // ═══════════════════════════════════════════════════════════════
+  6: {
+    id: 'magasins',
+    icon: '🏬',
+    title: 'At the Shops',
+    titleFr: 'Dans les magasins',
+    level: 6,
+    difficulty: 2,
+    requiredLesson: 6,
+    vocabulary: ['Je paie', 'par carte', 'la monnaie', 'Un ticket de caisse', 'fermé'],
+    setting: 'You are at a clothing store buying a scarf.',
+    dialogue: [
+      { speaker: 'cashier', text: 'C\'est tout pour vous ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Oui, c\'est tout merci. Je paie par carte, s\'il vous plaît. Et un ticket de caisse.', correct: true, feedback: 'Parfait ! "C\'est tout" + payment method + receipt. Very complete!' },
+        { text: 'Oui.', correct: false, feedback: 'Too brief! Add "c\'est tout merci", payment method, and ask for receipt.' },
+        { text: 'Combien ?', correct: false, feedback: 'A bit abrupt! They haven\'t told you the price yet. Wait or ask politely.' }
+      ]},
+      { speaker: 'cashier', text: '32 €. Vous avez la carte de fidélité ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Non, pas encore. Comment est-ce que je peux en avoir une ?', correct: true, feedback: 'Excellent ! You answered + showed interest in the loyalty card. Very practical!' },
+        { text: 'Non.', correct: false, feedback: 'Too brief! Ask about the loyalty card — it shows you plan to return.' },
+        { text: 'Je ne veux pas.', correct: false, feedback: 'Too dismissive! Be curious: "Comment est-ce que j\'en ai une ?"' }
+      ]}
+    ]
+  },
+
+  // ═══════════════════════════════════════════════════════════════
+  // NIVEAU 7 — Friends & Going Out
+  // Leçon 7 : Ça vous dit de, On se retrouve, À quelle heure, Je suis libre
+  // ═══════════════════════════════════════════════════════════════
+  7: {
+    id: 'sorties',
+    icon: '👫',
+    title: 'Friends & Going Out',
+    titleFr: 'Amis et sorties',
+    level: 7,
+    difficulty: 2,
+    requiredLesson: 7,
+    vocabulary: ['Ça vous dit de', 'On se retrouve', 'À quelle heure', 'Je suis libre', 'Avec plaisir'],
+    setting: 'A friend invites you for coffee.',
+    dialogue: [
+      { speaker: 'friend', text: 'Ça vous dit d\'aller prendre un café samedi ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Avec plaisir ! Je suis libre samedi après-midi. On se retrouve à quelle heure ?', correct: true, feedback: 'Parfait ! "Avec plaisir" + availability + question about time. Very natural!' },
+        { text: 'Oui.', correct: false, feedback: 'Too brief! Use "Avec plaisir" and suggest/ask about timing.' },
+        { text: 'Je ne sais pas.', correct: false, feedback: 'Too hesitant! Be positive: "Avec plaisir" then check your schedule.' }
+      ]},
+      { speaker: 'friend', text: 'Vers 15h, au café du coin ?' },
+      { speaker: 'you', text: '___', choices: [
+        { text: 'Parfait, 15h au café du coin. J\'ai hâte ! À samedi.', correct: true, feedback: 'Excellent ! You confirmed + expressed enthusiasm + said goodbye. Very French!' },
+        { text: 'D\'accord.', correct: false, feedback: 'Too brief! Confirm the details and show enthusiasm: "J\'ai hâte !"' },
+        { text: '15h c\'est tard.', correct: false, feedback: 'Don\'t criticise their suggestion! Accept or propose gently: "15h c\'est parfait".' }
+      ]}
+    ]
+  },
+
   // ═══════════════════════════════════════════════════════════════
   // NIVEAU 8 — Weather
   // Leçon 8 : Il fait beau, Il pleut, Il fait chaud/froid
@@ -86,7 +336,6 @@
       ]}
     ]
   },
-
   // ═══════════════════════════════════════════════════════════════
   // NIVEAU 11 — Describing People
   // Leçon 11 : Il est grand, Elle est gentille, Ils sont sympas
