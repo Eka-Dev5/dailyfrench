@@ -19,6 +19,7 @@ function loadConversations() {
     pending--;
     if (pending === 0) {
       window._conversationsReady = true;
+      // Exposer explicitement sur window pour que conversation.js le trouve
       window.CONVERSATION_SCENARIOS = CONVERSATION_SCENARIOS;
       console.log('[ConversationLoader] All done. Loaded: ' + loaded + ', Errors: ' + errors);
       if (typeof EventBus !== 'undefined') {
@@ -67,6 +68,7 @@ function tryStartConversations() {
     EventBus.on('coreReady', loadConversations);
   }
   
+  // Si core.js est déjà chargé (comme dans data-loader.js)
   if (typeof PlayerManager !== 'undefined' && typeof EventBus !== 'undefined') {
     console.log('[ConversationLoader] core.js already ready — launching directly');
     loadConversations();
