@@ -1,5 +1,5 @@
-// js/conversation-loader.js — Charge les 20 scénarios depuis js/conversations/
-// VERSION FINALE : fan-out parallèle, émet conversationsLoaded quand tout est prêt
+// conversation-loader.js — Charge les 20 scénarios depuis js/conversations/
+// VERSION QUI MARCHAIT — 20/20 chargés
 
 let CONVERSATION_SCENARIOS = {};
 
@@ -55,5 +55,5 @@ function loadConversations() {
   }
 }
 
-// CHARGEMENT IMMÉDIAT — pas d'attente de coreReady
+// CHARGEMENT IMMÉDIAT — comme avant
 loadConversations();
