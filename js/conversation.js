@@ -1,555 +1,507 @@
 // ═══════════════════════════════════════════════════════════════════
 // CONVERSATION.JS — Daily French 🥖 v6.0
-// Ajouts : TTS (lecture vocale), bouton 🔊 sur chaque réponse,
-//          bouton "🏠 Back to Scenarios" à la fin
-//          Système de points connecté
-// ═══════════════════════════════════════════════════════════════════
-
-var currentScenario = null;
-var currentStepIndex = 0;
-var userAnswers = [];
-var _convInitRetries = 0;
-var _ttsEnabled = true; // Active/désactive la synthèse vocale
-
-function getScenarioList() {
-  if (typeof CONVERSATION_SCENARIOS === 'undefined') return [];
-  return Object.values(CONVERSATION_SCENARIOS);
+// Ajouts : TTS (lecture voc───────────────────────── */
+.conv-section-title {
+  font-size: var(--font-lg);
+  color: var(--text);
+  text-align: center;
+  padding: 1.5rem 1rem 0.75rem;
+  margin: 0;
+  font-weight: 600;
 }
 
-// ── TTS (Text-to-Speech) ──────────────────────────────────────────
-function speak(text, lang) {
-  if (!_ttsEnabled || !window.speechSynthesis) return;
-  window.speechSynthesis.cancel(); // Arrêter la lecture en cours
-  var utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = lang || 'fr-FR';
-  utterance.rate = 0.9;
-  utterance.pitch = 1;
-  window.speechSynthesis.speak(utterance);
+.conv-list {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
 }
 
-function speakFrench(text) {
-  speak(text, 'fr-FR');
+.conv-scenario-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.125rem 1.25rem;
+  margin-bottom: 0.75rem;
+  background: var(--white);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
 }
 
-function speakEnglish(text) {
-  speak(text, 'en-US');
+.conv-scenario-card:hover,
+.conv-scenario-card:active {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--primary-mid);
 }
 
-// ── INIT ────────────────────────────────────────────────────────────
-function initConversation() {
-  if (typeof initCore === 'function') initCore();
-
-  if (getScenarioList().length === 0) {
-    _convInitRetries++;
-    if (_convInitRetries < 50) {
-      setTimeout(initConversation, 100);
-      return;
-    }
-    var container = document.getElementById('convScenarios');
-    if (container) {
-      container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">⚠️ Conversations failed to load.</div>';
-    }
-    return;
-  }
-
-  renderScenarioList();
-  updateBento();
+.conv-scen-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r);
+  background: var(--primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  flex-shrink: 0;
 }
 
-function updateBento() {
-  var player = (typeof PlayerManager !== 'undefined' && PlayerManager.current) ? PlayerManager.current : null;
-  var b1 = document.getElementById('b1');
-  var b2 = document.getElementById('b2');
-  var b3 = document.getElementById('b3');
-  if (b1) b1.textContent = player ? (player.level || 1) : 1;
-  if (b2) b2.textContent = player ? (player.score || 0) : 0;
-  if (b3) b3.textContent = player ? ((player.conversationsDone || 0) + '/20') : '0/20';
+.conv-scen-info {
+  flex: 1;
+  min-width: 0;
 }
 
-// ── LISTE DES SCÉNARIOS ───────────────────────────────────────────
-function renderScenarioList() {
-  if (currentScenario !== null) return;
-
-  var container = document.getElementById('convScenarios');
-  if (!container) return;
-
-  var list = getScenarioList();
-  if (list.length === 0) {
-    container.innerHTML = '<div style="text-align:center;padding:2rem;">Loading...</div>';
-    return;
-  }
-
-  container.innerHTML = '';
-  var player = (typeof PlayerManager !== 'undefined' && PlayerManager.current) ? PlayerManager.current : null;
-  var currentLevel = player ? (player.level || 1) : 1;
-
-  list.forEach(function(scenario) {
-    var isLocked = (scenario.requiredLesson || 999) > currentLevel;
-
-    var card = document.createElement('div');
-    card.className = 'conv-scenario-card' + (isLocked ? ' conv-locked' : '');
-    if (!isLocked) {
-      card.addEventListener('click', function() { startScenario(scenario.level); });
-    }
-
-    var exchangeCount = 0;
-    if (scenario.dialogue) {
-      exchangeCount = scenario.dialogue.filter(function(d) { return d.speaker === 'you'; }).length;
-    }
-    var diffStars = '★'.repeat(scenario.difficulty || 1) + '☆'.repeat(Math.max(0, 3 - (scenario.difficulty || 1)));
-
-    card.innerHTML =
-      '<div class="conv-scen-icon">' + (isLocked ? '🔒' : (scenario.icon || '🗣️')) + '</div>' +
-      '<div class="conv-scen-info">' +
-        '<div class="conv-scen-title">' + escapeHtml(scenario.title) + '</div>' +
-        '<div class="conv-scen-subtitle">' + escapeHtml(scenario.titleFr || '') + '</div>' +
-        '<div class="conv-scen-meta">' +
-          '<span class="conv-scen-diff" title="Difficulty">' + diffStars + '</span>' +
-          '<span class="conv-scen-steps">' + exchangeCount + ' exchanges</span>' +
-        '</div>' +
-      '</div>' +
-      '<div class="conv-scen-arrow">▶</div>';
-
-    container.appendChild(card);
-  });
+.conv-scen-title {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
 }
 
-function escapeHtml(text) {
-  if (!text) return '';
-  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+.conv-scen-subtitle {
+  font-size: var(--font-sm);
+  color: var(--muted);
+  margin-top: 0.125rem;
 }
 
-// ── DÉMARRER SCÉNARIO ─────────────────────────────────────────────
-function startScenario(level) {
-  if (typeof CONVERSATION_SCENARIOS === 'undefined' || !CONVERSATION_SCENARIOS[level]) {
-    console.error('Scenario ' + level + ' not found');
-    return;
-  }
-
-  currentScenario = CONVERSATION_SCENARIOS[level];
-  currentStepIndex = 0;
-  userAnswers = [];
-
-  document.getElementById('convList').style.display = 'none';
-  document.getElementById('convSim').style.display = 'block';
-  document.getElementById('convResults').style.display = 'none';
-
-  var dialogue = document.getElementById('convDialogue');
-  if (dialogue) dialogue.innerHTML = '';
-
-  document.getElementById('convSimIcon').textContent = currentScenario.icon || '🗣️';
-  document.getElementById('convSimTitle').textContent = currentScenario.title || 'Scenario';
-
-  renderSetting();
+.conv-scen-meta {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.375rem;
+  flex-wrap: wrap;
+  font-size: var(--font-xs);
+  color: var(--subtle);
 }
 
-// ── AFFICHER LE SETTING (contexte) ───────────────────────────────
-function renderSetting() {
-  var dialogue = document.getElementById('convDialogue');
-  if (!dialogue) return;
-
-  var settingDiv = document.createElement('div');
-  settingDiv.className = 'conv-msg conv-msg-setting';
-  settingDiv.id = 'convSettingCard';
-
-  var html =
-    '<div class="conv-setting-label">📍 Situation</div>' +
-    '<div class="conv-setting-text">' + escapeHtml(currentScenario.setting || 'No context provided.') + '</div>';
-
-  if (currentScenario.vocabulary && currentScenario.vocabulary.length > 0) {
-    html += '<div class="conv-setting-vocab"><strong>📝 Vocabulary:</strong> ' + escapeHtml(currentScenario.vocabulary.join(', ')) + '</div>';
-  }
-
-  html += '<button class="btn btn-primary" style="margin-top:1rem;" onclick="showNextNpcMessage()">▶ Start the conversation</button>';
-
-  settingDiv.innerHTML = html;
-  dialogue.appendChild(settingDiv);
-  dialogue.scrollTop = dialogue.scrollHeight;
+.conv-scen-diff {
+  color: var(--gold);
+  letter-spacing: 0.1em;
 }
 
-// ── AFFICHER LE MESSAGE NPC SUIVANT ───────────────────────────────
-function showNextNpcMessage() {
-  var setting = document.getElementById('convSettingCard');
-  if (setting) setting.remove();
-
-  var dialogue = document.getElementById('convDialogue');
-  var choices = document.getElementById('convChoices');
-  var feedback = document.getElementById('convFeedback');
-
-  if (feedback) feedback.style.display = 'none';
-  if (choices) choices.style.display = 'none';
-
-  var step = currentScenario.dialogue[currentStepIndex];
-  if (!step) {
-    showResults();
-    return;
-  }
-
-  if (step.speaker === 'you') {
-    renderQuestion(step);
-    return;
-  }
-
-  var msgDiv = document.createElement('div');
-  msgDiv.className = 'conv-msg conv-msg-npc';
-
-  var avatarDiv = document.createElement('div');
-  avatarDiv.className = 'conv-msg-avatar';
-  avatarDiv.textContent = currentScenario.icon || '🗣️';
-  avatarDiv.style.background = 'var(--primary)';
-
-  var bubbleDiv = document.createElement('div');
-  bubbleDiv.className = 'conv-msg-bubble';
-
-  var nameDiv = document.createElement('div');
-  nameDiv.className = 'conv-msg-npc-name';
-  nameDiv.textContent = capitalize(step.speaker || 'NPC');
-  bubbleDiv.appendChild(nameDiv);
-
-  var textDiv = document.createElement('div');
-  textDiv.className = 'conv-msg-text';
-  textDiv.textContent = step.text || '';
-  bubbleDiv.appendChild(textDiv);
-
-  // Bouton 🔊 pour écouter le message NPC
-  var speakBtn = document.createElement('button');
-  speakBtn.className = 'conv-speak-btn';
-  speakBtn.innerHTML = '🔊';
-  speakBtn.title = 'Listen';
-  speakBtn.onclick = function(e) {
-    e.stopPropagation();
-    speakFrench(step.text);
-  };
-  bubbleDiv.appendChild(speakBtn);
-
-  msgDiv.appendChild(avatarDiv);
-  msgDiv.appendChild(bubbleDiv);
-  dialogue.appendChild(msgDiv);
-
-  // Lire automatiquement le message NPC
-  speakFrench(step.text);
-
-  var continueBtn = document.createElement('button');
-  continueBtn.className = 'btn btn-primary';
-  continueBtn.style.marginTop = '0.75rem';
-  continueBtn.innerHTML = '▶ Continue';
-  continueBtn.onclick = function() {
-    continueBtn.parentElement.remove();
-    currentStepIndex++;
-    showNextNpcMessage();
-  };
-
-  var btnWrapper = document.createElement('div');
-  btnWrapper.style.display = 'flex';
-  btnWrapper.style.justifyContent = 'center';
-  btnWrapper.style.padding = '0.5rem 0';
-  btnWrapper.appendChild(continueBtn);
-  dialogue.appendChild(btnWrapper);
-
-  dialogue.scrollTop = dialogue.scrollHeight;
-  updateProgress();
+.conv-scen-arrow {
+  font-size: 1.25rem;
+  color: var(--subtle);
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
 }
 
-// ── AFFICHER LA QUESTION ──────────────────────────────────────────
-function renderQuestion(step) {
-  var dialogue = document.getElementById('convDialogue');
-  var choices = document.getElementById('convChoices');
-
-  var promptDiv = document.createElement('div');
-  promptDiv.className = 'conv-msg conv-msg-npc';
-  promptDiv.id = 'convQuestionPrompt';
-  promptDiv.innerHTML =
-    '<div class="conv-msg-avatar" style="background:var(--gold);">❓</div>' +
-    '<div class="conv-msg-bubble">' +
-      '<div class="conv-msg-npc-name">Your turn</div>' +
-      '<div class="conv-msg-text">' + escapeHtml(step.text || 'What do you say?') + '</div>' +
-    '</div>';
-  dialogue.appendChild(promptDiv);
-  dialogue.scrollTop = dialogue.scrollHeight;
-
-  // Lire la question automatiquement
-  speakEnglish(step.text || 'What do you say?');
-
-  if (choices) {
-    choices.innerHTML = '';
-    choices.style.display = 'block';
-
-    step.choices.forEach(function(choice, idx) {
-      var btn = document.createElement('button');
-      btn.className = 'conv-choice-btn';
-      btn.id = 'choice-' + idx;
-      
-      // Structure : lettre + texte + bouton 🔊
-      btn.innerHTML = 
-        '<span class="conv-choice-letter">' + String.fromCharCode(65 + idx) + '</span>' +
-        '<span class="conv-choice-text">' + escapeHtml(choice.text) + '</span>' +
-        '<span class="conv-choice-speak" onclick="event.stopPropagation(); speakFrench(\\'' + escapeJsString(choice.text) + '\\')" title="Listen">🔊</span>';
-      
-      btn.addEventListener('click', function() { handleChoice(idx); });
-      choices.appendChild(btn);
-    });
-  }
-
-  updateProgress();
+.conv-scenario-card:hover .conv-scen-arrow {
+  transform: translateX(4px);
+  color: var(--primary);
 }
 
-// Échapper les apostrophes pour le JS inline
-function escapeJsString(text) {
-  if (!text) return '';
-  return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
+/* ── SIMULATION — HEADER ────────────────────────────────────────── */
+.conv-sim {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+  animation: convFadeIn 300ms ease;
 }
 
-// ── HANDLE CHOICE ─────────────────────────────────────────────────
-function handleChoice(choiceIndex) {
-  if (!currentScenario || !currentScenario.dialogue) return;
-
-  var step = currentScenario.dialogue[currentStepIndex];
-  if (!step || !step.choices || !step.choices[choiceIndex]) return;
-
-  var choice = step.choices[choiceIndex];
-
-  userAnswers.push({
-    stepIndex: currentStepIndex,
-    choiceIndex: choiceIndex,
-    correct: choice.correct,
-    text: choice.text
-  });
-
-  var buttons = document.querySelectorAll('.conv-choice-btn');
-  buttons.forEach(function(btn, idx) {
-    btn.disabled = true;
-    if (idx === choiceIndex) btn.classList.add('chosen');
-    if (step.choices[idx].correct === true) btn.classList.add('best');
-  });
-
-  var dialogue = document.getElementById('convDialogue');
-  var userMsg = document.createElement('div');
-  userMsg.className = 'conv-msg conv-msg-user';
-  userMsg.innerHTML =
-    '<div class="conv-msg-avatar conv-msg-avatar-user">🧑</div>' +
-    '<div class="conv-msg-bubble conv-msg-bubble-user">' +
-      '<div class="conv-msg-text">' + escapeHtml(choice.text) + '</div>' +
-    '</div>';
-  dialogue.appendChild(userMsg);
-  dialogue.scrollTop = dialogue.scrollHeight;
-
-  // Lire la réponse choisie
-  speakFrench(choice.text);
-
-  var choices = document.getElementById('convChoices');
-  if (choices) choices.style.display = 'none';
-
-  showFeedback(choice);
+@keyframes convFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-// ── SHOW FEEDBACK ─────────────────────────────────────────────────
-function showFeedback(choice) {
-  var feedback = document.getElementById('convFeedback');
-  var feedbackText = document.getElementById('convFeedbackText');
-  var nextBtn = document.getElementById('convNextBtn');
-
-  if (!feedback || !feedbackText) return;
-
-  var borderColor = '#F59E0B';
-  if (choice.correct === true) borderColor = '#059669';
-  if (choice.correct === false) borderColor = '#DC2626';
-
-  feedback.style.display = 'block';
-  feedback.style.borderLeftColor = borderColor;
-
-  var icon = choice.correct === true ? '✅ Correct!' : '❌ Not quite...';
-  feedbackText.innerHTML =
-    '<div style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">' + icon + '</div>' +
-    '<div style="line-height:1.5;">' + escapeHtml(choice.feedback || '') + '</div>';
-
-  if (nextBtn) {
-    nextBtn.textContent = '▶ Continue';
-    nextBtn.onclick = function() {
-      feedback.style.display = 'none';
-      currentStepIndex++;
-      showNextNpcMessage();
-    };
-  }
-
-  setTimeout(function() {
-    feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 100);
+.conv-sim-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  margin-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
 }
 
-// ── MISE À JOUR PROGRESSION ───────────────────────────────────────
-function updateProgress() {
-  var progress = document.getElementById('convSimProgress');
-  if (!progress || !currentScenario || !currentScenario.dialogue) return;
-
-  var total = currentScenario.dialogue.filter(function(d) { return d.speaker === 'you'; }).length;
-  var current = userAnswers.length + 1;
-  progress.textContent = Math.min(current, total) + ' / ' + total;
+.conv-sim-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--font-sm);
+  color: var(--text);
 }
 
-// ── SHOW RESULTS ──────────────────────────────────────────────────
-function showResults() {
-  document.getElementById('convSim').style.display = 'none';
-  document.getElementById('convResults').style.display = 'block';
-
-  var correct = userAnswers.filter(function(a) { return a.correct === true; }).length;
-  var total = userAnswers.length;
-  var percent = total > 0 ? Math.round((correct / total) * 100) : 0;
-
-  document.getElementById('convResultScore').textContent = percent + '%';
-  document.getElementById('convResultTitle').textContent = percent >= 80 ? '🎉 Excellent!' : percent >= 50 ? '👍 Good effort!' : '💪 Keep practicing!';
-  document.getElementById('convResultMsg').textContent = 'You got ' + correct + ' out of ' + total + ' correct.';
-
-  var breakdownEl = document.getElementById('convResultBreakdown');
-  if (breakdownEl) {
-    breakdownEl.innerHTML = '';
-    userAnswers.forEach(function(a, idx) {
-      var row = document.createElement('div');
-      row.className = 'conv-result-row';
-      var icon = a.correct === true ? '✅' : '❌';
-      row.innerHTML =
-        '<span class="conv-result-icon">' + icon + '</span>' +
-        '<span class="conv-result-num">#' + (idx + 1) + '</span>' +
-        '<span class="conv-result-text">' + escapeHtml(a.text.substring(0, 40)) + (a.text.length > 40 ? '...' : '') + '</span>';
-      breakdownEl.appendChild(row);
-    });
-  }
-
-  // ═══════════════════════════════════════════════════════════════
-  // SYSTÈME DE POINTS — connecté à PlayerManager
-  // ═══════════════════════════════════════════════════════════════
-  if (typeof PlayerManager !== 'undefined' && PlayerManager.current) {
-    var player = PlayerManager.current;
-    
-    // Points gagnés selon le score
-    var pointsEarned = 0;
-    if (percent >= 80) pointsEarned = 20;
-    else if (percent >= 50) pointsEarned = 10;
-    else pointsEarned = 5;
-
-    // Ajouter les points
-    if (!player.score) player.score = 0;
-    player.score += pointsEarned;
-
-    // XP pour la barre de progression
-    if (!player.xp) player.xp = 0;
-    player.xp += pointsEarned;
-
-    // Vérifier si montée de niveau
-    var xpNeeded = (player.level || 1) * 100;
-    if (player.xp >= xpNeeded) {
-      player.level = (player.level || 1) + 1;
-      player.xp = player.xp - xpNeeded;
-      // Notification de montée de niveau
-      if (typeof showToast === 'function') {
-        showToast('🎉 Level up! You are now level ' + player.level);
-      }
-    }
-
-    // Marquer le scénario comme fait
-    if (percent >= 50) {
-      if (!player.conversationsDone) player.conversationsDone = 0;
-      if (!player.conversationsLevels) player.conversationsLevels = [];
-      if (player.conversationsLevels.indexOf(currentScenario.level) === -1) {
-        player.conversationsLevels.push(currentScenario.level);
-        player.conversationsDone = player.conversationsLevels.length;
-      }
-    }
-
-    // Sauvegarder
-    if (typeof savePlayerData === 'function') savePlayerData();
-  }
-
-  updateBento();
+.conv-sim-info span:first-child {
+  font-size: 1.25rem;
 }
 
-// ── EXIT / RESTART ────────────────────────────────────────────────
-function exitConversation() {
-  currentScenario = null;
-  currentStepIndex = 0;
-  userAnswers = [];
-  _convInitRetries = 0;
-  document.getElementById('convList').style.display = 'block';
-  document.getElementById('convSim').style.display = 'none';
-  document.getElementById('convResults').style.display = 'none';
-  var dialogue = document.getElementById('convDialogue');
-  if (dialogue) dialogue.innerHTML = '';
-  renderScenarioList();
+.conv-sim-info span:nth-child(2) {
+  font-weight: 600;
 }
 
-function restartScenario() {
-  if (currentScenario) startScenario(currentScenario.level);
+#convSimProgress {
+  margin-left: auto;
+  color: var(--muted);
+  font-weight: 500;
+  background: var(--primary-light);
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  font-size: var(--font-xs);
 }
 
-function capitalize(str) {
-  if (!str) return 'NPC';
-  return str.charAt(0).toUpperCase() + str.slice(1);
+/* ── ZONE DE DIALOGUE (style chat) ──────────────────────────────── */
+.conv-dialogue {
+  min-height: 200px;
+  max-height: 55vh;
+  overflow-y: auto;
+  padding: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  scroll-behavior: smooth;
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// NOUVEAUTÉS : Revoir + Hint
-// ═══════════════════════════════════════════════════════════════════
-
-function showQuestionAgain() {
-  var dialogue = document.getElementById('convDialogue');
-  if (!dialogue) return;
-
-  var prompts = dialogue.querySelectorAll('#convQuestionPrompt');
-  if (prompts.length === 0) return;
-
-  var lastPrompt = prompts[prompts.length - 1];
-  lastPrompt.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-  lastPrompt.style.transition = 'background 0.3s';
-  lastPrompt.style.background = 'rgba(251, 191, 36, 0.2)';
-  setTimeout(function() {
-    lastPrompt.style.background = '';
-  }, 800);
+.conv-msg {
+  display: flex;
+  gap: 0.625rem;
+  animation: convMsgIn 250ms ease backwards;
 }
 
-function showHint() {
-  if (!currentScenario || !currentScenario.dialogue) return;
-
-  var step = currentScenario.dialogue[currentStepIndex];
-  if (!step || !step.choices) {
-    var found = false;
-    for (var i = currentStepIndex - 1; i >= 0; i--) {
-      if (currentScenario.dialogue[i].speaker === 'you' && currentScenario.dialogue[i].choices) {
-        step = currentScenario.dialogue[i];
-        found = true;
-        break;
-      }
-    }
-    if (!found) return;
-  }
-
-  if (!step.choices) return;
-
-  var correctChoice = null;
-  for (var j = 0; j < step.choices.length; j++) {
-    if (step.choices[j].correct === true) {
-      correctChoice = step.choices[j];
-      break;
-    }
-  }
-  if (!correctChoice) return;
-
-  var words = correctChoice.text.split(' ');
-  var hint = '💡 Hint: The answer starts with "' + words[0] + '" and has ' + words.length + ' word' + (words.length > 1 ? 's' : '') + '.';
-
-  var feedback = document.getElementById('convFeedback');
-  var feedbackText = document.getElementById('convFeedbackText');
-  var nextBtn = document.getElementById('convNextBtn');
-
-  if (feedback && feedbackText) {
-    feedback.style.display = 'block';
-    feedback.style.borderLeftColor = '#3B82F6';
-    feedbackText.innerHTML = '<div style="color:#3B82F6;font-size:1rem;">' + hint + '</div>';
-
-    if (nextBtn) {
-      nextBtn.textContent = 'Hide hint';
-      nextBtn.onclick = function() {
-        feedback.style.display = 'none';
-      };
-    }
-  }
+@keyframes convMsgIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
+
+.conv-msg-npc {
+  align-self: flex-start;
+}
+
+.conv-msg-user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.conv-msg-setting {
+  background: var(--white);
+  border-radius: var(--r);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.conv-setting-label {
+  font-size: var(--font-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+}
+
+.conv-setting-text {
+  font-size: var(--font-sm);
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.conv-setting-role,
+.conv-setting-npc {
+  font-size: var(--font-sm);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.conv-msg-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.conv-msg-avatar-user {
+  background: var(--primary-light);
+}
+
+.conv-msg-bubble {
+  background: var(--white);
+  border-radius: var(--r);
+  border-bottom-left-radius: 4px;
+  padding: 0.875rem 1rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  max-width: 85%;
+  position: relative;
+}
+
+.conv-msg-bubble-user {
+  background: var(--primary);
+  color: white;
+  border-bottom-left-radius: var(--r);
+  border-bottom-right-radius: 4px;
+}
+
+.conv-msg-bubble-user .conv-msg-text {
+  color: white;
+}
+
+.conv-msg-npc-name {
+  font-size: var(--font-xs);
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+.conv-msg-text {
+  font-size: var(--font-md);
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* ── Bouton 🔊 dans les bulles NPC (position absolue, en bas à droite) ── */
+.conv-msg-tts {
+  position: absolute;
+  bottom: -10px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+}
+
+.conv-msg-tts:hover {
+  opacity: 1;
+  background: var(--primary-light);
+}
+
+/* ── CHOIX DE RÉPONSES ──────────────────────────────────────────── */
+.conv-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 0.75rem 0 1rem;
+  animation: convFadeIn 200ms ease;
+}
+
+.conv-choice-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.125rem;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--r);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.conv-choice-btn:hover:not(:disabled) {
+  border-color: var(--primary-mid);
+  background: var(--primary-light);
+  transform: translateX(4px);
+}
+
+.conv-choice-btn:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.conv-choice-btn.chosen {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.conv-choice-btn.best {
+  border-color: #059669;
+  background: #ECFDF5;
+}
+
+.conv-choice-btn.chosen.best {
+  border-color: #059669;
+  background: #D1FAE5;
+}
+
+.conv-choice-letter {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--font-sm);
+  flex-shrink: 0;
+}
+
+.conv-choice-text {
+  font-size: var(--font-md);
+  color: var(--text);
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* ── Bouton 🔊 à côté de chaque réponse ───────────────────────── */
+.conv-choice-speak {
+  margin-left: auto;
+  padding: 0.25rem 0.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  border-left: 1px solid var(--subtle);
+  background: none;
+  border: none;
+}
+
+.conv-choice-speak:hover {
+  opacity: 1;
+  background: var(--primary-light);
+  border-radius: 0.25rem;
+}
+
+/* ── FEEDBACK ───────────────────────────────────────────────────── */
+.conv-feedback {
+  background: var(--white);
+  border-radius: var(--r);
+  border-left: 4px solid var(--gold);
+  padding: 1rem 1.125rem;
+  margin: 0.5rem 0 1rem;
+  box-shadow: var(--shadow-sm);
+  animation: convFadeIn 200ms ease;
+}
+
+#convFeedbackText {
+  font-size: var(--font-sm);
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 0.875rem;
+}
+
+#convNextBtn {
+  width: 100%;
+}
+
+/* ── RÉSULTATS ──────────────────────────────────────────────────── */
+.conv-results {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 2rem var(--space-md);
+  text-align: center;
+  animation: convFadeIn 400ms ease;
+}
+
+.conv-result-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+#convResultScore {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+}
+
+.conv-results h2 {
+  font-size: var(--font-xl);
+  color: var(--text);
+  margin: 0 0 0.5rem;
+}
+
+.conv-results > p {
+  font-size: var(--font-md);
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0 0 1.5rem;
+}
+
+#convResultBreakdown {
+  text-align: left;
+  background: var(--white);
+  border-radius: var(--r);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+
+.conv-result-row {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--font-sm);
+}
+
+.conv-result-row:last-child {
+  border-bottom: none;
+}
+
+.conv-result-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.conv-result-num {
+  color: var(--subtle);
+  font-weight: 600;
+  flex-shrink: 0;
+  width: 2rem;
+}
+
+.conv-result-text {
+  color: var(--text);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.conv-result-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── SCROLLBAR ──────────────────────────────────────────────────── */
+.conv-dialogue::-webkit-scrollbar {
+  width: 5px;
+}
+
+.conv-dialogue::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.conv-dialogue::-webkit-scrollbar-thumb {
+  background: var(--subtle);
+  border-radius: 3px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FIN conversation.css
+   ═══════════════════════════════════════════════════════════════════ */
