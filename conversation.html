@@ -13,6 +13,8 @@
 </head>
 <body>
   <div id="toast" class="toast"></div>
+
+  <!-- Modal joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
@@ -23,12 +25,16 @@
       </div>
     </div>
   </div>
+
+  <!-- Popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
       <div id="vocab-popup-body"></div>
     </div>
   </div>
+
+  <!-- Hero -->
   <header class="hero conversation-hero">
     <div class="hero-avatar" id="heroAv">💬<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
@@ -41,11 +47,15 @@
       <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
     </div>
   </header>
+
+  <!-- Bento -->
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
     <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
     <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
+
+  <!-- Main Conversation -->
   <main class="conversation-main">
     <section class="conv-section" id="convList">
       <h2 class="conv-section-title">Choose a scenario</h2>
@@ -76,11 +86,15 @@
       </div>
     </section>
   </main>
+
+  <!-- ORDRE DE CHARGEMENT : config → core → loader → ui → app -->
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
-  <script src="js/conversation-data.js"></script>
+  <script src="js/conversation-loader.js"></script>
   <script src="js/ui-utils.js"></script>
   <script src="js/conversation.js"></script>
+
+  <!-- Démarrage manuel unique -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof initConversation === 'function') initConversation();
