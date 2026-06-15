@@ -218,18 +218,28 @@ function showQuestionAgain() {
     if (!found) return;
   }
   
-  // NE PAS créer de reminder si le texte est vide
   if (!step.text || step.text.trim() === '') return;
   
   var dialogue = document.getElementById('convDialogue');
   if (!dialogue) return;
   
-  // Supprimer les anciens reminders avant d'en créer un nouveau
-  var oldReminders = dialogue.querySelectorAll('.conv-msg-reminder');
-  oldReminders.forEach(function(r) { r.remove(); });
+  // Chercher si un reminder existe déjà
+  var existing = document.getElementById('conv-reminder');
+  if (existing) {
+    // Toggle : s'il est visible, on le cache ; s'il est caché, on le montre
+    if (existing.style.display === 'none') {
+      existing.style.display = '';
+      dialogue.scrollTop = dialogue.scrollHeight;
+    } else {
+      existing.style.display = 'none';
+    }
+    return;
+  }
   
+  // Créer le reminder
   var reviewDiv = document.createElement('div');
-  reviewDiv.className = 'conv-msg conv-msg-npc conv-msg-reminder';
+  reviewDiv.id = 'conv-reminder';
+  reviewDiv.className = 'conv-msg conv-msg-npc';
   reviewDiv.style.opacity = '0.7';
   reviewDiv.innerHTML =
     '<div class="conv-msg-avatar" style="background:var(--subtle);">👁</div>' +
@@ -240,6 +250,7 @@ function showQuestionAgain() {
   dialogue.appendChild(reviewDiv);
   dialogue.scrollTop = dialogue.scrollHeight;
 }
+
 
 
 function showHint() {
