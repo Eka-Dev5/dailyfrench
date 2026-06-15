@@ -1,5 +1,6 @@
-// conversation-loader.js — Charge les 20 scénarios depuis js/conversations/
-// VERSION DEBUG : affiche le résultat directement dans la page (pas besoin de console)
+// js/conversation-loader.js — Charge les 20 scénarios depuis js/conversations/
+// VERSION UNIFORME : même pattern que data-loader.js (lessons)
+// Pas de démarrage auto — attend coreReady comme data-loader.js
 
 let CONVERSATION_SCENARIOS = {};
 
@@ -13,43 +14,47 @@ function loadConversations() {
   let loaded = 0;
   let errors = 0;
   let pending = count;
-  const failedFiles = [];
-  const okFiles = [];
 
   function checkComplete() {
     pending--;
     if (pending === 0) {
       window._conversationsReady = true;
       window.CONVERSATION_SCENARIOS = CONVERSATION_SCENARIOS;
-      showDebug(loaded, errors, okFiles, failedFiles);
-      if (typeof EventBus !== "undefined") {
-        EventBus.emit("conversationsLoaded", { scenarios: CONVERSATION_SCENARIOS, count: loaded });
+      console.log('[ConversationLoader] All done. Loaded: ' + loaded + ', Errors: ' + errors);
+      if (typeof EventBus !== 'undefined') {
+        EventBus.emit('conversationsLoaded', { scenarios: CONVERSATION_SCENARIOS, count: loaded });
       }
     }
   }
 
   for (let i = 1; i <= count; i++) {
-    const numStr = i.toString().padStart(2, "0");
-    const script = document.createElement("script");
-    script.src = "js/conversations/conversation-" + numStr + ".js";
+    const numStr = i.toString().padStart(2, '0');
+    const script = document.createElement('script');
+    script.src = 'js/conversations/conversation-' + numStr + '.js';
     script.async = false;
 
     script.onload = function() {
-      const convVar = "CONVERSATION_" + numStr;
-      if (typeof window[convVar] !== "undefined") {
+      const convVar = 'CONVERSATION_' + numStr;
+
+      if (typeof window[convVar] !== 'undefined') {
         CONVERSATION_SCENARIOS[i] = window[convVar];
         loaded++;
-        okFiles.push(numStr);
+        console.log('[ConversationLoader] Loaded conversation-' + numStr + '.js (' + loaded + '/' + count + ')');
+
+        if (typeof EventBus !== 'undefined') {
+          EventBus.emit('conversationLoaded', { level: i, scenario: window[convVar] });
+        }
       } else {
         errors++;
-        failedFiles.push(numStr + " (fichier chargé mais variable CONVERSATION_" + numStr + " absente)");
+        console.error('[ConversationLoader] Variable ' + convVar + ' not found');
       }
+
       checkComplete();
     };
 
     script.onerror = function() {
       errors++;
-      failedFiles.push(numStr + " (404 - fichier non trouvé)");
+      console.error('[ConversationLoader] Failed to load conversation-' + numStr + '.js');
       checkComplete();
     };
 
@@ -57,27 +62,16 @@ function loadConversations() {
   }
 }
 
-function showDebug(loaded, errors, okFiles, failedFiles) {
-  const box = document.createElement("div");
-  box.style.cssText = "background:#fff3cd;border:2px solid #f0ad4e;border-radius:8px;padding:12px;margin:10px;font-family:monospace;font-size:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word;";
-
-  let html = "🔍 DEBUG conversation-loader\n";
-  html += "Chargés avec succès : " + loaded + "/20\n";
-  html += "Erreurs : " + errors + "/20\n";
-
-  if (okFiles.length > 0) {
-    html += "\n✅ OK : " + okFiles.join(", ") + "\n";
-  }
-  if (failedFiles.length > 0) {
-    html += "\n❌ ÉCHECS :\n" + failedFiles.join("\n") + "\n";
+function tryStartConversations() {
+  if (typeof EventBus !== 'undefined') {
+    EventBus.on('coreReady', loadConversations);
   }
 
-  box.textContent = html;
-
-  // Insère le bloc debug en haut de la page, avant tout le reste
-  const target = document.querySelector(".conversation-main") || document.body;
-  target.insertBefore(box, target.firstChild);
+  // Si core.js est déjà chargé (comme dans data-loader.js)
+  if (typeof PlayerManager !== 'undefined' && typeof EventBus !== 'undefined') {
+    console.log('[ConversationLoader] core.js already ready — launching directly');
+    loadConversations();
+  }
 }
 
-// CHARGEMENT IMMEDIAT — pas d attente de coreReady
-loadConversations();
+tryStartConversations();
