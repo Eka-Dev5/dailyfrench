@@ -16,31 +16,39 @@ function getScenarioList() {
 function initConversation() {
   if (typeof initCore === 'function') initCore();
 
+  if (window._conversationInitDone) return;
+
   var list = getScenarioList();
   if (list.length > 0) {
+    window._conversationInitDone = true;
     renderScenarioList();
-  } else {
-    // Ecouter l evenement emis par conversation-loader.js une fois tous les fichiers charges
-    if (typeof EventBus !== 'undefined') {
-      EventBus.on('conversationsLoaded', function() {
-        renderScenarioList();
-      });
-    }
+    setupTTS();
+    return;
+  }
 
-    // Filet de securite : si apres 5s rien n est arrive, afficher ce qu on a (meme partiel)
-    setTimeout(function() {
-      var list2 = getScenarioList();
-      if (list2.length > 0) {
+  // Polling : verifie toutes les 100ms pendant max 10s si les donnees sont arrivees
+  var retries = 0;
+  var timer = setInterval(function() {
+    retries++;
+    var list2 = getScenarioList();
+    if (list2.length > 0) {
+      clearInterval(timer);
+      if (!window._conversationInitDone) {
+        window._conversationInitDone = true;
         renderScenarioList();
-      } else {
+      }
+    } else if (retries > 100) {
+      clearInterval(timer);
+      if (!window._conversationInitDone) {
+        window._conversationInitDone = true;
         var container = document.getElementById('convScenarios');
         if (container) {
           container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">Unable to load scenarios. Check console.</div>';
         }
-        console.error('[Talk] CONVERSATION_SCENARIOS not found or empty after 5s');
+        console.error('[Talk] CONVERSATION_SCENARIOS not found or empty after 10s');
       }
-    }, 5000);
-  }
+    }
+  }, 100);
 
   setupTTS();
 }
