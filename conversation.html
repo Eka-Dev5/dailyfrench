@@ -87,15 +87,14 @@
     </section>
   </main>
 
-  <!-- ORDRE UNIFORME : config → core → loader → ui → app -->
-  <!-- Même pattern que quiz.html et vocabulary.html -->
+  <!-- ORDRE DE CHARGEMENT : config → core → loader → ui → app -->
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
   <script src="js/conversation-loader.js"></script>
   <script src="js/ui-utils.js"></script>
   <script src="js/conversation.js"></script>
 
-  <!-- Démarrage manuel, comme vocabulary.html -->
+  <!-- Démarrage manuel unique -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof initConversation === 'function') initConversation();
