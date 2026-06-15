@@ -126,5 +126,40 @@
   }, 1000);
 </script>
 
+<!-- BLOC DEBUG 3 - a coller juste avant </body>, apres tous les scripts -->
+<script>
+  setTimeout(function() {
+    var box3 = document.createElement('div');
+    box3.style.cssText = "background:#f8d7da;border:2px solid #842029;border-radius:8px;padding:12px;margin:10px;font-family:monospace;font-size:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word;";
+    var html = "🔴 DEBUG 3 (apres 3s)\n";
+    html += "_conversationInitDone = " + window._conversationInitDone + "\n";
+    html += "getScenarioList().length = " + (typeof getScenarioList === 'function' ? getScenarioList().length : 'N/A') + "\n";
+    var container = document.getElementById('convScenarios');
+    html += "convScenarios exists = " + (!!container) + "\n";
+    html += "convScenarios.children.length = " + (container ? container.children.length : "N/A") + "\n";
+    html += "convScenarios.innerHTML (first 200 chars) = " + (container ? JSON.stringify(container.innerHTML.substring(0,200)) : "N/A") + "\n";
+
+    // Essai manuel : appeler renderScenarioList nous-memes
+    html += "\n--- Appel manuel de renderScenarioList() ---\n";
+    try {
+      if (typeof renderScenarioList === 'function') {
+        renderScenarioList();
+        html += "renderScenarioList() execute sans erreur\n";
+        html += "convScenarios.children.length APRES = " + (container ? container.children.length : "N/A") + "\n";
+      } else {
+        html += "renderScenarioList n'est pas une fonction\n";
+      }
+    } catch(e) {
+      html += "ERREUR lors de renderScenarioList(): " + e.message + "\n";
+      html += "Stack: " + e.stack + "\n";
+    }
+
+    box3.textContent = html;
+    var target = document.querySelector(".conversation-main") || document.body;
+    target.insertBefore(box3, target.firstChild);
+  }, 3000);
+</script>
+
+
 </body>
 </html>
