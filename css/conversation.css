@@ -389,6 +389,53 @@
   width: 100%;
 }
 
+/* ── Bouton 🔊 dans les bulles ─────────────────────────────────── */
+.conv-speak-btn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  margin-left: 0.5rem;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.conv-speak-btn:hover {
+  opacity: 1;
+}
+
+/* ── Bouton 🔊 à côté de chaque réponse ───────────────────────── */
+.conv-choice-speak {
+  margin-left: auto;
+  padding: 0.25rem 0.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  border-left: 1px solid var(--subtle);
+}
+.conv-choice-speak:hover {
+  opacity: 1;
+  background: var(--primary-light);
+  border-radius: 0.25rem;
+}
+
+/* ── Layout du bouton de réponse avec 🔊 ──────────────────────── */
+.conv-choice-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  text-align: left;
+}
+.conv-choice-letter {
+  flex-shrink: 0;
+}
+.conv-choice-text {
+  flex: 1;
+}
+
+
 /* ── RÉSULTATS ──────────────────────────────────────────────────── */
 .conv-results {
   max-width: 480px;
