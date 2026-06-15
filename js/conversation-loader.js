@@ -56,4 +56,5 @@ function loadConversations() {
 }
 
 // CHARGEMENT IMMÉDIAT — pas d'attente de coreReady
+// Les 20 fichiers se chargent en parallèle, conversationsLoaded est émis quand tous sont prêts
 loadConversations();
