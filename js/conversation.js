@@ -204,7 +204,6 @@ function restartScenario() {
 function showQuestionAgain() {
   if (!currentScenario || !currentScenario.dialogue) return;
   
-  // Trouver la question en cours ou la dernière question
   var step = currentScenario.dialogue[currentStepIndex];
   if (!step || step.speaker !== 'you' || !step.choices) {
     var found = false;
@@ -223,10 +222,8 @@ function showQuestionAgain() {
   var dialogue = document.getElementById('convDialogue');
   if (!dialogue) return;
   
-  // Chercher si un reminder existe déjà
   var existing = document.getElementById('conv-reminder');
   if (existing) {
-    // Toggle : s'il est visible, on le cache ; s'il est caché, on le montre
     if (existing.style.display === 'none') {
       existing.style.display = '';
       dialogue.scrollTop = dialogue.scrollHeight;
@@ -236,7 +233,6 @@ function showQuestionAgain() {
     return;
   }
   
-  // Créer le reminder
   var reviewDiv = document.createElement('div');
   reviewDiv.id = 'conv-reminder';
   reviewDiv.className = 'conv-msg conv-msg-npc';
@@ -244,12 +240,12 @@ function showQuestionAgain() {
   reviewDiv.innerHTML =
     '<div class="conv-msg-avatar" style="background:var(--subtle);">👁</div>' +
     '<div class="conv-msg-bubble">' +
-      '<div class="conv-msg-npc-name">Reminder</div>' +
       '<div class="conv-msg-text" style="font-style:italic;">' + escapeHtml(step.text) + '</div>' +
     '</div>';
   dialogue.appendChild(reviewDiv);
   dialogue.scrollTop = dialogue.scrollHeight;
 }
+
 
 
 
