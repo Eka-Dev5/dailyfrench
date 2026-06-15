@@ -1,18 +1,38 @@
 // ═══════════════════════════════════════════════════════════════════
-// CONVERSATION.JS — Daily French 🥖 v5.2
-// Reparti de v5.0 MODE MANUEL (fonctionnelle)
-// Ajouts : boutons 👁 Revoir + 💡 Hint
-// Pas de timer. Pas de auto-next. L'utilisateur clique pour avancer.
+// CONVERSATION.JS — Daily French 🥖 v6.0
+// Ajouts : TTS (lecture vocale), bouton 🔊 sur chaque réponse,
+//          bouton "🏠 Back to Scenarios" à la fin
+//          Système de points connecté
 // ═══════════════════════════════════════════════════════════════════
 
 var currentScenario = null;
 var currentStepIndex = 0;
 var userAnswers = [];
 var _convInitRetries = 0;
+var _ttsEnabled = true; // Active/désactive la synthèse vocale
 
 function getScenarioList() {
   if (typeof CONVERSATION_SCENARIOS === 'undefined') return [];
   return Object.values(CONVERSATION_SCENARIOS);
+}
+
+// ── TTS (Text-to-Speech) ──────────────────────────────────────────
+function speak(text, lang) {
+  if (!_ttsEnabled || !window.speechSynthesis) return;
+  window.speechSynthesis.cancel(); // Arrêter la lecture en cours
+  var utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = lang || 'fr-FR';
+  utterance.rate = 0.9;
+  utterance.pitch = 1;
+  window.speechSynthesis.speak(utterance);
+}
+
+function speakFrench(text) {
+  speak(text, 'fr-FR');
+}
+
+function speakEnglish(text) {
+  speak(text, 'en-US');
 }
 
 // ── INIT ────────────────────────────────────────────────────────────
@@ -191,9 +211,23 @@ function showNextNpcMessage() {
   textDiv.textContent = step.text || '';
   bubbleDiv.appendChild(textDiv);
 
+  // Bouton 🔊 pour écouter le message NPC
+  var speakBtn = document.createElement('button');
+  speakBtn.className = 'conv-speak-btn';
+  speakBtn.innerHTML = '🔊';
+  speakBtn.title = 'Listen';
+  speakBtn.onclick = function(e) {
+    e.stopPropagation();
+    speakFrench(step.text);
+  };
+  bubbleDiv.appendChild(speakBtn);
+
   msgDiv.appendChild(avatarDiv);
   msgDiv.appendChild(bubbleDiv);
   dialogue.appendChild(msgDiv);
+
+  // Lire automatiquement le message NPC
+  speakFrench(step.text);
 
   var continueBtn = document.createElement('button');
   continueBtn.className = 'btn btn-primary';
@@ -233,6 +267,9 @@ function renderQuestion(step) {
   dialogue.appendChild(promptDiv);
   dialogue.scrollTop = dialogue.scrollHeight;
 
+  // Lire la question automatiquement
+  speakEnglish(step.text || 'What do you say?');
+
   if (choices) {
     choices.innerHTML = '';
     choices.style.display = 'block';
@@ -241,14 +278,25 @@ function renderQuestion(step) {
       var btn = document.createElement('button');
       btn.className = 'conv-choice-btn';
       btn.id = 'choice-' + idx;
-      btn.innerHTML = '<span class="conv-choice-letter">' + String.fromCharCode(65 + idx) + '</span>' +
-                      '<span class="conv-choice-text">' + escapeHtml(choice.text) + '</span>';
+      
+      // Structure : lettre + texte + bouton 🔊
+      btn.innerHTML = 
+        '<span class="conv-choice-letter">' + String.fromCharCode(65 + idx) + '</span>' +
+        '<span class="conv-choice-text">' + escapeHtml(choice.text) + '</span>' +
+        '<span class="conv-choice-speak" onclick="event.stopPropagation(); speakFrench(\\'' + escapeJsString(choice.text) + '\\')" title="Listen">🔊</span>';
+      
       btn.addEventListener('click', function() { handleChoice(idx); });
       choices.appendChild(btn);
     });
   }
 
   updateProgress();
+}
+
+// Échapper les apostrophes pour le JS inline
+function escapeJsString(text) {
+  if (!text) return '';
+  return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
 }
 
 // ── HANDLE CHOICE ─────────────────────────────────────────────────
@@ -284,6 +332,9 @@ function handleChoice(choiceIndex) {
     '</div>';
   dialogue.appendChild(userMsg);
   dialogue.scrollTop = dialogue.scrollHeight;
+
+  // Lire la réponse choisie
+  speakFrench(choice.text);
 
   var choices = document.getElementById('convChoices');
   if (choices) choices.style.display = 'none';
@@ -363,13 +414,48 @@ function showResults() {
     });
   }
 
-  if (typeof PlayerManager !== 'undefined' && PlayerManager.current && percent >= 50) {
-    if (!PlayerManager.current.conversationsDone) PlayerManager.current.conversationsDone = 0;
-    if (!PlayerManager.current.conversationsLevels) PlayerManager.current.conversationsLevels = [];
-    if (PlayerManager.current.conversationsLevels.indexOf(currentScenario.level) === -1) {
-      PlayerManager.current.conversationsLevels.push(currentScenario.level);
-      PlayerManager.current.conversationsDone = PlayerManager.current.conversationsLevels.length;
+  // ═══════════════════════════════════════════════════════════════
+  // SYSTÈME DE POINTS — connecté à PlayerManager
+  // ═══════════════════════════════════════════════════════════════
+  if (typeof PlayerManager !== 'undefined' && PlayerManager.current) {
+    var player = PlayerManager.current;
+    
+    // Points gagnés selon le score
+    var pointsEarned = 0;
+    if (percent >= 80) pointsEarned = 20;
+    else if (percent >= 50) pointsEarned = 10;
+    else pointsEarned = 5;
+
+    // Ajouter les points
+    if (!player.score) player.score = 0;
+    player.score += pointsEarned;
+
+    // XP pour la barre de progression
+    if (!player.xp) player.xp = 0;
+    player.xp += pointsEarned;
+
+    // Vérifier si montée de niveau
+    var xpNeeded = (player.level || 1) * 100;
+    if (player.xp >= xpNeeded) {
+      player.level = (player.level || 1) + 1;
+      player.xp = player.xp - xpNeeded;
+      // Notification de montée de niveau
+      if (typeof showToast === 'function') {
+        showToast('🎉 Level up! You are now level ' + player.level);
+      }
     }
+
+    // Marquer le scénario comme fait
+    if (percent >= 50) {
+      if (!player.conversationsDone) player.conversationsDone = 0;
+      if (!player.conversationsLevels) player.conversationsLevels = [];
+      if (player.conversationsLevels.indexOf(currentScenario.level) === -1) {
+        player.conversationsLevels.push(currentScenario.level);
+        player.conversationsDone = player.conversationsLevels.length;
+      }
+    }
+
+    // Sauvegarder
     if (typeof savePlayerData === 'function') savePlayerData();
   }
 
@@ -400,24 +486,19 @@ function capitalize(str) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// NOUVEAUTÉS : Bouton "👁 Revoir" + Bouton "💡 Hint"
+// NOUVEAUTÉS : Revoir + Hint
 // ═══════════════════════════════════════════════════════════════════
 
-// ── REVOIR LA QUESTION ────────────────────────────────────────────
-// Quand on clique "👁 Revoir" : on remonte le dernier message "Your turn"
-// dans le dialogue (scroll vers lui), sans créer de nouveau message
 function showQuestionAgain() {
   var dialogue = document.getElementById('convDialogue');
   if (!dialogue) return;
 
-  // Chercher le dernier message "Your turn" (c'est le promptDiv avec l'avatar ❓)
   var prompts = dialogue.querySelectorAll('#convQuestionPrompt');
   if (prompts.length === 0) return;
 
   var lastPrompt = prompts[prompts.length - 1];
   lastPrompt.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-  // Petit flash visuel pour montrer où c'est
   lastPrompt.style.transition = 'background 0.3s';
   lastPrompt.style.background = 'rgba(251, 191, 36, 0.2)';
   setTimeout(function() {
@@ -425,8 +506,6 @@ function showQuestionAgain() {
   }, 800);
 }
 
-// ── BOUTON INDICE ─────────────────────────────────────────────────
-// Donne un indice sur la bonne réponse sans la révéler totalement
 function showHint() {
   if (!currentScenario || !currentScenario.dialogue) return;
 
