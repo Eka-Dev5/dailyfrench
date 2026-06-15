@@ -26,52 +26,81 @@ function initConversation() {
   }
 
   // Polling : vérifie toutes les 100ms si les données sont arrivées
-  // Contourne la race condition EventBus ( 3 fichiers finaux, propres, en tenant compte de TOUTE l'analyse :
-
-1. **`conversation-loader.js`** — Garde le pattern parallèle (20/20 fonctionnent), mais sans le `showDebug()` qui pollue la page
-2. **`conversation.js`** — Polling robuste, pas de dépendance à `EventBus`, pas de double appel `initConversation()`
-3. **`conversation.html`** — Propre, sans texte parasite, ordre correct
-
-Voici les 3 fichiers :
-
----
-
-## 1️⃣ `js/conversation-loader.js` (propre, sans debug visuel)
-
-```javascript
-// js/conversation-loader.js — Charge les 20 scénarios depuis js/conversations/
-// VERSION FINALE : fan-out parallèle, émet conversationsLoaded quand tout est prêt
-
-let CONVERSATION_SCENARIOS = {};
-
-function loadConversations() {
-  if (window._conversationsLoading) return;
-  window._conversationsLoading = true;
-
-  CONVERSATION_SCENARIOS = {};
-
-  const count = 20;
-  let loaded = 0;
-  let errors = 0;
-  let pending = count;
-
-  function checkComplete() {
-    pending--;
-    if (pending === 0) {
-      window._conversationsReady = true;
-      window.CONVERSATION_SCENARIOS = CONVERSATION_SCENARIOS;
-      console.log('[ConversationLoader] All done. Loaded: ' + loaded + '/20, Errors: ' + errors);
-      if (typeof EventBus !== 'undefined') {
-        EventBus.emit('conversationsLoaded', { scenarios: CONVERSATION_SCENARIOS, count: loaded });
+  // Contourne la race condition EventBus (événement émis avant l'abonnement)
+  var retries = 0;
+  var timer = setInterval(function() {
+    retries++;
+    var list = getScenarioList();
+    if (list.length > 0) {
+      clearInterval(timer);
+      doInitConversation();
+    } else if (retries > 100) { // 10 secondes max
+      clearInterval(timer);
+      var container = document.getElementById('convScenarios');
+      if (container) {
+        container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">⚠️ Conversations failed to load.<br>Check that js/conversations/ folder exists with 20 files.</div>';
       }
+      console.error('[Talk] CONVERSATION_SCENARIOS not found or empty after 10s');
     }
+  }, 100);
+}
+
+// ── VRAI INIT ─────────────────────────────────────────────────────
+function doInitConversation() {
+  if (_convInitDone) return;
+  _convInitDone = true;
+
+  renderScenarioList();
+  updateBento();
+}
+
+function updateBento() {
+  var b1 = document.getElementById('b1');
+  var b2 = document.getElementById('b2');
+  var b3 = document.getElementById('b3');
+  var player = (typeof PlayerManager !== 'undefined' && PlayerManager.current) ? PlayerManager.current : null;
+
+  if (b1) b1.textContent = player ? (player.level || 1) : 1;
+  if (b2) b2.textContent = player ? (player.score || 0) : 0;
+  if (b3) b3.textContent = player ? ((player.conversationsDone || 0) + '/20') : '0/20';
+}
+
+// ── RENDER LISTE SCÉNARIOS ────────────────────────────────────────
+function renderScenarioList() {
+  var container = document.getElementById('convScenarios');
+  if (!container) return;
+
+  var list = getScenarioList();
+  if (list.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">No scenarios available.</div>';
+    return;
   }
 
-  for (let i = 1; i <= count; i++) {
-    const numStr = i.toString().padStart(2, '0');
-    const script = document.createElement('script');
-    script.src = 'js/conversations/conversation-' + numStr + '.js';
-    script.async = false;
+  var html = '';
+  var player = (typeof PlayerManager !== 'undefined' && PlayerManager.current) ? PlayerManager.current : null;
+  var currentLevel = player ? (player.level || 1) : 1;
+
+  list.forEach(function(scenario) {
+    var isLocked = scenario.requiredLesson > currentLevel;
+    var lockClass = isLocked ? 'conv-locked' : '';
+    var lockIcon = isLocked ? '🔒' : scenario.icon;
+    var onclick = isLocked ? '' : 'onclick="startScenario(' + scenario.level + ')"';
+
+    html += '<div class="conv-card ' + lockClass + '" ' + onclick + '>' +
+      '<div class="conv-card-icon">' + lockIcon + '</div>' +
+      '<div class="conv-card-info">' +
+        '<div class="conv-card-title">' + escapeHtml(scenario.title) + '</div>' +
+        '<div class="conv-card-sub">' + escapeHtml(scenario.titleFr) + '</div>' +
+        '<div class="conv-card-meta">Level ' + scenario.level + ' • ' + (scenario.difficulty === 1 ? 'Easy' : scenario.difficulty === 2 ? 'Medium' : 'Hard') + '</div>' +
+      '</div>' +
+    '</div>';
+  });
+
+  container.innerHTML = html;
+}
+
+function escapeHtml(text) {
+  if (!;
 
     script.onload = function() {
       const convVar = 'CONVERSATION_' + numStr;
@@ -97,5 +126,4 @@ function loadConversations() {
 }
 
 // CHARGEMENT IMMÉDIAT — pas d'attente de coreReady
-// Les 20 fichiers se chargent en parallèle, conversationsLoaded est émis quand tous sont prêts
 loadConversations();
