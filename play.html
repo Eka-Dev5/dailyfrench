@@ -55,24 +55,24 @@
 
   <!-- MAIN : Quiz - Niveaux visibles directement -->
   <main class="play-main">
-    <!-- Sélecteur de mode -->
+    <!-- Mode selector -->
     <div class="mode-selector">
-      <button class="mode-btn active" data-mode="mixte" onclick="setGameMode('mixte')">Mixed</button>
-      <button class="mode-btn" data-mode="qcm" onclick="setGameMode('qcm')">QCM</button>
-      <button class="mode-btn" data-mode="libre" onclick="setGameMode('libre')">Written</button>
+      <button class="mode-btn active" data-mode="mixte" onclick="selectMode('mixte')">Mixed</button>
+      <button class="mode-btn" data-mode="qcm" onclick="selectMode('qcm')">QCM</button>
+      <button class="mode-btn" data-mode="libre" onclick="selectMode('libre')">Written</button>
     </div>
 
     <!-- Direction -->
     <div style="text-align:center;margin-bottom:var(--space-lg)">
       <div style="font-size:var(--font-sm);color:var(--muted);margin-bottom:var(--space-sm);font-weight:600">Question direction:</div>
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-        <button class="direction-btn active" data-direction="en-first" onclick="applyDirectionPick('en-first')">🇬🇧→🇫🇷 EN First</button>
-        <button class="direction-btn" data-direction="fr-first" onclick="applyDirectionPick('fr-first')">🇫🇷→🇬🇧 FR First</button>
-        <button class="direction-btn" data-direction="mixed" onclick="applyDirectionPick('mixed')">🔄 Mixed</button>
+        <button class="direction-btn active" data-direction="en-first" onclick="selectDirection('en-first')">🇬🇧→🇫🇷 EN First</button>
+        <button class="direction-btn" data-direction="fr-first" onclick="selectDirection('fr-first')">🇫🇷→🇬🇧 FR First</button>
+        <button class="direction-btn" data-direction="mixed" onclick="selectDirection('mixed')">🔄 Mixed</button>
       </div>
     </div>
 
-    <!-- GRILLE DES NIVEAUX (visible directement) -->
+    <!-- NIVEAUX (visibles directement) -->
     <h2 class="section-title">🎮 Choose a Level</h2>
     <div id="levelsContainer" class="levels-container"></div>
   </main>
@@ -93,10 +93,13 @@
   <script src="js/vocabulary-data.js"></script>
   <script src="js/vocabulary-engine.js"></script>
   <script src="js/game-engine.js"></script>
-  <script src="js/play.js"></script>
+  <script src="js/quiz.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      if (typeof initPlay === 'function') initPlay();
+      if (typeof initCore === 'function') initCore();
+      if (typeof renderLevelsWhenReady === 'function') renderLevelsWhenReady();
+      if (typeof selectMode === 'function') selectMode('mixte');
+      if (typeof renderDirectionSelector === 'function') renderDirectionSelector();
     });
   </script>
 </body>
