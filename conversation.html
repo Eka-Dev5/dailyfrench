@@ -13,8 +13,6 @@
 </head>
 <body>
   <div id="toast" class="toast"></div>
-
-  <!-- Modal joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
@@ -25,16 +23,12 @@
       </div>
     </div>
   </div>
-
-  <!-- Popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
       <div id="vocab-popup-body"></div>
     </div>
   </div>
-
-  <!-- Hero -->
   <header class="hero conversation-hero">
     <div class="hero-avatar" id="heroAv">💬<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
@@ -47,15 +41,11 @@
       <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
     </div>
   </header>
-
-  <!-- Bento -->
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
     <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
     <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
-
-  <!-- Main Conversation -->
   <main class="conversation-main">
     <section class="conv-section" id="convList">
       <h2 class="conv-section-title">Choose a scenario</h2>
@@ -86,79 +76,15 @@
       </div>
     </section>
   </main>
-
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
-  <script src="js/conversation-loader.js"></script>
+  <script src="js/conversation-data.js"></script>
   <script src="js/ui-utils.js"></script>
   <script src="js/conversation.js"></script>
-
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof initConversation === 'function') initConversation();
     });
   </script>
-
-  <!-- BLOC DEBUG 2 -->
-  <script>
-    setTimeout(function() {
-      var box2 = document.createElement('div');
-      box2.style.cssText = "background:#d1ecf1;border:2px solid #0c5460;border-radius:8px;padding:12px;margin:10px;font-family:monospace;font-size:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word;";
-      var html = "🔵 DEBUG 2 (apres 1s)\n";
-      html += "typeof CONVERSATION_SCENARIOS = " + (typeof CONVERSATION_SCENARIOS) + "\n";
-      if (typeof CONVERSATION_SCENARIOS !== 'undefined') {
-        html += "Object.keys(CONVERSATION_SCENARIOS).length = " + Object.keys(CONVERSATION_SCENARIOS).length + "\n";
-      }
-      html += "typeof getScenarioList = " + (typeof getScenarioList) + "\n";
-      if (typeof getScenarioList === 'function') {
-        html += "getScenarioList().length = " + getScenarioList().length + "\n";
-      }
-      html += "typeof EventBus = " + (typeof EventBus) + "\n";
-      html += "typeof initConversation = " + (typeof initConversation) + "\n";
-      var container = document.getElementById('convScenarios');
-      html += "convScenarios.innerHTML.length = " + (container ? container.innerHTML.length : "ELEMENT NOT FOUND") + "\n";
-      html += "convScenarios.children.length = " + (container ? container.children.length : "N/A") + "\n";
-      var listSection = document.getElementById('convList');
-      html += "convList display = " + (listSection ? getComputedStyle(listSection).display : "N/A") + "\n";
-
-      box2.textContent = html;
-      var target = document.querySelector(".conversation-main") || document.body;
-      target.insertBefore(box2, target.firstChild);
-    }, 1000);
-  </script>
-
-  <!-- BLOC DEBUG 3 -->
-  <script>
-    setTimeout(function() {
-      var box3 = document.createElement('div');
-      box3.style.cssText = "background:#f8d7da;border:2px solid #842029;border-radius:8px;padding:12px;margin:10px;font-family:monospace;font-size:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word;";
-      var html = "🔴 DEBUG 3 (apres 3s)\n";
-      html += "_conversationInitDone = " + window._conversationInitDone + "\n";
-      html += "getScenarioList().length = " + (typeof getScenarioList === 'function' ? getScenarioList().length : 'N/A') + "\n";
-      var container = document.getElementById('convScenarios');
-      html += "convScenarios exists = " + (!!container) + "\n";
-      html += "convScenarios.children.length = " + (container ? container.children.length : "N/A") + "\n";
-      html += "convScenarios.innerHTML (first 200 chars) = " + (container ? JSON.stringify(container.innerHTML.substring(0,200)) : "N/A") + "\n";
-
-      html += "\n--- Appel manuel de renderScenarioList() ---\n";
-      try {
-        if (typeof renderScenarioList === 'function') {
-          renderScenarioList();
-          html += "renderScenarioList() execute sans erreur\n";
-          html += "convScenarios.children.length APRES = " + (container ? container.children.length : "N/A") + "\n";
-        } else {
-          html += "renderScenarioList n'est pas une fonction\n";
-        }
-      } catch(e) {
-        html += "ERREUR lors de renderScenarioList(): " + e.message + "\n";
-        html += "Stack: " + e.stack + "\n";
-      }
-
-      box3.textContent = html;
-      var target = document.querySelector(".conversation-main") || document.body;
-      target.insertBefore(box3, target.firstChild);
-    }, 3000);
-  </script>
-
 </body>
 </html>
