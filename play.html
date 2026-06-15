@@ -10,9 +10,10 @@
   <link rel="stylesheet" href="css/quiz.css">
 </head>
 <body>
+  <!-- Toast notification -->
   <div id="toast" class="toast"></div>
 
-  <!-- Modal joueur -->
+  <!-- Modal pour créer un joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
@@ -24,7 +25,7 @@
     </div>
   </div>
 
-  <!-- Popup vocabulaire -->
+  <!-- Modal popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
@@ -32,12 +33,14 @@
     </div>
   </div>
 
-  <!-- Hero -->
+  <!-- Hero header (joueur + XP) -->
   <header class="hero">
-    <div class="hero-avatar" id="heroAv">🎮<span class="hero-lvl-badge" id="heroLvl">1</span></div>
+    <div class="hero-avatar" id="heroAv">🥖<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
     <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
+      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
+        <option value="">Choose a player</option>
+      </select>
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
     </div>
     <div class="hero-xp">
@@ -46,46 +49,112 @@
     </div>
   </header>
 
-  <!-- Bento -->
+  <!-- Bento grid (stats rapides) -->
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
     <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
     <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
 
-  <!-- MAIN : Quiz - Niveaux visibles directement -->
-  <main class="play-main">
-    <!-- Mode selector -->
-    <div class="mode-selector">
-      <button class="mode-btn active" data-mode="mixte" onclick="selectMode('mixte')">Mixed</button>
-      <button class="mode-btn" data-mode="qcm" onclick="selectMode('qcm')">QCM</button>
-      <button class="mode-btn" data-mode="libre" onclick="selectMode('libre')">Written</button>
+  <!-- Section : Play — intro + sélecteurs + niveaux, tout visible -->
+  <section id="levels" class="section active">
+    <div style="text-align:center;padding:var(--space-md) 0;">
+      <div style="font-size:2.5rem;margin-bottom:var(--space-xs)">🥖</div>
+      <h1 class="page-title" style="text-align:center;margin-bottom:4px">Daily French</h1>
+      <p class="page-subtitle" style="text-align:center;max-width:400px;margin:0 auto var(--space-md)">Learn everyday French through interactive quizzes.</p>
     </div>
 
-    <!-- Direction -->
+    <div class="mode-selector">
+      <button class="mode-btn active" data-mode="mixte">Mixed</button>
+      <button class="mode-btn" data-mode="qcm">QCM</button>
+      <button class="mode-btn" data-mode="libre">Written</button>
+    </div>
+
     <div style="text-align:center;margin-bottom:var(--space-lg)">
       <div style="font-size:var(--font-sm);color:var(--muted);margin-bottom:var(--space-sm);font-weight:600">Question direction:</div>
-      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-        <button class="direction-btn active" data-direction="en-first" onclick="selectDirection('en-first')">🇬🇧→🇫🇷 EN First</button>
-        <button class="direction-btn" data-direction="fr-first" onclick="selectDirection('fr-first')">🇫🇷→🇬🇧 FR First</button>
-        <button class="direction-btn" data-direction="mixed" onclick="selectDirection('mixed')">🔄 Mixed</button>
-      </div>
+      <div id="directionSelector" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"></div>
     </div>
 
-    <!-- NIVEAUX (visibles directement) -->
     <h2 class="section-title">🎮 Choose a Level</h2>
     <div id="levelsContainer" class="levels-container"></div>
-  </main>
+
+    <div style="margin-top:var(--space-lg);text-align:center">
+      <p style="font-size:var(--font-sm);color:var(--muted)">Or explore <a href="#" onclick="showSection('lecons');renderLessonsWhenReady();return false;" style="color:var(--primary)">Lessons</a> first</p>
+    </div>
+  </section>
+
+  <!-- Section : Lessons -->
+  <section id="lecons" class="section" style="display:none">
+    <h2 class="section-title">📚 Lessons</h2>
+    <div style="text-align:center;margin-bottom:var(--space-md)">
+      <button class="btn-ghost btn-small" onclick="showSection('levels')">← Back to Levels</button>
+      <button id="lessonInvertBtn" class="btn-ghost btn-small" onclick="toggleLessonColumns()">
+        🔄 Invert columns
+      </button>
+    </div>
+    <div id="lessonsContainer" class="lessons-container"></div>
+  </section>
+
+  <!-- Section : Jeu (game area) -->
+  <section id="jeu" class="section" style="display:none">
+    <div id="lessonIntro" class="lesson-intro" style="display:none">
+      <h3 id="lessonIntroTitle" class="intro-title"></h3>
+      <p id="lessonIntroObj" class="intro-objective"></p>
+      <div id="lessonIntroContent" class="intro-content"></div>
+      <div id="lessonIntroVocabulary" class="intro-vocab"></div>
+      <button id="startLevelBtn" class="btn btn-primary btn-large">Start Level</button>
+    </div>
+    <div id="gameArea" class="game-area">
+      <div class="game-header">
+        <div id="gameTitle" class="game-title">Level 1</div>
+        <div class="game-meta">
+          <span id="questionCounter" class="counter">1 / 10</span>
+          <span id="scoreDisplay" class="score">0 pts</span>
+        </div>
+        <div class="bar-track"><div id="progressFill" class="bar-fill"></div></div>
+      </div>
+      <div id="questionText" class="question-text"></div>
+      <div id="qcmOptions" class="qcm-options"></div>
+      <div id="libreInput" class="libre-input" style="display:none">
+        <input type="text" id="answerInput" class="answer-input" placeholder="Type your answer here…" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+      </div>
+      <div id="hintBox" class="hint-box" style="display:none"></div>
+      <div class="game-actions">
+        <button id="validateBtn" class="btn btn-primary btn-large">Validate</button>
+        <button id="nextBtn" class="btn btn-secondary btn-large" style="display:none">Next</button>
+      </div>
+      <div id="feedbackArea" class="feedback-area" style="display:none">
+        <div id="feedbackTitle" class="feedback-title"></div>
+        <div id="feedbackCorrect" class="feedback-correct"></div>
+        <div id="feedbackExplanation" class="feedback-explanation"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section : Results (résultats) -->
+  <section id="resultats" class="section" style="display:none">
+    <h2 class="section-title">🎯 Results</h2>
+    <div class="score-circle" style="--pct:0">
+      <div id="resultPct" class="score-pct">0%</div>
+    </div>
+    <div id="resultMsg" class="result-message"></div>
+    <div class="result-actions">
+      <button id="retryBtn" class="btn btn-secondary btn-large">Retry</button>
+      <button id="nextLevelBtn" class="btn btn-primary btn-large">Next Level</button>
+      <button id="quitBtn" class="btn btn-ghost btn-large">Quit</button>
+    </div>
+  </section>
 
   <!-- Nav bottom -->
   <nav class="nav-bottom">
     <a href="my-life.html" class="nav-item"><span class="nav-icon">🇫🇷</span><span>Life</span></a>
     <a href="play.html" class="nav-item active"><span class="nav-icon">🎮</span><span>Play</span></a>
     <a href="vocabulary.html" class="nav-item"><span class="nav-icon">📚</span><span>Vocab</span></a>
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span>Dashboard</span></a>
     <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
   </nav>
 
-  <!-- Scripts -->
+  <!-- ORDRE DES SCRIPTS -->
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
@@ -94,13 +163,7 @@
   <script src="js/vocabulary-engine.js"></script>
   <script src="js/game-engine.js"></script>
   <script src="js/quiz.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof initCore === 'function') initCore();
-      if (typeof renderLevelsWhenReady === 'function') renderLevelsWhenReady();
-      if (typeof selectMode === 'function') selectMode('mixte');
-      if (typeof renderDirectionSelector === 'function') renderDirectionSelector();
-    });
-  </script>
+  <script src="js/nav.js"></script>
+
 </body>
 </html>
