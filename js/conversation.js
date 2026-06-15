@@ -1,7 +1,6 @@
 // ═══════════════════════════════════════════════════════════════════
 // CONVERSATION.JS — Daily French 🥖
-// Adapté au format des fichiers conversation-XX.js :
-// dialogue: [{speaker, text, choices: [{text, correct: true/false, feedback}]}]
+// Adapté au format des fichiers conversation-XX.js
 // ═══════════════════════════════════════════════════════════════════
 
 var currentScenario = null;
@@ -18,13 +17,11 @@ function getScenarioList() {
 function initConversation() {
   if (typeof initCore === 'function') initCore();
 
-  // Si déjà chargé, démarrer directement
   if (typeof CONVERSATION_SCENARIOS !== 'undefined' && Object.keys(CONVERSATION_SCENARIOS).length > 0) {
     doInitConversation();
     return;
   }
 
-  // Attendre l'événement conversationsLoaded
   if (typeof EventBus !== 'undefined') {
     EventBus.on('conversationsLoaded', function handler() {
       doInitConversation();
@@ -32,7 +29,6 @@ function initConversation() {
     });
   }
 
-  // Fallback timer (5 secondes max)
   var retries = 0;
   var timer = setInterval(function() {
     retries++;
@@ -43,7 +39,7 @@ function initConversation() {
       clearInterval(timer);
       var container = document.getElementById('convScenarios');
       if (container) {
-        container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">⚠️ Conversations failed to load.<br>Check that js/conversations/ folder exists with 20 files.</div>';
+        container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">⚠️ Conversations failed to load.</div>';
       }
     }
   }, 100);
@@ -67,112 +63,210 @@ function updateBento() {
 }
 
 function renderScenarioList() {
-  if (currentScenario !== null) return; // Protection : pas de réaffichage si scénario en cours
+  if (currentScenario !== null) return;
   var container = document.getElementById('convScenarios');
   if (!container) return;
   var list = getScenarioList();
-  if (list.length === 0'accord, je comprends. Tu as juste modifié la partie `.conv-sim-header` dans ton HTML existant, pas remplacé tout le fichier. C'est bien ça ?
+  if (list.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">No scenarios available.</div>';
+    return;
+  }
+  var html = '';
+  var player = (typeof PlayerManager !== 'undefined' && PlayerManager.current) ? PlayerManager.current : null;
+  var currentLevel = player ? (player.level || 1) : 1;
+  list.forEach(function(scenario) {
+    var isLocked = scenario.requiredLesson > currentLevel;
+    var lockClass = isLocked ? 'conv-locked' : '';
+    var lockIcon = isLocked ? '🔒' : scenario.icon;
+    var onclick = isLocked ? '' : 'onclick="startScenario(' + scenario.level + ')"';
+    html += '<div class="conv-card ' + lockClass + '" ' + onclick + '>' +
+      '<div class="conv-card-icon">' + lockIcon + '</div>' +
+      '<div class="conv-card-info">' +
+        '<div class="conv-card-title">' + escapeHtml(scenario.title) + '</div>' +
+        '<div class="conv-card-sub">' + escapeHtml(scenario.titleFr) + '</div>' +
+        '<div class="conv-card-meta">Level ' + scenario.level + ' • ' + (scenario.difficulty === 1 ? 'Easy' : scenario.difficulty === 2 ? 'Medium' : 'Hard') + '</div>' +
+      '</div>' +
+    '</div>';
+  });
+  container.innerHTML = html;
+}
 
-Et maintenant tu veux le **code HTML complet** et le **JS complet** avec les boutons "👁 Revoir" et "💡 Hint" intégrés, pour être sûr que tout est cohérent ?
+function escapeHtml(text) {
+  if (!text) return '';
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
 
-Je te donne les 2 fichiers complets, propres, avec les ajouts intégrés :
+function startScenario(level) {
+  if (typeof CONVERSATION_SCENARIOS === 'undefined' || !CONVERSATION_SCENARIOS[level]) return;
+  currentScenario = CONVERSATION_SCENARIOS[level];
+  currentStepIndex = 0;
+  userAnswers = [];
+  isWaitingForNext = false;
+  document.getElementById('convList').style.display = 'none';
+  document.getElementById('convSim').style.display = 'block';
+  document.getElementById('convResults').style.display = 'none';
+  document.getElementById('convSimIcon').textContent = currentScenario.icon;
+  document.getElementById('convSimTitle').textContent = currentScenario.title;
+  renderStep();
+}
 
----
-
-## 1️⃣ `conversation.html` (COMPLET avec les 2 boutons)
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Daily French 🥖 — Conversation Simulator</title>
-  <script src="js/theme-loader.js"></script>
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/conversation.css">
-  <script src="js/nav.js"></script>
-</head>
-<body>
-  <div id="toast" class="toast"></div>
-  <div id="modalWrap" class="modal-wrap">
-    <div class="modal">
-      <h3 id="modalTitle">New Player</h3>
-      <input type="text" id="mInput" maxlength="30" placeholder="Your name" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
-      <div class="modal-actions">
-        <button id="btnCancelModal" class="btn-ghost" onclick="closeModal()">Cancel</button>
-        <button id="btnCreatePlayer" class="btn-primary" onclick="confirmNewPlayer()">Create</button>
-      </div>
-    </div>
-  </div>
-  <div id="vocabulary-popup-modal" class="vocab-popup-modal">
-    <div class="vocab-popup-content">
-      <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
-      <div id="vocab-popup-body"></div>
-    </div>
-  </div>
-  <header class="hero conversation-hero">
-    <div class="hero-avatar" id="heroAv">💬<span class="hero-lvl-badge" id="heroLvl">1</span></div>
-    <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
-    <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
-      <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
-    </div>
-    <div class="hero-xp">
-      <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0%"></div></div>
-      <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
-    </div>
-  </header>
-  <div class="bento-grid">
-    <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
-    <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
-    <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
-  </div>
-  <main class="conversation-main">
-    <section class="conv-section" id="convList">
-      <h2 class="conv-section-title">Choose a scenario</h2>
-      <div id="convScenarios" class="conv-list"></div>
-    </section>
-    <section class="conv-section" id="convSim" style="display:none">
-      <div class="conv-sim-header">
-        <div class="conv-sim-info"><span id="convSimIcon">🥖</span><span id="convSimTitle">Scenario</span></div>
-        <div style="display:flex;gap:0.5rem;align-items:center;">
-          <button class="btn btn-small" style="min-height:32px;padding:4px 10px;font-size:0.75rem;background:var(--primary-light);color:var(--primary);border:1px solid var(--primary);" onclick="showQuestionAgain()">👁 Revoir</button>
-          <button class="btn btn-small" style="min-height:32px;padding:4px 10px;font-size:0.75rem;background:var(--gold-light);color:var(--gold);border:1px solid var(--gold);" onclick="showHint()">💡 Hint</button>
-          <span id="convSimProgress" style="background:var(--primary-light);padding:0.25rem 0.625rem;border-radius:999px;font-size:var(--font-xs);color:var(--muted);font-weight:500;">1 / 5</span>
-        </div>
-      </div>
-      <div id="convDialogue" class="conv-dialogue"></div>
-      <div id="convChoices" class="conv-choices"></div>
-      <div id="convFeedback" class="conv-feedback" style="display:none">
-        <div id="convFeedbackText"></div>
-        <button id="convNextBtn" class="btn btn-primary">Continue</button>
-      </div>
-    </section>
-    <section class="conv-section" id="convResults" style="display:none">
-      <div class="conv-results">
-        <div class="conv-result-circle"><div id="convResultScore">0%</div></div>
-        <h2 id="convResultTitle">Results</h2>
-        <p id="convResultMsg"></p>
-        <div id="convResultBreakdown"></div>
-        <div class="conv-result-actions">
-          <button class="btn btn-secondary" onclick="exitConversation()">Exit</button>
-          <button class="btn btn-primary" onclick="restartScenario()">Retry</button>
-        </div>
-      </div>
-    </section>
-  </main>
-  <script src="js/config.js"></script>
-  <script src="js/core.js"></script>
-  <script src="js/conversation-loader.js"></script>
-  <script src="js/ui-utils.js"></script>
-  <script src="js/conversation.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof initConversation === 'function') initConversation();
+function renderStep() {
+  var dialogue = document.getElementById('convDialogue');
+  var choices = document.getElementById('convChoices');
+  var feedback = document.getElementById('convFeedback');
+  var progress = document.getElementById('convSimProgress');
+  if (!currentScenario || !currentScenario.dialogue) return;
+  var step = currentScenario.dialogue[currentStepIndex];
+  if (!step) { showResults(); return; }
+  var total = currentScenario.dialogue.filter(function(d) { return d.speaker === 'you'; }).length;
+  var current = userAnswers.length + 1;
+  if (progress) progress.textContent = current + ' / ' + total;
+  if (feedback) feedback.style.display = 'none';
+  var speakerClass = step.speaker === 'you' ? 'conv-msg-you' : 'conv-msg-npc';
+  var speakerLabel = step.speaker === 'you' ? 'You' : (step.speaker === 'neighbour' ? 'Neighbour' : step.speaker === 'friend' ? 'Friend' : step.speaker === 'vendor' ? 'Vendor' : step.speaker === 'cashier' ? 'Cashier' : step.speaker === 'landlord' ? 'Landlord' : step.speaker === 'colleague' ? 'Colleague' : step.speaker === 'agent' ? 'Agent' : step.speaker === 'waiter' ? 'Waiter' : step.speaker === 'receptionist' ? 'Receptionist' : step.speaker === 'doctor' ? 'Doctor' : 'NPC');
+  dialogue.innerHTML = '<div class="' + speakerClass + '"><div class="conv-msg-label">' + speakerLabel + '</div><div class="conv-msg-text">' + escapeHtml(step.text) + '</div></div>';
+  if (step.speaker === 'you' && step.choices) {
+    var choicesHtml = '';
+    step.choices.forEach(function(choice, idx) {
+      choicesHtml += '<button class="conv-choice-btn" onclick="handleChoice(' + idx + ')">' + escapeHtml(choice.text) + '</button>';
     });
-  </script>
-</body>
-</html>
+    choices.innerHTML = choicesHtml;
+    choices.style.display = 'block';
+  } else {
+    choices.style.display = 'none';
+    setTimeout(function() { currentStepIndex++; renderStep(); }, 1500);
+  }
+}
+
+function handleChoice(choiceIndex) {
+  if (!currentScenario || !currentScenario.dialogue) return;
+  var step = currentScenario.dialogue[currentStepIndex];
+  if (!step || !step.choices || !step.choices[choiceIndex]) return;
+  var choice = step.choices[choiceIndex];
+  userAnswers.push({ stepIndex: currentStepIndex, choiceIndex: choiceIndex, correct: choice.correct, text: choice.text });
+  var buttons = document.querySelectorAll('.conv-choice-btn');
+  buttons.forEach(function(btn, idx) {
+    btn.disabled = true;
+    if (idx === choiceIndex) btn.classList.add(choice.correct ? 'conv-choice-correct' : 'conv-choice-wrong');
+  });
+  showFeedback(choice.correct, choice.feedback);
+}
+
+function showFeedback(isCorrect, message) {
+  var feedback = document.getElementById('convFeedback');
+  var feedbackText = document.getElementById('convFeedbackText');
+  var nextBtn = document.getElementById('convNextBtn');
+  if (!feedback || !feedbackText) return;
+  var icon = isCorrect ? '✅' : '❌';
+  feedbackText.innerHTML = '<div class="conv-feedback-icon">' + icon + '</div><div class="conv-feedback-msg">' + escapeHtml(message) + '</div>';
+  feedback.style.display = 'block';
+  if (nextBtn) {
+    nextBtn.onclick = function() { feedback.style.display = 'none'; currentStepIndex++; renderStep(); };
+  }
+}
+
+function showResults() {
+  document.getElementById('convSim').style.display = 'none';
+  document.getElementById('convResults').style.display = 'block';
+  var correct = userAnswers.filter(function(a) { return a.correct; }).length;
+  var total = userAnswers.length;
+  var percent = total > 0 ? Math.round((correct / total) * 100) : 0;
+  document.getElementById('convResultScore').textContent = percent + '%';
+  document.getElementById('convResultTitle').textContent = percent >= 80 ? 'Excellent !' : percent >= 50 ? 'Good job !' : 'Keep practicing !';
+  document.getElementById('convResultMsg').textContent = 'You got ' + correct + ' out of ' + total + ' correct.';
+  var breakdown = '';
+  userAnswers.forEach(function(a, idx) { breakdown += '<div class="conv-result-item">' + (a.correct ? '✅' : '❌') + ' Question ' + (idx + 1) + '</div>'; });
+  document.getElementById('convResultBreakdown').innerHTML = breakdown;
+  if (typeof PlayerManager !== 'undefined' && PlayerManager.current && percent >= 50) {
+    if (!PlayerManager.current.conversationsDone) PlayerManager.current.conversationsDone = 0;
+    if (!PlayerManager.current.conversationsLevels) PlayerManager.current.conversationsLevels = [];
+    if (PlayerManager.current.conversationsLevels.indexOf(currentScenario.level) === -1) {
+      PlayerManager.current.conversationsLevels.push(currentScenario.level);
+      PlayerManager.current.conversationsDone = PlayerManager.current.conversationsLevels.length;
+    }
+    if (typeof savePlayerData === 'function') savePlayerData();
+  }
+  updateBento();
+}
+
+function exitConversation() {
+  currentScenario = null; currentStepIndex = 0; userAnswers = [];
+  document.getElementById('convList').style.display = 'block';
+  document.getElementById('convSim').style.display = 'none';
+  document.getElementById('convResults').style.display = 'none';
+  renderScenarioList();
+}
+
+function restartScenario() {
+  if (currentScenario) startScenario(currentScenario.level);
+}
+
+function showQuestionAgain() {
+  if (!currentScenario || !currentScenario.dialogue) return;
+  var step = currentScenario.dialogue[currentStepIndex];
+  if (!step || step.speaker !== 'you' || !step.choices) {
+    var found = false;
+    for (var i = currentStepIndex - 1; i >= 0; i--) {
+      if (currentScenario.dialogue[i].speaker === 'you' && currentScenario.dialogue[i].choices) {
+        step = currentScenario.dialogue[i];
+        found = true;
+        break;
+      }
+    }
+    if (!found) return;
+  }
+  var dialogue = document.getElementById('convDialogue');
+  if (!dialogue) return;
+  var reviewDiv = document.createElement('div');
+  reviewDiv.className = 'conv-msg conv-msg-npc';
+  reviewDiv.style.opacity = '0.7';
+  reviewDiv.innerHTML =
+    '<div class="conv-msg-avatar" style="background:var(--subtle);">👁</div>' +
+    '<div class="conv-msg-bubble">' +
+      '<div class="conv-msg-npc-name">Reminder</div>' +
+      '<div class="conv-msg-text" style="font-style:italic;">' + escapeHtml(step.text) + '</div>' +
+    '</div>';
+  dialogue.appendChild(reviewDiv);
+  dialogue.scrollTop = dialogue.scrollHeight;
+}
+
+function showHint() {
+  if (!currentScenario || !currentScenario.dialogue) return;
+  var step = currentScenario.dialogue[currentStepIndex];
+  if (!step || !step.choices) {
+    var found = false;
+    for (var i = currentStepIndex - 1; i >= 0; i--) {
+      if (currentScenario.dialogue[i].speaker === 'you' && currentScenario.dialogue[i].choices) {
+        step = currentScenario.dialogue[i];
+        found = true;
+        break;
+      }
+    }
+    if (!found) return;
+  }
+  if (!step.choices) return;
+  var correctChoice = null;
+  for (var j = 0; j < step.choices.length; j++) {
+    if (step.choices[j].correct === true) {
+      correctChoice = step.choices[j];
+      break;
+    }
+  }
+  if (!correctChoice) return;
+  var words = correctChoice.text.split(' ');
+  var hint = '💡 Hint: The answer starts with "' + words[0] + '" and has ' + words.length + ' word' + (words.length > 1 ? 's' : '') + '.';
+  var feedback = document.getElementById('convFeedback');
+  var feedbackText = document.getElementById('convFeedbackText');
+  var nextBtn = document.getElementById('convNextBtn');
+  if (feedback && feedbackText) {
+    feedback.style.display = 'block';
+    feedback.style.borderLeftColor = '#3B82F6';
+    feedbackText.innerHTML = '<div style="color:#3B82F6;font-size:1rem;">' + hint + '</div>';
+    if (nextBtn) {
+      nextBtn.textContent = 'Hide hint';
+      nextBtn.onclick = function() {
+        feedback.style.display = 'none';
+      };
+    }
+  }
+}
