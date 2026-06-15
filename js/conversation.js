@@ -1,13 +1,8 @@
-// ═══════════════════════════════════════════════════════════════════
-// CONVERSATION.JS — Daily French 🥖 v1.5
-// CORRECTION : attente propre de CONVERSATION_SCENARIOS
-// Même pattern que vocabulary.js — pas de démarrage auto
-// ═══════════════════════════════════════════════════════════════════
+// CONVERSATION.JS — Simple, attend le loader
 
 var currentScenario = null;
 var currentStepIndex = 0;
 var userAnswers = [];
-var isWaitingForNext = false;
 var _convInitDone = false;
 
 function getScenarioList() {
@@ -15,266 +10,130 @@ function getScenarioList() {
   return Object.values(CONVERSATION_SCENARIOS);
 }
 
-// ── INIT PRINCIPAL (pattern vocabulary.js) ──────────────────────
 function initConversation() {
   if (typeof initCore === 'function') initCore();
-
-  // Si déjà chargé, démarrer directement
-  if (typeof CONVERSATION_SCENARIOS !== 'undefined' && Object.keys(CONVERSATION_SCENARIOS).length > 0) {
-    doInitConversation();
+  
+  // Si déjà chargé
+  if (window._conversationsReady) {
+    doInit();
     return;
   }
-
-  // Sinon attendre l'événement conversationsLoaded
+  
+  // Sinon attendre
   if (typeof EventBus !== 'undefined') {
-    EventBus.on('conversationsLoaded', function handler() {
-      doInitConversation();
-      EventBus.off('conversationsLoaded', handler);
+    EventBus.on('conversationsLoaded', function() {
+      doInit();
     });
   }
-
-  // Fallback : timer de sécurité (5 secondes max)
-  var retries = 0;
-  var timer = setInterval(function() {
-    retries++;
-    if (typeof CONVERSATION_SCENARIOS !== 'undefined' && Object.keys(CONVERSATION_SCENARIOS).length > 0) {
-      clearInterval(timer);
-      doInitConversation();
-    } else if (retries > 50) {
-      clearInterval(timer);
-      var container = document.getElementById('convScenarios');
-      if (container) {
-        container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">⚠️ Conversations failed to load.<br>Check that conversations/ folder exists with 20 files.</div>';
-      }
+  
+  // Fallback : vérifier toutes les 200ms
+  var check = setInterval(function() {
+    if (window._conversationsReady) {
+      clearInterval(check);
+      doInit();
     }
-  }, 100);
+  }, 200);
 }
 
-// ── VRAI INIT ─────────────────────────────────────────────────────
-function doInitConversation() {
+function doInit() {
   if (_convInitDone) return;
   _convInitDone = true;
-
-  renderScenarioList();
-  updateBento();
-}
-
-function updateBento() {
-  var b1 = document.getElementById('b1');
-  var b2 = document.getElementById('b2');
-  var b3 = document.getElementById('b3');
-  var player = (typeof PlayerManager !== 'undefined' && PlayerManager.current) ? PlayerManager.current : null;
-
-  if (b1) b1.textContent = player ? (player.level || 1) : 1;
-  if (b2) b2.textContent = player ? (player.score || 0) : 0;
-  if (b3) b3.textContent = player ? ((player.conversationsDone || 0) + '/20') : '0/20';
-}
-
-// ── RENDER LISTE SCÉNARIOS ────────────────────────────────────────
-function renderScenarioList() {
+  
   var container = document.getElementById('convScenarios');
-  if (!container) return;
-
   var list = getScenarioList();
+  
   if (list.length === 0) {
-    container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">No scenarios available.</div>';
+    if (container) container.innerHTML = '<div style="text-align:center;padding:2rem">⚠️ No conversations loaded</div>';
     return;
   }
-
+  
   var html = '';
   var player = (typeof PlayerManager !== 'undefined' && PlayerManager.current) ? PlayerManager.current : null;
   var currentLevel = player ? (player.level || 1) : 1;
-
-  list.forEach(function(scenario) {
-    var isLocked = scenario.requiredLesson > currentLevel;
-    var lockClass = isLocked ? 'conv-locked' : '';
-    var lockIcon = isLocked ? '🔒' : scenario.icon;
-    var onclick = isLocked ? '' : 'onclick="startScenario(' + scenario.level + ')"';
-
-    html += '<div class="conv-card ' + lockClass + '" ' + onclick + '>' +
-      '<div class="conv-card-icon">' + lockIcon + '</div>' +
+  
+  list.forEach(function(s) {
+    var locked = s.requiredLesson > currentLevel;
+    html += '<div class="conv-card ' + (locked ? 'conv-locked' : '') + '" ' + (locked ? '' : 'onclick="startScenario(' + s.level + ')"') + '>' +
+      '<div class="conv-card-icon">' + (locked ? '🔒' : s.icon) + '</div>' +
       '<div class="conv-card-info">' +
-        '<div class="conv-card-title">' + escapeHtml(scenario.title) + '</div>' +
-        '<div class="conv-card-sub">' + escapeHtml(scenario.titleFr) + '</div>' +
-        '<div class="conv-card-meta">Level ' + scenario.level + ' • ' + (scenario.difficulty === 1 ? 'Easy' : scenario.difficulty === 2 ? 'Medium' : 'Hard') + '</div>' +
+        '<div class="conv-card-title">' + s.title + '</div>' +
+        '<div class="conv-card-sub">' + s.titleFr + '</div>' +
       '</div>' +
     '</div>';
   });
-
-  container.innerHTML = html;
+  
+  if (container) container.innerHTML = html;
 }
 
-function escapeHtml(text) {
-  if (!text) return '';
-  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-// ── DÉMARRER UN SCÉNARIO ──────────────────────────────────────────
 function startScenario(level) {
-  if (typeof CONVERSATION_SCENARIOS === 'undefined' || !CONVERSATION_SCENARIOS[level]) return;
-
+  if (!CONVERSATION_SCENARIOS || !CONVERSATION_SCENARIOS[level]) return;
   currentScenario = CONVERSATION_SCENARIOS[level];
   currentStepIndex = 0;
   userAnswers = [];
-  isWaitingForNext = false;
-
+  
   document.getElementById('convList').style.display = 'none';
   document.getElementById('convSim').style.display = 'block';
   document.getElementById('convResults').style.display = 'none';
-
-  document.getElementById('convSimIcon').textContent = currentScenario.icon;
-  document.getElementById('convSimTitle').textContent = currentScenario.title;
-
+  
   renderStep();
 }
 
-// ── RENDER ÉTAPE ──────────────────────────────────────────────────
 function renderStep() {
+  var step = currentScenario.dialogue[currentStepIndex];
+  if (!step) { showResults(); return; }
+  
   var dialogue = document.getElementById('convDialogue');
   var choices = document.getElementById('convChoices');
-  var feedback = document.getElementById('convFeedback');
-  var progress = document.getElementById('convSimProgress');
-
-  if (!currentScenario || !currentScenario.dialogue) return;
-
-  var step = currentScenario.dialogue[currentStepIndex];
-  if (!step) {
-    showResults();
-    return;
-  }
-
-  // Progression
-  var total = currentScenario.dialogue.filter(function(d) { return d.speaker === 'you'; }).length;
-  var current = userAnswers.length + 1;
-  if (progress) progress.textContent = current + ' / ' + total;
-
-  // Cacher feedback
-  if (feedback) feedback.style.display = 'none';
-
-  // Dialogue
-  var speakerClass = step.speaker === 'you' ? 'conv-msg-you' : 'conv-msg-npc';
-  var speakerLabel = step.speaker === 'you' ? 'You' : (step.speaker === 'neighbour' ? 'Neighbour' : step.speaker === 'friend' ? 'Friend' : step.speaker === 'vendor' ? 'Vendor' : step.speaker === 'cashier' ? 'Cashier' : step.speaker === 'landlord' ? 'Landlord' : step.speaker === 'colleague' ? 'Colleague' : step.speaker === 'agent' ? 'Agent' : step.speaker === 'waiter' ? 'Waiter' : step.speaker === 'receptionist' ? 'Receptionist' : step.speaker === 'doctor' ? 'Doctor' : 'NPC');
-
-  dialogue.innerHTML = '<div class="' + speakerClass + '"><div class="conv-msg-label">' + speakerLabel + '</div><div class="conv-msg-text">' + escapeHtml(step.text) + '</div></div>';
-
-  // Choices
+  
+  dialogue.innerHTML = '<div class="conv-msg-' + (step.speaker === 'you' ? 'you' : 'npc') + '">' + step.text + '</div>';
+  
   if (step.speaker === 'you' && step.choices) {
-    var choicesHtml = '';
-    step.choices.forEach(function(choice, idx) {
-      choicesHtml += '<button class="conv-choice-btn" onclick="handleChoice(' + idx + ')">' + escapeHtml(choice.text) + '</button>';
+    var html = '';
+    step.choices.forEach(function(c, i) {
+      html += '<button onclick="choose(' + i + ')">' + c.text + '</button>';
     });
-    choices.innerHTML = choicesHtml;
+    choices.innerHTML = html;
     choices.style.display = 'block';
   } else {
     choices.style.display = 'none';
-    // Si c'est un NPC, auto-avancer après 1.5s
-    setTimeout(function() {
-      currentStepIndex++;
-      renderStep();
-    }, 1500);
+    setTimeout(function() { currentStepIndex++; renderStep(); }, 1500);
   }
 }
 
-// ── HANDLE CHOICE ───────────────────────────────────────────────
-function handleChoice(choiceIndex) {
-  if (!currentScenario || !currentScenario.dialogue) return;
-
+function choose(idx) {
   var step = currentScenario.dialogue[currentStepIndex];
-  if (!step || !step.choices || !step.choices[choiceIndex]) return;
-
-  var choice = step.choices[choiceIndex];
-  userAnswers.push({
-    stepIndex: currentStepIndex,
-    choiceIndex: choiceIndex,
-    correct: choice.correct,
-    text: choice.text
-  });
-
-  // Désactiver les boutons
-  var buttons = document.querySelectorAll('.conv-choice-btn');
-  buttons.forEach(function(btn, idx) {
-    btn.disabled = true;
-    if (idx === choiceIndex) {
-      btn.classList.add(choice.correct ? 'conv-choice-correct' : 'conv-choice-wrong');
-    }
-  });
-
-  // Afficher feedback
-  showFeedback(choice.correct, choice.feedback);
+  var choice = step.choices[idx];
+  userAnswers.push({ correct: choice.correct });
+  
+  // Feedback
+  var fb = document.getElementById('convFeedback');
+  document.getElementById('convFeedbackText').textContent = (choice.correct ? '✅ ' : '❌ ') + choice.feedback;
+  fb.style.display = 'block';
+  
+  document.getElementById('convNextBtn').onclick = function() {
+    fb.style.display = 'none';
+    currentStepIndex++;
+    renderStep();
+  };
 }
 
-// ── SHOW FEEDBACK ─────────────────────────────────────────────────
-function showFeedback(isCorrect, message) {
-  var feedback = document.getElementById('convFeedback');
-  var feedbackText = document.getElementById('convFeedbackText');
-  var nextBtn = document.getElementById('convNextBtn');
-
-  if (!feedback || !feedbackText) return;
-
-  var icon = isCorrect ? '✅' : '❌';
-  feedbackText.innerHTML = '<div class="conv-feedback-icon">' + icon + '</div><div class="conv-feedback-msg">' + escapeHtml(message) + '</div>';
-  feedback.style.display = 'block';
-
-  if (nextBtn) {
-    nextBtn.onclick = function() {
-      feedback.style.display = 'none';
-      currentStepIndex++;
-      renderStep();
-    };
-  }
-}
-
-// ── SHOW RESULTS ──────────────────────────────────────────────────
 function showResults() {
   document.getElementById('convSim').style.display = 'none';
   document.getElementById('convResults').style.display = 'block';
-
+  
   var correct = userAnswers.filter(function(a) { return a.correct; }).length;
   var total = userAnswers.length;
-  var percent = total > 0 ? Math.round((correct / total) * 100) : 0;
-
-  document.getElementById('convResultScore').textContent = percent + '%';
-  document.getElementById('convResultTitle').textContent = percent >= 80 ? 'Excellent !' : percent >= 50 ? 'Good job !' : 'Keep practicing !';
-  document.getElementById('convResultMsg').textContent = 'You got ' + correct + ' out of ' + total + ' correct.';
-
-  // Breakdown
-  var breakdown = '';
-  userAnswers.forEach(function(a, idx) {
-    var icon = a.correct ? '✅' : '❌';
-    breakdown += '<div class="conv-result-item">' + icon + ' Question ' + (idx + 1) + '</div>';
-  });
-  document.getElementById('convResultBreakdown').innerHTML = breakdown;
-
-  // Sauvegarder progression
-  if (typeof PlayerManager !== 'undefined' && PlayerManager.current && percent >= 50) {
-    if (!PlayerManager.current.conversationsDone) PlayerManager.current.conversationsDone = 0;
-    if (!PlayerManager.current.conversationsLevels) PlayerManager.current.conversationsLevels = [];
-    if (PlayerManager.current.conversationsLevels.indexOf(currentScenario.level) === -1) {
-      PlayerManager.current.conversationsLevels.push(currentScenario.level);
-      PlayerManager.current.conversationsDone = PlayerManager.current.conversationsLevels.length;
-    }
-    if (typeof savePlayerData === 'function') savePlayerData();
-  }
-
-  updateBento();
+  var pct = Math.round((correct / total) * 100);
+  
+  document.getElementById('convResultScore').textContent = pct + '%';
 }
 
-// ── EXIT / RESTART ────────────────────────────────────────────────
 function exitConversation() {
   document.getElementById('convList').style.display = 'block';
   document.getElementById('convSim').style.display = 'none';
   document.getElementById('convResults').style.display = 'none';
-  currentScenario = null;
-  currentStepIndex = 0;
-  userAnswers = [];
 }
 
 function restartScenario() {
-  if (currentScenario) {
-    startScenario(currentScenario.level);
-  }
+  if (currentScenario) startScenario(currentScenario.level);
 }
-
-// ── PAS DE DÉMARRAGE AUTO ────────────────────────────────────────
-// initConversation() est appelé depuis conversation.html
-// après que conversation-loader.js ait chargé les scénarios
