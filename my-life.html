@@ -24,6 +24,14 @@
     </div>
   </div>
 
+  <!-- Popup vocabulaire -->
+  <div id="vocabulary-popup-modal" class="vocab-popup-modal">
+    <div class="vocab-popup-content">
+      <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
+      <div id="vocab-popup-body"></div>
+    </div>
+  </div>
+
   <!-- Hero -->
   <header class="hero mylife-hero">
     <div class="hero-avatar" id="heroAv">🇫🇷<span class="hero-lvl-badge" id="heroLvl">1</span></div>
@@ -51,12 +59,12 @@
   <!-- MAIN : My Life in France -->
   <main class="mylife-main">
     <h2 class="mylife-title">🇫🇷 My Life in France</h2>
-    <p class="mylife-subtitle">Practise real-life situations: bakery, doctor, shopping, restaurant...</p>
-    
-    <!-- Grille des compétences de vie -->
+    <p class="mylife-subtitle">Practise real-life situations</p>
+
+    <!-- Grille des compétences -->
     <div id="lifeSkillsGrid" class="life-skills-grid"></div>
-    
-    <!-- Zone du simulateur (cachée au début) -->
+
+    <!-- Zone simulateur (cachée au début) -->
     <div id="simulatorArea" class="simulator-area" style="display:none">
       <div class="sim-header">
         <button class="btn btn-ghost btn-small" onclick="backToSkills()">← Back</button>
@@ -69,8 +77,8 @@
         <button id="simNextBtn" class="btn btn-primary">Continue</button>
       </div>
     </div>
-    
-    <!-- Zone des résultats -->
+
+    <!-- Résultats -->
     <div id="simResults" class="sim-results" style="display:none">
       <div class="sim-result-circle"><div id="simResultScore">0%</div></div>
       <h3 id="simResultTitle">Results</h3>
@@ -94,7 +102,7 @@
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
-  <script src="js/my-life-data.js"></script>
+  <script src="js/life-skills-data.js"></script>
   <script src="js/my-life.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -103,4 +111,3 @@
   </script>
 </body>
 </html>
-
