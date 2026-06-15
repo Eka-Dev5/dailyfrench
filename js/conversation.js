@@ -1,8 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════
-// CONVERSATION.JS — Daily French 🥖 v6.0
-// Ajouts : TTS (lecture vocale), bouton 🔊 sur chaque réponse,
-//          bouton "🏠 Back to Scenarios" à la fin
-//          Système de points connecté
+// CONVERSATION.JS — Daily French 🥖 v6.1
+// Javascript uniquement. Pas de CSS ici.
+// TTS, boutons 🔊, système de points connecté.
 // ═══════════════════════════════════════════════════════════════════
 
 var currentScenario = null;
@@ -119,6 +118,11 @@ function escapeHtml(text) {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+function escapeJsString(text) {
+  if (!text) return '';
+  return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
+}
+
 // ── DÉMARRER SCÉNARIO ─────────────────────────────────────────────
 function startScenario(level) {
   if (typeof CONVERSATION_SCENARIOS === 'undefined' || !CONVERSATION_SCENARIOS[level]) {
@@ -211,7 +215,7 @@ function showNextNpcMessage() {
   textDiv.textContent = step.text || '';
   bubbleDiv.appendChild(textDiv);
 
-  // Bouton 🔊 dans la bulle (position absolue, en bas à droite) — utilise .conv-msg-tts
+  // Bouton 🔊 dans la bulle NPC
   var speakBtn = document.createElement('button');
   speakBtn.className = 'conv-msg-tts';
   speakBtn.innerHTML = '🔊';
@@ -226,7 +230,6 @@ function showNextNpcMessage() {
   msgDiv.appendChild(bubbleDiv);
   dialogue.appendChild(msgDiv);
 
-  // Lire automatiquement le message NPC
   speakFrench(step.text);
 
   var continueBtn = document.createElement('button');
@@ -267,7 +270,6 @@ function renderQuestion(step) {
   dialogue.appendChild(promptDiv);
   dialogue.scrollTop = dialogue.scrollHeight;
 
-  // Lire la question automatiquement
   speakEnglish(step.text || 'What do you say?');
 
   if (choices) {
@@ -279,7 +281,6 @@ function renderQuestion(step) {
       btn.className = 'conv-choice-btn';
       btn.id = 'choice-' + idx;
       
-      // Structure : lettre + texte + bouton 🔊
       btn.innerHTML = 
         '<span class="conv-choice-letter">' + String.fromCharCode(65 + idx) + '</span>' +
         '<span class="conv-choice-text">' + escapeHtml(choice.text) + '</span>' +
@@ -291,12 +292,6 @@ function renderQuestion(step) {
   }
 
   updateProgress();
-}
-
-// Échapper les apostrophes pour le JS inline
-function escapeJsString(text) {
-  if (!text) return '';
-  return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
 }
 
 // ── HANDLE CHOICE ─────────────────────────────────────────────────
@@ -333,7 +328,6 @@ function handleChoice(choiceIndex) {
   dialogue.appendChild(userMsg);
   dialogue.scrollTop = dialogue.scrollHeight;
 
-  // Lire la réponse choisie
   speakFrench(choice.text);
 
   var choices = document.getElementById('convChoices');
@@ -414,9 +408,7 @@ function showResults() {
     });
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // SYSTÈME DE POINTS — connecté à PlayerManager
-  // ═══════════════════════════════════════════════════════════════
+  // SYSTÈME DE POINTS
   if (typeof PlayerManager !== 'undefined' && PlayerManager.current) {
     var player = PlayerManager.current;
     
@@ -478,10 +470,7 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// NOUVEAUTÉS : Revoir + Hint
-// ═══════════════════════════════════════════════════════════════════
-
+// ── REVOIR LA QUESTION ────────────────────────────────────────────
 function showQuestionAgain() {
   var dialogue = document.getElementById('convDialogue');
   if (!dialogue) return;
@@ -499,6 +488,7 @@ function showQuestionAgain() {
   }, 800);
 }
 
+// ── BOUTON INDICE ─────────────────────────────────────────────────
 function showHint() {
   if (!currentScenario || !currentScenario.dialogue) return;
 
