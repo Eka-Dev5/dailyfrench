@@ -98,5 +98,33 @@
     if (typeof initConversation === 'function') initConversation();
   });
 </script>
+<!-- BLOC DEBUG TEMPORAIRE 2 - a coller juste avant </body>, apres tous les autres scripts -->
+<script>
+  setTimeout(function() {
+    var box2 = document.createElement('div');
+    box2.style.cssText = "background:#d1ecf1;border:2px solid #0c5460;border-radius:8px;padding:12px;margin:10px;font-family:monospace;font-size:12px;line-height:1.6;white-space:pre-wrap;word-break:break-word;";
+    var html = "🔵 DEBUG 2 (apres 1s)\n";
+    html += "typeof CONVERSATION_SCENARIOS = " + (typeof CONVERSATION_SCENARIOS) + "\n";
+    if (typeof CONVERSATION_SCENARIOS !== 'undefined') {
+      html += "Object.keys(CONVERSATION_SCENARIOS).length = " + Object.keys(CONVERSATION_SCENARIOS).length + "\n";
+    }
+    html += "typeof getScenarioList = " + (typeof getScenarioList) + "\n";
+    if (typeof getScenarioList === 'function') {
+      html += "getScenarioList().length = " + getScenarioList().length + "\n";
+    }
+    html += "typeof EventBus = " + (typeof EventBus) + "\n";
+    html += "typeof initConversation = " + (typeof initConversation) + "\n";
+    var container = document.getElementById('convScenarios');
+    html += "convScenarios.innerHTML.length = " + (container ? container.innerHTML.length : "ELEMENT NOT FOUND") + "\n";
+    html += "convScenarios.children.length = " + (container ? container.children.length : "N/A") + "\n";
+    var listSection = document.getElementById('convList');
+    html += "convList display = " + (listSection ? getComputedStyle(listSection).display : "N/A") + "\n";
+
+    box2.textContent = html;
+    var target = document.querySelector(".conversation-main") || document.body;
+    target.insertBefore(box2, target.firstChild);
+  }, 1000);
+</script>
+
 </body>
 </html>
