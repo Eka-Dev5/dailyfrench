@@ -1,6 +1,5 @@
 // js/conversation-loader.js — Charge les 20 scénarios depuis js/conversations/
-// VERSION UNIFORME : même pattern que data-loader.js (lessons)
-// Pas de démarrage auto — attend coreReady comme data-loader.js
+// VERSION FINALE : fan-out parallèle, émet conversationsLoaded quand tout est prêt
 
 let CONVERSATION_SCENARIOS = {};
 
@@ -20,7 +19,7 @@ function loadConversations() {
     if (pending === 0) {
       window._conversationsReady = true;
       window.CONVERSATION_SCENARIOS = CONVERSATION_SCENARIOS;
-      console.log('[ConversationLoader] All done. Loaded: ' + loaded + ', Errors: ' + errors);
+      console.log('[ConversationLoader] All done. Loaded: ' + loaded + '/20, Errors: ' + errors);
       if (typeof EventBus !== 'undefined') {
         EventBus.emit('conversationsLoaded', { scenarios: CONVERSATION_SCENARIOS, count: loaded });
       }
@@ -35,20 +34,14 @@ function loadConversations() {
 
     script.onload = function() {
       const convVar = 'CONVERSATION_' + numStr;
-
       if (typeof window[convVar] !== 'undefined') {
         CONVERSATION_SCENARIOS[i] = window[convVar];
         loaded++;
         console.log('[ConversationLoader] Loaded conversation-' + numStr + '.js (' + loaded + '/' + count + ')');
-
-        if (typeof EventBus !== 'undefined') {
-          EventBus.emit('conversationLoaded', { level: i, scenario: window[convVar] });
-        }
       } else {
         errors++;
         console.error('[ConversationLoader] Variable ' + convVar + ' not found');
       }
-
       checkComplete();
     };
 
@@ -62,16 +55,6 @@ function loadConversations() {
   }
 }
 
-function tryStartConversations() {
-  if (typeof EventBus !== 'undefined') {
-    EventBus.on('coreReady', loadConversations);
-  }
-
-  // Si core.js est déjà chargé (comme dans data-loader.js)
-  if (typeof PlayerManager !== 'undefined' && typeof EventBus !== 'undefined') {
-    console.log('[ConversationLoader] core.js already ready — launching directly');
-    loadConversations();
-  }
-}
-
-tryStartConversations();
+// CHARGEMENT IMMÉDIAT — pas d'attente de coreReady
+// Les 20 fichiers se chargent en parallèle, conversationsLoaded est émis quand tous sont prêts
+loadConversations();
