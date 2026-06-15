@@ -1,4 +1,3 @@
- 
 // conversation-02.js — Niveau 2 : Au marché
 const CONVERSATION_02 = {
   id: "marche",
@@ -8,21 +7,28 @@ const CONVERSATION_02 = {
   level: 2,
   difficulty: 1,
   requiredLesson: 2,
-  vocabulary: ["Je voudrais", "un kilo de", "s il vous plaît", "C est combien"],
+  category: "courses",
+  npcName: "Vendor",
+  npcRole: "Market vendor",
+  playerRole: "Customer",
   setting: "You are at the local market buying fresh produce.",
-  dialogue: [
-    { speaker: "vendor", text: "Bonjour Madame. Vous désirez ?" },
-    { speaker: "you", text: "___", choices: [
-      { text: "Bonjour. Je voudrais un kilo de tomates et un kilo de pommes, s il vous plaît.", correct: true, feedback: "Parfait! Je voudrais is polite, quantities clear, s il vous plaît at the end." },
-      { text: "Donnez-moi des tomates.", correct: false, feedback: "Too direct! Use Je voudrais and specify quantities." },
-      { text: "Tomates et pommes.", correct: false, feedback: "Too brief! Use full sentences." }
-    ]},
-    { speaker: "vendor", text: "Voilà. Ça fait 4,50 €." },
-    { speaker: "you", text: "___", choices: [
-      { text: "C est combien les pommes seules ? Et je voudrais aussi un bouquet de basilic.", correct: true, feedback: "Excellent! You asked for details + added another item. Very natural!" },
-      { text: "Voici 5 €.", correct: false, feedback: "OK but abrupt! Ask about prices or add something." },
-      { text: "C est cher.", correct: false, feedback: "Don t complain about prices! Ask politely or just pay." }
-    ]}
+  steps: [
+    {
+      npc: "Bonjour Madame. Vous désirez ?",
+      options: [
+        { text: "Bonjour. Je voudrais un kilo de tomates et un kilo de pommes, s il vous plaît.", correct: 2, feedback: "Parfait! Je voudrais is polite, quantities clear, s il vous plaît at the end." },
+        { text: "Donnez-moi des tomates.", correct: 0, feedback: "Too direct! Use Je voudrais and specify quantities." },
+        { text: "Tomates et pommes.", correct: 1, feedback: "Too brief! Use full sentences." }
+      ]
+    },
+    {
+      npc: "Voilà. Ça fait 4,50 €.",
+      options: [
+        { text: "C est combien les pommes seules ? Et je voudrais aussi un bouquet de basilic.", correct: 2, feedback: "Excellent! You asked for details + added another item. Very natural!" },
+        { text: "Voici 5 €.", correct: 1, feedback: "OK but abrupt! Ask about prices or add something." },
+        { text: "C est cher.", correct: 0, feedback: "Don t complain about prices! Ask politely or just pay." }
+      ]
+    }
   ]
 };
 
