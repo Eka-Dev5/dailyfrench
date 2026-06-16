@@ -1,5 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════════
-   MY-LIFE.CSS — My Life in France v1.0
+   MY-LIFE.CSS — Daily French 🥖 v1.0
+   Styles spécifiques à my-life.html.
+   Réutilise .life-skill-card, .life-skill-bar-track, etc. de dashboard.css
    ═══════════════════════════════════════════════════════════════════ */
 
 .mylife-hero {
@@ -8,7 +10,7 @@
 
 .mylife-main {
   padding: var(--space-md);
-  padding-bottom: calc(var(--space-xl) + 80px);
+  padding-bottom: calc(var(--space-xl) + 70px);
 }
 
 .mylife-title {
@@ -26,7 +28,8 @@
   margin-bottom: var(--space-lg);
 }
 
-/* ── GRILLE COMPÉTENCES ─────────────────────────────────────────── */
+/* ── GRILLE COMPÉTENCES — réutilise life-skill-card de dashboard.css,
+       mais sur 2 colonnes / 3 colonnes au lieu de la grille dashboard ── */
 .life-skills-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -39,59 +42,14 @@
   }
 }
 
-@media (min-width: 1024px) {
-  .life-skills-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-.life-skill-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  padding: var(--space-md);
-  background: var(--white);
-  border-radius: var(--r);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--primary);
+.life-skills-grid .life-skill-card {
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.life-skill-card:hover {
+.life-skills-grid .life-skill-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow);
-}
-
-.life-skill-header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-.life-skill-icon {
-  font-size: 1.75rem;
-  line-height: 1;
-}
-
-.life-skill-title {
-  font-weight: 700;
-  font-size: var(--font-sm);
-  color: var(--text);
-}
-
-.life-skill-bar-track {
-  width: 100%;
-  height: 6px;
-  background: var(--bg-card);
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.life-skill-bar-fill {
-  height: 100%;
-  border-radius: 999px;
-  transition: width 0.5s ease;
 }
 
 /* ── SIMULATEUR ─────────────────────────────────────────────────── */
@@ -119,7 +77,7 @@
 }
 
 .sim-dialogue {
-  min-height: 200px;
+  min-height: 120px;
   max-height: 50vh;
   overflow-y: auto;
   padding: var(--space-md);
@@ -131,16 +89,11 @@
 .sim-msg {
   display: flex;
   gap: 0.625rem;
-  animation: fadeIn 250ms ease;
+  animation: simFadeIn 250ms ease;
 }
 
 .sim-msg-npc {
   align-self: flex-start;
-}
-
-.sim-msg-user {
-  align-self: flex-end;
-  flex-direction: row-reverse;
 }
 
 .sim-msg-avatar {
@@ -154,10 +107,6 @@
   flex-shrink: 0;
 }
 
-.sim-msg-avatar-user {
-  background: var(--primary-light);
-}
-
 .sim-msg-bubble {
   background: var(--white);
   border-radius: var(--r);
@@ -166,15 +115,6 @@
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
   max-width: 85%;
-}
-
-.sim-msg-bubble-user {
-  background: var(--primary);
-  color: white;
-}
-
-.sim-msg-bubble-user .sim-msg-text {
-  color: white;
 }
 
 .sim-msg-npc-name {
@@ -267,14 +207,19 @@
   padding: var(--space-md);
   margin: var(--space-md);
   box-shadow: var(--shadow-sm);
-  animation: fadeIn 200ms ease;
+  animation: simFadeIn 200ms ease;
+}
+
+#simNextBtn {
+  width: 100%;
+  margin-top: var(--space-sm);
 }
 
 /* ── RÉSULTATS ──────────────────────────────────────────────────── */
 .sim-results {
   text-align: center;
   padding: var(--space-xl) var(--space-md);
-  animation: fadeIn 400ms ease;
+  animation: simFadeIn 400ms ease;
 }
 
 .sim-result-circle {
@@ -315,7 +260,7 @@
 }
 
 /* ── ANIMATIONS ─────────────────────────────────────────────────── */
-@keyframes fadeIn {
+@keyframes simFadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
