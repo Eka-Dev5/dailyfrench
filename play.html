@@ -10,10 +10,8 @@
   <link rel="stylesheet" href="css/quiz.css">
 </head>
 <body>
-  <!-- Toast notification -->
   <div id="toast" class="toast"></div>
 
-  <!-- Modal pour créer un joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
@@ -25,15 +23,12 @@
     </div>
   </div>
 
-  <!-- Modal popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
-      <button class="vocab-popup-close" onclick="closeVocabPopup()">×</button>
       <div id="vocab-popup-body"></div>
     </div>
   </div>
 
-  <!-- Hero header (joueur + XP) -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">🥖<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
@@ -49,20 +44,18 @@
     </div>
   </header>
 
-  <!-- Bento grid (stats rapides) -->
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
     <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
     <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
 
-  <!-- ========== SECTION HOME (page d'accueil du quiz) ========== -->
+  <!-- SECTION HOME -->
   <section id="home" class="section active">
     <div style="text-align:center;padding:var(--space-lg) var(--space-md);">
       <div style="font-size:3rem;margin-bottom:var(--space-sm)">🥖</div>
       <h1 class="page-title" style="margin-bottom:8px">Daily French</h1>
       <p class="page-subtitle" style="max-width:420px;margin:0 auto var(--space-lg)">Learn everyday French through interactive quizzes, lessons, and real-life scenarios.</p>
-      
       <div style="display:flex;flex-direction:column;gap:var(--space-sm);max-width:320px;margin:0 auto;">
         <button class="btn btn-primary btn-large" onclick="showSection('levels');renderLevelsWhenReady();">
           <span>🎮</span> Play Now
@@ -77,46 +70,40 @@
     </div>
   </section>
 
-  <!-- ========== SECTION LEVELS (choix des niveaux) ========== -->
+  <!-- SECTION LEVELS -->
   <section id="levels" class="section">
     <div style="text-align:center;padding:var(--space-md) 0;">
       <div style="font-size:2.5rem;margin-bottom:var(--space-xs)">🥖</div>
       <h1 class="page-title" style="text-align:center;margin-bottom:4px">Daily French</h1>
       <p class="page-subtitle" style="text-align:center;max-width:400px;margin:0 auto var(--space-md)">Learn everyday French through interactive quizzes.</p>
     </div>
-
     <div class="mode-selector">
       <button class="mode-btn active" data-mode="mixte">Mixed</button>
       <button class="mode-btn" data-mode="qcm">QCM</button>
       <button class="mode-btn" data-mode="libre">Written</button>
     </div>
-
     <div style="text-align:center;margin-bottom:var(--space-lg)">
       <div style="font-size:var(--font-sm);color:var(--muted);margin-bottom:var(--space-sm);font-weight:600">Question direction:</div>
       <div id="directionSelector" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"></div>
     </div>
-
     <h2 class="section-title">🎮 Choose a Level</h2>
     <div id="levelsContainer" class="levels-container"></div>
-
     <div style="margin-top:var(--space-lg);text-align:center">
       <p style="font-size:var(--font-sm);color:var(--muted)">Or explore <a href="#" onclick="showSection('lecons');renderLessonsWhenReady();return false;" style="color:var(--primary)">Lessons</a> first</p>
     </div>
   </section>
 
-  <!-- ========== SECTION LEÇONS ========== -->
+  <!-- SECTION LEÇONS -->
   <section id="lecons" class="section">
     <h2 class="section-title">📚 Lessons</h2>
     <div style="text-align:center;margin-bottom:var(--space-md)">
       <button class="btn-ghost btn-small" onclick="showSection('levels')">← Back to Levels</button>
-      <button id="lessonInvertBtn" class="btn-ghost btn-small" onclick="toggleLessonColumns()">
-        🔄 Invert columns
-      </button>
+      <button id="lessonInvertBtn" class="btn-ghost btn-small" onclick="toggleLessonColumns()">🔄 Invert columns</button>
     </div>
     <div id="lessonsContainer" class="lessons-container"></div>
   </section>
 
-  <!-- ========== SECTION JEU ========== -->
+  <!-- SECTION JEU -->
   <section id="jeu" class="section">
     <div id="lessonIntro" class="lesson-intro" style="display:none">
       <h3 id="lessonIntroTitle" class="intro-title"></h3>
@@ -152,7 +139,7 @@
     </div>
   </section>
 
-  <!-- ========== SECTION RÉSULTATS ========== -->
+  <!-- SECTION RÉSULTATS -->
   <section id="resultats" class="section">
     <h2 class="section-title">🎯 Results</h2>
     <div class="score-circle" style="--pct:0">
@@ -166,9 +153,6 @@
     </div>
   </section>
 
-  <!-- PAS DE NAV ICI — injectée par nav.js -->
-
-  <!-- ORDRE DES SCRIPTS -->
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
