@@ -857,7 +857,7 @@ function initCore() {
     document.querySelectorAll('.nav-bottom .nav-item').forEach(function(a) {
       const href = (a.getAttribute('href') || '').split('?')[0].split('/').pop();
       const match = href === page ||
-        (page === 'quiz.html' && href === 'quiz.html') ||
+        (page === 'play.html' && href === 'play.html') ||
         (page === 'vocabulary.html' && href === 'vocabulary.html') ||
         (page === 'dashboard.html' && (href === 'dashboard.html' || href === ''));
       a.classList.toggle('active', !!match);
