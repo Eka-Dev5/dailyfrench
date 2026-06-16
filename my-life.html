@@ -6,8 +6,11 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Daily French 🥖 — My Life in France</title>
+  <script src="js/theme-loader.js"></script>
   <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/my-life.css">
+  <script src="js/nav.js"></script>
 </head>
 <body>
   <div id="toast" class="toast"></div>
@@ -37,7 +40,6 @@
     <div class="hero-avatar" id="heroAv">🇫🇷<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info">
       <div class="hero-name" id="heroName">Guest</div>
-      <div style="font-size:11px;opacity:0.8" id="heroTag">My Life in France</div>
     </div>
     <div class="hero-switch">
       <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
@@ -53,18 +55,18 @@
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
     <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
-    <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
+    <div class="bento-tile"><div class="bento-num" id="b3">0/3</div><div class="bento-label">Done</div></div>
   </div>
 
-  <!-- MAIN : My Life in France -->
+  <!-- MAIN -->
   <main class="mylife-main">
     <h2 class="mylife-title">🇫🇷 My Life in France</h2>
-    <p class="mylife-subtitle">Practise real-life situations</p>
+    <p class="mylife-subtitle">Practise real-life situations: bakery, doctor, shopping, restaurant...</p>
 
     <!-- Grille des compétences -->
     <div id="lifeSkillsGrid" class="life-skills-grid"></div>
 
-    <!-- Zone simulateur (cachée au début) -->
+    <!-- Simulateur -->
     <div id="simulatorArea" class="simulator-area" style="display:none">
       <div class="sim-header">
         <button class="btn btn-ghost btn-small" onclick="backToSkills()">← Back</button>
@@ -95,6 +97,7 @@
     <a href="my-life.html" class="nav-item active"><span class="nav-icon">🇫🇷</span><span>Life</span></a>
     <a href="play.html" class="nav-item"><span class="nav-icon">🎮</span><span>Play</span></a>
     <a href="vocabulary.html" class="nav-item"><span class="nav-icon">📚</span><span>Vocab</span></a>
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span>Dashboard</span></a>
     <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
   </nav>
 
@@ -104,10 +107,6 @@
   <script src="js/ui-utils.js"></script>
   <script src="js/life-skills-data.js"></script>
   <script src="js/my-life.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof initMyLife === 'function') initMyLife();
-    });
-  </script>
+
 </body>
 </html>

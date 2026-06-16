@@ -8,11 +8,10 @@
   <title>Daily French 🥖 — Vocabulary</title>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/vocabulary.css">
-  <script src="js/nav.js"></script>
 </head>
 <body>
   <div id="toast" class="toast"></div>
-  
+
   <!-- Modal joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
@@ -24,7 +23,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
@@ -32,10 +31,10 @@
       <div id="vocab-popup-body"></div>
     </div>
   </div>
-  
+
   <!-- Hero -->
   <header class="hero">
-    <div class="hero-avatar" id="heroAv">?<span class="hero-lvl-badge" id="heroLvl">1</span></div>
+    <div class="hero-avatar" id="heroAv">📚<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
     <div class="hero-switch">
       <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
@@ -46,14 +45,14 @@
       <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
     </div>
   </header>
-  
+
   <!-- Bento -->
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
     <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
     <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
-  
+
   <!-- Section Vocabulaire -->
   <section id="vocabSection" class="section active">
     <div class="vocab-toolbar">
@@ -64,16 +63,24 @@
     <div class="vocab-meta" id="vocabCount">Loading...</div>
     <div id="vocabGrid" class="vocab-grid"></div>
   </section>
-  
+
+  <!-- Nav bottom -->
+  <nav class="nav-bottom">
+    <a href="my-life.html" class="nav-item"><span class="nav-icon">🇫🇷</span><span>Life</span></a>
+    <a href="play.html" class="nav-item"><span class="nav-icon">🎮</span><span>Play</span></a>
+    <a href="vocabulary.html" class="nav-item active"><span class="nav-icon">📚</span><span>Vocab</span></a>
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span>Dashboard</span></a>
+    <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
+  </nav>
+
   <!-- Scripts -->
   <script src="js/config.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/vocabulary-data.js"></script>
-  <script src="js/vocabulary-engine.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
+  <script src="js/vocabulary-data.js"></script>
+  <script src="js/vocabulary-engine.js"></script>
   <script src="js/vocabulary.js"></script>
-    <script>
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof initVocabulary === 'function') initVocabulary();
     });

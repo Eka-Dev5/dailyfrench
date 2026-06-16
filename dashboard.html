@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Daily French 🥖 — My Space</title>
+  <title>Daily French 🥖 — Dashboard</title>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
   <!-- Toast notification -->
   <div id="toast" class="toast"></div>
-  
+
   <!-- Modal pour créer un joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Modal popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
@@ -32,10 +32,10 @@
       <div id="vocab-popup-body"></div>
     </div>
   </div>
-  
+
   <!-- Hero header (joueur + XP) -->
   <header class="hero">
-    <div class="hero-avatar" id="heroAv">?<span class="hero-lvl-badge" id="heroLvl">1</span></div>
+    <div class="hero-avatar" id="heroAv">📊<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info">
       <div class="hero-name" id="heroName">Guest</div>
     </div>
@@ -50,97 +50,83 @@
       <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
     </div>
   </header>
-  
+
   <!-- Bento grid (stats rapides) -->
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
     <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
     <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
-  
+
   <!-- Main dashboard content -->
   <main class="dashboard-main">
-    <!-- Section 1: My Life in France (Life Skills) -->
-    <section class="dash-section" id="dash-life">
-      <h2 class="dash-title">🇫🇷 My Life in France</h2>
-      <div id="lifeSkillsGrid" class="life-skills-grid"></div>
-    </section>
-    
-    <!-- Section 2: Journey (levels map) -->
+    <!-- Section 1: Journey (levels map) -->
     <section class="dash-section" id="dash-levels">
       <h2 class="dash-title">🗺️ Journey</h2>
       <div id="journeyMap" class="journey-map"></div>
     </section>
-    
-    <!-- Section 3: Badges -->
+
+    <!-- Section 2: Badges -->
     <section class="dash-section" id="dash-badges">
       <h2 class="dash-title">🏅 Badges</h2>
       <div id="badgesGrid" class="badges-grid"></div>
     </section>
-    
-    <!-- Section 4: Cameleon (adaptive help) -->
+
+    <!-- Section 3: Cameleon (adaptive help) -->
     <section class="dash-section" id="dash-cameleon">
       <h2 class="dash-title">🦎 Cameleon</h2>
       <div id="cameleonStage" class="cameleon-stage"></div>
     </section>
-    
-    <!-- Section 5: History (sessions) -->
+
+    <!-- Section 4: History (sessions) -->
     <section class="dash-section" id="dash-history">
       <h2 class="dash-title">📜 History</h2>
       <div id="historyList" class="history-list"></div>
     </section>
-    
-    <!-- Section 6: Mon Génie (personal word collection) -->
+
+    <!-- Section 5: Mon Génie (personal word collection) -->
     <section class="dash-section" id="dash-genius">
       <h2 class="dash-title">🪔 Mon Génie</h2>
       <div id="geniusPanel" class="genius-panel"></div>
     </section>
   </main>
 
+  <!-- Nav bottom -->
+  <nav class="nav-bottom">
+    <a href="my-life.html" class="nav-item"><span class="nav-icon">🇫🇷</span><span>Life</span></a>
+    <a href="play.html" class="nav-item"><span class="nav-icon">🎮</span><span>Play</span></a>
+    <a href="vocabulary.html" class="nav-item"><span class="nav-icon">📚</span><span>Vocab</span></a>
+    <a href="dashboard.html" class="nav-item active"><span class="nav-icon">📊</span><span>Dashboard</span></a>
+    <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
+  </nav>
+
   <!-- ✅ ORDRE CORRECT DES SCRIPTS -->
   <!-- 1. config.js — Configuration globale -->
   <script src="js/config.js"></script>
-  
+
   <!-- 2. core.js — Moteur central (Storage, PlayerManager, I18n, Theme, DirectionMode, Modal, Toast, Router, EventBus) -->
   <script src="js/core.js"></script>
-  
+
   <!-- 3. ui-utils.js — Utilitaires UI (toast, modal) -->
   <script src="js/ui-utils.js"></script>
-  
-  <!-- 4. life-skills-data.js — Données Life Skills (My Life in France) -->
+
+  <!-- 4. life-skills-data.js — fournit BADGES_DEF et CAM_STAGES pour ce dashboard -->
   <script src="js/life-skills-data.js"></script>
-  
+
   <!-- 5. data-loader.js — Charge les 20 leçons depuis lessons/ et construit LESSONS_DATA + QUESTIONS_DB -->
   <script src="js/data-loader.js"></script>
-  
-  <!-- 6. vocabulary-data.js — Charge les 21 niveaux de vocabulaire (592/818 mots) -->
+
+  <!-- 6. vocabulary-data.js — Charge les 21 niveaux de vocabulaire -->
   <script src="js/vocabulary-data.js"></script>
-  
+
   <!-- 7. vocabulary-engine.js — Moteur du vocabulaire -->
   <script src="js/vocabulary-engine.js"></script>
-  
-  <!-- 8. emergency-data.js — Données SOS (emergency) -->
-  <script src="js/emergency-data.js"></script>
-  
-  <!-- 9. conversation-data.js — Données dialogues (conversation) -->
-  <script src="js/conversation-data.js"></script>
-  
-  <!-- 10. dashboard.js — Logique du dashboard (renderJourneyMap, renderLifeSkills, etc.) -->
+
+  <!-- 8. dashboard.js — Logique du dashboard (Journey, Badges, Cameleon, History, Genius) -->
   <script src="js/dashboard.js"></script>
-  
-  <!-- 11. nav.js — Navigation entre pages (lié à settings.html) -->
+
+  <!-- 9. nav.js — Navigation entre pages -->
   <script src="js/nav.js"></script>
-
-  <!-- Scripts inline pour Settings -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof initDashboard === 'function') initDashboard();
-    });
-  </script>
-
-  
-  
-
 
 </body>
 </html>
