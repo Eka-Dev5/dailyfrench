@@ -1,86 +1,80 @@
 // ═══════════════════════════════════════════════════════════════════
-// NAV.JS — Daily French 🥖 v3.1
-// Injection universelle de la navigation top + bottom
-// NE PAS mettre de <nav> en dur dans les pages HTML !
+// NAV.JS — Daily French 🥖
+// SOURCE UNIQUE DE VÉRITÉ pour les menus haut et bas
+// 
+// À inclure dans TOUTES les pages : <script src="js/nav.js"></script>
+// (ou <script src="../js/nav.js"></script> depuis /games/)
+// 
+// Injection automatique au DOMContentLoaded
 // ═══════════════════════════════════════════════════════════════════
 
 (function() {
   'use strict';
 
-  // Configuration des menus
+  // ─── DÉTECTION DU DOSSIER COURANT ───────────────────────────────
+  const path = window.location.pathname;
+  const isInGamesFolder = path.includes('/games/');
+  const prefix = isInGamesFolder ? '../' : '';
+
+  // ─── CONFIG CENTRALE DES MENUS (modifier ici = partout) ─────────
   const TOP_MENU = [
     { icon: '🚨', label: 'SOS',    href: 'emergency.html' },
     { icon: '💬', label: 'Talk',   href: 'conversation.html' },
     { icon: '🎧', label: 'Listen', href: 'games/listen.html' },
-    { icon: '🧩', label: 'Phrase', href: 'games/phrase-builder.html' },
+    { icon: '🧩', label: 'Phrase', href: 'games/sentence-builder.html' },
     { icon: '⚙️', label: 'Config', href: 'settings.html' }
   ];
 
-  const BOTTOM_MENU = [
-    { icon: '🇫🇷', label: 'Life',      href: 'my-life.html' },
-    { icon: '🎮', label: 'Play',      href: 'play.html' },
-    { icon: '📚', label: 'Vocab',     href: 'vocabulary.html' },
-    { icon: '📊', label: 'Dashboard', href: 'dashboard.html' },
-    { icon: '⚙️', label: 'Settings',  href: 'settings.html' }
+    const BOTTOM_MENU = [
+    { icon: '🇫🇷', label: 'Start',     href: 'my-life.html' },  // ← si c'est my-life.html
+    { icon: '📚', label: 'Lessons',   href: 'play.html?section=lecons' },  // ← si c'est play.html
+    { icon: '🎮', label: 'Play',      href: 'play.html?section=levels' },   // ← si c'est play.html
+    { icon: '📖', label: 'Vocab',     href: 'vocabulary.html' },
+    { icon: '📊', label: 'Dashboard', href: 'dashboard.html' }
   ];
 
-  function getPrefix() {
-    const path = window.location.pathname;
-    if (path.indexOf('/games/') !== -1) return '../';
-    return '';
-  }
 
-  function isCurrentPage(href) {
-    const current = window.location.pathname.split('/').pop() || 'index.html';
-    const target = href.split('/').pop().split('?')[0];
-    return current === target;
-  }
-
+  // ─── FONCTION D'INJECTION ───────────────────────────────────────
   function injectNav() {
-    const prefix = getPrefix();
+    if (document.querySelector('.nav-top')) return; // Déjà injecté
 
-    // Supprimer les anciennes navs si elles existent (sécurité)
-    document.querySelectorAll('.nav-top, .nav-bottom').forEach(function(el) {
-      el.remove();
-    });
+    const currentPage = path.split('/').pop() || 'quiz.html';
+    const currentHref = window.location.href;
 
-    // === NAV TOP ===
+    // Menu haut
     const topNav = document.createElement('nav');
     topNav.className = 'nav-top';
-    topNav.setAttribute('aria-label', 'Secondary navigation');
+    topNav.innerHTML = TOP_MENU.map(item => {
+      const itemHref = prefix + item.href;
+      // Détection active : comparer le nom de fichier sans le dossier games/
+      const itemFile = item.href.replace('games/', '');
+      const isActive = currentPage === itemFile || currentHref.includes(itemFile);
+      return `<a href="${itemHref}" class="nav-top-item ${isActive ? 'active' : ''}">
+        <span class="nav-top-icon">${item.icon}</span>${item.label}
+      </a>`;
+    }).join('');
+    document.body.insertBefore(topNav, document.body.firstChild);
 
-    TOP_MENU.forEach(function(item) {
-      const href = prefix + item.href;
-      const a = document.createElement('a');
-      a.href = href;
-      a.className = 'nav-top-item' + (isCurrentPage(href) ? ' active' : '');
-      a.innerHTML = '<span class="nav-top-icon">' + item.icon + '</span><span>' + item.label + '</span>';
-      topNav.appendChild(a);
-    });
-
-    // === NAV BOTTOM ===
+    // Menu bas
     const bottomNav = document.createElement('nav');
     bottomNav.className = 'nav-bottom';
-    bottomNav.setAttribute('aria-label', 'Main navigation');
-
-    BOTTOM_MENU.forEach(function(item) {
-      const href = prefix + item.href;
-      const a = document.createElement('a');
-      a.href = href;
-      a.className = 'nav-item' + (isCurrentPage(href) ? ' active' : '');
-      a.innerHTML = '<span class="nav-icon">' + item.icon + '</span><span>' + item.label + '</span>';
-      bottomNav.appendChild(a);
-    });
-
-    // Injection au début du body (avant tout)
-    document.body.insertBefore(topNav, document.body.firstChild);
+    bottomNav.innerHTML = BOTTOM_MENU.map(item => {
+      const itemHref = prefix + item.href;
+      const isActive = currentPage === item.href.split('?')[0] ||
+        (item.href.includes('?') && currentHref.includes(item.href.split('?')[1]));
+      return `<a href="${itemHref}" class="nav-item ${isActive ? 'active' : ''}">
+        <span class="nav-icon">${item.icon}</span><span>${item.label}</span>
+      </a>`;
+    }).join('');
     document.body.appendChild(bottomNav);
   }
 
-  // Exécuter immédiatement si le DOM est prêt, sinon attendre
+  // ─── LANCEMENT ──────────────────────────────────────────────────
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', injectNav);
   } else {
     injectNav();
   }
+
+  window.injectNav = injectNav;
 })();
