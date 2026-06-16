@@ -56,8 +56,29 @@
     <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
 
-  <!-- Section : Play — intro + sélecteurs + niveaux, tout visible -->
-  <section id="levels" class="section active">
+  <!-- ========== SECTION HOME (page d'accueil du quiz) ========== -->
+  <section id="home" class="section active">
+    <div style="text-align:center;padding:var(--space-lg) var(--space-md);">
+      <div style="font-size:3rem;margin-bottom:var(--space-sm)">🥖</div>
+      <h1 class="page-title" style="margin-bottom:8px">Daily French</h1>
+      <p class="page-subtitle" style="max-width:420px;margin:0 auto var(--space-lg)">Learn everyday French through interactive quizzes, lessons, and real-life scenarios.</p>
+      
+      <div style="display:flex;flex-direction:column;gap:var(--space-sm);max-width:320px;margin:0 auto;">
+        <button class="btn btn-primary btn-large" onclick="showSection('levels');renderLevelsWhenReady();">
+          <span>🎮</span> Play Now
+        </button>
+        <button class="btn btn-secondary btn-large" onclick="showSection('lecons');renderLessonsWhenReady();">
+          <span>📚</span> Lessons
+        </button>
+        <button class="btn btn-ghost btn-large" onclick="window.location.href='vocabulary.html'">
+          <span>📖</span> Vocabulary
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION LEVELS (choix des niveaux) ========== -->
+  <section id="levels" class="section">
     <div style="text-align:center;padding:var(--space-md) 0;">
       <div style="font-size:2.5rem;margin-bottom:var(--space-xs)">🥖</div>
       <h1 class="page-title" style="text-align:center;margin-bottom:4px">Daily French</h1>
@@ -83,8 +104,8 @@
     </div>
   </section>
 
-  <!-- Section : Lessons -->
-  <section id="lecons" class="section" style="display:none">
+  <!-- ========== SECTION LEÇONS ========== -->
+  <section id="lecons" class="section">
     <h2 class="section-title">📚 Lessons</h2>
     <div style="text-align:center;margin-bottom:var(--space-md)">
       <button class="btn-ghost btn-small" onclick="showSection('levels')">← Back to Levels</button>
@@ -95,8 +116,8 @@
     <div id="lessonsContainer" class="lessons-container"></div>
   </section>
 
-  <!-- Section : Jeu (game area) -->
-  <section id="jeu" class="section" style="display:none">
+  <!-- ========== SECTION JEU ========== -->
+  <section id="jeu" class="section">
     <div id="lessonIntro" class="lesson-intro" style="display:none">
       <h3 id="lessonIntroTitle" class="intro-title"></h3>
       <p id="lessonIntroObj" class="intro-objective"></p>
@@ -131,8 +152,8 @@
     </div>
   </section>
 
-  <!-- Section : Results (résultats) -->
-  <section id="resultats" class="section" style="display:none">
+  <!-- ========== SECTION RÉSULTATS ========== -->
+  <section id="resultats" class="section">
     <h2 class="section-title">🎯 Results</h2>
     <div class="score-circle" style="--pct:0">
       <div id="resultPct" class="score-pct">0%</div>
@@ -145,14 +166,7 @@
     </div>
   </section>
 
-  <!-- Nav bottom -->
-  <nav class="nav-bottom">
-    <a href="my-life.html" class="nav-item"><span class="nav-icon">🇫🇷</span><span>Life</span></a>
-    <a href="play.html" class="nav-item active"><span class="nav-icon">🎮</span><span>Play</span></a>
-    <a href="vocabulary.html" class="nav-item"><span class="nav-icon">📚</span><span>Vocab</span></a>
-    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span>Dashboard</span></a>
-    <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
-  </nav>
+  <!-- PAS DE NAV ICI — injectée par nav.js -->
 
   <!-- ORDRE DES SCRIPTS -->
   <script src="js/config.js"></script>
