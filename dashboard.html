@@ -31,7 +31,9 @@
 
   <header class="hero">
     <div class="hero-avatar" id="heroAv">📊<span class="hero-lvl-badge" id="heroLvl">1</span></div>
-    <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
+    <div class="hero-info">
+      <div class="hero-name" id="heroName">Guest</div>
+    </div>
     <div class="hero-switch">
       <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
