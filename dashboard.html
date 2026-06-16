@@ -91,41 +91,17 @@
     </section>
   </main>
 
-  <!-- Nav bottom -->
-  <nav class="nav-bottom">
-    <a href="my-life.html" class="nav-item"><span class="nav-icon">🇫🇷</span><span>Life</span></a>
-    <a href="play.html" class="nav-item"><span class="nav-icon">🎮</span><span>Play</span></a>
-    <a href="vocabulary.html" class="nav-item"><span class="nav-icon">📚</span><span>Vocab</span></a>
-    <a href="dashboard.html" class="nav-item active"><span class="nav-icon">📊</span><span>Dashboard</span></a>
-    <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span><span>Settings</span></a>
-  </nav>
+  <!-- PAS DE NAV ICI — injectée par nav.js -->
 
   <!-- ✅ ORDRE CORRECT DES SCRIPTS -->
-  <!-- 1. config.js — Configuration globale -->
   <script src="js/config.js"></script>
-
-  <!-- 2. core.js — Moteur central (Storage, PlayerManager, I18n, Theme, DirectionMode, Modal, Toast, Router, EventBus) -->
   <script src="js/core.js"></script>
-
-  <!-- 3. ui-utils.js — Utilitaires UI (toast, modal) -->
   <script src="js/ui-utils.js"></script>
-
-  <!-- 4. life-skills-data.js — fournit BADGES_DEF et CAM_STAGES pour ce dashboard -->
   <script src="js/life-skills-data.js"></script>
-
-  <!-- 5. data-loader.js — Charge les 20 leçons depuis lessons/ et construit LESSONS_DATA + QUESTIONS_DB -->
   <script src="js/data-loader.js"></script>
-
-  <!-- 6. vocabulary-data.js — Charge les 21 niveaux de vocabulaire -->
   <script src="js/vocabulary-data.js"></script>
-
-  <!-- 7. vocabulary-engine.js — Moteur du vocabulaire -->
   <script src="js/vocabulary-engine.js"></script>
-
-  <!-- 8. dashboard.js — Logique du dashboard (Journey, Badges, Cameleon, History, Genius) -->
   <script src="js/dashboard.js"></script>
-
-  <!-- 9. nav.js — Navigation entre pages -->
   <script src="js/nav.js"></script>
 
 </body>
