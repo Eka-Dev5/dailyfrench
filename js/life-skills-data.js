@@ -1,6 +1,10 @@
 // ═══════════════════════════════════════════════════════════════════
-// LIFE-SKILLS-DATA.JS — Daily French 🥖 v1.1
-// Compétences de vie + Badges + Caméléon + Simulateur
+// LIFE-SKILLS-DATA.JS — Daily French 🥖 v1.2
+// Données partagées :
+//  - BADGES_DEF, CAM_STAGES   → utilisés par dashboard.js
+//  - LIFE_SKILLS, LIFE_SIMULATOR_SCENARIOS, calculateSkillScore,
+//    renderStars, getSkillLevelLabel → utilisés par my-life.js
+// Ce fichier ne fait QUE déclarer des données, pas de rendu DOM.
 // ═══════════════════════════════════════════════════════════════════
 
 // ─── LIFE SKILLS (10 compétences) ─────────────────────────────
@@ -117,7 +121,7 @@ const LIFE_SKILLS = [
   }
 ];
 
-// ─── BADGES (29 badges) ───────────────────────────────────────
+// ─── BADGES (29 badges) — utilisé par dashboard.js ────────────
 const BADGES_DEF = [
   { id: 'first_step', icon: '🙋', name: 'First Step', desc: 'Complete level 1' },
   { id: 'greengrocer', icon: '🛒', name: 'Greengrocer', desc: 'Complete level 2' },
@@ -151,7 +155,7 @@ const BADGES_DEF = [
   { id: 'explorer', icon: '🚀', name: 'Explorer', desc: 'Try all modes' }
 ];
 
-// ─── CAMÉLÉON STAGES ─────────────────────────────────────────
+// ─── CAMÉLÉON STAGES — utilisé par dashboard.js ───────────────
 const CAM_STAGES = [
   { min: 0, icon: '🥚', name: 'Egg', color: '#94A3B8' },
   { min: 3, icon: '🦎', name: 'Hatchling', color: '#22C55E' },
@@ -160,7 +164,7 @@ const CAM_STAGES = [
   { min: 50, icon: '👑', name: 'Dragon', color: '#F59E0B' }
 ];
 
-// ─── LIFE SIMULATOR SCENARIOS ───────────────────────────────
+// ─── LIFE SIMULATOR SCENARIOS — utilisé par my-life.js ────────
 const LIFE_SIMULATOR_SCENARIOS = [
   {
     id: 'market',
@@ -278,7 +282,7 @@ const LIFE_SIMULATOR_SCENARIOS = [
   }
 ];
 
-// ─── FONCTIONS UTILITAIRES ──────────────────────────────────
+// ─── FONCTIONS UTILITAIRES — utilisées par my-life.js ─────────
 
 function calculateSkillScore(skill, player) {
   if (!player) return 0;
@@ -321,67 +325,20 @@ function renderStars(score) {
 }
 
 function getSkillLevelLabel(score) {
-  if (score >= 4.5) return 'Expert';
-  if (score >= 3.5) return 'Advanced';
-  if (score >= 2.5) return 'Intermediate';
-  if (score >= 1) return 'Beginner';
-  return 'Novice';
+  if (score >= 4.5) return { label: 'Expert', color: '#059669' };
+  if (score >= 3.5) return { label: 'Advanced', color: '#2563EB' };
+  if (score >= 2.5) return { label: 'Intermediate', color: '#F59E0B' };
+  if (score >= 1) return { label: 'Beginner', color: '#7C3AED' };
+  return { label: 'Novice', color: '#94A3B8' };
 }
 
-// ─── GÉNIE MANAGER ────────────────────────────────────────────
-
-const GeniusManager = {
-  getWords(playerName) {
-    const key = STORAGE_PREFIX + 'genius_' + playerName;
-    return Storage.get(key, []);
-  },
-  addWord(playerName, word) {
-    const words = this.getWords(playerName);
-    if (words.find(function(w) { return w.fr === word.fr && w.en === word.en; })) return false;
-    words.push(word);
-    Storage.set(STORAGE_PREFIX + 'genius_' + playerName, words);
-    return true;
-  },
-  removeWord(playerName, fr) {
-    const words = this.getWords(playerName);
-    const filtered = words.filter(function(w) { return w.fr !== fr; });
-    Storage.set(STORAGE_PREFIX + 'genius_' + playerName, filtered);
-  }
-};
-
-// ─── CAMÉLÉON MANAGER ────────────────────────────────────────
-
-const CamameleonManager = {
-  getStage(minutes) {
-    for (let i = CAM_STAGES.length - 1; i >= 0; i--) {
-      if (minutes >= CAM_STAGES[i].min) return CAM_STAGES[i];
-    }
-    return CAM_STAGES[0];
-  }
-};
-
-// ─── LIFE SIMULATOR ──────────────────────────────────────────
-
-const LifeSimulator = {
-  getScenarios() { return LIFE_SIMULATOR_SCENARIOS; },
-  getScenario(id) {
-    return LIFE_SIMULATOR_SCENARIOS.find(function(s) { return s.id === id; });
-  }
-};
-
-// ─── INIT ────────────────────────────────────────────────────
-
-function initLifeSkills() {
-  console.log('[LifeSkills] Initialized', LIFE_SKILLS.length, 'skills');
-  console.log('[Badges]', BADGES_DEF.length, 'badges');
-  console.log('[Cameleon]', CAM_STAGES.length, 'stages');
-  console.log('[Scenarios]', LIFE_SIMULATOR_SCENARIOS.length, 'scenarios');
+// ─── INIT — log uniquement, pas de rendu DOM ───────────────────
+function initLifeSkillsData() {
+  console.log('[LifeSkillsData] LIFE_SKILLS:', LIFE_SKILLS.length, '| BADGES:', BADGES_DEF.length, '| CAM_STAGES:', CAM_STAGES.length, '| Scenarios:', LIFE_SIMULATOR_SCENARIOS.length);
 }
 
-if (typeof document !== 'undefined') {
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLifeSkills);
-  } else {
-    initLifeSkills();
-  }
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initLifeSkillsData);
+} else {
+  initLifeSkillsData();
 }
