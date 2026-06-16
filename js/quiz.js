@@ -7,8 +7,7 @@ function showSection(id) {
 }
 
 // quiz.js — Logique page quiz v2.4
-// CORRECTION : handleRoute détecte play.html → section par défaut = levels
-//
+// CORRECTION : handleRoute détecte play.html
 
 function handleRoute() {
   const params = new URLSearchParams(window.location.search);
