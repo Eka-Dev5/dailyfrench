@@ -852,14 +852,18 @@ function initCore() {
   }
   
   // Active nav
+
+  // Active nav — détecte toutes les pages
   (function setActiveNav() {
     const page = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.nav-bottom .nav-item').forEach(function(a) {
+    document.querySelectorAll('.nav-bottom .nav-item, .nav-top .nav-top-item').forEach(function(a) {
       const href = (a.getAttribute('href') || '').split('?')[0].split('/').pop();
       const match = href === page ||
+        (page === 'my-life.html' && href === 'my-life.html') ||
         (page === 'play.html' && href === 'play.html') ||
         (page === 'vocabulary.html' && href === 'vocabulary.html') ||
-        (page === 'dashboard.html' && (href === 'dashboard.html' || href === ''));
+        (page === 'dashboard.html' && href === 'dashboard.html') ||
+        (page === 'settings.html' && href === 'settings.html');
       a.classList.toggle('active', !!match);
     });
   })();
