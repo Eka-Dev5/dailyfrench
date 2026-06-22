@@ -15,7 +15,8 @@
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
-      <input type="text" id="mInput" maxlength="30" placeholder="Your name" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="mInput" maxlength="30" placeholder="Your name"
+             autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
       <div class="modal-actions">
         <button id="btnCancelModal" class="btn-ghost" onclick="closeModal()">Cancel</button>
         <button id="btnCreatePlayer" class="btn-primary" onclick="confirmNewPlayer()">Create</button>
@@ -23,6 +24,7 @@
     </div>
   </div>
 
+  <!-- Popup vocabulaire — zéro croix -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <div id="vocab-popup-body"></div>
@@ -31,11 +33,11 @@
 
   <header class="hero">
     <div class="hero-avatar" id="heroAv">📊<span class="hero-lvl-badge" id="heroLvl">1</span></div>
-    <div class="hero-info">
-      <div class="hero-name" id="heroName">Guest</div>
-    </div>
+    <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
     <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
+      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
+        <option value="">Choose a player</option>
+      </select>
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
     </div>
     <div class="hero-xp">
@@ -51,23 +53,23 @@
   </div>
 
   <main class="dashboard-main">
-    <section class="dash-section" id="dash-levels">
+    <section class="dash-section">
       <h2 class="dash-title">🗺️ Journey</h2>
       <div id="journeyMap" class="journey-map"></div>
     </section>
-    <section class="dash-section" id="dash-badges">
+    <section class="dash-section">
       <h2 class="dash-title">🏅 Badges</h2>
       <div id="badgesGrid" class="badges-grid"></div>
     </section>
-    <section class="dash-section" id="dash-cameleon">
+    <section class="dash-section">
       <h2 class="dash-title">🦎 Cameleon</h2>
       <div id="cameleonStage" class="cameleon-stage"></div>
     </section>
-    <section class="dash-section" id="dash-history">
+    <section class="dash-section">
       <h2 class="dash-title">📜 History</h2>
       <div id="historyList" class="history-list"></div>
     </section>
-    <section class="dash-section" id="dash-genius">
+    <section class="dash-section">
       <h2 class="dash-title">🪔 Mon Génie</h2>
       <div id="geniusPanel" class="genius-panel"></div>
     </section>

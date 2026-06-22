@@ -11,37 +11,48 @@
 </head>
 <body>
   <div id="toast" class="toast"></div>
+
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
-      <input type="text" id="mInput" maxlength="30" placeholder="Your name" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="mInput" maxlength="30" placeholder="Your name"
+             autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
       <div class="modal-actions">
         <button id="btnCancelModal" class="btn-ghost" onclick="closeModal()">Cancel</button>
         <button id="btnCreatePlayer" class="btn-primary" onclick="confirmNewPlayer()">Create</button>
       </div>
     </div>
   </div>
+
+  <!-- Popup vocabulaire — zéro croix -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
       <div id="vocab-popup-body"></div>
     </div>
   </div>
+
   <header class="hero emergency-hero">
     <div class="hero-avatar" id="heroAv">🚨<span class="hero-lvl-badge" id="heroLvl">!</span></div>
     <div class="hero-info"><div class="hero-name" id="heroName">SOS Mode</div></div>
     <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
+      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
+        <option value="">Choose a player</option>
+      </select>
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
     </div>
   </header>
+
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="sos-cat-count">10</div><div class="bento-label">Situations</div></div>
     <div class="bento-tile"><div class="bento-num" id="sos-phrase-count">150</div><div class="bento-label">Phrases</div></div>
     <div class="bento-tile"><div class="bento-num" id="sos-fav-count">0</div><div class="bento-label">Saved</div></div>
   </div>
+
   <main class="emergency-main">
     <div class="sos-search-bar">
-      <input type="text" id="sosSearch" placeholder="🔍 Search a phrase... (e.g. 'headache', 'allergy')" autocomplete="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="sosSearch"
+             placeholder="🔍 Search a phrase... (e.g. 'headache', 'allergy')"
+             autocomplete="off" autocorrect="off" spellcheck="false">
     </div>
     <div id="sosCategories" class="sos-categories"></div>
     <div id="sosPhrases" class="sos-phrases" style="display:none">
@@ -61,9 +72,9 @@
       <div id="sosSearchList"></div>
     </div>
   </main>
+
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
-  <script src="js/data.js"></script>
   <script src="js/emergency-data.js"></script>
   <script src="js/ui-utils.js"></script>
   <script src="js/emergency.js"></script>
