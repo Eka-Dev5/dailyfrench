@@ -1,11 +1,5 @@
-// ═══════════════════════════════════════════════════════════════════
 // NAV.JS — Daily French 🥖 v3.1
-// SOURCE UNIQUE DE VÉRITÉ — menus top + bottom
-// CORRECTION v3.1 :
-//   - BOTTOM_MENU : 5 boutons propres (Life/Play/Vocab/Dashboard/Settings)
-//   - Plus de Lessons séparé, plus de ?section= dans les hrefs bottom
-//   - Détection active robuste
-// ═══════════════════════════════════════════════════════════════════
+// BOTTOM : 5 boutons propres — plus de ?section=, plus de Lessons séparé
 
 (function() {
   'use strict';
@@ -35,32 +29,28 @@
 
     const currentPage = path.split('/').pop() || 'my-life.html';
 
-    // ── Menu haut ───────────────────────────────────────────────
+    // Menu haut
     const topNav = document.createElement('nav');
     topNav.className = 'nav-top';
-    topNav.setAttribute('aria-label', 'Top navigation');
-    topNav.innerHTML = TOP_MENU.map(function(item) {
-      const itemHref  = prefix + item.href;
-      const itemFile  = item.href.replace('games/', '');
-      const isActive  = currentPage === itemFile;
-      return '<a href="' + itemHref + '" class="nav-top-item' + (isActive ? ' active' : '') + '">' +
-               '<span class="nav-top-icon">' + item.icon + '</span>' +
-               item.label +
-             '</a>';
+    topNav.innerHTML = TOP_MENU.map(item => {
+      const itemHref = prefix + item.href;
+      const itemFile = item.href.replace('games/', '');
+      const isActive = currentPage === itemFile;
+      return `<a href="${itemHref}" class="nav-top-item${isActive ? ' active' : ''}">
+        <span class="nav-top-icon">${item.icon}</span>${item.label}
+      </a>`;
     }).join('');
     document.body.insertBefore(topNav, document.body.firstChild);
 
-    // ── Menu bas ────────────────────────────────────────────────
+    // Menu bas
     const bottomNav = document.createElement('nav');
     bottomNav.className = 'nav-bottom';
-    bottomNav.setAttribute('aria-label', 'Bottom navigation');
-    bottomNav.innerHTML = BOTTOM_MENU.map(function(item) {
+    bottomNav.innerHTML = BOTTOM_MENU.map(item => {
       const itemHref = prefix + item.href;
       const isActive = currentPage === item.href;
-      return '<a href="' + itemHref + '" class="nav-item' + (isActive ? ' active' : '') + '">' +
-               '<span class="nav-icon">' + item.icon + '</span>' +
-               '<span>' + item.label + '</span>' +
-             '</a>';
+      return `<a href="${itemHref}" class="nav-item${isActive ? ' active' : ''}">
+        <span class="nav-icon">${item.icon}</span><span>${item.label}</span>
+      </a>`;
     }).join('');
     document.body.appendChild(bottomNav);
   }
