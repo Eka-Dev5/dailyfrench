@@ -18,37 +18,32 @@
     .theme-ardoise{background:#4A5568}
     .theme-mauve{background:#7C3AED}
     .theme-terra{background:#9A3412}
+    .settings-row select{min-width:140px}
   </style>
 </head>
 <body>
   <div id="toast" class="toast"></div>
-
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
-      <input type="text" id="mInput" maxlength="30" placeholder="Your name"
-             autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="mInput" maxlength="30" placeholder="Your name" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
       <div class="modal-actions">
         <button id="btnCancelModal" class="btn-ghost" onclick="closeModal()">Cancel</button>
         <button id="btnCreatePlayer" class="btn-primary" onclick="confirmNewPlayer()">Create</button>
       </div>
     </div>
   </div>
-
-  <!-- Popup vocabulaire — zéro croix -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
+    
       <div id="vocab-popup-body"></div>
     </div>
   </div>
-
   <header class="hero">
     <div class="hero-avatar" id="heroAv">⚙️<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
     <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
-        <option value="">Choose a player</option>
-      </select>
+      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
     </div>
     <div class="hero-xp">
@@ -56,55 +51,28 @@
       <div class="xp-text" id="xpText"><span id="xpNow">0</span> pts · Next: <span id="xpGoal">100</span> pts</div>
     </div>
   </header>
-
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
     <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
     <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
-
   <div class="settings-page">
     <div class="settings-section">
       <h2>🎨 Theme</h2>
-      <div class="settings-row">
-        <span><span class="theme-preview theme-ardoise"></span> Ardoise</span>
-        <button class="btn-ghost btn-small" onclick="applyThemePick('ardoise')">Select</button>
-      </div>
-      <div class="settings-row">
-        <span><span class="theme-preview theme-mauve"></span> Mauve</span>
-        <button class="btn-ghost btn-small" onclick="applyThemePick('mauve')">Select</button>
-      </div>
-      <div class="settings-row">
-        <span><span class="theme-preview theme-terra"></span> Terra Cotta</span>
-        <button class="btn-ghost btn-small" onclick="applyThemePick('terra')">Select</button>
-      </div>
+      <div class="settings-row"><span><span class="theme-preview theme-ardoise"></span> Ardoise</span><button class="btn-ghost btn-small" onclick="applyThemePick('ardoise')">Select</button></div>
+      <div class="settings-row"><span><span class="theme-preview theme-mauve"></span> Mauve</span><button class="btn-ghost btn-small" onclick="applyThemePick('mauve')">Select</button></div>
+      <div class="settings-row"><span><span class="theme-preview theme-terra"></span> Terra Cotta</span><button class="btn-ghost btn-small" onclick="applyThemePick('terra')">Select</button></div>
     </div>
     <div class="settings-section">
       <h2>🌐 Question Direction</h2>
-      <div class="settings-row">
-        <span>🇬🇧 English → 🇫🇷 French</span>
-        <button class="btn-ghost btn-small" onclick="applyDirectionPick('en-first')">Select</button>
-      </div>
-      <div class="settings-row">
-        <span>🇫🇷 French → 🇬🇧 English</span>
-        <button class="btn-ghost btn-small" onclick="applyDirectionPick('fr-first')">Select</button>
-      </div>
-      <div class="settings-row">
-        <span>🔄 Mixed</span>
-        <button class="btn-ghost btn-small" onclick="applyDirectionPick('mixed')">Select</button>
-      </div>
+      <div class="settings-row"><span>🇬🇧 English → 🇫🇷 French (Default)</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('en-first')">Select</button></div>
+      <div class="settings-row"><span>🇫🇷 French → 🇬🇧 English (Inversed)</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('fr-first')">Select</button></div>
+      <div class="settings-row"><span>🔄 Mixed</span><button class="btn-ghost btn-small" onclick="applyDirectionPick('mixed')">Select</button></div>
     </div>
     <div class="settings-section">
       <h2>💾 Profile</h2>
-      <div class="settings-row">
-        <span>Export backup</span>
-        <button class="btn-ghost btn-small" onclick="doExport()">Export</button>
-      </div>
-      <div class="settings-row">
-        <span>Import backup</span>
-        <input type="file" id="importFile" accept=".json" onchange="doImport(event)" style="display:none">
-        <button class="btn-ghost btn-small" onclick="document.getElementById('importFile').click()">Import</button>
-      </div>
+      <div class="settings-row"><span>Export backup</span><button class="btn-ghost btn-small" onclick="doExport()">Export</button></div>
+      <div class="settings-row"><span>Import backup</span><input type="file" id="importFile" accept=".json" onchange="doImport(event)" style="display:none"><button class="btn-ghost btn-small" onclick="document.getElementById('importFile').click()">Import</button></div>
     </div>
     <div class="settings-section">
       <h2>ℹ️ About</h2>
@@ -113,18 +81,12 @@
     </div>
   </div>
 
+  <!-- PAS DE NAV ICI — injectée par nav.js -->
+
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
   <script src="js/data-loader.js"></script>
   <script src="js/nav.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var el = document.getElementById('storageUsed');
-      if (el && typeof Storage !== 'undefined' && Storage.getUsage) {
-        el.textContent = Storage.getUsage();
-      }
-    });
-  </script>
 </body>
 </html>

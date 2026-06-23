@@ -12,11 +12,11 @@
 <body>
   <div id="toast" class="toast"></div>
 
+  <!-- Modal joueur -->
   <div id="modalWrap" class="modal-wrap">
     <div class="modal">
       <h3 id="modalTitle">New Player</h3>
-      <input type="text" id="mInput" maxlength="30" placeholder="Your name"
-             autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+      <input type="text" id="mInput" maxlength="30" placeholder="Your name" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
       <div class="modal-actions">
         <button id="btnCancelModal" class="btn-ghost" onclick="closeModal()">Cancel</button>
         <button id="btnCreatePlayer" class="btn-primary" onclick="confirmNewPlayer()">Create</button>
@@ -24,20 +24,20 @@
     </div>
   </div>
 
-  <!-- Popup vocabulaire — zéro croix, fermeture par clic fond uniquement -->
+  <!-- Popup vocabulaire -->
   <div id="vocabulary-popup-modal" class="vocab-popup-modal">
     <div class="vocab-popup-content">
+
       <div id="vocab-popup-body"></div>
     </div>
   </div>
 
+  <!-- Hero -->
   <header class="hero">
     <div class="hero-avatar" id="heroAv">📚<span class="hero-lvl-badge" id="heroLvl">1</span></div>
     <div class="hero-info"><div class="hero-name" id="heroName">Guest</div></div>
     <div class="hero-switch">
-      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}">
-        <option value="">Choose a player</option>
-      </select>
+      <select id="selPlayer" onchange="if(this.value&&typeof loadPlayer==='function'){loadPlayer(this.value)}"><option value="">Choose a player</option></select>
       <button class="btn-ghost btn-small" onclick="if(typeof openModal==='function')openModal()">+ New</button>
     </div>
     <div class="hero-xp">
@@ -46,12 +46,14 @@
     </div>
   </header>
 
+  <!-- Bento -->
   <div class="bento-grid">
     <div class="bento-tile"><div class="bento-num" id="b1">1</div><div class="bento-label">Level</div></div>
     <div class="bento-tile"><div class="bento-num" id="b2">0</div><div class="bento-label">Points</div></div>
     <div class="bento-tile"><div class="bento-num" id="b3">0/20</div><div class="bento-label">Done</div></div>
   </div>
 
+  <!-- Section Vocabulaire -->
   <section id="vocabSection" class="section active">
     <div class="vocab-toolbar">
       <input type="text" id="vocabSearch" placeholder="Search a word...">
@@ -62,6 +64,9 @@
     <div id="vocabGrid" class="vocab-grid"></div>
   </section>
 
+  <!-- PAS DE NAV ICI — injectée par nav.js -->
+
+  <!-- Scripts -->
   <script src="js/config.js"></script>
   <script src="js/core.js"></script>
   <script src="js/ui-utils.js"></script>
@@ -74,5 +79,6 @@
       if (typeof initVocabulary === 'function') initVocabulary();
     });
   </script>
+
 </body>
 </html>
