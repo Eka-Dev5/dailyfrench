@@ -1,59 +1,52 @@
-// conversation-loader.js — Charge les 20 scénarios depuis js/conversations/
-// VERSION QUI MARCHAIT — 20/20 chargés
+// conversation-loader.js — Daily French 🥖
+// FIX : écrit UNIQUEMENT sur window.CONVERSATION_SCENARIOS (plus de let local)
+// IIFE sur la boucle pour capturer numStr correctement
 
-let CONVERSATION_SCENARIOS = {};
+window.CONVERSATION_SCENARIOS = {};
 
 function loadConversations() {
   if (window._conversationsLoading) return;
   window._conversationsLoading = true;
 
-  CONVERSATION_SCENARIOS = {};
-
-  const count = 20;
-  let loaded = 0;
-  let errors = 0;
-  let pending = count;
+  var count   = 20;
+  var loaded  = 0;
+  var errors  = 0;
+  var pending = count;
 
   function checkComplete() {
     pending--;
-    if (pending === 0) {
-      window._conversationsReady = true;
-      window.CONVERSATION_SCENARIOS = CONVERSATION_SCENARIOS;
-      console.log('[ConversationLoader] All done. Loaded: ' + loaded + '/20, Errors: ' + errors);
-      if (typeof EventBus !== 'undefined') {
-        EventBus.emit('conversationsLoaded', { scenarios: CONVERSATION_SCENARIOS, count: loaded });
-      }
+    if (pending !== 0) return;
+    window._conversationsReady = true;
+    console.log('[Loader] Done: ' + loaded + '/20, errors: ' + errors);
+    if (typeof EventBus !== 'undefined') {
+      EventBus.emit('conversationsLoaded', { count: loaded });
     }
   }
 
-  for (let i = 1; i <= count; i++) {
-    const numStr = i.toString().padStart(2, '0');
-    const script = document.createElement('script');
-    script.src = 'js/conversations/conversation-' + numStr + '.js';
-    script.async = false;
-
-    script.onload = function() {
-      const convVar = 'CONVERSATION_' + numStr;
-      if (typeof window[convVar] !== 'undefined') {
-        CONVERSATION_SCENARIOS[i] = window[convVar];
-        loaded++;
-        console.log('[ConversationLoader] Loaded conversation-' + numStr + '.js (' + loaded + '/' + count + ')');
-      } else {
+  for (var i = 1; i <= count; i++) {
+    (function(num) {
+      var numStr = String(num).padStart(2, '0');
+      var varName = 'CONVERSATION_' + numStr;
+      var script = document.createElement('script');
+      script.src = 'js/conversations/conversation-' + numStr + '.js';
+      script.async = false;
+      script.onload = function() {
+        if (typeof window[varName] !== 'undefined') {
+          window.CONVERSATION_SCENARIOS[num] = window[varName];
+          loaded++;
+        } else {
+          errors++;
+          console.error('[Loader] ' + varName + ' not found');
+        }
+        checkComplete();
+      };
+      script.onerror = function() {
         errors++;
-        console.error('[ConversationLoader] Variable ' + convVar + ' not found');
-      }
-      checkComplete();
-    };
-
-    script.onerror = function() {
-      errors++;
-      console.error('[ConversationLoader] Failed to load conversation-' + numStr + '.js');
-      checkComplete();
-    };
-
-    document.head.appendChild(script);
+        checkComplete();
+      };
+      document.head.appendChild(script);
+    })(i);
   }
 }
 
-// CHARGEMENT IMMÉDIAT — comme avant
 loadConversations();

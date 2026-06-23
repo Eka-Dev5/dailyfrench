@@ -1,1064 +1,349 @@
-// ═══════════════════════════════════════════════════════════════════
-// CONVERSATION.JS — Daily French 🥖 v6.2
-// Validation TTS + système de points connecté
-// ═══════════════════════════════════════════════════════════════════
+// conversation.js — Daily French 🥖 v6.4
+// FIX CRITIQUE : getScenarioList lit window.CONVERSATION_SCENARIOS
+// initConversation écoute EventBus — ZERO polling setTimeout
 
-var currentScenario = null;
-var currentStepIndex = 0;
-var userAnswers = [];
-var _convInitRetries = 0;
-var _ttsEnabled = true;
-var _ttsUserActivated = false; // true après premier clic utilisateur
+var currentScenario   = null;
+var currentStepIndex  = 0;
+var userAnswers       = [];
+var _ttsEnabled       = true;
+var _ttsUserActivated = false;
 
 function getScenarioList() {
-  if (typeof CONVERSATION_SCENARIOS === 'undefined') return [];
-  return Object.values(CONVERSATION_SCENARIOS);
+  var s = window.CONVERSATION_SCENARIOS;
+  if (!s || typeof s !== 'object') return [];
+  return Object.values(s);
 }
 
-// ── TTS (Text-to-Speech) avec validation ──────────────────────────
+// ── TTS ──────────────────────────────────────────────────────────
 function speak(text, lang) {
   if (!_ttsEnabled || !window.speechSynthesis || !text) return;
-  
-  // Sur iOS Safari, le TTS nécessite une activation utilisateur
-  if (!_ttsUserActivated) {
-    console.log('[TTS] Blocked — waiting for user activation');
-    showTtsActivationPrompt();
-    return;
-  }
-  
+  if (!_ttsUserActivated) { showTtsActivationPrompt(); return; }
   window.speechSynthesis.cancel();
-  var utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = lang || 'fr-FR';
-  utterance.rate = 0.9;
-  utterance.pitch = 1;
-  
-  // Validation : s'assurer que la voix parle
-  utterance.onstart = function() {
-    console.log('[TTS] Speaking:', text.substring(0, 30) + '...');
-  };
-  utterance.onend = function() {
-    console.log('[TTS] Finished');
-  };
-  utterance.onerror = function(e) {
-    console.error('[TTS] Error:', e.error);
-    _ttsEnabled = false;
-  };
-  
-  window.speechSynthesis.speak(utterance);
+  var u = new SpeechSynthesisUtterance(text);
+  u.lang = lang || 'fr-FR'; u.rate = 0.9; u.pitch = 1;
+  u.onerror = function(e) { _ttsEnabled = false; };
+  window.speechSynthesis.speak(u);
 }
+function speakFrench(t)  { speak(t, 'fr-FR'); }
+function speakEnglish(t) { speak(t, 'en-US'); }
 
-function speakFrench(text) {
-  speak(text, 'fr-FR');
-}
-
-function speakEnglish(text) {
-  speak(text, 'en-US');
-}
-
-// ── Activation TTS par clic utilisateur ───────────────────────────
 function activateTts() {
   _ttsUserActivated = true;
   hideTtsActivationPrompt();
-  
-  // Test immédiat pour confirmer que ça marche
-  var testUtterance = new SpeechSynthesisUtterance('OK');
-  testUtterance.lang = 'fr-FR';
-  testUtterance.volume = 0; // muet, juste pour valider
-  testUtterance.onend = function() {
-    console.log('[TTS] Activated successfully');
-  };
-  testUtterance.onerror = function() {
-    console.warn('[TTS] Activation failed');
-    _ttsUserActivated = false;
-  };
-  window.speechSynthesis.speak(testUtterance);
+  var t = new SpeechSynthesisUtterance('');
+  t.lang = 'fr-FR'; t.volume = 0;
+  window.speechSynthesis.speak(t);
 }
-
 function showTtsActivationPrompt() {
-  var feedback = document.getElementById('convFeedback');
-  var feedbackText = document.getElementById('convFeedbackText');
-  var nextBtn = document.getElementById('convNextBtn');
-  
-  if (!feedback || !feedbackText) return;
-  
-  feedback.style.display = 'block';
-  feedback.style.borderLeftColor = '#3B82F6';
-  feedbackText.innerHTML = 
-    '<div style="color:#3B82F6;font-size:1rem;">🔊 Tap "Enable Sound" to hear the conversation</div>';
-  
-  if (nextBtn) {
-    nextBtn.textContent = '🔊 Enable Sound';
-    nextBtn.onclick = function() {
-      activateTts();
-      feedback.style.display = 'none';
-      // Relire le dernier message si besoin
-    };
-  }
+  var fb = document.getElementById('convFeedback');
+  var ft = document.getElementById('convFeedbackText');
+  var nb = document.getElementById('convNextBtn');
+  if (!fb || !ft) return;
+  fb.style.display = 'block';
+  fb.style.borderLeftColor = '#3B82F6';
+  ft.innerHTML = '<div style="color:#3B82F6">🔊 Tap to enable sound</div>';
+  if (nb) { nb.textContent = '🔊 Enable Sound'; nb.onclick = function() { activateTts(); fb.style.display='none'; }; }
 }
-
 function hideTtsActivationPrompt() {
-  var feedback = document.getElementById('convFeedback');
-  if (feedback) feedback.style.display = 'none';
+  var fb = document.getElementById('convFeedback');
+  if (fb) fb.style.display = 'none';
 }
 
-// ── INIT ────────────────────────────────────────────────────────────
+// ── INIT ─────────────────────────────────────────────────────────
 function initConversation() {
   if (typeof initCore === 'function') initCore();
 
-  if (getScenarioList().length === 0) {
-    _convInitRetries++;
-    if (_convInitRetries < 50) {
-      setTimeout(initConversation, 100);
-      return;
-    }
-    var container = document.getElementById('convScenarios');
-    if (container) {
-      container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">⚠️ Conversations failed to load.</div>';
-    }
+  // Déjà chargé
+  if (window._conversationsReady && getScenarioList().length > 0) {
+    renderScenarioList();
+    updateBento();
     return;
   }
 
-  renderScenarioList();
-  updateBento();
+  // Attendre l'événement — une seule fois, pas de polling
+  if (typeof EventBus !== 'undefined') {
+    EventBus.on('conversationsLoaded', function handler() {
+      EventBus.off('conversationsLoaded', handler);
+      renderScenarioList();
+      updateBento();
+    });
+  } else {
+    var c = document.getElementById('convScenarios');
+    if (c) c.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--muted)">⚠️ EventBus missing — check script order.</div>';
+  }
 }
 
 function updateBento() {
-  var player = (typeof PlayerManager !== 'undefined' && PlayerManager.current) ? PlayerManager.current : null;
+  var name = typeof PlayerManager !== 'undefined' ? PlayerManager.getCurrent() : null;
+  var p    = name ? PlayerManager.load(name) : null;
   var b1 = document.getElementById('b1');
   var b2 = document.getElementById('b2');
   var b3 = document.getElementById('b3');
-  if (b1) b1.textContent = player ? (player.level || 1) : 1;
-  if (b2) b2.textContent = player ? (player.score || 0) : 0;
-  if (b3) b3.textContent = player ? ((player.conversationsDone || 0) + '/20') : '0/20';
+  if (b1) b1.textContent = p ? (p.currentLevel || 1) : 1;
+  if (b2) b2.textContent = p ? (p.score || 0) : 0;
+  if (b3) b3.textContent = p ? ((p.conversationsDone||0)+'/20') : '0/20';
 }
 
-// ── LISTE DES SCÉNARIOS ───────────────────────────────────────────
+// ── LISTE ────────────────────────────────────────────────────────
 function renderScenarioList() {
   if (currentScenario !== null) return;
-
   var container = document.getElementById('convScenarios');
   if (!container) return;
-
   var list = getScenarioList();
-  if (list.length === 0) {
-    container.innerHTML = '<div style="text-align:center;padding:2rem;">Loading...</div>';
+  if (!list.length) {
+    container.innerHTML = '<div style="padding:2rem;text-align:center">Loading...</div>';
     return;
   }
-
   container.innerHTML = '';
-  var player = (typeof PlayerManager !== 'undefined' && PlayerManager.current) ? PlayerManager.current : null;
-  var currentLevel = player ? (player.level || 1) : 1;
+  var name = typeof PlayerManager !== 'undefined' ? PlayerManager.getCurrent() : null;
+  var p    = name ? PlayerManager.load(name) : null;
+  var lvl  = p ? (p.currentLevel || 1) : 1;
 
-  list.forEach(function(scenario) {
-    var isLocked = (scenario.requiredLesson || 999) > currentLevel;
-
+  list.forEach(function(sc) {
+    var locked = (sc.requiredLesson || 999) > lvl;
     var card = document.createElement('div');
-    card.className = 'conv-scenario-card' + (isLocked ? ' conv-locked' : '');
-    if (!isLocked) {
-      card.addEventListener('click', function() { 
-        activateTts(); // Active le TTS au premier clic
-        startScenario(scenario.level); 
-      });
-    }
-
-    var exchangeCount = 0;
-    if (scenario.dialogue) {
-      exchangeCount = scenario.dialogue.filter(function(d) { return d.speaker === 'you'; }).length;
-    }
-    var diffStars = '★'.repeat(scenario.difficulty || 1) + '☆'.repeat(Math.max(0, 3 - (scenario.difficulty || 1)));
-
+    card.className = 'conv-scenario-card' + (locked ? ' conv-locked' : '');
+    if (!locked) card.addEventListener('click', function() { activateTts(); startScenario(sc.level); });
+    var ex = sc.dialogue ? sc.dialogue.filter(function(d){return d.speaker==='you';}).length : 0;
+    var stars = '★'.repeat(sc.difficulty||1) + '☆'.repeat(Math.max(0,3-(sc.difficulty||1)));
     card.innerHTML =
-      '<div class="conv-scen-icon">' + (isLocked ? '🔒' : (scenario.icon || '🗣️')) + '</div>' +
-      '<div class="conv-scen-info">' +
-        '<div class="conv-scen-title">' + escapeHtml(scenario.title) + '</div>' +
-        '<div class="conv-scen-subtitle">' + escapeHtml(scenario.titleFr || '') + '</div>' +
-        '<div class="conv-scen-meta">' +
-          '<span class="conv-scen-diff" title="Difficulty">' + diffStars + '</span>' +
-          '<span class="conv-scen-steps">' + exchangeCount + ' exchanges</span>' +
-        '</div>' +
-      '</div>' +
+      '<div class="conv-scen-icon">'+(locked?'🔒':(sc.icon||'🗣️'))+'</div>'+
+      '<div class="conv-scen-info">'+
+        '<div class="conv-scen-title">'+esc(sc.title)+'</div>'+
+        '<div class="conv-scen-subtitle">'+esc(sc.titleFr||'')+'</div>'+
+        '<div class="conv-scen-meta"><span class="conv-scen-diff">'+stars+'</span><span class="conv-scen-steps">'+ex+' exchanges</span></div>'+
+      '</div>'+
       '<div class="conv-scen-arrow">▶</div>';
-
     container.appendChild(card);
   });
 }
 
-function escapeHtml(text) {
-  if (!text) return '';
-  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function esc(t) {
+  return t ? String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : '';
 }
 
-function escapeJsString(text) {
-  if (!text) return '';
-  return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
-}
-
-// ── DÉMARRER SCÉNARIO ─────────────────────────────────────────────
+// ── START ────────────────────────────────────────────────────────
 function startScenario(level) {
-  if (typeof CONVERSATION_SCENARIOS === 'undefined' || !CONVERSATION_SCENARIOS[level]) {
-    console.error('Scenario ' + level + ' not found');
-    return;
-  }
-
-  currentScenario = CONVERSATION_SCENARIOS[level];
-  currentStepIndex = 0;
-  userAnswers = [];
-
-  document.getElementById('convList').style.display = 'none';
-  document.getElementById('convSim').style.display = 'block';
+  var sc = window.CONVERSATION_SCENARIOS[level];
+  if (!sc) { console.error('Scenario '+level+' not found'); return; }
+  currentScenario = sc; currentStepIndex = 0; userAnswers = [];
+  document.getElementById('convList').style.display    = 'none';
+  document.getElementById('convSim').style.display     = 'block';
   document.getElementById('convResults').style.display = 'none';
-
-  var dialogue = document.getElementById('convDialogue');
-  if (dialogue) dialogue.innerHTML = '';
-
-  document.getElementById('convSimIcon').textContent = currentScenario.icon || '🗣️';
-  document.getElementById('convSimTitle').textContent = currentScenario.title || 'Scenario';
-
+  var d = document.getElementById('convDialogue');
+  if (d) d.innerHTML = '';
+  document.getElementById('convSimIcon').textContent  = sc.icon||'🗣️';
+  document.getElementById('convSimTitle').textContent = sc.title||'Scenario';
   renderSetting();
 }
 
-// ── AFFICHER LE SETTING ──────────────────────────────────────────
 function renderSetting() {
-  var dialogue = document.getElementById('convDialogue');
-  if (!dialogue) return;
-
-  var settingDiv = document.createElement('div');
-  settingDiv.className = 'conv-msg conv-msg-setting';
-  settingDiv.id = 'convSettingCard';
-
-  var html =
-    '<div class="conv-setting-label">📍 Situation</div>' +
-    '<div class="conv-setting-text">' + escapeHtml(currentScenario.setting || 'No context provided.') + '</div>';
-
-  if (currentScenario.vocabulary && currentScenario.vocabulary.length > 0) {
-    html += '<div class="conv-setting-vocab"><strong>📝 Vocabulary:</strong> ' + escapeHtml(currentScenario.vocabulary.join(', ')) + '</div>';
-  }
-
-  html += '<button class="btn btn-primary" style="margin-top:1rem;" onclick="activateTts(); showNextNpcMessage()">▶ Start the conversation</button>';
-
-  settingDiv.innerHTML = html;
-  dialogue.appendChild(settingDiv);
-  dialogue.scrollTop = dialogue.scrollHeight;
+  var d = document.getElementById('convDialogue');
+  if (!d) return;
+  var div = document.createElement('div');
+  div.className = 'conv-msg conv-msg-setting';
+  div.id = 'convSettingCard';
+  var html = '<div class="conv-setting-label">📍 Situation</div>'+
+             '<div class="conv-setting-text">'+esc(currentScenario.setting||'')+'</div>';
+  if (currentScenario.vocabulary&&currentScenario.vocabulary.length)
+    html += '<div style="margin-top:0.5rem"><strong>📝</strong> '+esc(currentScenario.vocabulary.join(', '))+'</div>';
+  html += '<button class="btn btn-primary" style="margin-top:1rem" onclick="activateTts();showNextNpcMessage()">▶ Start</button>';
+  div.innerHTML = html;
+  d.appendChild(div);
+  d.scrollTop = d.scrollHeight;
 }
 
-// ── AFFICHER LE MESSAGE NPC SUIVANT ───────────────────────────────
+// ── NPC MESSAGE ──────────────────────────────────────────────────
 function showNextNpcMessage() {
-  var setting = document.getElementById('convSettingCard');
-  if (setting) setting.remove();
-
-  var dialogue = document.getElementById('convDialogue');
-  var choices = document.getElementById('convChoices');
-  var feedback = document.getElementById('convFeedback');
-
-  if (feedback) feedback.style.display = 'none';
-  if (choices) choices.style.display = 'none';
-
+  var s = document.getElementById('convSettingCard');
+  if (s) s.remove();
+  var d  = document.getElementById('convDialogue');
+  var ch = document.getElementById('convChoices');
+  var fb = document.getElementById('convFeedback');
+  if (fb) fb.style.display = 'none';
+  if (ch) ch.style.display = 'none';
   var step = currentScenario.dialogue[currentStepIndex];
-  if (!step) {
-    showResults();
-    return;
-  }
+  if (!step) { showResults(); return; }
+  if (step.speaker === 'you') { renderQuestion(step); return; }
 
-  if (step.speaker === 'you') {
-    renderQuestion(step);
-    return;
-  }
-
-  var msgDiv = document.createElement('div');
-  msgDiv.className = 'conv-msg conv-msg-npc';
-
-  var avatarDiv = document.createElement('div');
-  avatarDiv.className = 'conv-msg-avatar';
-  avatarDiv.textContent = currentScenario.icon || '🗣️';
-  avatarDiv.style.background = 'var(--primary)';
-
-  var bubbleDiv = document.createElement('div');
-  bubbleDiv.className = 'conv-msg-bubble';
-
-  var nameDiv = document.createElement('div');
-  nameDiv.className = 'conv-msg-npc-name';
-  nameDiv.textContent = capitalize(step.speaker || 'NPC');
-  bubbleDiv.appendChild(nameDiv);
-
-  var textDiv = document.createElement('div');
-  textDiv.className = 'conv-msg-text';
-  textDiv.textContent = step.text || '';
-  bubbleDiv.appendChild(textDiv);
-
-  // Bouton 🔊 dans la bulle NPC
-  var speakBtn = document.createElement('button');
-  speakBtn.className = 'conv-msg-tts';
-  speakBtn.innerHTML = '🔊';
-  speakBtn.title = 'Listen';
-  speakBtn.onclick = function(e) {
-    e.stopPropagation();
-    activateTts();
-    speakFrench(step.text);
-  };
-  bubbleDiv.appendChild(speakBtn);
-
-  msgDiv.appendChild(avatarDiv);
-  msgDiv.appendChild(bubbleDiv);
-  dialogue.appendChild(msgDiv);
-
+  var msg = document.createElement('div');
+  msg.className = 'conv-msg conv-msg-npc';
+  var av = document.createElement('div');
+  av.className = 'conv-msg-avatar';
+  av.textContent = currentScenario.icon||'🗣️';
+  av.style.background = 'var(--primary)';
+  var bub = document.createElement('div');
+  bub.className = 'conv-msg-bubble';
+  bub.innerHTML = '<div class="conv-msg-npc-name">'+esc(step.speaker)+'</div>'+
+                  '<div class="conv-msg-text">'+esc(step.text||'')+'</div>';
+  var sb = document.createElement('button');
+  sb.className = 'conv-msg-tts'; sb.innerHTML = '🔊';
+  sb.onclick = (function(t){return function(e){e.stopPropagation();activateTts();speakFrench(t);};})(step.text);
+  bub.appendChild(sb);
+  msg.appendChild(av); msg.appendChild(bub);
+  d.appendChild(msg);
   speakFrench(step.text);
 
-  var continueBtn = document.createElement('button');
-  continueBtn.className = 'btn btn-primary';
-  continueBtn.style.marginTop = '0.75rem';
-  continueBtn.innerHTML = '▶ Continue';
-  continueBtn.onclick = function() {
-    continueBtn.parentElement.remove();
-    currentStepIndex++;
-    showNextNpcMessage();
-  };
-
-  var btnWrapper = document.createElement('div');
-  btnWrapper.style.display = 'flex';
-  btnWrapper.style.justifyContent = 'center';
-  btnWrapper.style.padding = '0.5rem 0';
-  btnWrapper.appendChild(continueBtn);
-  dialogue.appendChild(btnWrapper);
-
-  dialogue.scrollTop = dialogue.scrollHeight;
+  var cont = document.createElement('button');
+  cont.className = 'btn btn-primary'; cont.style.marginTop='0.75rem'; cont.textContent = '▶ Continue';
+  cont.onclick = function() { cont.parentElement.remove(); currentStepIndex++; showNextNpcMessage(); };
+  var w = document.createElement('div');
+  w.style.cssText = 'display:flex;justify-content:center;padding:0.5rem 0';
+  w.appendChild(cont); d.appendChild(w);
+  d.scrollTop = d.scrollHeight;
   updateProgress();
 }
 
-// ── AFFICHER LA QUESTION ──────────────────────────────────────────
+// ── QUESTION ─────────────────────────────────────────────────────
 function renderQuestion(step) {
-  var dialogue = document.getElementById('convDialogue');
-  var choices = document.getElementById('convChoices');
+  var d  = document.getElementById('convDialogue');
+  var ch = document.getElementById('convChoices');
+  var pr = document.createElement('div');
+  pr.className = 'conv-msg conv-msg-npc'; pr.id = 'convQuestionPrompt';
+  pr.innerHTML = '<div class="conv-msg-avatar" style="background:var(--gold)">❓</div>'+
+                 '<div class="conv-msg-bubble"><div class="conv-msg-npc-name">Your turn</div>'+
+                 '<div class="conv-msg-text">'+esc(step.text||'What do you say?')+'</div></div>';
+  d.appendChild(pr); d.scrollTop = d.scrollHeight;
+  speakEnglish(step.text||'What do you say?');
 
-  var promptDiv = document.createElement('div');
-  promptDiv.className = 'conv-msg conv-msg-npc';
-  promptDiv.id = 'convQuestionPrompt';
-  promptDiv.innerHTML =
-    '<div class="conv-msg-avatar" style="background:var(--gold);">❓</div>' +
-    '<div class="conv-msg-bubble">' +
-      '<div class="conv-msg-npc-name">Your turn</div>' +
-      '<div class="conv-msg-text">' + escapeHtml(step.text || 'What do you say?') + '</div>' +
-    '</div>';
-  dialogue.appendChild(promptDiv);
-  dialogue.scrollTop = dialogue.scrollHeight;
-
-  speakEnglish(step.text || 'What do you say?');
-
-  if (choices) {
-    choices.innerHTML = '';
-    choices.style.display = 'block';
-
+  if (ch) {
+    ch.innerHTML = ''; ch.style.display = 'block';
     step.choices.forEach(function(choice, idx) {
       var btn = document.createElement('button');
       btn.className = 'conv-choice-btn';
-      btn.id = 'choice-' + idx;
-      
-      btn.innerHTML = 
-        '<span class="conv-choice-letter">' + String.fromCharCode(65 + idx) + '</span>' +
-        '<span class="conv-choice-text">' + escapeHtml(choice.text) + '</span>' +
-        '<span class="conv-choice-speak" onclick="event.stopPropagation(); activateTts(); speakFrench(\'' + escapeJsString(choice.text) + '\')" title="Listen">🔊</span>';
-      
-      btn.addEventListener('click', function() { handleChoice(idx); });
-      choices.appendChild(btn);
+      var sp = document.createElement('span');
+      sp.className = 'conv-choice-speak'; sp.innerHTML = '🔊';
+      sp.onclick = (function(t){return function(e){e.stopPropagation();activateTts();speakFrench(t);};})(choice.text);
+      btn.innerHTML = '<span class="conv-choice-letter">'+String.fromCharCode(65+idx)+'</span>'+
+                      '<span class="conv-choice-text">'+esc(choice.text)+'</span>';
+      btn.appendChild(sp);
+      btn.addEventListener('click', function(){handleChoice(idx);});
+      ch.appendChild(btn);
     });
   }
-
   updateProgress();
 }
 
-// ── HANDLE CHOICE ─────────────────────────────────────────────────
-function handleChoice(choiceIndex) {
-  if (!currentScenario || !currentScenario.dialogue) return;
-
+// ── HANDLE CHOICE ────────────────────────────────────────────────
+function handleChoice(idx) {
   var step = currentScenario.dialogue[currentStepIndex];
-  if (!step || !step.choices || !step.choices[choiceIndex]) return;
-
-  var choice = step.choices[choiceIndex];
-
-  userAnswers.push({
-    stepIndex: currentStepIndex,
-    choiceIndex: choiceIndex,
-    correct: choice.correct,
-    text: choice.text
+  if (!step||!step.choices||!step.choices[idx]) return;
+  var choice = step.choices[idx];
+  userAnswers.push({stepIndex:currentStepIndex,choiceIndex:idx,correct:choice.correct,text:choice.text});
+  document.querySelectorAll('.conv-choice-btn').forEach(function(b,i){
+    b.disabled=true;
+    if(i===idx) b.classList.add('chosen');
+    if(step.choices[i].correct===true) b.classList.add('best');
   });
-
-  var buttons = document.querySelectorAll('.conv-choice-btn');
-  buttons.forEach(function(btn, idx) {
-    btn.disabled = true;
-    if (idx === choiceIndex) btn.classList.add('chosen');
-    if (step.choices[idx].correct === true) btn.classList.add('best');
-  });
-
-  var dialogue = document.getElementById('convDialogue');
-  var userMsg = document.createElement('div');
-  userMsg.className = 'conv-msg conv-msg-user';
-  userMsg.innerHTML =
-    '<div class="conv-msg-avatar conv-msg-avatar-user">🧑</div>' +
-    '<div class="conv-msg-bubble conv-msg-bubble-user">' +
-      '<div class="conv-msg-text">' + escapeHtml(choice.text) + '</div>' +
-    '</div>';
-  dialogue.appendChild(userMsg);
-  dialogue.scrollTop = dialogue.scrollHeight;
-
+  var d = document.getElementById('convDialogue');
+  var um = document.createElement('div');
+  um.className = 'conv-msg conv-msg-user';
+  um.innerHTML = '<div class="conv-msg-avatar conv-msg-avatar-user">🧑</div>'+
+                 '<div class="conv-msg-bubble conv-msg-bubble-user"><div class="conv-msg-text">'+esc(choice.text)+'</div></div>';
+  d.appendChild(um); d.scrollTop = d.scrollHeight;
   speakFrench(choice.text);
-
-  var choices = document.getElementById('convChoices');
-  if (choices) choices.style.display = 'none';
-
+  var ch = document.getElementById('convChoices');
+  if (ch) ch.style.display = 'none';
   showFeedback(choice);
 }
 
-// ── SHOW FEEDBACK ─────────────────────────────────────────────────
+// ── FEEDBACK ─────────────────────────────────────────────────────
 function showFeedback(choice) {
-  var feedback = document.getElementById('convFeedback');
-  var feedbackText = document.getElementById('convFeedbackText');
-  var nextBtn = document.getElementById('convNextBtn');
-
-  if (!feedback || !feedbackText) return;
-
-  var borderColor = '#F59E0B';
-  if (choice.correct === true) borderColor = '#059669';
-  if (choice.correct === false) borderColor = '#DC2626';
-
-  feedback.style.display = 'block';
-  feedback.style.borderLeftColor = borderColor;
-
-  var icon = choice.correct === true ? '✅ Correct!' : '❌ Not quite...';
-  feedbackText.innerHTML =
-    '<div style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">' + icon + '</div>' +
-    '<div style="line-height:1.5;">' + escapeHtml(choice.feedback || '') + '</div>';
-
-  if (nextBtn) {
-    nextBtn.textContent = '▶ Continue';
-    nextBtn.onclick = function() {
-      feedback.style.display = 'none';
-      currentStepIndex++;
-      showNextNpcMessage();
-    };
+  var fb=document.getElementById('convFeedback');
+  var ft=document.getElementById('convFeedbackText');
+  var nb=document.getElementById('convNextBtn');
+  if (!fb||!ft) return;
+  fb.style.display='block';
+  fb.style.borderLeftColor = choice.correct===true ? '#059669' : choice.correct===false ? '#DC2626' : '#F59E0B';
+  ft.innerHTML = '<div style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem">'+
+                 (choice.correct===true?'✅ Correct!':'❌ Not quite...')+'</div>'+
+                 '<div>'+esc(choice.feedback||'')+'</div>';
+  if (nb) {
+    nb.textContent='▶ Continue';
+    nb.onclick=function(){fb.style.display='none';currentStepIndex++;showNextNpcMessage();};
   }
-
-  setTimeout(function() {
-    feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 100);
+  setTimeout(function(){fb.scrollIntoView({behavior:'smooth',block:'nearest'});},100);
 }
 
-// ── MISE À JOUR PROGRESSION ───────────────────────────────────────
 function updateProgress() {
-  var progress = document.getElementById('convSimProgress');
-  if (!progress || !currentScenario || !currentScenario.dialogue) return;
-
-  var total = currentScenario.dialogue.filter(function(d) { return d.speaker === 'you'; }).length;
-  var current = userAnswers.length + 1;
-  progress.textContent = Math.min(current, total) + ' / ' + total;
+  var el=document.getElementById('convSimProgress');
+  if (!el||!currentScenario) return;
+  var total=currentScenario.dialogue.filter(function(d){return d.speaker==='you';}).length;
+  el.textContent=Math.min(userAnswers.length+1,total)+' / '+total;
 }
 
-// ── SHOW RESULTS ──────────────────────────────────────────────────
+// ── RÉSULTATS ────────────────────────────────────────────────────
 function showResults() {
-  document.getElementById('convSim').style.display = 'none';
-  document.getElementById('convResults').style.display = 'block';
-
-  var correct = userAnswers.filter(function(a) { return a.correct === true; }).length;
-  var total = userAnswers.length;
-  var percent = total > 0 ? Math.round((correct / total) * 100) : 0;
-
-  document.getElementById('convResultScore').textContent = percent + '%';
-  document.getElementById('convResultTitle').textContent = percent >= 80 ? '🎉 Excellent!' : percent >= 50 ? '👍 Good effort!' : '💪 Keep practicing!';
-  document.getElementById('convResultMsg').textContent = 'You got ' + correct + ' out of ' + total + ' correct.';
-
-  var breakdownEl = document.getElementById('convResultBreakdown');
-  if (breakdownEl) {
-    breakdownEl.innerHTML = '';
-    userAnswers.forEach(function(a, idx) {
-      var row = document.createElement('div');
-      row.className = 'conv-result-row';
-      var icon = a.correct === true ? '✅' : '❌';
-      row.innerHTML =
-        '<span class="conv-result-icon">' + icon + '</span>' +
-        '<span class="conv-result-num">#' + (idx + 1) + '</span>' +
-        '<span class="conv-result-text">' + escapeHtml(a.text.substring(0, 40)) + (a.text.length > 40 ? '...' : '') + '</span>';
-      breakdownEl.appendChild(row);
+  document.getElementById('convSim').style.display='none';
+  document.getElementById('convResults').style.display='block';
+  var correct=userAnswers.filter(function(a){return a.correct===true;}).length;
+  var total=userAnswers.length;
+  var pct=total>0?Math.round((correct/total)*100):0;
+  document.getElementById('convResultScore').textContent=pct+'%';
+  document.getElementById('convResultTitle').textContent=pct>=80?'🎉 Excellent!':pct>=50?'👍 Good effort!':'💪 Keep practicing!';
+  document.getElementById('convResultMsg').textContent='You got '+correct+' out of '+total+' correct.';
+  var bd=document.getElementById('convResultBreakdown');
+  if (bd) {
+    bd.innerHTML='';
+    userAnswers.forEach(function(a,i){
+      var row=document.createElement('div');
+      row.className='conv-result-row';
+      row.innerHTML='<span class="conv-result-icon">'+(a.correct?'✅':'❌')+'</span>'+
+                    '<span class="conv-result-num">#'+(i+1)+'</span>'+
+                    '<span class="conv-result-text">'+esc(a.text.substring(0,40))+(a.text.length>40?'...':'')+'</span>';
+      bd.appendChild(row);
     });
   }
-
-  // SYSTÈME DE POINTS
-  if (typeof PlayerManager !== 'undefined' && PlayerManager.current) {
-    var player = PlayerManager.current;
-    
-    var pointsEarned = 0;
-    if (percent >= 80) pointsEarned = 20;
-    else if (percent >= 50) pointsEarned = 10;
-    else pointsEarned = 5;
-
-    if (!player.score) player.score = 0;
-    player.score += pointsEarned;
-
-    if (!player.xp) player.xp = 0;
-    player.xp += pointsEarned;
-
-    var xpNeeded = (player.level || 1) * 100;
-    if (player.xp >= xpNeeded) {
-      player.level = (player.level || 1) + 1;
-      player.xp = player.xp - xpNeeded;
-      if (typeof showToast === 'function') {
-        showToast('🎉 Level up! You are now level ' + player.level);
+  var name=typeof PlayerManager!=='undefined'?PlayerManager.getCurrent():null;
+  if (name) {
+    var players=typeof getPlayers==='function'?getPlayers():{};
+    var p=players[name];
+    if (p) {
+      p.score=(p.score||0)+(pct>=80?20:pct>=50?10:5);
+      if (pct>=50) {
+        if (!p.conversationsDone) p.conversationsDone=0;
+        if (!p.conversationsLevels) p.conversationsLevels=[];
+        if (p.conversationsLevels.indexOf(currentScenario.level)===-1) {
+          p.conversationsLevels.push(currentScenario.level);
+          p.conversationsDone=p.conversationsLevels.length;
+        }
       }
+      if (typeof savePlayers==='function') savePlayers(players);
+      if (typeof loadPlayer==='function') loadPlayer(name);
     }
-
-    if (percent >= 50) {
-      if (!player.conversationsDone) player.conversationsDone = 0;
-      if (!player.conversationsLevels) player.conversationsLevels = [];
-      if (player.conversationsLevels.indexOf(currentScenario.level) === -1) {
-        player.conversationsLevels.push(currentScenario.level);
-        player.conversationsDone = player.conversationsLevels.length;
-      }
-    }
-
-    if (typeof savePlayerData === 'function') savePlayerData();
   }
-
   updateBento();
 }
 
-// ── EXIT / RESTART ────────────────────────────────────────────────
 function exitConversation() {
-  currentScenario = null;
-  currentStepIndex = 0;
-  userAnswers = [];
-  _convInitRetries = 0;
-  document.getElementById('convList').style.display = 'block';
-  document.getElementById('convSim').style.display = 'none';
-  document.getElementById('convResults').style.display = 'none';
-  var dialogue = document.getElementById('convDialogue');
-  if (dialogue) dialogue.innerHTML = '';
+  currentScenario=null; currentStepIndex=0; userAnswers=[];
+  document.getElementById('convList').style.display='block';
+  document.getElementById('convSim').style.display='none';
+  document.getElementById('convResults').style.display='none';
+  var d=document.getElementById('convDialogue'); if(d) d.innerHTML='';
   renderScenarioList();
 }
-
-function restartScenario() {
-  if (currentScenario) startScenario(currentScenario.level);
-}
-
-function capitalize(str) {
-  if (!str) return 'NPC';
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-// ── REVOIR LA QUESTION ────────────────────────────────────────────
+function restartScenario() { if(currentScenario) startScenario(currentScenario.level); }
+function capitalize(s) { return s?s.charAt(0).toUpperCase()+s.slice(1):'NPC'; }
 function showQuestionAgain() {
-  var dialogue = document.getElementById('convDialogue');
-  if (!dialogue) return;
-
-  var prompts = dialogue.querySelectorAll('#convQuestionPrompt');
-  if (prompts.length === 0) return;
-
-  var lastPrompt = prompts[prompts.length - 1];
-  lastPrompt.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-  lastPrompt.style.transition = 'background 0.3s = document.getElementById('convFeedback');
-  if (feedback) feedback.style.display = 'none';
+  var d=document.getElementById('convDialogue'); if(!d) return;
+  var p=d.querySelector('#convQuestionPrompt'); if(!p) return;
+  p.scrollIntoView({behavior:'smooth',block:'center'});
+  p.style.transition='background 0.3s'; p.style.background='rgba(251,191,36,0.2)';
+  setTimeout(function(){p.style.background='';},800);
 }
-
-// ── INIT ────────────────────────────────────────────────────────────
-function initConversation() {
-  if (typeof initCore === 'function') initCore();
-
-  if (getScenarioList().length === 0) {
-    _convInitRetries++;
-    if (_convInitRetries < 50) {
-      setTimeout(initConversation, 100);
-      return;
-    }
-    var container = document.getElementById('convScenarios');
-    if (container) {
-      container.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--muted)">⚠️ Conversations failed to load.</div>';
-    }
-    return;
-  }
-
-  renderScenarioList();
-  updateBento();
-}
-
-function updateBento() {
-  var player = (typeof PlayerManager !== 'undefined' && PlayerManager.current) ? PlayerManager.current : null;
-  var b1 = document.getElementById('b1');
-  var b2 = document.getElementById('b2');
-  var b3 = document.getElementById('b3');
-  if (b1) b1.textContent = player ? (player.level || 1) : 1;
-  if (b2) b2.textContent = player ? (player.score || 0) : 0;
-  if (b3) b3.textContent = player ? ((player.conversationsDone || 0) + '/20') : '0/20';
-}
-
-// ── LISTE DES SCÉNARIOS ───────────────────────────────────────────
-function renderScenarioList() {
-  if (currentScenario !== null) return;
-
-  var container = document.getElementById('convScenarios');
-  if (!container) return;
-
-  var list = getScenarioList();
-  if (list.length === 0) {
-    container.innerHTML = '<div style="text-align:center;padding:2rem;">Loading...</div>';
-    return;
-  }
-
-  container.innerHTML = '';
-  var player = (typeof PlayerManager !== 'undefined' && PlayerManager.current) ? PlayerManager.current : null;
-  var currentLevel = player ? (player.level || 1) : 1;
-
-  list.forEach(function(scenario) {
-    var isLocked = (scenario.requiredLesson || 999) > currentLevel;
-
-    var card = document.createElement('div');
-    card.className = 'conv-scenario-card' + (isLocked ? ' conv-locked' : '');
-    if (!isLocked) {
-      card.addEventListener('click', function() { 
-        activateTts(); // Active le TTS au premier clic
-        startScenario(scenario.level); 
-      });
-    }
-
-    var exchangeCount = 0;
-    if (scenario.dialogue) {
-      exchangeCount = scenario.dialogue.filter(function(d) { return d.speaker === 'you'; }).length;
-    }
-    var diffStars = '★'.repeat(scenario.difficulty || 1) + '☆'.repeat(Math.max(0, 3 - (scenario.difficulty || 1)));
-
-    card.innerHTML =
-      '<div class="conv-scen-icon">' + (isLocked ? '🔒' : (scenario.icon || '🗣️')) + '</div>' +
-      '<div class="conv-scen-info">' +
-        '<div class="conv-scen-title">' + escapeHtml(scenario.title) + '</div>' +
-        '<div class="conv-scen-subtitle">' + escapeHtml(scenario.titleFr || '') + '</div>' +
-        '<div class="conv-scen-meta">' +
-          '<span class="conv-scen-diff" title="Difficulty">' + diffStars + '</span>' +
-          '<span class="conv-scen-steps">' + exchangeCount + ' exchanges</span>' +
-        '</div>' +
-      '</div>' +
-      '<div class="conv-scen-arrow">▶</div>';
-
-    container.appendChild(card);
-  });
-}
-
-function escapeHtml(text) {
-  if (!text) return '';
-  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-function escapeJsString(text) {
-  if (!text) return '';
-  return text.replace(/'/g, "\\'").replace(/"/g, '\\"');
-}
-
-// ── DÉMARRER SCÉNARIO ─────────────────────────────────────────────
-function startScenario(level) {
-  if (typeof CONVERSATION_SCENARIOS === 'undefined' || !CONVERSATION_SCENARIOS[level]) {
-    console.error('Scenario ' + level + ' not found');
-    return;
-  }
-
-  currentScenario = CONVERSATION_SCENARIOS[level];
-  currentStepIndex = 0;
-  userAnswers = [];
-
-  document.getElementById('convList').style.display = 'none';
-  document.getElementById('convSim').style.display = 'block';
-  document.getElementById('convResults').style.display = 'none';
-
-  var dialogue = document.getElementById('convDialogue');
-  if (dialogue) dialogue.innerHTML = '';
-
-  document.getElementById('convSimIcon').textContent = currentScenario.icon || '🗣️';
-  document.getElementById('convSimTitle').textContent = currentScenario.title || 'Scenario';
-
-  renderSetting();
-}
-
-// ── AFFICHER LE SETTING ──────────────────────────────────────────
-function renderSetting() {
-  var dialogue = document.getElementById('convDialogue');
-  if (!dialogue) return;
-
-  var settingDiv = document.createElement('div');
-  settingDiv.className = 'conv-msg conv-msg-setting';
-  settingDiv.id = 'convSettingCard';
-
-  var html =
-    '<div class="conv-setting-label">📍 Situation</div>' +
-    '<div class="conv-setting-text">' + escapeHtml(currentScenario.setting || 'No context provided.') + '</div>';
-
-  if (currentScenario.vocabulary && currentScenario.vocabulary.length > 0) {
-    html += '<div class="conv-setting-vocab"><strong>📝 Vocabulary:</strong> ' + escapeHtml(currentScenario.vocabulary.join(', ')) + '</div>';
-  }
-
-  html += '<button class="btn btn-primary" style="margin-top:1rem;" onclick="activateTts(); showNextNpcMessage()">▶ Start the conversation</button>';
-
-  settingDiv.innerHTML = html;
-  dialogue.appendChild(settingDiv);
-  dialogue.scrollTop = dialogue.scrollHeight;
-}
-
-// ── AFFICHER LE MESSAGE NPC SUIVANT ───────────────────────────────
-function showNextNpcMessage() {
-  var setting = document.getElementById('convSettingCard');
-  if (setting) setting.remove();
-
-  var dialogue = document.getElementById('convDialogue');
-  var choices = document.getElementById('convChoices');
-  var feedback = document.getElementById('convFeedback');
-
-  if (feedback) feedback.style.display = 'none';
-  if (choices) choices.style.display = 'none';
-
-  var step = currentScenario.dialogue[currentStepIndex];
-  if (!step) {
-    showResults();
-    return;
-  }
-
-  if (step.speaker === 'you') {
-    renderQuestion(step);
-    return;
-  }
-
-  var msgDiv = document.createElement('div');
-  msgDiv.className = 'conv-msg conv-msg-npc';
-
-  var avatarDiv = document.createElement('div');
-  avatarDiv.className = 'conv-msg-avatar';
-  avatarDiv.textContent = currentScenario.icon || '🗣️';
-  avatarDiv.style.background = 'var(--primary)';
-
-  var bubbleDiv = document.createElement('div');
-  bubbleDiv.className = 'conv-msg-bubble';
-
-  var nameDiv = document.createElement('div');
-  nameDiv.className = 'conv-msg-npc-name';
-  nameDiv.textContent = capitalize(step.speaker || 'NPC');
-  bubbleDiv.appendChild(nameDiv);
-
-  var textDiv = document.createElement('div');
-  textDiv.className = 'conv-msg-text';
-  textDiv.textContent = step.text || '';
-  bubbleDiv.appendChild(textDiv);
-
-  // Bouton 🔊 dans la bulle NPC
-  var speakBtn = document.createElement('button');
-  speakBtn.className = 'conv-msg-tts';
-  speakBtn.innerHTML = '🔊';
-  speakBtn.title = 'Listen';
-  speakBtn.onclick = function(e) {
-    e.stopPropagation();
-    activateTts();
-    speakFrench(step.text);
-  };
-  bubbleDiv.appendChild(speakBtn);
-
-  msgDiv.appendChild(avatarDiv);
-  msgDiv.appendChild(bubbleDiv);
-  dialogue.appendChild(msgDiv);
-
-  speakFrench(step.text);
-
-  var continueBtn = document.createElement('button');
-  continueBtn.className = 'btn btn-primary';
-  continueBtn.style.marginTop = '0.75rem';
-  continueBtn.innerHTML = '▶ Continue';
-  continueBtn.onclick = function() {
-    continueBtn.parentElement.remove();
-    currentStepIndex++;
-    showNextNpcMessage();
-  };
-
-  var btnWrapper = document.createElement('div');
-  btnWrapper.style.display = 'flex';
-  btnWrapper.style.justifyContent = 'center';
-  btnWrapper.style.padding = '0.5rem 0';
-  btnWrapper.appendChild(continueBtn);
-  dialogue.appendChild(btnWrapper);
-
-  dialogue.scrollTop = dialogue.scrollHeight;
-  updateProgress();
-}
-
-// ── AFFICHER LA QUESTION ──────────────────────────────────────────
-function renderQuestion(step) {
-  var dialogue = document.getElementById('convDialogue');
-  var choices = document.getElementById('convChoices');
-
-  var promptDiv = document.createElement('div');
-  promptDiv.className = 'conv-msg conv-msg-npc';
-  promptDiv.id = 'convQuestionPrompt';
-  promptDiv.innerHTML =
-    '<div class="conv-msg-avatar" style="background:var(--gold);">❓</div>' +
-    '<div class="conv-msg-bubble">' +
-      '<div class="conv-msg-npc-name">Your turn</div>' +
-      '<div class="conv-msg-text">' + escapeHtml(step.text || 'What do you say?') + '</div>' +
-    '</div>';
-  dialogue.appendChild(promptDiv);
-  dialogue.scrollTop = dialogue.scrollHeight;
-
-  speakEnglish(step.text || 'What do you say?');
-
-  if (choices) {
-    choices.innerHTML = '';
-    choices.style.display = 'block';
-
-    step.choices.forEach(function(choice, idx) {
-      var btn = document.createElement('button');
-      btn.className = 'conv-choice-btn';
-      btn.id = 'choice-' + idx;
-      
-      btn.innerHTML = 
-        '<span class="conv-choice-letter">' + String.fromCharCode(65 + idx) + '</span>' +
-        '<span class="conv-choice-text">' + escapeHtml(choice.text) + '</span>' +
-        '<span class="conv-choice-speak" onclick="event.stopPropagation(); activateTts(); speakFrench(\'' + escapeJsString(choice.text) + '\')" title="Listen">🔊</span>';
-      
-      btn.addEventListener('click', function() { handleChoice(idx); });
-      choices.appendChild(btn);
-    });
-  }
-
-  updateProgress();
-}
-
-// ── HANDLE CHOICE ─────────────────────────────────────────────────
-function handleChoice(choiceIndex) {
-  if (!currentScenario || !currentScenario.dialogue) return;
-
-  var step = currentScenario.dialogue[currentStepIndex];
-  if (!step || !step.choices || !step.choices[choiceIndex]) return;
-
-  var choice = step.choices[choiceIndex];
-
-  userAnswers.push({
-    stepIndex: currentStepIndex,
-    choiceIndex: choiceIndex,
-    correct: choice.correct,
-    text: choice.text
-  });
-
-  var buttons = document.querySelectorAll('.conv-choice-btn');
-  buttons.forEach(function(btn, idx) {
-    btn.disabled = true;
-    if (idx === choiceIndex) btn.classList.add('chosen');
-    if (step.choices[idx].correct === true) btn.classList.add('best');
-  });
-
-  var dialogue = document.getElementById('convDialogue');
-  var userMsg = document.createElement('div');
-  userMsg.className = 'conv-msg conv-msg-user';
-  userMsg.innerHTML =
-    '<div class="conv-msg-avatar conv-msg-avatar-user">🧑</div>' +
-    '<div class="conv-msg-bubble conv-msg-bubble-user">' +
-      '<div class="conv-msg-text">' + escapeHtml(choice.text) + '</div>' +
-    '</div>';
-  dialogue.appendChild(userMsg);
-  dialogue.scrollTop = dialogue.scrollHeight;
-
-  speakFrench(choice.text);
-
-  var choices = document.getElementById('convChoices');
-  if (choices) choices.style.display = 'none';
-
-  showFeedback(choice);
-}
-
-// ── SHOW FEEDBACK ─────────────────────────────────────────────────
-function showFeedback(choice) {
-  var feedback = document.getElementById('convFeedback');
-  var feedbackText = document.getElementById('convFeedbackText');
-  var nextBtn = document.getElementById('convNextBtn');
-
-  if (!feedback || !feedbackText) return;
-
-  var borderColor = '#F59E0B';
-  if (choice.correct === true) borderColor = '#059669';
-  if (choice.correct === false) borderColor = '#DC2626';
-
-  feedback.style.display = 'block';
-  feedback.style.borderLeftColor = borderColor;
-
-  var icon = choice.correct === true ? '✅ Correct!' : '❌ Not quite...';
-  feedbackText.innerHTML =
-    '<div style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">' + icon + '</div>' +
-    '<div style="line-height:1.5;">' + escapeHtml(choice.feedback || '') + '</div>';
-
-  if (nextBtn) {
-    nextBtn.textContent = '▶ Continue';
-    nextBtn.onclick = function() {
-      feedback.style.display = 'none';
-      currentStepIndex++;
-      showNextNpcMessage();
-    };
-  }
-
-  setTimeout(function() {
-    feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 100);
-}
-
-// ── MISE À JOUR PROGRESSION ───────────────────────────────────────
-function updateProgress() {
-  var progress = document.getElementById('convSimProgress');
-  if (!progress || !currentScenario || !currentScenario.dialogue) return;
-
-  var total = currentScenario.dialogue.filter(function(d) { return d.speaker === 'you'; }).length;
-  var current = userAnswers.length + 1;
-  progress.textContent = Math.min(current, total) + ' / ' + total;
-}
-
-// ── SHOW RESULTS ──────────────────────────────────────────────────
-function showResults() {
-  document.getElementById('convSim').style.display = 'none';
-  document.getElementById('convResults').style.display = 'block';
-
-  var correct = userAnswers.filter(function(a) { return a.correct === true; }).length;
-  var total = userAnswers.length;
-  var percent = total > 0 ? Math.round((correct / total) * 100) : 0;
-
-  document.getElementById('convResultScore').textContent = percent + '%';
-  document.getElementById('convResultTitle').textContent = percent >= 80 ? '🎉 Excellent!' : percent >= 50 ? '👍 Good effort!' : '💪 Keep practicing!';
-  document.getElementById('convResultMsg').textContent = 'You got ' + correct + ' out of ' + total + ' correct.';
-
-  var breakdownEl = document.getElementById('convResultBreakdown');
-  if (breakdownEl) {
-    breakdownEl.innerHTML = '';
-    userAnswers.forEach(function(a, idx) {
-      var row = document.createElement('div');
-      row.className = 'conv-result-row';
-      var icon = a.correct === true ? '✅' : '❌';
-      row.innerHTML =
-        '<span class="conv-result-icon">' + icon + '</span>' +
-        '<span class="conv-result-num">#' + (idx + 1) + '</span>' +
-        '<span class="conv-result-text">' + escapeHtml(a.text.substring(0, 40)) + (a.text.length > 40 ? '...' : '') + '</span>';
-      breakdownEl.appendChild(row);
-    });
-  }
-
-  // SYSTÈME DE POINTS
-  if (typeof PlayerManager !== 'undefined' && PlayerManager.current) {
-    var player = PlayerManager.current;
-    
-    var pointsEarned = 0;
-    if (percent >= 80) pointsEarned = 20;
-    else if (percent >= 50) pointsEarned = 10;
-    else pointsEarned = 5;
-
-    if (!player.score) player.score = 0;
-    player.score += pointsEarned;
-
-    if (!player.xp) player.xp = 0;
-    player.xp += pointsEarned;
-
-    var xpNeeded = (player.level || 1) * 100;
-    if (player.xp >= xpNeeded) {
-      player.level = (player.level || 1) + 1;
-      player.xp = player.xp - xpNeeded;
-      if (typeof showToast === 'function') {
-        showToast('🎉 Level up! You are now level ' + player.level);
-      }
-    }
-
-    if (percent >= 50) {
-      if (!player.conversationsDone) player.conversationsDone = 0;
-      if (!player.conversationsLevels) player.conversationsLevels = [];
-      if (player.conversationsLevels.indexOf(currentScenario.level) === -1) {
-        player.conversationsLevels.push(currentScenario.level);
-        player.conversationsDone = player.conversationsLevels.length;
-      }
-    }
-
-    if (typeof savePlayerData === 'function') savePlayerData();
-  }
-
-  updateBento();
-}
-
-// ── EXIT / RESTART ────────────────────────────────────────────────
-function exitConversation() {
-  currentScenario = null;
-  currentStepIndex = 0;
-  userAnswers = [];
-  _convInitRetries = 0;
-  document.getElementById('convList').style.display = 'block';
-  document.getElementById('convSim').style.display = 'none';
-  document.getElementById('convResults').style.display = 'none';
-  var dialogue = document.getElementById('convDialogue');
-  if (dialogue) dialogue.innerHTML = '';
-  renderScenarioList();
-}
-
-function restartScenario() {
-  if (currentScenario) startScenario(currentScenario.level);
-}
-
-function capitalize(str) {
-  if (!str) return 'NPC';
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-// ── REVOIR LA QUESTION ────────────────────────────────────────────
-function showQuestionAgain() {
-  var dialogue = document.getElementById('convDialogue');
-  if (!dialogue) return;
-
-  var prompts = dialogue.querySelectorAll('#convQuestionPrompt');
-  if (prompts.length === 0) return;
-
-  var lastPrompt = prompts[prompts.length - 1];
-  lastPrompt.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-  lastPrompt.style.transition = 'background 0.3s';
-  lastPrompt.style.background = 'rgba(251, 191, 36, 0.2)';
-  setTimeout(function() {
-    lastPrompt.style.background = '';
-  }, 800);
-}
-
-// ── BOUTON INDICE ─────────────────────────────────────────────────
 function showHint() {
-  if (!currentScenario || !currentScenario.dialogue) return;
-
-  var step = currentScenario.dialogue[currentStepIndex];
-  if (!step || !step.choices) {
-    var found = false;
-    for (var i = currentStepIndex - 1; i >= 0; i--) {
-      if (currentScenario.dialogue[i].speaker === 'you' && currentScenario.dialogue[i].choices) {
-        step = currentScenario.dialogue[i];
-        found = true;
-        break;
-      }
-    }
-    if (!found) return;
-  }
-
-  if (!step.choices) return;
-
-  var correctChoice = null;
-  for (var j = 0; j < step.choices.length; j++) {
-    if (step.choices[j].correct === true) {
-      correctChoice = step.choices[j];
-      break;
-    }
-  }
-  if (!correctChoice) return;
-
-  var words = correctChoice.text.split(' ');
-  var hint = '💡 Hint: The answer starts with "' + words[0] + '" and has ' + words.length + ' word' + (words.length > 1 ? 's' : '') + '.';
-
-  var feedback = document.getElementById('convFeedback');
-  var feedbackText = document.getElementById('convFeedbackText');
-  var nextBtn = document.getElementById('convNextBtn');
-
-  if (feedback && feedbackText) {
-    feedback.style.display = 'block';
-    feedback.style.borderLeftColor = '#3B82F6';
-    feedbackText.innerHTML = '<div style="color:#3B82F6;font-size:1rem;">' + hint + '</div>';
-
-    if (nextBtn) {
-      nextBtn.textContent = 'Hide hint';
-      nextBtn.onclick = function() {
-        feedback.style.display = 'none';
-      };
-    }
-  }
+  if (!currentScenario) return;
+  var step=currentScenario.dialogue[currentStepIndex];
+  if (!step||!step.choices) return;
+  var c=step.choices.filter(function(x){return x.correct===true;})[0];
+  if (!c) return;
+  var words=c.text.split(' ');
+  var fb=document.getElementById('convFeedback');
+  var ft=document.getElementById('convFeedbackText');
+  var nb=document.getElementById('convNextBtn');
+  if (!fb||!ft) return;
+  fb.style.display='block'; fb.style.borderLeftColor='#3B82F6';
+  ft.innerHTML='<div style="color:#3B82F6">💡 Starts with "'+words[0]+'" — '+words.length+' words</div>';
+  if (nb) { nb.textContent='Hide'; nb.onclick=function(){fb.style.display='none';}; }
 }
