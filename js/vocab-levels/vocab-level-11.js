@@ -1,1 +1,68 @@
- 
+// ═══════════════════════════════════════════════════════════════════
+// vocab-level-11.js — Daily French 🥖
+// NIVEAU 11 — Vie quotidienne en France 🇫🇷
+// Entrées : 56
+// ═══════════════════════════════════════════════════════════════════
+
+const VOCAB_LEVEL_11 = [
+  {fr:"la mairie",en:"town hall",phon:"*lah may-REE*",phonFr:"la mɛʁi",def:"Bâtiment administratif de la commune",ex:"Je dois aller à la mairie.",level:11,cat:"lieu"},
+  {fr:"la préfecture",en:"prefecture (admin centre)",phon:"*lah pray-fek-TUER*",phonFr:"la pʁefɛktyʁ",def:"Administration départementale",ex:"La préfecture gère les titres de séjour.",level:11,cat:"lieu"},
+  {fr:"la Sécurité Sociale",en:"French health insurance",phon:"*lah say-kew-ree-TAY so-SYAL*",phonFr:"la sekyʁite sɔsjal",def:"Assurance maladie française",ex:"La Sécurité Sociale rembourse les soins.",level:11,cat:"administration"},
+  {fr:"la carte Vitale",en:"health insurance card",phon:"*lah kart vee-TAL*",phonFr:"la kaʁt vital",def:"Carte d'assurance maladie",ex:"Présentez votre carte Vitale.",level:11,cat:"administration"},
+  {fr:"le médecin traitant",en:"GP / family doctor",phon:"*luh mayd-SAN tre-TAN*",phonFr:"lə mɛdsɛ̃ tʁɛtɑ̃",def:"Médecin référent",ex:"Mon médecin traitant est très gentil.",level:11,cat:"administration"},
+  {fr:"s'inscrire",en:"to register",phon:"*san-SKREER*",phonFr:"sɛ̃skʁiʁ",def:"S'enregistrer administrativement",ex:"Je dois m'inscrire à la mairie.",level:11,cat:"verbe"},
+  {fr:"renouveler",en:"to renew",phon:"*ruh-noo-vuh-LAY*",phonFr:"ʁənuvle",def:"Prolonger la validité",ex:"Je dois renouveler ma carte de séjour.",level:11,cat:"verbe"},
+  {fr:"la carte de séjour",en:"residency card",phon:"*lah kart duh say-ZHOOR*",phonFr:"la kaʁt də seʒuʁ",def:"Titre de séjour pour étrangers",ex:"Ma carte de séjour expire bientôt.",level:11,cat:"administration"},
+  {fr:"la carte grise",en:"vehicle registration document",phon:"*lah kart GREEZ*",phonFr:"la kaʁt ɡʁiz",def:"Document d'immatriculation",ex:"La carte grise est dans la voiture.",level:11,cat:"administration"},
+  {fr:"immatriculer",en:"to register (a vehicle)",phon:"*ee-ma-tree-kyoo-LAY*",phonFr:"imatʁikyle",def:"Enregistrer un véhicule",ex:"Je dois immatriculer ma voiture.",level:11,cat:"verbe"},
+  {fr:"changer d'adresse",en:"to change address",phon:"*shon-ZHAY da-DRES*",phonFr:"ʃɑ̃ʒe dadʁɛs",def:"Modifier son adresse officielle",ex:"Je dois changer d'adresse à la mairie.",level:11,cat:"expression"},
+  {fr:"l'état civil",en:"civil status / registry",phon:"*lay-TAH see-VEEL*",phonFr:"letɑ̃ sivil",def:"Registre des naissances, mariages, décès",ex:"L'état civil est à la mairie.",level:11,cat:"administration"},
+  {fr:"le permis",en:"permit / licence",phon:"*luh pair-MEE*",phonFr:"lə pɛʁmi",def:"Autorisation officielle",ex:"Le permis de construire.",level:11,cat:"administration"},
+  {fr:"la box internet",en:"internet router/package",phon:"*lah boks an-tair-NET*",phonFr:"la bɔks ɛ̃tɛʁnɛt",def:"Routeur et abonnement internet",ex:"La box internet ne marche pas.",level:11,cat:"service"},
+  {fr:"EDF",en:"electricity provider",phon:"*ay-day-EFF*",phonFr:"edɛf",def:"Fournisseur d'électricité principal",ex:"EDF envoie la facture d'électricité.",level:11,cat:"service"},
+  {fr:"la facture d'électricité",en:"electricity bill",phon:"*lah fak-TUER day-lek-tree-see-TEE*",phonFr:"la faktʁyʁ delektʁisite",def:"Facture de consommation électrique",ex:"La facture d'électricité est arrivée.",level:11,cat:"service"},
+  {fr:"la déchetterie",en:"recycling/waste centre",phon:"*lah day-shet-REE*",phonFr:"la deʃɛtʁi",def:"Centre de tri des déchets",ex:"Je vais à la déchetterie avec les cartons.",level:11,cat:"lieu"},
+  {fr:"le contrôle technique",en:"MOT / vehicle inspection",phon:"*luh kon-TROL tek-NEEK*",phonFr:"lə kɔ̃tʁɔl tɛknik",def:"Inspection obligatoire des véhicules",ex:"Mon contrôle technique est en juin.",level:11,cat:"service"},
+  {fr:"la révision",en:"car service / overhaul",phon:"*lah ray-vee-ZYON*",phonFr:"la ʁevizjɔ̃",def:"Entretien du véhicule",ex:"Ma voiture a besoin d'une révision.",level:11,cat:"service"},
+  {fr:"la collecte des ordures",en:"rubbish collection",phon:"*lah kol-EKT dayz or-DUER*",phonFr:"la kɔlɛkt dezɔʁdyʁ",def:"Ramassage des poubelles",ex:"La collecte des ordures est le jeudi.",level:11,cat:"service"},
+  {fr:"les ordures",en:"rubbish / waste",phon:"*layz or-DUER*",phonFr:"lezɔʁdyʁ",def:"Déchets ménagers",ex:"Sortez les ordures ce soir.",level:11,cat:"nom"},
+  {fr:"la poubelle",en:"bin / trash can",phon:"*lah poo-BEL*",phonFr:"la pubɛl",def:"Conteneur à déchets",ex:"La poubelle est pleine.",level:11,cat:"objet"},
+  {fr:"la poste",en:"post office",phon:"*lah POHST*",phonFr:"la pɔst",def:"Service postal",ex:"Je vais à la poste envoyer un colis.",level:11,cat:"lieu"},
+  {fr:"le supermarché",en:"supermarket",phon:"*luh sew-pair-mar-SHAY*",phonFr:"lə sypɛʁmaʁʃe",def:"Grand magasin alimentaire",ex:"Je fais les courses au supermarché.",level:11,cat:"lieu"},
+  {fr:"la pharmacie",en:"pharmacy",phon:"*lah far-ma-SEE*",phonFr:"la faʁmasi",def:"Magasin de médicaments",ex:"La pharmacie est ouverte le dimanche.",level:11,cat:"lieu"},
+  {fr:"prendre rendez-vous",en:"to make an appointment",phon:"*PRON-druh ron-day-VOO*",phonFr:"pʁɑ̃dʁ ʁɑ̃devu",def:"Fixer un rendez-vous",ex:"Je dois prendre rendez-vous avec mon médecin.",level:11,cat:"expression"},
+  {fr:"ça ne marche pas",en:"it doesn't work",phon:"*sah nuh MARSH pah*",phonFr:"sa nə maʁʃ pa",def:"Ne pas fonctionner",ex:"Ça ne marche pas, la box est cassée.",level:11,cat:"expression"},
+  {fr:"avoir besoin de",en:"to need",phon:"*a-VWAHR buh-ZWAN duh*",phonFr:"avwaʁ bəzwɛ̃ də",def:"Nécessiter quelque chose",ex:"Ma voiture a besoin d'une révision.",level:11,cat:"expression"},
+  {fr:"près d'ici",en:"nearby",phon:"*pray dee-SEE*",phonFr:"pʁɛ disi",def:"Dans les environs",ex:"Il y a une déchetterie près d'ici ?",level:11,cat:"expression"},
+  {fr:"le mois prochain",en:"next month",phon:"*luh mwah proh-SHAN*",phonFr:"lə mwa pʁɔʃɛ̃",def:"Le mois suivant",ex:"Ma carte expire le mois prochain.",level:11,cat:"expression"},
+  {fr:"expirer",en:"to expire",phon:"*ek-spee-RAY*",phonFr:"ɛkspiʁe",def:"Cesser d'être valide",ex:"Mon passeport expire en 2027.",level:11,cat:"verbe"},
+  {fr:"arriver",en:"to arrive",phon:"*a-ree-VAY*",phonFr:"aʁive",def:"Parvenir à destination",ex:"La facture est arrivée aujourd'hui.",level:11,cat:"verbe"},
+  {fr:"fonctionner",en:"to work / function",phon:"*fonk-syo-NAY*",phonFr:"fɔ̃ksjɔne",def:"Opérer correctement",ex:"L'ascenseur ne fonctionne pas.",level:11,cat:"verbe"},
+  {fr:"traiter",en:"to process / handle",phon:"*tre-TAY*",phonFr:"tʁɛte",def:"S'occuper de",ex:"Votre demande sera traitée.",level:11,cat:"verbe"},
+  {fr:"déranger",en:"to disturb",phon:"*day-ron-ZHAY*",phonFr:"deʁɑ̃ʒe",def:"Gêner quelqu'un",ex:"Je ne veux pas vous déranger.",level:11,cat:"verbe"},
+  {fr:"la voiture",en:"car",phon:"*lah vwa-TEUR*",phonFr:"la vwatyʁ",def:"Véhicule automobile",ex:"Ma voiture est en panne.",level:11,cat:"transport"},
+  {fr:"le garage",en:"garage / repair shop",phon:"*luh ga-RAZH*",phonFr:"lə ɡaʁaʒ",def:"Lieu de réparation automobile",ex:"Je dois aller au garage.",level:11,cat:"lieu"},
+  {fr:"cassé",en:"broken (masc)",phon:"*ka-SAY*",phonFr:"kase",def:"Qui ne fonctionne plus",ex:"La box est cassée.",level:11,cat:"adjectif"},
+  {fr:"cassée",en:"broken (fem)",phon:"*ka-SAY*",phonFr:"kase",def:"Qui ne fonctionne plus (féminin)",ex:"La voiture est cassée.",level:11,cat:"adjectif"},
+  {fr:"vieux",en:"old (masc)",phon:"*VYUH*",phonFr:"vjø",def:"Âgé / usé",ex:"Ma carte est vieille.",level:11,cat:"adjectif"},
+  {fr:"vieille",en:"old (fem)",phon:"*VYEY*",phonFr:"vjɛj",def:"Âgée / usée (féminin)",ex:"Cette voiture est vieille.",level:11,cat:"adjectif"},
+  {fr:"aujourd'hui",en:"today",phon:"*oh-zhoor-DWEE*",phonFr:"oʒuʁdɥi",def:"Le jour présent",ex:"La facture est arrivée aujourd'hui.",level:11,cat:"temps"},
+  {fr:"le jeudi",en:"Thursday",phon:"*luh zhuh-DEE*",phonFr:"lə ʒødi",def:"Quatrième jour de la semaine",ex:"La collecte est le jeudi.",level:11,cat:"temps"},
+  {fr:"demain",en:"tomorrow",phon:"*duh-MAN*",phonFr:"dəmɛ̃",def:"Le jour suivant",ex:"Je vais à la mairie demain.",level:11,cat:"temps"},
+  {fr:"le rendez-vous",en:"appointment",phon:"*luh ron-day-VOO*",phonFr:"lə ʁɑ̃devu",def:"Rencontre planifiée",ex:"J'ai un rendez-vous chez le médecin.",level:11,cat:"nom"},
+  {fr:"internet",en:"internet",phon:"*an-tair-NET*",phonFr:"ɛ̃tɛʁnɛt",def:"Réseau mondial",ex:"Internet ne marche pas.",level:11,cat:"technologie"},
+  {fr:"la connexion",en:"connection",phon:"*lah kon-ek-SYON*",phonFr:"la kɔ̃nɛksjɔ̃",def:"Lien réseau",ex:"La connexion est lente.",level:11,cat:"technologie"},
+  {fr:"lente",en:"slow (fem)",phon:"*LONT*",phonFr:"lɑ̃t",def:"Qui manque de vitesse",ex:"La connexion est lente.",level:11,cat:"adjectif"},
+  {fr:"lent",en:"slow (masc)",phon:"*LON*",phonFr:"lɑ̃",def:"Qui manque de vitesse",ex:"Le service est lent.",level:11,cat:"adjectif"},
+  {fr:"officiellement",en:"officially",phon:"*o-fee-see-EL-mon*",phonFr:"ɔfisjɛlmɑ̃",def:"De manière officielle",ex:"Changer d'adresse officiellement.",level:11,cat:"adverbe"},
+  {fr:"surtout",en:"above all / especially",phon:"*sewr-TOO*",phonFr:"syʁtu",def:"En particulier",ex:"Gardez-la surtout sur vous !",level:11,cat:"adverbe"},
+  {fr:"toujours",en:"always",phon:"*too-ZHOOR*",phonFr:"tuʒuʁ",def:"À tout moment",ex:"Gardez-la toujours sur vous.",level:11,cat:"adverbe"},
+  {fr:"généralement",en:"generally",phon:"*zhay-nay-ral-mon*",phonFr:"ʒeneʁalmɑ̃",def:"Dans la plupart des cas",ex:"Il y en a généralement une par ville.",level:11,cat:"adverbe"},
+  {fr:"problème",en:"problem",phon:"*pro-BLEM*",phonFr:"pʁɔblɛm",def:"Difficulté",ex:"Il y a un problème avec la box.",level:11,cat:"nom"},
+  {fr:"l'aide",en:"help",phon:"*LAYD*",phonFr:"lɛd",def:"Assistance",ex:"J'ai besoin d'aide.",level:11,cat:"nom"},
+  {fr:"l'heure",en:"time / hour",phon:"*LUER*",phonFr:"lœʁ",def:"Moment de la journée",ex:"Vous avez l'heure, s'il vous plaît ?",level:11,cat:"nom"},
+];
+
+if (typeof window !== 'undefined') {
+  window.VOCAB_LEVEL_11 = VOCAB_LEVEL_11;
+}
