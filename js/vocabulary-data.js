@@ -42,16 +42,14 @@
     let missingLevels = [];
 
     for (let i = 1; i <= 21; i++) {
-      //const levelVar = window['VOCAB_LEVEL_' + i];
-      //if (Array.isArray(levelVar) && levelVar.length > 0) {
       const levelVar = window['VOCAB_LEVEL_' + (i < 10 ? '0' + i : i)];
-
+      if (Array.isArray(levelVar) && levelVar.length > 0) {
         window.VOCABULARY_BDD = window.VOCABULARY_BDD.concat(levelVar);
         totalLoaded++;
         totalEntries += levelVar.length;
       } else {
         missingLevels.push(i);
-        console.warn('[vocabulary-data] VOCAB_LEVEL_' + i + ' manquant ou vide');
+        console.warn('[vocabulary-data] VOCAB_LEVEL_' + (i < 10 ? '0' + i : i) + ' manquant ou vide');
       }
     }
 
