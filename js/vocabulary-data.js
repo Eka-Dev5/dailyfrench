@@ -10,9 +10,9 @@
   const BASE_PATH = 'js/vocab-levels/';
 
   const LEVEL_FILES = [
-    'vocab-level-1.js',  'vocab-level-2.js',  'vocab-level-3.js',
-    'vocab-level-4.js',  'vocab-level-5.js',  'vocab-level-6.js',
-    'vocab-level-7.js',  'vocab-level-8.js',  'vocab-level-9.js',
+    'vocab-level-01.js',  'vocab-level-02.js',  'vocab-level-03.js',
+    'vocab-level-04.js',  'vocab-level-05.js',  'vocab-level-06.js',
+    'vocab-level-07.js',  'vocab-level-08.js',  'vocab-level-09.js',
     'vocab-level-10.js', 'vocab-level-11.js', 'vocab-level-12.js',
     'vocab-level-13.js', 'vocab-level-14.js', 'vocab-level-15.js',
     'vocab-level-16.js', 'vocab-level-17.js', 'vocab-level-18.js',
@@ -42,8 +42,10 @@
     let missingLevels = [];
 
     for (let i = 1; i <= 21; i++) {
-      const levelVar = window['VOCAB_LEVEL_' + i];
-      if (Array.isArray(levelVar) && levelVar.length > 0) {
+      //const levelVar = window['VOCAB_LEVEL_' + i];
+      //if (Array.isArray(levelVar) && levelVar.length > 0) {
+      const levelVar = window['VOCAB_LEVEL_' + (i < 10 ? '0' + i : i)];
+
         window.VOCABULARY_BDD = window.VOCABULARY_BDD.concat(levelVar);
         totalLoaded++;
         totalEntries += levelVar.length;
