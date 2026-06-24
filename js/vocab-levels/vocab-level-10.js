@@ -1,1 +1,71 @@
- 
+// ═══════════════════════════════════════════════════════════════════
+// vocab-level-10.js — Daily French 🥖
+// NIVEAU 10 — Politesse 🙏
+// Entrées : 59
+// ═══════════════════════════════════════════════════════════════════
+
+const VOCAB_LEVEL_10 = [
+  {fr:"s'il vous plaît",en:"please (formal)",phon:"*seel voo PLEH*",phonFr:"sil vu plɛ",def:"Formule de politesse formelle",ex:"Un café, s'il vous plaît.",level:10,cat:"politesse"},
+  {fr:"s'il te plaît",en:"please (informal)",phon:"*seel tuh PLEH*",phonFr:"sil tə plɛ",def:"Formule de politesse informelle",ex:"Donne-moi ça, s'il te plaît.",level:10,cat:"politesse"},
+  {fr:"merci",en:"thank you",phon:"*mair-SEE*",phonFr:"mɛʁsi",def:"Expression de gratitude",ex:"Merci beaucoup !",level:10,cat:"politesse"},
+  {fr:"merci beaucoup",en:"thank you very much",phon:"*mair-see boh-KOO*",phonFr:"mɛʁsi boku",def:"Remerciement renforcé",ex:"Merci beaucoup pour votre aide.",level:10,cat:"politesse"},
+  {fr:"merci bien",en:"thank you kindly",phon:"*mair-see BYAN*",phonFr:"mɛʁsi bjɛ̃",def:"Remerciement chaleureux",ex:"Merci bien, c'est gentil.",level:10,cat:"politesse"},
+  {fr:"de rien",en:"you're welcome",phon:"*duh RYAN*",phonFr:"də ʁjɛ̃",def:"Réponse à un remerciement",ex:"— Merci ! — De rien !",level:10,cat:"politesse"},
+  {fr:"pas de quoi",en:"don't mention it",phon:"*pah duh KWAH*",phonFr:"pa də kwa",def:"Réponse à un remerciement (informel)",ex:"Pas de quoi, c'était un plaisir.",level:10,cat:"politesse"},
+  {fr:"avec plaisir",en:"with pleasure",phon:"*ah-vek pleh-ZEER*",phonFr:"avɛk plɛziʁ",def:"Réponse à un remerciement",ex:"— Merci ! — Avec plaisir !",level:10,cat:"politesse"},
+  {fr:"je vous en prie",en:"you're welcome (formal)",phon:"*zhuh voo zon PREE*",phonFr:"ʒə vu zɑ̃ pʁi",def:"Réponse formelle à un remerciement",ex:"Je vous en prie, madame.",level:10,cat:"politesse"},
+  {fr:"excusez-moi",en:"excuse me / sorry (formal)",phon:"*ex-kue-ZAY mwah*",phonFr:"ɛkskyze mwa",def:"S'excuser ou attirer l'attention",ex:"Excusez-moi, l'heure s'il vous plaît ?",level:10,cat:"politesse"},
+  {fr:"pardon",en:"sorry / pardon",phon:"*par-DON*",phonFr:"paʁdɔ̃",def:"Excuse pour un petit incident",ex:"Pardon, je ne vous avais pas vu.",level:10,cat:"politesse"},
+  {fr:"je suis désolé",en:"I'm sorry (masc)",phon:"*zhuh swee day-zo-LAY*",phonFr:"ʒə sɥi dezɔle",def:"Excuses sincères (homme)",ex:"Je suis désolé, je suis en retard.",level:10,cat:"politesse"},
+  {fr:"je suis désolée",en:"I'm sorry (fem)",phon:"*zhuh swee day-zo-LAY*",phonFr:"ʒə sɥi dezɔle",def:"Excuses sincères (femme)",ex:"Je suis désolée de vous déranger.",level:10,cat:"politesse"},
+  {fr:"pourriez-vous m'aider",en:"could you help me",phon:"*poo-ryay-VOO may-DAY*",phonFr:"puʁje vu mɛde",def:"Demande d'aide très polie (conditionnel)",ex:"Pourriez-vous m'aider, s'il vous plaît ?",level:10,cat:"politesse"},
+  {fr:"pouvez-vous m'aider",en:"can you help me",phon:"*poo-vay-VOO may-DAY*",phonFr:"puve vu mɛde",def:"Demande d'aide polie",ex:"Pouvez-vous m'aider avec ça ?",level:10,cat:"politesse"},
+  {fr:"je ne comprends pas",en:"I don't understand",phon:"*zhuh nuh kom-PRON PAH*",phonFr:"ʒə nə kɔ̃pʁɑ̃ pa",def:"Indiquer qu'on ne comprend pas",ex:"Je ne comprends pas, pouvez-vous répéter ?",level:10,cat:"politesse"},
+  {fr:"pouvez-vous répéter",en:"can you repeat",phon:"*poo-vay-VOO ray-pay-TAY*",phonFr:"puve vu ʁepete",def:"Demander de répéter",ex:"Pouvez-vous répéter, s'il vous plaît ?",level:10,cat:"politesse"},
+  {fr:"pouvez-vous parler plus lentement",en:"can you speak more slowly",phon:"*poo-vay-VOO par-LAY plue lon-tuh-MON*",phonFr:"puve vu paʁle ply lɑ̃tmɑ̃",def:"Demander de parler moins vite",ex:"Pouvez-vous parler plus lentement ?",level:10,cat:"politesse"},
+  {fr:"parlez-vous anglais",en:"do you speak English",phon:"*par-lay-VOO on-GLAY*",phonFr:"paʁle vu ɑ̃ɡlɛ",def:"Demander si quelqu'un parle anglais",ex:"Parlez-vous anglais, s'il vous plaît ?",level:10,cat:"politesse"},
+  {fr:"parlez plus lentement",en:"speak more slowly",phon:"*par-LAY plue lon-tuh-MON*",phonFr:"paʁle ply lɑ̃tmɑ̃",def:"Demande directe de ralentir",ex:"Parlez plus lentement, je vous prie.",level:10,cat:"politesse"},
+  {fr:"bonjour",en:"hello / good morning",phon:"*bon-ZHOOR*",phonFr:"bɔ̃ʒuʁ",def:"Salutation essentielle en français",ex:"Bonjour ! Je voudrais un café.",level:10,cat:"politesse"},
+  {fr:"au revoir",en:"goodbye",phon:"*oh ruh-VWAHR*",phonFr:"o ʁəvwaʁ",def:"Formule d'adieu",ex:"Au revoir et merci !",level:10,cat:"politesse"},
+  {fr:"en retard",en:"late",phon:"*on ruh-TAHR*",phonFr:"ɑ̃ ʁətaʁ",def:"Être en retard",ex:"Je suis en retard, désolé !",level:10,cat:"politesse"},
+  {fr:"très",en:"very",phon:"*TRAY*",phonFr:"tʁɛ",def:"Adverbe d'intensité",ex:"Je ne comprends pas très bien.",level:10,cat:"adverbe"},
+  {fr:"bien",en:"well",phon:"*BYAN*",phonFr:"bjɛ̃",def:"Adverbe de manière",ex:"Je ne parle pas bien français.",level:10,cat:"adverbe"},
+  {fr:"plus",en:"more",phon:"*PLEW*",phonFr:"ply",def:"Plus (comparaison)",ex:"Parlez plus lentement.",level:10,cat:"adverbe"},
+  {fr:"lentement",en:"slowly",phon:"*lon-tuh-MON*",phonFr:"lɑ̃tmɑ̃",def:"Adverbe de manière (lent)",ex:"Parlez lentement, s'il vous plaît.",level:10,cat:"adverbe"},
+  {fr:"gentil",en:"kind (masc)",phon:"*zhon-TEE*",phonFr:"ʒɑ̃ti",def:"Adjectif d'appréciation",ex:"C'est très gentil de votre part.",level:10,cat:"adjectif"},
+  {fr:"gentille",en:"kind (fem)",phon:"*zhon-TEE*",phonFr:"ʒɑ̃tij",def:"Adjectif d'appréciation (féminin)",ex:"Elle est très gentille.",level:10,cat:"adjectif"},
+  {fr:"poli",en:"polite (masc)",phon:"*po-LEE*",phonFr:"pɔli",def:"Qui a de bonnes manières",ex:"Il est très poli.",level:10,cat:"adjectif"},
+  {fr:"polie",en:"polite (fem)",phon:"*po-LEE*",phonFr:"pɔli",def:"Qui a de bonnes manières (féminin)",ex:"Elle est très polie.",level:10,cat:"adjectif"},
+  {fr:"impoli",en:"rude (masc)",phon:"*an-po-LEE*",phonFr:"ɛ̃pɔli",def:"Qui manque de manières",ex:"C'est impoli de ne pas dire bonjour.",level:10,cat:"adjectif"},
+  {fr:"impolie",en:"rude (fem)",phon:"*an-po-LEE*",phonFr:"ɛ̃pɔli",def:"Qui manque de manières (féminin)",ex:"Cette remarque est impolie.",level:10,cat:"adjectif"},
+  {fr:"comprendre",en:"to understand",phon:"*kom-PRON-druh*",phonFr:"kɔ̃pʁɑ̃dʁ",def:"Saisir le sens",ex:"Je ne comprends pas.",level:10,cat:"verbe"},
+  {fr:"répéter",en:"to repeat",phon:"*ray-pay-TAY*",phonFr:"ʁepete",def:"Dire à nouveau",ex:"Pouvez-vous répéter ?",level:10,cat:"verbe"},
+  {fr:"parler",en:"to speak",phon:"*par-LAY*",phonFr:"paʁle",def:"Émettre des mots",ex:"Parlez-vous anglais ?",level:10,cat:"verbe"},
+  {fr:"aider",en:"to help",phon:"*ay-DAY*",phonFr:"ɛde",def:"Apporter son assistance",ex:"Pouvez-vous m'aider ?",level:10,cat:"verbe"},
+  {fr:"désoler",en:"to be sorry",phon:"*day-zo-LAY*",phonFr:"dezɔle",def:"Rendre triste / être désolé",ex:"Je suis désolé de vous déranger.",level:10,cat:"verbe"},
+  {fr:"excuser",en:"to excuse",phon:"*ex-kue-ZAY*",phonFr:"ɛkskyze",def:"Pardonner",ex:"Excusez-moi de vous déranger.",level:10,cat:"verbe"},
+  {fr:"déranger",en:"to disturb",phon:"*day-ron-ZHAY*",phonFr:"deʁɑ̃ʒe",def:"Gêner quelqu'un",ex:"Je ne veux pas vous déranger.",level:10,cat:"verbe"},
+  {fr:"entrer",en:"to enter",phon:"*on-TRAY*",phonFr:"ɑ̃tʁe",def:"Passer la porte",ex:"En entrant dans le magasin, dites bonjour.",level:10,cat:"verbe"},
+  {fr:"sortir",en:"to leave / go out",phon:"*sor-TEER*",phonFr:"sɔʁtiʁ",def:"Quitter un lieu",ex:"En sortant, dites au revoir.",level:10,cat:"verbe"},
+  {fr:"je ne parle pas bien français",en:"I don't speak French well",phon:"*zhuh nuh parl pah byan fron-SAY*",phonFr:"ʒə nə paʁl pa bjɛ̃ fʁɑ̃sɛ",def:"Phrase d'excuse utile",ex:"Excusez-moi, je ne parle pas bien français.",level:10,cat:"expression"},
+  {fr:"c'est gentil",en:"that's kind",phon:"*say zhon-TEE*",phonFr:"sɛ ʒɑ̃ti",def:"Remercier quelqu'un de sa gentillesse",ex:"C'est très gentil de votre part !",level:10,cat:"expression"},
+  {fr:"c'est normal",en:"it's normal / no problem",phon:"*say nor-MAL*",phonFr:"sɛ nɔʁmal",def:"Réponse modeste à un remerciement",ex:"— Merci ! — C'est normal.",level:10,cat:"politesse"},
+  {fr:"merci mille fois",en:"thanks a thousand times",phon:"*mair-see MEEL FWAH*",phonFr:"mɛʁsi mil fwa",def:"Remerciement très expressif",ex:"Merci mille fois pour tout !",level:10,cat:"politesse"},
+  {fr:"c'est un plaisir",en:"it's a pleasure",phon:"*say tuhn pleh-ZEER*",phonFr:"sɛ tœ̃ plɛziʁ",def:"Réponse chaleureuse",ex:"C'est un plaisir de vous aider.",level:10,cat:"politesse"},
+  {fr:"ne...pas",en:"not (negation)",phon:"*nuh...PAH*",phonFr:"nə...pa",def:"Négation en français",ex:"Je ne comprends pas.",level:10,cat:"grammaire"},
+  {fr:"conditionnel",en:"conditional (tense)",phon:"*kon-dee-syo-NEL*",phonFr:"kɔ̃disjɔ̃nɛl",def:"Temps pour politesse renforcée",ex:"Pourriez-vous = conditionnel de pouvoir.",level:10,cat:"grammaire"},
+  {fr:"formel",en:"formal",phon:"*for-MEL*",phonFr:"fɔʁmɛl",def:"Registre de langue soutenu",ex:"Vouvoiement = registre formel.",level:10,cat:"grammaire"},
+  {fr:"informel",en:"informal",phon:"*an-for-MEL*",phonFr:"ɛ̃fɔʁmɛl",def:"Registre de langue familier",ex:"Tutoiement = registre informel.",level:10,cat:"grammaire"},
+  {fr:"vouvoiement",en:"using 'vous'",phon:"*voo-vwah-MON*",phonFr:"vuvwamɑ̃",def:"Utiliser 'vous' pour s'adresser à quelqu'un",ex:"En France, on vouvoie les inconnus.",level:10,cat:"grammaire"},
+  {fr:"tutoiement",en:"using 'tu'",phon:"*tew-twah-MON*",phonFr:"tytwamɑ̃",def:"Utiliser 'tu' pour s'adresser à quelqu'un",ex:"On se tutoie entre amis.",level:10,cat:"grammaire"},
+  {fr:"manqué",en:"missed / failed",phon:"*mon-KAY*",phonFr:"mɑ̃ke",def:"Manquer de quelque chose",ex:"Tu as manqué de politesse.",level:10,cat:"verbe"},
+  {fr:"interaction",en:"interaction",phon:"*an-tair-ak-SYON*",phonFr:"ɛ̃tɛʁaksjɔ̃",def:"Échange entre personnes",ex:"La politesse guide toute interaction.",level:10,cat:"nom"},
+  {fr:"magasin",en:"shop / store",phon:"*ma-ga-ZAN*",phonFr:"maɡazɛ̃",def:"Lieu de commerce",ex:"En entrant dans un magasin, dites bonjour.",level:10,cat:"lieu"},
+  {fr:"remarque",en:"remark / comment",phon:"*ruh-MARK*",phonFr:"ʁəmaʁk",def:"Observation verbale",ex:"Cette remarque est un peu impolie.",level:10,cat:"nom"},
+  {fr:"demande",en:"request",phon:"*duh-MOND*",phonFr:"dəmɑ̃d",def:"Requête formulée à quelqu'un",ex:"Votre demande sera traitée.",level:10,cat:"nom"},
+  {fr:"part",en:"part / side",phon:"*PAHR*",phonFr:"paʁ",def:"Côté / part",ex:"C'est gentil de votre part.",level:10,cat:"nom"},
+];
+
+if (typeof window !== 'undefined') {
+  window.VOCAB_LEVEL_10 = VOCAB_LEVEL_10;
+}
