@@ -1,1 +1,62 @@
- 
+// ═══════════════════════════════════════════════════════════════════
+// vocab-level-16.js — Daily French 🥖
+// NIVEAU 16 — Ma Famille 👨‍👩‍👧‍👦
+// Entrées : 50 (existants) + phonFr ajouté
+// ═══════════════════════════════════════════════════════════════════
+
+const VOCAB_LEVEL_16 = [
+  {fr:"père",en:"father",phon:"*PAIR*",phonFr:"pɛʁ",def:"Parent masculin",ex:"Mon père est gentil.",level:16,cat:"famille"},
+  {fr:"mère",en:"mother",phon:"*MAIR*",phonFr:"mɛʁ",def:"Parent féminin",ex:"Ma mère est aimable.",level:16,cat:"famille"},
+  {fr:"papa",en:"dad",phon:"*pa-PA*",phonFr:"papa",def:"Père (familier)",ex:"Papa, je t'aime.",level:16,cat:"famille"},
+  {fr:"maman",en:"mom",phon:"*ma-MON*",phonFr:"mamɑ̃",def:"Mère (familier)",ex:"Maman, viens !",level:16,cat:"famille"},
+  {fr:"parent",en:"parent",phon:"*pa-RON*",phonFr:"paʁɑ̃",def:"Père ou mère",ex:"Mes parents vivent à Paris.",level:16,cat:"famille"},
+  {fr:"beau-père",en:"father-in-law / stepfather",phon:"*boh PAIR*",phonFr:"bopɛʁ",def:"Père du conjoint ou beau-père",ex:"Mon beau-père.",level:16,cat:"famille"},
+  {fr:"belle-mère",en:"mother-in-law / stepmother",phon:"*bel MAIR*",phonFr:"bɛlmɛʁ",def:"Mère du conjoint ou belle-mère",ex:"Ma belle-mère.",level:16,cat:"famille"},
+  {fr:"géniteur",en:"biological father",phon:"*zhay-nee-TUR*",phonFr:"ʒenitœʁ",def:"Père biologique",ex:"Son géniteur.",level:16,cat:"famille"},
+  {fr:"fils",en:"son",phon:"*FEESS*",phonFr:"fis",def:"Enfant masculin",ex:"Mon fils a 10 ans.",level:16,cat:"famille"},
+  {fr:"fille",en:"daughter",phon:"*FEE-yuh*",phonFr:"fij",def:"Enfant féminin",ex:"Ma fille est étudiante.",level:16,cat:"famille"},
+  {fr:"enfant",en:"child",phon:"*on-FON*",phonFr:"ɑ̃fɑ̃",def:"Petit être humain",ex:"L'enfant joue.",level:16,cat:"famille"},
+  {fr:"bébé",en:"baby",phon:"*bay-BAY*",phonFr:"bebe",def:"Très jeune enfant",ex:"Le bébé dort.",level:16,cat:"famille"},
+  {fr:"garçon",en:"boy",phon:"*gar-SON*",phonFr:"ɡaʁsɔ̃",def:"Jeune homme",ex:"Le garçon est sage.",level:16,cat:"famille"},
+  {fr:"petit-fils",en:"grandson",phon:"*puh-TEE FEESS*",phonFr:"pətifis",def:"Fils de l'enfant",ex:"Mon petit-fils.",level:16,cat:"famille"},
+  {fr:"petite-fille",en:"granddaughter",phon:"*puh-TEET FEE-yuh*",phonFr:"pətitfij",def:"Fille de l'enfant",ex:"Ma petite-fille.",level:16,cat:"famille"},
+  {fr:"jumeau",en:"twin (male)",phon:"*zhoo-MOH*",phonFr:"ʒymo",def:"Né en même temps",ex:"Mon jumeau.",level:16,cat:"famille"},
+  {fr:"grand-père",en:"grandfather",phon:"*GRON PAIR*",phonFr:"ɡʁɑ̃pɛʁ",def:"Père du parent",ex:"Mon grand-père.",level:16,cat:"famille"},
+  {fr:"grand-mère",en:"grandmother",phon:"*GRON MAIR*",phonFr:"ɡʁɑ̃mɛʁ",def:"Mère du parent",ex:"Ma grand-mère.",level:16,cat:"famille"},
+  {fr:"papi",en:"grandpa",phon:"*pa-PEE*",phonFr:"papi",def:"Grand-père (familier)",ex:"Papi raconte des histoires.",level:16,cat:"famille"},
+  {fr:"mamie",en:"granny",phon:"*ma-MEE*",phonFr:"mami",def:"Grand-mère (familier)",ex:"Mamie fait des gâteaux.",level:16,cat:"famille"},
+  {fr:"arrière-grand-père",en:"great-grandfather",phon:"*a-RYAIR GRON PAIR*",phonFr:"aʁjɛʁɡʁɑ̃pɛʁ",def:"Père du grand-parent",ex:"Mon arrière-grand-père.",level:16,cat:"famille"},
+  {fr:"arrière-grand-mère",en:"great-grandmother",phon:"*a-RYAIR GRON MAIR*",phonFr:"aʁjɛʁɡʁɑ̃mɛʁ",def:"Mère du grand-parent",ex:"Mon arrière-grand-mère.",level:16,cat:"famille"},
+  {fr:"mari",en:"husband",phon:"*ma-REE*",phonFr:"maʁi",def:"Époux",ex:"Mon mari travaille.",level:16,cat:"famille"},
+  {fr:"femme",en:"wife",phon:"*FAM*",phonFr:"fam",def:"Épouse",ex:"Ma femme est médecin.",level:16,cat:"famille"},
+  {fr:"époux",en:"spouse (male)",phon:"*ay-POO*",phonFr:"epu",def:"Mari officiel",ex:"Mon époux.",level:16,cat:"famille"},
+  {fr:"épouse",en:"spouse (female)",phon:"*ay-POOZ*",phonFr:"epuz",def:"Femme officielle",ex:"Mon épouse.",level:16,cat:"famille"},
+  {fr:"compagnon",en:"partner (male)",phon:"*kom-pa-NYON*",phonFr:"kɔ̃paɲɔ̃",def:"Conjoint non marié",ex:"Mon compagnon.",level:16,cat:"famille"},
+  {fr:"compagne",en:"partner (female)",phon:"*kom-PAN-yuh*",phonFr:"kɔ̃paɲ",def:"Conjointe non mariée",ex:"Ma compagne.",level:16,cat:"famille"},
+  {fr:"concubin",en:"cohabiting partner (male)",phon:"*kon-kew-BAN*",phonFr:"kɔ̃kybɛ̃",def:"Partenaire de vie non marié",ex:"Mon concubin.",level:16,cat:"famille"},
+  {fr:"concubine",en:"cohabiting partner (female)",phon:"*kon-kew-BEEN*",phonFr:"kɔ̃kybin",def:"Partenaire de vie non mariée",ex:"Ma concubine.",level:16,cat:"famille"},
+  {fr:"frère",en:"brother",phon:"*FRAIR*",phonFr:"fʁɛʁ",def:"Garçon de même parents",ex:"Mon frère aîné.",level:16,cat:"famille"},
+  {fr:"sœur",en:"sister",phon:"*SUR*",phonFr:"sœʁ",def:"Fille de même parents",ex:"Ma sœur cadette.",level:16,cat:"famille"},
+  {fr:"demi-frère",en:"half-brother",phon:"*duh-mee FRAIR*",phonFr:"dəmifʁɛʁ",def:"Frère d'un seul parent",ex:"Mon demi-frère.",level:16,cat:"famille"},
+  {fr:"demi-sœur",en:"half-sister",phon:"*duh-mee SUR*",phonFr:"dəmisœʁ",def:"Sœur d'un seul parent",ex:"Ma demi-sœur.",level:16,cat:"famille"},
+  {fr:"frère aîné",en:"older brother",phon:"*FRAIR ay-NAY*",phonFr:"fʁɛʁɛne",def:"Frère plus âgé",ex:"Mon frère aîné.",level:16,cat:"famille"},
+  {fr:"sœur cadette",en:"younger sister",phon:"*SUR ka-DET*",phonFr:"sœʁkadɛt",def:"Sœur plus jeune",ex:"Ma sœur cadette.",level:16,cat:"famille"},
+  {fr:"oncle",en:"uncle",phon:"*ON-kluh*",phonFr:"ɔ̃kl",def:"Frère du parent",ex:"Mon oncle.",level:16,cat:"famille"},
+  {fr:"tante",en:"aunt",phon:"*TONNT*",phonFr:"tɑ̃t",def:"Sœur du parent",ex:"Ma tante.",level:16,cat:"famille"},
+  {fr:"cousin",en:"cousin (male)",phon:"*koo-ZAN*",phonFr:"kuzɛ̃",def:"Fils de l'oncle/tante",ex:"Mon cousin.",level:16,cat:"famille"},
+  {fr:"cousine",en:"cousin (female)",phon:"*koo-ZEEN*",phonFr:"kuzin",def:"Fille de l'oncle/tante",ex:"Ma cousine.",level:16,cat:"famille"},
+  {fr:"neveu",en:"nephew",phon:"*nuh-VOO*",phonFr:"nəvø",def:"Fils du frère/sœur",ex:"Mon neveu.",level:16,cat:"famille"},
+  {fr:"nièce",en:"niece",phon:"*NYESS*",phonFr:"njɛs",def:"Fille du frère/sœur",ex:"Ma nièce.",level:16,cat:"famille"},
+  {fr:"la famille",en:"the family",phon:"*la fa-MEEL*",phonFr:"lafamij",def:"Groupe de parents",ex:"La famille est importante.",level:16,cat:"expression"},
+  {fr:"les proches",en:"close relatives",phon:"*lay PROHSH*",phonFr:"lepʁɔʃ",def:"Famille proche",ex:"Mes proches m'aident.",level:16,cat:"expression"},
+  {fr:"les parents",en:"relatives",phon:"*lay pa-RON*",phonFr:"lepaʁɑ̃",def:"Famille élargie",ex:"Les parents sont réunis.",level:16,cat:"expression"},
+  {fr:"réunion de famille",en:"family reunion",phon:"*ray-OO-nyon duh fa-MEEL*",phonFr:"ʁeynjɔ̃dəfamij",def:"Rassemblement familial",ex:"Une réunion de famille.",level:16,cat:"expression"},
+  {fr:"arbre généalogique",en:"family tree",phon:"*AR-bruh zhay-nay-a-lo-ZHEEK*",phonFr:"aʁbʁəʒenealɔʒik",def:"Schéma des ancêtres",ex:"L'arbre généalogique.",level:16,cat:"expression"},
+  {fr:"tête de famille",en:"head of household",phon:"*TET duh fa-MEEL*",phonFr:"tɛtdəfamij",def:"Personne responsable",ex:"La tête de famille.",level:16,cat:"expression"},
+  {fr:"foyer",en:"household",phon:"*fwa-YAY*",phonFr:"fwaje",def:"Unité de vie familiale",ex:"Le foyer fiscal.",level:16,cat:"expression"},
+  {fr:"en famille",en:"with family",phon:"*on fa-MEEL*",phonFr:"ɑ̃famij",def:"En groupe familial",ex:"On dîne en famille.",level:16,cat:"expression"}
+];
+
+if (typeof window !== 'undefined') {
+  window.VOCAB_LEVEL_16 = VOCAB_LEVEL_16;
+}
