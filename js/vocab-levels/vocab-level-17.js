@@ -55,6 +55,25 @@ const VOCAB_LEVEL_17 = [
   {fr:"ne pas reculer",en:"not to back down",phon:"*nuh pa ruh-kew-LAY*",phonFr:"nəpaʁəkyne",def:"Persévérer",ex:"Ne pas reculer devant les obstacles.",level:17,cat:"expression"},
   {fr:"tenir bon",en:"to hold on",phon:"*tuh-NEER BON*",phonFr:"təniʁbɔ̃",def:"Résister",ex:"Tenir bon malgré tout.",level:17,cat:"expression"},
   {fr:"donner le meilleur de soi",en:"to give one's best",phon:"*do-NAY luh may-YUR duh SWAH*",phonFr:"dɔneləmɛjœʁdəswa",def:"Faire des efforts maximum",ex:"Donner le meilleur de soi.",level:17,cat:"expression"}
+  // === ENTRÉES SUPPLÉMENTAIRES LEÇON 17 (Futur Proche) ===
+  {fr:"aller",en:"to go",phon:"*a-LAY*",phonFr:"ale",def:"Verbe aller (auxiliaire futur proche)",ex:"Je vais cuisiner.",level:17,cat:"verbe"},
+  {fr:"je vais",en:"I am going",phon:"*zhuh vay*",phonFr:"ʒə vɛ",def:"Futur proche 1re pers.",ex:"Je vais cuisiner.",level:17,cat:"conjugaison"},
+  {fr:"tu vas",en:"you are going",phon:"*tew vah*",phonFr:"ty va",def:"Futur proche 2e pers.",ex:"Tu vas téléphoner.",level:17,cat:"conjugaison"},
+  {fr:"elle va",en:"she is going",phon:"*el vah*",phonFr:"ɛl va",def:"Futur proche 3e pers. fem.",ex:"Elle va téléphoner.",level:17,cat:"conjugaison"},
+  {fr:"nous allons",en:"we are going",phon:"*noo za-LON*",phonFr:"nu zalɔ̃",def:"Futur proche 1re pers. pl.",ex:"Nous allons au marché.",level:17,cat:"conjugaison"},
+  {fr:"cuisiner",en:"to cook",phon:"*kwee-zee-NAY*",phonFr:"kɥizine",def:"Préparer un repas",ex:"Je vais cuisiner.",level:17,cat:"verbe"},
+  {fr:"téléphoner",en:"to phone",phon:"*tay-lay-fo-NAY*",phonFr:"telefɔne",def:"Appeler au téléphone",ex:"Elle va téléphoner.",level:17,cat:"verbe"},
+  {fr:"au marché",en:"to the market",phon:"*oh mar-SHAY*",phonFr:"o maʁʃe",def:"Aller au marché",ex:"Nous allons au marché.",level:17,cat:"expression"},
+  {fr:"faire les courses",en:"to do the shopping",phon:"*fair lay KOORS*",phonFr:"fɛʁ le kuʁs",def:"Faire des achats",ex:"Je vais faire les courses.",level:17,cat:"expression"},
+  {fr:"demain",en:"tomorrow",phon:"*duh-MAN*",phonFr:"dəmɛ̃",def:"Le jour suivant",ex:"Je vais cuisiner demain.",level:17,cat:"temps"},
+  {fr:"ce week-end",en:"this weekend",phon:"*suh WEEK-end*",phonFr:"sə wikɛnd",def:"Ce week-end",ex:"Qu'est-ce que tu vas faire ce week-end ?",level:17,cat:"temps"},
+  {fr:"la semaine prochaine",en:"next week",phon:"*la suh-MEN pro-SHEN*",phonFr:"la səmɛn pʁɔʃɛn",def:"La semaine suivante",ex:"Nous allons au marché la semaine prochaine.",level:17,cat:"temps"},
+  {fr:"le mois prochain",en:"next month",phon:"*luh mwah pro-SHAN*",phonFr:"lə mwa pʁɔʃɛ̃",def:"Le mois suivant",ex:"Je vais cuisiner le mois prochain.",level:17,cat:"temps"},
+  {fr:"bientôt",en:"soon",phon:"*byan-TOH*",phonFr:"bjɛ̃to",def:"Dans peu de temps",ex:"À bientôt !",level:17,cat:"temps"},
+  {fr:"cinéma",en:"cinema",phon:"*see-nay-MA*",phonFr:"sinema",def:"Salle de films",ex:"Je vais au cinéma.",level:17,cat:"lieu"},
+  {fr:"Qu'est-ce que tu vas faire ?",en:"What are you going to do?",phon:"*kes-kuh tew vah fair*",phonFr:"kɛskə ty va fɛʁ",def:"Question futur proche",ex:"Qu'est-ce que tu vas faire ce week-end ?",level:17,cat:"expression"},
+  {fr:"voir",en:"to see",phon:"*VWAHR*",phonFr:"vwaʁ",def:"Regarder / percevoir",ex:"Je vais voir un film.",level:17,cat:"verbe"},
+  {fr:"film",en:"movie",phon:"*FEELM*",phonFr:"film",def:"Œuvre cinématographique",ex:"Je vais voir un film.",level:17,cat:"objet"},
 ];
 
 if (typeof window !== 'undefined') {
