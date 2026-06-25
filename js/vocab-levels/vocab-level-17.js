@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════
 // vocab-level-17.js — Daily French 🥖
 // NIVEAU 17 — Mes Projets 🎯
-// Entrées : 50 (existants) + phonFr ajouté
+// Entrées : 68 
 // ═══════════════════════════════════════════════════════════════════
 
 const VOCAB_LEVEL_17 = [
