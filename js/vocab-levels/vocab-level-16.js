@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════
 // vocab-level-16.js — Daily French 🥖
 // NIVEAU 16 — Ma Famille 👨‍👩‍👧‍👦
-// Entrées : 68 entrees
+// Entrées : 68
 // ═══════════════════════════════════════════════════════════════════
 
 const VOCAB_LEVEL_16 = [
@@ -48,7 +48,7 @@ const VOCAB_LEVEL_16 = [
   {fr:"neveu",en:"nephew",phon:"*nuh-VOO*",phonFr:"nəvø",def:"Fils du frère/sœur",ex:"Mon neveu.",level:16,cat:"famille"},
   {fr:"nièce",en:"niece",phon:"*NYESS*",phonFr:"njɛs",def:"Fille du frère/sœur",ex:"Ma nièce.",level:16,cat:"famille"},
   {fr:"la famille",en:"the family",phon:"*la fa-MEEL*",phonFr:"lafamij",def:"Groupe de parents",ex:"La famille est importante.",level:16,cat:"expression"},
-    // === ENTRÉES SUPPLÉMENTAIRES LEÇON 16 ===
+  // === ENTRÉES SUPPLÉMENTAIRES LEÇON 16 ===
   {fr:"mon",en:"my (masc)",phon:"*mon*",phonFr:"mɔ̃",def:"Possessif masculin singulier",ex:"Mon frère.",level:16,cat:"grammaire"},
   {fr:"ma",en:"my (fem)",phon:"*ma*",phonFr:"ma",def:"Possessif féminin singulier",ex:"Ma sœur.",level:16,cat:"grammaire"},
   {fr:"mes",en:"my (plural)",phon:"*may*",phonFr:"me",def:"Possessif pluriel",ex:"Mes enfants.",level:16,cat:"grammaire"},
