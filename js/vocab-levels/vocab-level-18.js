@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════
 // vocab-level-18.js — Daily French 🥖
 // NIVEAU 18 — Ma Santé 💊
-// Entrées : 50 (existants) + phonFr ajouté
+// Entrées : 68 entrees
 // ═══════════════════════════════════════════════════════════════════
 
 const VOCAB_LEVEL_18 = [
@@ -55,6 +55,25 @@ const VOCAB_LEVEL_18 = [
   {fr:"une clinique",en:"a clinic",phon:"*oon klee-NEEK*",phonFr:"yn klinik",def:"Établissement médical privé.",ex:"La clinique est très moderne.",level:18,cat:"santé"},
   {fr:"les urgences",en:"emergency room",phon:"*layz oor-ZHANSS*",phonFr:"lezyʁʒɑ̃s",def:"Service hospitalier d'urgence.",ex:"Il faut aller aux urgences !",level:18,cat:"santé"},
   {fr:"un cabinet médical",en:"a doctor's office",phon:"*uh ka-bee-NAY may-dee-KAL*",phonFr:"œ̃ kabinɛ medikal",def:"Bureau du médecin.",ex:"Le cabinet médical est au rez-de-chaussée.",level:18,cat:"santé"}
+  // === ENTRÉES SUPPLÉMENTAIRES LEÇON 18 (Santé) ===
+  {fr:"depuis",en:"for / since",phon:"*duh-PWEE*",phonFr:"dəpɥi",def:"Indique la durée",ex:"J'ai mal depuis trois jours.",level:18,cat:"préposition"},
+  {fr:"trois jours",en:"three days",phon:"*trwah zhoor*",phonFr:"tʁwa ʒuʁ",def:"Durée de trois jours",ex:"J'ai mal depuis trois jours.",level:18,cat:"temps"},
+  {fr:"deux jours",en:"two days",phon:"*duh zhoor*",phonFr:"dø ʒuʁ",def:"Durée de deux jours",ex:"J'ai mal depuis deux jours.",level:18,cat:"temps"},
+  {fr:"dire",en:"to say",phon:"*DEER*",phonFr:"diʁ",def:"Parler / exprimer",ex:"Dites 'aaaah'.",level:18,cat:"verbe"},
+  {fr:"examiner",en:"to examine",phon:"*eg-za-mee-NAY*",phonFr:"ɛɡzamine",def:"Observer médicalement",ex:"Je vais vous examiner.",level:18,cat:"verbe"},
+  {fr:"docteur",en:"doctor",phon:"*dok-TUR*",phonFr:"dɔktœʁ",def:"Titre du médecin",ex:"Bonjour docteur.",level:18,cat:"santé"},
+  {fr:"carte Vitale",en:"health insurance card",phon:"*kart vee-TAL*",phonFr:"kaʁt vital",def:"Carte d'assurance maladie",ex:"Apportez votre carte Vitale.",level:18,cat:"santé"},
+  {fr:"médecin traitant",en:"registered GP",phon:"*mayd-SAN tre-TAN*",phonFr:"mɛdsɛ̃ tʁɛtɑ̃",def:"Médecin référent",ex:"Votre médecin traitant.",level:18,cat:"santé"},
+  {fr:"remboursement",en:"reimbursement",phon:"*ruh-boor-suh-MON*",phonFr:"ʁɑ̃buʁsmɑ̃",def:"Remboursement des soins",ex:"Le remboursement de la Sécurité Sociale.",level:18,cat:"santé"},
+  {fr:"spécialiste",en:"specialist",phon:"*spay-sya-LEEST*",phonFr:"spesjalist",def:"Médecin spécialisé",ex:"Aller chez un spécialiste.",level:18,cat:"santé"},
+  {fr:"ordonnance",en:"prescription",phon:"*or-do-NANSS*",phonFr:"ɔʁdɔnɑ̃s",def:"Document médical prescrivant des médicaments",ex:"Le médecin donne une ordonnance.",level:18,cat:"santé"},
+  {fr:"tension",en:"blood pressure",phon:"*ton-SYON*",phonFr:"tɑ̃sjɔ̃",def:"Pression artérielle",ex:"L'infirmière a pris ma tension.",level:18,cat:"santé"},
+  {fr:"nausée",en:"nausea",phon:"*no-ZAY*",phonFr:"noze",def:"Envie de vomir",ex:"J'ai des nausées.",level:18,cat:"santé"},
+  {fr:"toux",en:"cough",phon:"*too*",phonFr:"tu",def:"Toux",ex:"Un sirop pour la toux.",level:18,cat:"santé"},
+  {fr:"pollen",en:"pollen",phon:"*po-LON*",phonFr:"pɔlɛ̃",def:"Allergène végétal",ex:"Allergie aux pollens.",level:18,cat":"santé"},
+  {fr:"arachide",en:"peanut",phon:"*a-ra-SHEED*",phonFr:"aʁaʃid",def":"Allergie alimentaire",ex:"Allergique aux arachides.",level:18,cat:"santé"},
+  {fr:"dormir",en:"to sleep",phon:"*dor-MEER*",phonFr:"dɔʁmiʁ",def:"Se reposer la nuit",ex:"J'ai mal dormi.",level:18,cat:"verbe"},
+  {fr:"au lit",en:"in bed",phon:"*oh lee*",phonFr:"o li",def:"Être alité",ex:"Je suis au lit depuis trois jours.",level:18,cat:"expression"},
 ];
 
 if (typeof window !== 'undefined') {
