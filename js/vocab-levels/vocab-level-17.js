@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════
 // vocab-level-17.js — Daily French 🥖
 // NIVEAU 17 — Mes Projets 🎯
-// Entrées : 68 
+// Entrées : 68
 // ═══════════════════════════════════════════════════════════════════
 
 const VOCAB_LEVEL_17 = [
@@ -46,7 +46,7 @@ const VOCAB_LEVEL_17 = [
   {fr:"accomplissement",en:"accomplishment",phon:"*a-kom-plees-MAHN*",phonFr:"akɔ̃plismɑ̃",def:"Réalisation",ex:"L'accomplissement d'un rêve.",level:17,cat:"projet"},
   {fr:"victoire",en:"victory",phon:"*vik-TWAHR*",phonFr:"viktwɑʁ",def:"Succès définitif",ex:"La victoire est proche.",level:17,cat:"projet"},
   {fr:"triomphe",en:"triumph",phon:"*tree-ONF*",phonFr:"tʁijɔ̃f",def:"Succès éclatant",ex:"Le triomphe de la volonté.",level:17,cat:"projet"},
-  {fr:"progrès",en:"progress",phon:"*pro-GRAY*",phonFr:"pʁɔɡʁɛ",def:"Avancement",ex:"Des provis significatifs.",level:17,cat:"projet"},
+  {fr:"progrès",en:"progress",phon:"*pro-GRAY*",phonFr:"pʁɔɡʁɛ",def:"Avancement",ex:"Des progrès significatifs.",level:17,cat:"projet"},
   {fr:"amélioration",en:"improvement",phon:"*a-may-lyo-ra-SYON*",phonFr:"ameljɔʁasjɔ̃",def:"Rendre meilleur",ex:"L'amélioration continue.",level:17,cat:"projet"},
   {fr:"évolution",en:"evolution / development",phon:"*ay-vo-loo-SYON*",phonFr:"evɔlysjɔ̃",def:"Changement progressif",ex:"L'évolution de la situation.",level:17,cat:"projet"},
   {fr:"avoir un projet en tête",en:"to have a project in mind",phon:"*a-VWAHR un pro-ZHEH on TET*",phonFr:"avwaʁœ̃pʁɔʒɛɑ̃tɛt",def:"Concevoir un plan",ex:"J'ai un projet en tête.",level:17,cat:"expression"},
@@ -54,7 +54,7 @@ const VOCAB_LEVEL_17 = [
   {fr:"aller de l'avant",en:"to move forward",phon:"*a-LAY duh la-VON*",phonFr:"aledəlavɑ̃",def:"Progresser",ex:"Aller de l'avant.",level:17,cat:"expression"},
   {fr:"ne pas reculer",en:"not to back down",phon:"*nuh pa ruh-kew-LAY*",phonFr:"nəpaʁəkyne",def:"Persévérer",ex:"Ne pas reculer devant les obstacles.",level:17,cat:"expression"},
   {fr:"tenir bon",en:"to hold on",phon:"*tuh-NEER BON*",phonFr:"təniʁbɔ̃",def:"Résister",ex:"Tenir bon malgré tout.",level:17,cat:"expression"},
-  {fr:"donner le meilleur de soi",en:"to give one's best",phon:"*do-NAY luh may-YUR duh SWAH*",phonFr:"dɔneləmɛjœʁdəswa",def:"Faire des efforts maximum",ex:"Donner le meilleur de soi.",level:17,cat:"expression"}
+  {fr:"donner le meilleur de soi",en:"to give one's best",phon:"*do-NAY luh may-YUR duh SWAH*",phonFr:"dɔneləmɛjœʁdəswa",def:"Faire des efforts maximum",ex:"Donner le meilleur de soi.",level:17,cat:"expression"},
   // === ENTRÉES SUPPLÉMENTAIRES LEÇON 17 (Futur Proche) ===
   {fr:"aller",en:"to go",phon:"*a-LAY*",phonFr:"ale",def:"Verbe aller (auxiliaire futur proche)",ex:"Je vais cuisiner.",level:17,cat:"verbe"},
   {fr:"je vais",en:"I am going",phon:"*zhuh vay*",phonFr:"ʒə vɛ",def:"Futur proche 1re pers.",ex:"Je vais cuisiner.",level:17,cat:"conjugaison"},
@@ -73,7 +73,7 @@ const VOCAB_LEVEL_17 = [
   {fr:"cinéma",en:"cinema",phon:"*see-nay-MA*",phonFr:"sinema",def:"Salle de films",ex:"Je vais au cinéma.",level:17,cat:"lieu"},
   {fr:"Qu'est-ce que tu vas faire ?",en:"What are you going to do?",phon:"*kes-kuh tew vah fair*",phonFr:"kɛskə ty va fɛʁ",def:"Question futur proche",ex:"Qu'est-ce que tu vas faire ce week-end ?",level:17,cat:"expression"},
   {fr:"voir",en:"to see",phon:"*VWAHR*",phonFr:"vwaʁ",def:"Regarder / percevoir",ex:"Je vais voir un film.",level:17,cat:"verbe"},
-  {fr:"film",en:"movie",phon:"*FEELM*",phonFr:"film",def:"Œuvre cinématographique",ex:"Je vais voir un film.",level:17,cat:"objet"},
+  {fr:"film",en:"movie",phon:"*FEELM*",phonFr:"film",def:"Œuvre cinématographique",ex:"Je vais voir un film.",level:17,cat:"objet"}
 ];
 
 if (typeof window !== 'undefined') {
