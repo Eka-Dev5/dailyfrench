@@ -1,7 +1,7 @@
 // ═══════════════════════════════════════════════════════════════════
 // vocab-level-16.js — Daily French 🥖
 // NIVEAU 16 — Ma Famille 👨‍👩‍👧‍👦
-// Entrées : 50 (existants) + phonFr ajouté
+// Entrées : 68 entrees
 // ═══════════════════════════════════════════════════════════════════
 
 const VOCAB_LEVEL_16 = [
