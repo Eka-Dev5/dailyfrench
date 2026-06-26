@@ -1,22 +1,22 @@
 // ═══════════════════════════════════════════════════════════════════
-// VOCABULARY.JS — Daily French 🥖 v3.2
-// CORRECTION : #vocabCount écrit UNE seule fois, après renderVocabularyList
-// La source de vérité pour le count = vocabulary-engine (filtres inclus)
+// VOCABULARY.JS — Daily French 🥖 v3.1
+// Logique page lexique : init, filtres, écouteurs
+// CORRECTION : pas de clignotement, attente propre de VOCABULARY_BDD
 // ═══════════════════════════════════════════════════════════════════
 
 function initVocabulary() {
   if (typeof initCore === 'function') initCore();
 
-  const grid    = document.getElementById('vocabGrid');
+  const grid = document.getElementById('vocabGrid');
   const countEl = document.getElementById('vocabCount');
 
-  // Déjà chargé → init directe
+  // Si déjà chargé, afficher directement
   if (typeof VOCABULARY_BDD !== 'undefined' && VOCABULARY_BDD.length > 0) {
     doInit();
     return;
   }
 
-  // Attendre l'événement vocabularyReady (émis par vocabulary-data.js)
+  // Sinon attendre l'événement vocabularyReady
   if (typeof EventBus !== 'undefined') {
     EventBus.on('vocabularyReady', function handler() {
       doInit();
@@ -24,7 +24,7 @@ function initVocabulary() {
     });
   }
 
-  // Fallback timer (5 s max)
+  // Fallback : timer de sécurité (5 secondes max)
   let retries = 0;
   const timer = setInterval(() => {
     retries++;
@@ -33,25 +33,21 @@ function initVocabulary() {
       doInit();
     } else if (retries > 50) {
       clearInterval(timer);
-      if (grid)    grid.innerHTML   = '<div class="empty-state">⚠️ Vocabulary data failed to load.<br>Check that js/vocab-levels/ folder exists with 21 files.</div>';
+      if (grid) grid.innerHTML = '<div class="empty-state">⚠️ Vocabulary data failed to load.<br>Check that js/vocab-levels/ folder exists with 21 files.</div>';
       if (countEl) countEl.textContent = 'Error';
     }
   }, 100);
 
   function doInit() {
-    if (window._vocabInitialized) return;
-    window._vocabInitialized = true;
-
-    populateFilters();
-
-    // renderVocabularyList écrit déjà #vocabCount (total ou filtré)
-    // → on ne l'écrase PLUS ici avec VOCABULARY_BDD.length
-    if (grid && typeof renderVocabularyList === 'function') {
-      renderVocabularyList(grid);
-      // #vocabCount est maintenant à jour via renderVocabularyList
+    if (!window._vocabInitialized) {
+      window._vocabInitialized = true;
+      populateFilters();
+      if (grid && typeof renderVocabularyList === 'function') {
+        renderVocabularyList(grid);
+      }
+      attachListeners();
+      // NE PAS écraser vocabCount ici — renderVocabularyList l'a déjà mis correctement
     }
-
-    attachListeners();
   }
 }
 
@@ -60,7 +56,8 @@ function populateFilters() {
   const catSel   = document.getElementById('vocabFilterCat');
 
   if (levelSel && typeof getVocabLevels === 'function') {
-    getVocabLevels().forEach(l => {
+    const levels = getVocabLevels();
+    levels.forEach(l => {
       const o = document.createElement('option');
       o.value = l;
       o.textContent = 'Level ' + l;
@@ -69,7 +66,8 @@ function populateFilters() {
   }
 
   if (catSel && typeof getVocabCategories === 'function') {
-    getVocabCategories().forEach(c => {
+    const cats = getVocabCategories();
+    cats.forEach(c => {
       const o = document.createElement('option');
       o.value = c;
       o.textContent = c.charAt(0).toUpperCase() + c.slice(1);
@@ -91,7 +89,6 @@ function attachListeners() {
       level:    levelSel ? levelSel.value : '',
       category: catSel   ? catSel.value   : ''
     });
-    // renderVocabularyList met à jour #vocabCount avec le nb de résultats filtrés
   };
 
   if (search) {
