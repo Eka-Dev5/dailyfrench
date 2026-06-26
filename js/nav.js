@@ -1,17 +1,15 @@
 // ═══════════════════════════════════════════════════════════════════
 // NAV.JS — Daily French 🥖
-// Menu centralisé pour toutes les pages.
-// 
-// En attendant une refonte plus propre de la navigation iOS/web app,
-// ce script injecte automatiquement les menus haut et bas, puis
-// intercepte les clics dans le mode "standalone" d’iPhone/iPad afin
-// d’éviter que les liens internes n’ouvrent Safari au lieu de rester
-// dans l’application web.
-// 
-// Objectif temporaire : garder une navigation cohérente sur mobile
-// sans casser le desktop, en attendant une solution plus robuste.
+// Navigation centralisée pour toutes les pages.
+//
+// Ce fichier injecte les menus haut et bas, sans modifier le reste du site.
+// Il contient aussi un petit correctif iOS standalone pour éviter qu’un
+// clic sur le menu n’ouvre Safari au lieu de rester dans la web app.
+//
+// Important : le correctif est limité aux liens du menu injecté.
+// On évite volontairement d’intercepter tous les liens du document,
+// afin de réduire au maximum les effets de bord.
 // ═══════════════════════════════════════════════════════════════════
-
 
 (function() {
   'use strict';
@@ -33,13 +31,40 @@
     { icon: '📚', label: 'Lessons',    href: 'play.html?section=lecons' },
     { icon: '🎮', label: 'Play',       href: 'play.html?section=levels' },
     { icon: '📖', label: 'Vocab',      href: 'vocabulary.html' },
-    { icon: '📊', label: 'Dashboard',   href: 'dashboard.html' }
+    { icon: '📊', label: 'Dashboard',  href: 'dashboard.html' }
   ];
+
+  function isStandaloneIOS() {
+    return (window.navigator.standalone === true) ||
+      (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+  }
+
+  function shouldHandleHref(href) {
+    if (!href) return false;
+    if (href.indexOf('#') === 0) return false;
+    if (href.indexOf('mailto:') === 0) return false;
+    if (href.indexOf('tel:') === 0) return false;
+    return true;
+  }
+
+  function preventSafariForMenuLinks(e) {
+    if (!isStandaloneIOS()) return;
+
+    var link = e.currentTarget;
+    if (!link || link.nodeName !== 'A') return;
+
+    var href = link.getAttribute('href');
+    if (!shouldHandleHref(href)) return;
+    if (link.target && link.target !== '_self') return;
+
+    e.preventDefault();
+    window.location.href = href;
+  }
 
   function injectNav() {
     if (document.querySelector('.nav-top')) return;
 
-    const currentPage = path.split('/').pop() || 'quiz.html';
+    const currentPage = path.split('/').pop() || 'index.html';
     const currentHref = window.location.href;
 
     const topNav = document.createElement('nav');
@@ -52,49 +77,37 @@
         <span class="nav-top-icon">${item.icon}</span>${item.label}
       </a>`;
     }).join('');
+
+    topNav.querySelectorAll('a[href]').forEach(function(a) {
+      a.addEventListener('click', preventSafariForMenuLinks, false);
+    });
+
     document.body.insertBefore(topNav, document.body.firstChild);
 
     const bottomNav = document.createElement('nav');
     bottomNav.className = 'nav-bottom';
     bottomNav.innerHTML = BOTTOM_MENU.map(item => {
       const itemHref = prefix + item.href;
-      const isActive = currentPage === item.href.split('?')[0] ||
-        (item.href.includes('?') && currentHref.includes(item.href.split('?')[1]));
+      const itemBase = item.href.split('?')[0];
+      const isActive = currentPage === itemBase ||
+        (item.href.includes('?') && currentHref.indexOf(item.href.split('?')[1]) !== -1);
+
       return `<a href="${itemHref}" class="nav-item ${isActive ? 'active' : ''}">
         <span class="nav-icon">${item.icon}</span><span>${item.label}</span>
       </a>`;
     }).join('');
+
+    bottomNav.querySelectorAll('a[href]').forEach(function(a) {
+      a.addEventListener('click', preventSafariForMenuLinks, false);
+    });
+
     document.body.appendChild(bottomNav);
   }
 
-  function keepStandaloneLinks() {
-    if (!("standalone" in window.navigator) || !window.navigator.standalone) return;
-
-    document.addEventListener('click', function(event) {
-      let el = event.target;
-      while (el && el.nodeName !== 'A' && el.nodeName !== 'HTML') {
-        el = el.parentNode;
-      }
-      if (!el || el.nodeName !== 'A') return;
-
-      const href = el.getAttribute('href');
-      if (!href) return;
-
-      if (href.startsWith('http') && href.indexOf(location.host) === -1) return;
-
-      event.preventDefault();
-      window.location.href = href;
-    }, false);
-  }
-
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      injectNav();
-      keepStandaloneLinks();
-    });
+    document.addEventListener('DOMContentLoaded', injectNav);
   } else {
     injectNav();
-    keepStandaloneLinks();
   }
 
   window.injectNav = injectNav;
