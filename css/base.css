@@ -1,11 +1,12 @@
 /**
- * base.css — Fondation visuelle Daily French v3.0
+ * base.css — Fondation visuelle Daily French v3.1
  * 
  * Architecture : TOUT ce qui est partagé entre 2+ pages est ici.
  * Les fichiers quiz.css/dashboard.css/etc. ne contiennent QUE
  * les styles spécifiques à leur page.
  * 
- * Date : 8 juin 2026
+ * Date : 16 juin 2026
+ * Corrections : taille 18px, nav universelle, padding body fixé
  */
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -50,14 +51,14 @@
   --r:              16px;
   --r-lg:           24px;
 
-  /* Typographie — base 16px */
-  --font-base:      16px;
-  --font-xs:        0.75rem;   /* 12px */
-  --font-sm:        0.875rem;  /* 14px */
-  --font-md:        1rem;      /* 16px */
-  --font-lg:        1.125rem;  /* 18px */
-  --font-xl:        1.375rem;  /* 22px */
-  --font-xxl:       1.75rem;   /* 28px */
+  /* Typographie — base 18px (augmenté de 16px) */
+  --font-base:      18px;
+  --font-xs:        0.722rem;   /* 13px */
+  --font-sm:        0.833rem;   /* 15px */
+  --font-md:        1rem;       /* 18px */
+  --font-lg:        1.111rem;   /* 20px */
+  --font-xl:        1.333rem;   /* 24px */
+  --font-xxl:       1.667rem;   /* 30px */
 
   /* Espacement */
   --space-unit:     1rem;
@@ -121,7 +122,8 @@ body {
   line-height: 1.6;
   color: var(--text);
   background: var(--bg);
-  padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  /* Padding bottom = hauteur nav-bottom (72px) + safe-area + marge */
+  padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px));
   min-height: 100vh;
   overflow-x: hidden;
   max-width: 100vw;
@@ -153,13 +155,13 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   5. NAVIGATION TOP
+   5. NAVIGATION TOP (injectée par nav.js)
    ═══════════════════════════════════════════════════════════════════ */
 
 .nav-top {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: calc(48px + env(safe-area-inset-top, 0px));
+  height: calc(50px + env(safe-area-inset-top, 0px));
   padding-top: env(safe-area-inset-top, 0px);
   background: rgba(255,255,255,0.96);
   backdrop-filter: blur(16px);
@@ -180,7 +182,7 @@ body {
   gap: 2px;
   text-decoration: none;
   color: var(--muted);
-  min-height: 40px;
+  min-height: 42px;
   min-width: 44px;
   flex: 1;
   padding: 4px 2px;
@@ -212,12 +214,13 @@ body {
 .hero {
   background: linear-gradient(135deg, var(--hero-from) 0%, var(--hero-via) 50%, var(--hero-to) 100%);
   color: var(--white);
-  padding: calc(58px + env(safe-area-inset-top, 0px)) 14px 10px;
+  /* Padding top = hauteur nav-top (50px) + safe-area + marge */
+  padding: calc(64px + env(safe-area-inset-top, 0px)) 14px 12px;
   display: grid;
   grid-template-areas: "avatar info switch" ". xp xp";
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 4px 10px;
+  gap: 6px 12px;
   width: 100%;
   box-sizing: border-box;
   position: relative;
@@ -226,14 +229,14 @@ body {
 
 .hero-avatar {
   grid-area: avatar;
-  width: 38px; height: 38px;
-  min-width: 38px;
+  width: 42px; height: 42px;
+  min-width: 42px;
   border-radius: 50%;
   background: rgba(255,255,255,0.25);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   position: relative;
 }
@@ -243,9 +246,9 @@ body {
   bottom: -3px; right: -3px;
   background: var(--gold);
   color: var(--text);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
-  width: 17px; height: 17px;
+  width: 18px; height: 18px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -256,7 +259,7 @@ body {
 .hero-info { grid-area: info; min-width: 0; }
 
 .hero-name {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
@@ -267,14 +270,14 @@ body {
   grid-area: xp;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .xp-bar {
   flex: 1;
-  height: 4px;
+  height: 5px;
   background: rgba(255,255,255,0.25);
-  border-radius: 2px;
+  border-radius: 3px;
   overflow: hidden;
   min-width: 0;
 }
@@ -282,14 +285,14 @@ body {
 .xp-fill {
   height: 100%;
   background: var(--gold);
-  border-radius: 2px;
+  border-radius: 3px;
   transition: width var(--transition-base);
   width: 0%;
 }
 
 .xp-text {
-  font-size: 10px;
-  opacity: 0.8;
+  font-size: 11px;
+  opacity: 0.85;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -297,15 +300,17 @@ body {
 .hero-switch {
   grid-area: switch;
   display: flex;
-  gap: 5px;
+  gap: 6px;
   align-items: center;
   flex-shrink: 0;
 }
 
 .hero-switch select {
-  font-size: 11px;
-  max-width: 110px;
+  font-size: 12px;
+  max-width: 120px;
   min-width: 0;
+  padding: 4px 8px;
+  min-height: 32px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -315,8 +320,8 @@ body {
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  padding: 8px 12px 0;
+  gap: 10px;
+  padding: 10px 14px 0;
   margin-top: 0;
   position: relative;
   z-index: 2;
@@ -327,7 +332,7 @@ body {
 .bento-tile {
   background: var(--white);
   border-radius: var(--r);
-  padding: 10px 6px;
+  padding: 12px 8px;
   text-align: center;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
@@ -338,22 +343,22 @@ body {
 .bento-tile:active { transform: scale(0.96); }
 
 .bento-num {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: var(--primary);
   line-height: 1.1;
 }
 
 .bento-label {
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   8. NAVIGATION BOTTOM
+   8. NAVIGATION BOTTOM (injectée par nav.js)
    ═══════════════════════════════════════════════════════════════════ */
 
 .nav-bottom {
@@ -397,7 +402,7 @@ body {
 }
 
 .nav-item span:not(.nav-icon) {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1;
@@ -425,8 +430,8 @@ button {
   border: none;
   border-radius: var(--r-sm);
   cursor: pointer;
-  min-height: 48px;
-  padding: 10px 20px;
+  min-height: 50px;
+  padding: 12px 22px;
   transition: all var(--transition-fast);
   -webkit-tap-highlight-color: transparent;
 }
@@ -453,15 +458,15 @@ button {
 
 .btn-large {
   font-size: var(--font-md);
-  min-height: 56px;
-  padding: 14px 28px;
+  min-height: 58px;
+  padding: 16px 32px;
   border-radius: var(--r);
 }
 
 .btn-small {
   font-size: var(--font-xs);
-  min-height: 36px;
-  padding: 6px 12px;
+  min-height: 38px;
+  padding: 7px 14px;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -477,9 +482,9 @@ textarea {
   background: var(--bg-card);
   border: 1.5px solid var(--border);
   border-radius: var(--r-sm);
-  padding: 12px 14px;
+  padding: 14px 16px;
   width: 100%;
-  min-height: 48px;
+  min-height: 52px;
   outline: none;
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
@@ -659,6 +664,7 @@ textarea:focus {
   gap: var(--space-sm);
   justify-content: center;
   margin-top: var(--space-md);
+  flex-wrap: wrap;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -707,7 +713,7 @@ textarea:focus {
 
 .toast {
   position: fixed;
-  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(90px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%) translateY(100px);
   background: var(--text);
@@ -760,28 +766,10 @@ textarea:focus {
   animation: modalIn 250ms ease;
 }
 
-/* Bouton fermeture — caché par défaut */
+/* Bouton fermeture — toujours caché (fermeture par clic sur le fond) */
 .vocab-popup-close {
-  display: none;
-  position: absolute;
-  top: 12px; right: 12px;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: var(--muted);
-  cursor: pointer;
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  padding: 0;
-  min-height: auto;
+  display: none !important;
 }
-
-.vocab-popup-modal.open .vocab-popup-close { display: flex; }
-
-.vocab-popup-close:hover { background: var(--bg); color: var(--text); }
 
 .vocab-popup-fr   { font-size: 1.2rem; font-weight: 800; color: var(--primary); padding-right: 32px; }
 .vocab-popup-phon { font-size: 0.85rem; color: var(--muted); font-style: italic; margin-top: 2px; }
@@ -936,7 +924,7 @@ textarea:focus {
 }
 
 @media (min-width: 1024px) {
-  :root { --font-base: 22px; }
+  :root { --font-base: 20px; }
   .hero {
     border-radius: var(--r-lg);
     margin: var(--space-md);
@@ -959,4 +947,5 @@ textarea:focus {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   FIN base.css v3 base 16px */
+   FIN base.css v3.1 — 18px, nav universelle, corrections padding
+   ═══════════════════════════════════════════════════════════════════ */
