@@ -77,34 +77,4 @@
   }
 
   window.injectNav = injectNav;
-
-  // ─── PATCH iOS STANDALONE ────────────────────────────────────────
-  function isStandaloneIOS() {
-    return window.navigator.standalone === true ||
-      (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
-  }
-
-  function isInternalHref(href) {
-    if (!href) return false;
-    if (href.indexOf('#') === 0) return false;
-    if (href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) return false;
-    if (/^https?:\/\//i.test(href)) return href.indexOf(window.location.origin) === 0;
-    return true;
-  }
-
-  function handleStandaloneLinks(e) {
-    if (!isStandaloneIOS()) return;
-    var el = e.target;
-    while (el && el.nodeName !== 'A' && el.nodeName !== 'HTML') {
-      el = el.parentNode;
-    }
-    if (!el || el.nodeName !== 'A') return;
-    var href = el.getAttribute('href');
-    if (!isInternalHref(href)) return;
-    if (el.target && el.target !== '_self') return;
-    e.preventDefault();
-    window.location.href = href;
-  }
-
-  document.addEventListener('click', handleStandaloneLinks, true);
 })();
